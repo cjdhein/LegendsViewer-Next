@@ -1,0 +1,20 @@
+﻿using LegendsViewer.Backend.Legends.Parser;
+using LegendsViewer.Backend.Legends.WorldObjects;
+
+namespace LegendsViewer.Backend.Legends.Events;
+
+public class AgreementVoid : WorldEvent
+{
+    public AgreementVoid(List<Property> properties, World world) : base(properties, world)
+    {
+    }
+
+    public override string Print(bool link = true, DwarfObject pov = null)
+    {
+        string eventString = GetYearTime();
+        eventString += " an agreement has been annulated";
+        eventString += PrintParentCollection(link, pov);
+        eventString += ".";
+        return eventString;
+    }
+}

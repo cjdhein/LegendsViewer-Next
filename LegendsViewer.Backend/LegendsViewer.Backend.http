@@ -1,0 +1,17 @@
+@LegendsViewer.Backend_HostAddress = http://localhost:5054
+
+POST {{LegendsViewer.Backend_HostAddress}}/api/WorldParser/parse
+Content-Type: application/json
+Accept: application/json
+
+"C:\\Program Files (x86)\\Steam\\steamapps\\common\\Dwarf Fortress\\region9-00100-01-01-legends.xml"
+
+###
+
+POST {{LegendsViewer.Backend_HostAddress}}/api/WorldParser/parse
+Content-Type: application/json
+Accept: application/json
+
+"C:\\Program Files (x86)\\Steam\\steamapps\\common\\Dwarf Fortress\\region3-00100-01-01-legends.xml"
+
+###
