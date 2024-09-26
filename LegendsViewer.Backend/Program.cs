@@ -1,5 +1,6 @@
 
 using LegendsViewer.Backend.Legends;
+using LegendsViewer.Backend.Legends.Bookmarks;
 using LegendsViewer.Backend.Legends.Maps;
 using LegendsViewer.Backend.Logging;
 using Microsoft.Extensions.Logging.Console;
@@ -27,6 +28,7 @@ public class Program
         // Add services to the container.
         builder.Services.AddSingleton<IWorld, World>();
         builder.Services.AddSingleton<IWorldMapImageGenerator, WorldMapImageGenerator>();
+        builder.Services.AddSingleton<IBookmarkService, BookmarkService>();
 
         builder.Services.AddControllers()
             .AddJsonOptions(options =>
