@@ -1,6 +1,5 @@
 ﻿using LegendsViewer.Backend.Legends.WorldObjects;
 using LegendsViewer.Backend.Legends;
-using LegendsViewer.Backend.Contracts;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LegendsViewer.Backend.Controllers;
@@ -48,7 +47,8 @@ public class ArtifactController(IWorld worldDataService) : GenericController<Art
 public class EntityController(IWorld worldDataService) : GenericController<Entity>(worldDataService.Entities, worldDataService.GetEntity)
 {
     [HttpGet("civs")]
-    public IActionResult GetMainCivilizations()
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    public ActionResult<List<Entity>> GetMainCivilizations()
     {
         return Ok(AllElements.Where(x => x.IsCiv || (x.Type == Legends.Enums.EntityType.Civilization && x.SiteHistory.Count > 0)));
     }

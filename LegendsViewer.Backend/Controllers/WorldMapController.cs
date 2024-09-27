@@ -14,7 +14,7 @@ public class WorldMapController(IWorld worldDataService, IWorldMapImageGenerator
     private readonly IWorldMapImageGenerator _worldMapImageGenerator = worldMapImageGenerator;
 
     [HttpGet("world/{size}")]
-    public IActionResult GetWorldMap(MapSize size = MapSize.Default)
+    public ActionResult<FileContentResult> GetWorldMap(MapSize size = MapSize.Default)
     {
         var imageData = _worldMapImageGenerator.GenerateMapByteArray(GetTileSizeByEnum(size));
         if (imageData == null)

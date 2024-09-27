@@ -11,12 +11,20 @@ namespace LegendsViewer.Backend;
 
 public class Program
 {
+    private const string AllowAllOriginsPolicy = "AllowAllOrigins";
+
     public static void Main(string[] args)
     {
         // Register the encoding provider
         Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
 
         var builder = WebApplication.CreateBuilder(args);
+        builder.Services.AddCors(o => o.AddPolicy(AllowAllOriginsPolicy, builder =>
+        {
+            builder.AllowAnyOrigin()
+                   .AllowAnyMethod()
+                   .AllowAnyHeader();
+        }));
 
         // Increase Kestrel's request timeout
         builder.WebHost.ConfigureKestrel(serverOptions =>
@@ -54,6 +62,8 @@ public class Program
             app.UseSwagger();
             app.UseSwaggerUI();
         }
+
+        app.UseCors(AllowAllOriginsPolicy);
 
         app.UseAuthorization();
         app.MapControllers();

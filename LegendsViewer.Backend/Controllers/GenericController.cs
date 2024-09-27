@@ -14,7 +14,9 @@ public abstract class GenericController<T>(List<T> allElements, Func<int, T?> ge
 
     // Default values for pageNumber and pageSize
     [HttpGet]
-    public IActionResult Get(int pageNumber = 1, int pageSize = DefaultPageSize)
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public ActionResult<PaginatedResponse<T>> Get(int pageNumber = 1, int pageSize = DefaultPageSize)
     {
         // Validate pagination parameters
         if (pageNumber <= 0 || pageSize <= 0)
@@ -45,7 +47,9 @@ public abstract class GenericController<T>(List<T> allElements, Func<int, T?> ge
     }
 
     [HttpGet("{id}")]
-    public IActionResult Get(int id)
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public ActionResult<T> Get([FromRoute] int id)
     {
         var item = GetById(id);
         if (item == null)
@@ -56,13 +60,17 @@ public abstract class GenericController<T>(List<T> allElements, Func<int, T?> ge
     }
 
     [HttpGet("count")]
-    public IActionResult GetCount()
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    public ActionResult<int> GetCount()
     {
         return Ok(AllElements.Count);
     }
 
     [HttpGet("{id}/events")]
-    public IActionResult GetEvents(int id, int pageNumber = 1, int pageSize = DefaultPageSize)
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public ActionResult<PaginatedResponse<WorldEventDto>> GetEvents([FromRoute] int id, int pageNumber = 1, int pageSize = DefaultPageSize)
     {
         WorldObject? item = GetById(id);
         if (item == null)
@@ -100,7 +108,7 @@ public abstract class GenericController<T>(List<T> allElements, Func<int, T?> ge
     }
 }
 
-public class PaginatedResponse<T>
+public class PaginatedResponse<T> where T : class
 {
     public List<T> Items { get; set; } = [];
     public int TotalCount { get; set; }

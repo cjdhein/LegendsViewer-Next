@@ -20,14 +20,18 @@ public class WorldParserController(IWorld worldDataService, IWorldMapImageGenera
     private readonly IBookmarkService _bookmarkService = bookmarkService;
 
     [HttpGet("bookmarks")]
-    public IActionResult GetBookmarks()
+    [ProducesResponseType<List<Bookmark>>( StatusCodes.Status200OK)]
+    public ActionResult<List<Bookmark>> GetBookmarks()
     {
         var bookmarks = _bookmarkService.GetAllBookmarks();
         return Ok(bookmarks);
     }
 
     [HttpPost("parse")]
-    public async Task<IActionResult> ParseWorldXml([FromBody] string filePath)
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+    public async Task<ActionResult<string>> ParseWorldXml([FromBody] string filePath)
     {
         if (string.IsNullOrWhiteSpace(filePath) || !System.IO.File.Exists(filePath))
         {

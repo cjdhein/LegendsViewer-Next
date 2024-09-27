@@ -11,7 +11,8 @@ public class WorldController(IWorld worldDataService) : ControllerBase
     private readonly IWorld _worldDataService = worldDataService;
 
     [HttpGet]
-    public IActionResult Get()
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    public ActionResult<WorldDto> Get()
     {
         return Ok(new WorldDto(_worldDataService));
     }
