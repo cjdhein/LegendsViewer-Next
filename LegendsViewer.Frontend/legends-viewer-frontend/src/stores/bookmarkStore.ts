@@ -16,7 +16,7 @@ export const useBookmarkStore = defineStore('bookmark', {
             bookmark.state === 'Loading'
           }
         }
-        const { data, error } = await client.POST("/api/WorldParser/parse", {
+        const { data, error } = await client.POST("/api/Bookmark/load", {
           filePath: filePath,
         });
         if (error !== undefined) {
@@ -26,7 +26,7 @@ export const useBookmarkStore = defineStore('bookmark', {
         }
       },
       async getAll() {
-        const { data, error } = await client.GET("/api/WorldParser/bookmarks");
+        const { data, error } = await client.GET("/api/Bookmark");
         if (error !== undefined) {
           console.error(error)
         } else {

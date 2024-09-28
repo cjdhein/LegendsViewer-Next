@@ -44,7 +44,7 @@ public class BookmarkService : IBookmarkService
         }
     }
 
-    public List<Bookmark> GetAllBookmarks()
+    public List<Bookmark> GetAll()
     {
         return [.. _bookmarks.Values];
     }

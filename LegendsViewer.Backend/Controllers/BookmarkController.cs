@@ -7,7 +7,7 @@ namespace LegendsViewer.Backend.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-public class WorldParserController(IWorld worldDataService, IWorldMapImageGenerator worldMapImageGenerator, IBookmarkService bookmarkService) : ControllerBase
+public class BookmarkController(IWorld worldDataService, IWorldMapImageGenerator worldMapImageGenerator, IBookmarkService bookmarkService) : ControllerBase
 {
     private const string FileIdentifierLegendsXml = "-legends.xml";
     private const string FileIdentifierWorldHistoryTxt = "-world_history.txt";
@@ -19,15 +19,28 @@ public class WorldParserController(IWorld worldDataService, IWorldMapImageGenera
     private readonly IWorldMapImageGenerator _worldMapImageGenerator = worldMapImageGenerator;
     private readonly IBookmarkService _bookmarkService = bookmarkService;
 
-    [HttpGet("bookmarks")]
+    [HttpGet]
     [ProducesResponseType<List<Bookmark>>( StatusCodes.Status200OK)]
-    public ActionResult<List<Bookmark>> GetBookmarks()
+    public ActionResult<List<Bookmark>> Get()
     {
-        var bookmarks = _bookmarkService.GetAllBookmarks();
+        var bookmarks = _bookmarkService.GetAll();
         return Ok(bookmarks);
     }
 
-    [HttpPost("parse")]
+    [HttpGet("{filePath}")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public ActionResult<Bookmark> Get([FromRoute] string filePath)
+    {
+        var item = _bookmarkService.GetBookmark(filePath);
+        if (item == null)
+        {
+            return NotFound();
+        }
+        return Ok(item);
+    }
+
+    [HttpPost("load")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
