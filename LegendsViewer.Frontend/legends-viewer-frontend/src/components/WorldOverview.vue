@@ -1,10 +1,31 @@
 <script setup lang="ts">
+import { ref } from 'vue';
 import { useBookmarkStore } from '../stores/bookmarkStore';
 
 const bookmarkStore = useBookmarkStore()
 bookmarkStore.getAll()
 
-// Function to convert byte[] to base64 string
+const fileInput = ref<HTMLInputElement | null>(null);
+
+// Trigger file selection dialog
+const openFileDialog = () => {
+  fileInput.value?.click();
+};
+
+// Handle file selection and process file
+const onFileSelected = (event: Event) => {
+  const target = event.target as HTMLInputElement;
+  if (target.files && target.files.length > 0) {
+    const file = target.files[0];
+    const filePath = file.name; // Get file name (not full path)
+    console.log(filePath)
+    
+    // Assuming you want to send file path or file name to the store
+    bookmarkStore.load(filePath);
+  }
+};
+
+// Function to prepare a proper base64 string for png images
 const getImageData = (bookmark: any) => {
   if (!bookmark.worldMapImage) {
     return ''; // Return an empty string if there's no image data
@@ -37,11 +58,23 @@ const getImageData = (bookmark: any) => {
         </v-card-subtitle>
 
         <v-card-actions>
-          <v-btn color="blue" text="Load"></v-btn>
+          <v-btn
+           v-if="bookmark.filePath && bookmark.state !== 'Loaded'"
+           :loading="bookmark.state === 'Loading'"
+           color="blue"
+           text="Load"
+           @click="bookmarkStore.load(bookmark.filePath)">
+          </v-btn>
+          <v-btn
+           v-if="bookmark.filePath && bookmark.state === 'Loaded'"
+           color="green-lighten-2"
+           text="Explore"
+           @click="console.log(bookmark.filePath)">
+          </v-btn>
 
           <v-spacer></v-spacer>
           <v-chip>
-            Chip
+            {{ bookmark.worldWidth + " x " + bookmark.worldHeight }}
           </v-chip>
         </v-card-actions>
       </v-card>
@@ -61,13 +94,24 @@ const getImageData = (bookmark: any) => {
         </v-card-subtitle>
 
         <v-card-actions>
-          <v-btn color="orange-lighten-2" text="Explore"></v-btn>
+          <v-btn
+            color="orange-lighten-2"
+            text="Select"
+            @click="openFileDialog">
+          </v-btn>
 
           <v-spacer></v-spacer>
 
         </v-card-actions>
       </v-card>
-
+      <!-- Hidden file input to open the file dialog -->
+      <input
+        ref="fileInput"
+        type="file"
+        accept=".xml"
+        style="display: none;"
+        @change="onFileSelected"
+      />
     </v-col>
   </v-row>
 </template>
