@@ -3372,9 +3372,9 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "text/plain": string;
-                        "application/json": string;
-                        "text/json": string;
+                        "text/plain": components["schemas"]["Bookmark"];
+                        "application/json": components["schemas"]["Bookmark"];
+                        "text/json": components["schemas"]["Bookmark"];
                     };
                 };
                 /** @description Bad Request */
@@ -3659,7 +3659,10 @@ export interface components {
             worldHeight?: number;
             /** Format: byte */
             worldMapImage?: string | null;
+            state?: components["schemas"]["BookmarkState"];
         };
+        /** @enum {string} */
+        BookmarkState: "Default" | "Loading" | "Loaded";
         Color: {
             /** Format: int32 */
             readonly r?: number;

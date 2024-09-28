@@ -8,4 +8,5 @@ public class Bookmark
     public int WorldWidth { get; set; }
     public int WorldHeight { get; set; }
     public byte[]? WorldMapImage { get; set; }
+    public BookmarkState State { get; set; }
 }

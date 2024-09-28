@@ -24,6 +24,10 @@ public class BookmarkService : IBookmarkService
         {
             string json = File.ReadAllText(_bookmarkFilePath);
             _bookmarks = JsonSerializer.Deserialize<Dictionary<string, Bookmark>>(json) ?? [];
+            foreach (var bookmark in _bookmarks.Values)
+            {
+                bookmark.State = BookmarkState.Default;   
+            }
         }
         else
         {

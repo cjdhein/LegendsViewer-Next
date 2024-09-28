@@ -1,1 +1,1 @@
-{"root":["./src/main.ts","./src/vite-env.d.ts","./src/generated/api-schema.d.ts","./src/stores/bookmarkstore.ts","./src/app.vue","./src/components/worldoverview.vue"],"version":"5.6.2"}
+{"root":["./src/apiclient.ts","./src/main.ts","./src/vite-env.d.ts","./src/generated/api-schema.d.ts","./src/stores/bookmarkstore.ts","./src/app.vue","./src/components/worldoverview.vue"],"version":"5.6.2"}

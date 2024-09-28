@@ -31,7 +31,7 @@ public class WorldParserController(IWorld worldDataService, IWorldMapImageGenera
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    public async Task<ActionResult<string>> ParseWorldXml([FromBody] string filePath)
+    public async Task<ActionResult<Bookmark>> ParseWorldXml([FromBody] string filePath)
     {
         if (string.IsNullOrWhiteSpace(filePath) || !System.IO.File.Exists(filePath))
         {
@@ -72,9 +72,9 @@ public class WorldParserController(IWorld worldDataService, IWorldMapImageGenera
             // Start parsing the XML asynchronously
             await _worldDataService.ParseAsync(xmlFileName, xmlPlusFileName, historyFileName, sitesAndPopsFileName, mapFileName);
 
-            AddBookmark(filePath);
+            var bookmark = AddBookmark(filePath);
 
-            return Ok("World data parsed and stored successfully.");
+            return Ok(bookmark);
         }
         catch (Exception ex)
         {
@@ -83,7 +83,7 @@ public class WorldParserController(IWorld worldDataService, IWorldMapImageGenera
         }
     }
 
-    private void AddBookmark(string filePath)
+    private Bookmark AddBookmark(string filePath)
     {
         var imageData = _worldMapImageGenerator.GenerateMapByteArray(WorldMapImageGenerator.DefaultTileSizeMin);
         var bookmark = new Bookmark
@@ -93,9 +93,11 @@ public class WorldParserController(IWorld worldDataService, IWorldMapImageGenera
             WorldAlternativeName = _worldDataService.AlternativeName,
             WorldWidth = _worldDataService.Width,
             WorldHeight = _worldDataService.Height,
-            WorldMapImage = imageData
+            WorldMapImage = imageData,
+            State = BookmarkState.Loaded
         };
 
         _bookmarkService.AddBookmark(bookmark);
+        return bookmark;
     }
 }

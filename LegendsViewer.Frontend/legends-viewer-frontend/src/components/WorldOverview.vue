@@ -2,7 +2,7 @@
 import { useBookmarkStore } from '../stores/bookmarkStore';
 
 const bookmarkStore = useBookmarkStore()
-bookmarkStore.load()
+bookmarkStore.getAll()
 
 // Function to convert byte[] to base64 string
 const getImageData = (bookmark: any) => {
