@@ -997,6 +997,82 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/FileSystem": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description OK */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["FilesAndSubdirectoriesDto"];
+                        "application/json": components["schemas"]["FilesAndSubdirectoriesDto"];
+                        "text/json": components["schemas"]["FilesAndSubdirectoriesDto"];
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/FileSystem/{path}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    path: string;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description OK */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["FilesAndSubdirectoriesDto"];
+                        "application/json": components["schemas"]["FilesAndSubdirectoriesDto"];
+                        "text/json": components["schemas"]["FilesAndSubdirectoriesDto"];
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/HistoricalFigure": {
         parameters: {
             query?: never;
@@ -3858,6 +3934,12 @@ export interface components {
         EntityType: "Unknown" | "Civilization" | "NomadicGroup" | "MigratingGroup" | "Outcast" | "Religion" | "SiteGovernment" | "PerformanceTroupe" | "MercenaryCompany" | "Guild" | "MilitaryUnit" | "MerchantCompany";
         /** @enum {string} */
         Evilness: "Neutral" | "Good" | "Evil";
+        FilesAndSubdirectoriesDto: {
+            currentDirectory?: string | null;
+            parentDirectory?: string | null;
+            subdirectories?: string[] | null;
+            files?: string[] | null;
+        };
         /** @enum {string} */
         FormType: "Unknown" | "Musical" | "Poetic" | "Dance";
         /** @enum {string} */

@@ -41,18 +41,18 @@ public class FileSystemController : ControllerBase
         return Ok(response);
     }
 
-    [HttpGet("combine/{path}/{fileName}")]
-    [ProducesResponseType<string>(StatusCodes.Status200OK)]
-    [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public ActionResult<string> Get([FromRoute] string path, [FromRoute] string fileName)
-    {
-        var fullPath = Path.Combine(path, fileName);
-        if (!Path.Exists(fullPath))
-        {
-            return BadRequest("File does not exist!");
-        }
-        return Ok(fullPath);
-    }
+    //[HttpGet("combine/{path}/{fileName}")]
+    //[ProducesResponseType<string>(StatusCodes.Status200OK)]
+    //[ProducesResponseType(StatusCodes.Status400BadRequest)]
+    //public ActionResult<string> Get([FromRoute] string path, [FromRoute] string fileName)
+    //{
+    //    var fullPath = Path.Combine(path, fileName);
+    //    if (!Path.Exists(fullPath))
+    //    {
+    //        return BadRequest("File does not exist!");
+    //    }
+    //    return Ok(fullPath);
+    //}
 
     private static FilesAndSubdirectoriesDto GetRootInformation()
     {
