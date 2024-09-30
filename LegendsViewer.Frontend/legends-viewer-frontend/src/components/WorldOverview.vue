@@ -57,7 +57,7 @@ const readFromClipboard = async () => {
 
 <template>
   <v-row dense>
-    <v-col v-for="(bookmark, i) in bookmarkStore.bookmarks" :key="i" cols="12" md="4">
+    <v-col v-for="(bookmark, i) in bookmarkStore.bookmarks" :key="i" cols="12" md="3">
       <v-card class="mx-auto" max-width="320">
         <v-container>
           <v-img height="300px" width="300px" :src="getImageData(bookmark)" cover>
@@ -76,10 +76,10 @@ const readFromClipboard = async () => {
         </v-card-subtitle>
 
         <v-card-actions>
-          <v-btn v-if="bookmark.filePath && bookmark.state !== 'Loaded'" :loading="bookmark.state === 'Loading'"
-            color="blue" text="Load" :disabled="bookmarkStore.isLoading" @click="bookmarkStore.loadByFullPath(bookmark.filePath, bookmark.latestTimestamp ?? '')">
+          <v-btn v-if="bookmark.filePath && bookmark.state !== 'Loaded' || bookmark.latestTimestamp !== bookmark.loadedTimestamp" :loading="bookmark.state === 'Loading'"
+            color="blue" text="Load" :disabled="bookmarkStore.isLoading" @click="bookmarkStore.loadByFullPath(bookmark.filePath ?? '', bookmark.latestTimestamp ?? '')">
           </v-btn>
-          <v-btn v-if="bookmark.filePath && bookmark.state === 'Loaded'" color="green-lighten-2" text="Explore"
+          <v-btn v-if="bookmark.filePath && bookmark.state === 'Loaded' && bookmark.latestTimestamp === bookmark.loadedTimestamp" color="green-lighten-2" text="Explore"
             :disabled="bookmarkStore.isLoading" @click="console.log(bookmark.filePath)">
           </v-btn>
 

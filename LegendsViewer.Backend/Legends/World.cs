@@ -753,7 +753,73 @@ public class World : IDisposable, IWorld
     {
         if (disposing)
         {
-            // Dispose
+            Clear();
         }
+    }
+
+    public void Clear()
+    {
+        Name = string.Empty;
+        AlternativeName = string.Empty;
+
+        Regions.Clear();
+        UndergroundRegions.Clear();
+        Landmasses.Clear();
+        MountainPeaks.Clear();
+        Identities.Clear();
+        Rivers.Clear();
+        Sites.Clear();
+        HistoricalFigures.Clear();
+        Entities.Clear();
+        Wars.Clear();
+        Battles.Clear();
+        BeastAttacks.Clear();
+        Eras.Clear();
+        Artifacts.Clear();
+        WorldConstructions.Clear();
+        PoeticForms.Clear();
+        MusicalForms.Clear();
+        DanceForms.Clear();
+        WrittenContents.Clear();
+        Structures.Clear();
+        Events.Clear();
+        EventCollections.Clear();
+        EntityPopulations.Clear();
+        SitePopulations.Clear();
+        CivilizedPopulations.Clear();
+        OutdoorPopulations.Clear();
+        UndergroundPopulations.Clear();
+
+        Width = 0;
+        Height = 0;
+        PlayerRelatedObjects.Clear();
+
+        SpecialEventsById.Clear();
+        _creatureInfos.Clear();
+        _creatureInfosById.Clear();
+
+        Breeds.Clear();
+
+        TempEras.Clear();
+        FilterBattles = true;
+
+        _hFtoHfLinkHFs.Clear();
+        _hFtoHfLinks.Clear();
+
+        _hFtoEntityLinkHFs.Clear();
+        _hFtoEntityLinks.Clear();
+
+        _hFtoSiteLinkHFs.Clear();
+        _hFtoSiteLinks.Clear();
+
+        _reputationHFs.Clear();
+        _reputations.Clear();
+
+        _entityEntityLinkEntities.Clear();
+        _entityEntityLinks.Clear();
+
+        MainRaces.Clear();
+        ParsingErrors.Clear();
+        Log.Clear();
     }
 }

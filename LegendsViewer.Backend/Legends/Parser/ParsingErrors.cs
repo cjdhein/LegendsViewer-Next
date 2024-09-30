@@ -29,4 +29,10 @@ public class ParsingErrors
     {
         return _log.ToString();
     }
+
+    public void Clear()
+    {
+        _reportedErrorTypes.Clear();
+        _log.Clear();
+    }
 }

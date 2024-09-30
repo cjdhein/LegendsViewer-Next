@@ -53,6 +53,13 @@ public class WorldMapImageGenerator(IWorld worldDataService) : IWorldMapImageGen
         return null;
     }
 
+    public void Clear()
+    {
+        _worldMapMin = null;
+        _worldMapMid = null;
+        _worldMapMax = null;
+    }
+
     private SKBitmap GenerateMapImage(int tileSize, IHasCoordinates? objectWithCoordinates = null, int? depth = null)
     {
         IRegion[,] worldTiles = GetWorldTiles(depth);

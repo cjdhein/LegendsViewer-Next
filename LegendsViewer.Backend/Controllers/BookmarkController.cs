@@ -90,6 +90,9 @@ public class BookmarkController(IWorld worldDataService, IWorldMapImageGenerator
 
         try
         {
+            _worldDataService.Clear();
+            _worldMapImageGenerator.Clear();
+
             // Start parsing the XML asynchronously
             await _worldDataService.ParseAsync(xmlFileName, xmlPlusFileName, historyFileName, sitesAndPopsFileName, mapFileName);
 

@@ -29,9 +29,7 @@ public class BookmarkService : IBookmarkService
             _bookmarks = JsonSerializer.Deserialize<Dictionary<string, Bookmark>>(json) ?? [];
             foreach (var bookmark in _bookmarks.Values)
             {
-                bookmark.State = BookmarkState.Default;
-                bookmark.LoadedTimestamp = null;
-                bookmark.LatestTimestamp = bookmark.WorldTimestamps.Order().LastOrDefault();
+                ResetBookmark(bookmark);
             }
         }
         else
@@ -40,8 +38,16 @@ public class BookmarkService : IBookmarkService
         }
     }
 
+    private static void ResetBookmark(Bookmark bookmark)
+    {
+        bookmark.State = BookmarkState.Default;
+        bookmark.LoadedTimestamp = null;
+        bookmark.LatestTimestamp = bookmark.WorldTimestamps.Order().LastOrDefault();
+    }
+
     public Bookmark AddBookmark(Bookmark bookmark)
     {
+        ResetAllBookmarks();
         if (_bookmarks.TryGetValue(bookmark.FilePath, out var existingBookmark))
         {
             foreach (var timestamp in bookmark.WorldTimestamps)
@@ -65,6 +71,11 @@ public class BookmarkService : IBookmarkService
         }
     }
 
+    private void ResetAllBookmarks()
+    {
+        foreach (var bookmark in _bookmarks.Values) { ResetBookmark(bookmark); }
+    }
+
     public List<Bookmark> GetAll()
     {
         return [.. _bookmarks.Values];
@@ -82,7 +93,7 @@ public class BookmarkService : IBookmarkService
                 timestamp = regionId[(firstHyphenIndex + 1)..]; // Extract the timestamp part
             }
         }
-        if(string.IsNullOrWhiteSpace(timestamp))
+        if (string.IsNullOrWhiteSpace(timestamp))
         {
             return null;
         }

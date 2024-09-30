@@ -42,7 +42,7 @@ export const useBookmarkStore = defineStore('bookmark', {
 
         // Check if the bookmark already exists
         const index = this.bookmarks.findIndex(bookmark => bookmark.filePath === newBookmark.filePath);
-
+        this.bookmarks.forEach(b => b.state = 'Default')
         if (index !== -1) {
           // Update the existing bookmark
           this.bookmarks[index] = newBookmark;
@@ -90,6 +90,7 @@ export const useBookmarkStore = defineStore('bookmark', {
 
         // Check if the bookmark already exists
         const index = this.bookmarks.findIndex(bookmark => bookmark.filePath === newBookmark.filePath);
+        this.bookmarks.forEach(b => b.state = 'Default')
 
         if (index !== -1) {
           // Update the existing bookmark

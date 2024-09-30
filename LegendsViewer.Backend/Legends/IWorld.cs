@@ -62,4 +62,6 @@ public interface IWorld
     Landmass? GetLandmass(int id);
     River? GetRiver(int id);
     MountainPeak? GetMountainPeak(int id);
+
+    void Clear();
 }
