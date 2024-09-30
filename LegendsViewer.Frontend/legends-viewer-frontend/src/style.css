@@ -5,3 +5,7 @@
 .router-link-exact-active {
     text-decoration: none;
 }
+
+.navlink {
+    text-decoration: none;
+}

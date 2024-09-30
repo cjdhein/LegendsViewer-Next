@@ -3307,7 +3307,11 @@ export interface paths {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "text/plain": string;
+                        "application/json": string;
+                        "text/json": string;
+                    };
                 };
             };
         };
@@ -3343,7 +3347,11 @@ export interface paths {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "text/plain": string;
+                        "application/json": string;
+                        "text/json": string;
+                    };
                 };
             };
         };
@@ -3379,7 +3387,11 @@ export interface paths {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "text/plain": string;
+                        "application/json": string;
+                        "text/json": string;
+                    };
                 };
             };
         };
@@ -3415,7 +3427,11 @@ export interface paths {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "text/plain": string;
+                        "application/json": string;
+                        "text/json": string;
+                    };
                 };
             };
         };
@@ -3451,7 +3467,11 @@ export interface paths {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "text/plain": string;
+                        "application/json": string;
+                        "text/json": string;
+                    };
                 };
             };
         };
@@ -3487,7 +3507,11 @@ export interface paths {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "text/plain": string;
+                        "application/json": string;
+                        "text/json": string;
+                    };
                 };
             };
         };
@@ -3523,7 +3547,11 @@ export interface paths {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "text/plain": string;
+                        "application/json": string;
+                        "text/json": string;
+                    };
                 };
             };
         };
@@ -3559,7 +3587,11 @@ export interface paths {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "text/plain": string;
+                        "application/json": string;
+                        "text/json": string;
+                    };
                 };
             };
         };
@@ -3595,7 +3627,11 @@ export interface paths {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "text/plain": string;
+                        "application/json": string;
+                        "text/json": string;
+                    };
                 };
             };
         };
@@ -3631,7 +3667,11 @@ export interface paths {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "text/plain": string;
+                        "application/json": string;
+                        "text/json": string;
+                    };
                 };
             };
         };
@@ -4514,6 +4554,13 @@ export interface components {
         };
         /** @enum {string} */
         SiteLinkType: "Unknown" | "Lair" | "Hangout" | "HomeSiteBuilding" | "HomeSiteUnderground" | "HomeStructure" | "SeatOfPower" | "Occupation" | "HomeSiteRealizationBuilding" | "HomeSiteAbstractBuilding" | "PrisonSiteBuildingProfile";
+        SiteMarkerDto: {
+            /** Format: int32 */
+            id?: number;
+            name?: string | null;
+            type?: components["schemas"]["SiteType"];
+            coordinates?: components["schemas"]["Location"][] | null;
+        };
         SitePaginatedResponse: {
             items?: components["schemas"]["Site"][] | null;
             /** Format: int32 */
@@ -4657,6 +4704,7 @@ export interface components {
             width?: number;
             /** Format: int32 */
             height?: number;
+            siteMarkers?: components["schemas"]["SiteMarkerDto"][] | null;
         };
         WorldEventDto: {
             /** Format: int32 */

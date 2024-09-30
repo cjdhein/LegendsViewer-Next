@@ -10,7 +10,17 @@ public static class HtmlStyleUtil
 
     public static string CurrentDwarfObject(string name)
     {
-        return "<span class=\"legends_current_dwarfobject\">" + name + "</span>";
+        return $"<span class=\"legends_current_dwarfobject\">{name}</span>";
+    }
+
+    public static string GetIconString(string icon)
+    {
+        return $"<i class=\"mdi-{icon} mdi v-icon notranslate v-theme--dark v-icon--size-default\" aria-hidden=\"true\"></i>";
+    }
+
+    public static string GetAnchorString(string iconString, string type, int id, string title, string text)
+    {
+        return $"{iconString} <a href=\"{type}/{id}\" title=\"{title}\">{text}</a>";
     }
 
     /// <summary>

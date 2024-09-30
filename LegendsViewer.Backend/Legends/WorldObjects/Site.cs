@@ -54,7 +54,7 @@ public class Site : WorldObject, IHasCoordinates
     {
         get
         {
-            return OwnerHistory.Count(site => site.EndYear == -1) > 0 ? OwnerHistory.First(site => site.EndYear == -1).Owner : null;
+            return OwnerHistory.Any(site => site.EndYear == -1) ? OwnerHistory.First(site => site.EndYear == -1).Owner : null;
         }
         set { }
     }

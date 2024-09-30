@@ -14,11 +14,11 @@ public class HistoricalFigure : WorldObject
     private static readonly List<string> KnownSiteLinkSubProperties = ["link_type", "site_id", "sub_id", "entity_id", "occupation_id"];
     private static readonly List<string> KnownEntitySquadLinkProperties = ["squad_id", "squad_position", "entity_id", "start_year", "end_year"];
 
-    public static readonly string ForceNatureIcon = "<i class=\"glyphicon fa-fw glyphicon-leaf\"></i>";
-    public static readonly string DeityIcon = "<i class=\"fa fa-fw fa-sun-o\"></i>";
-    public static readonly string NeuterIcon = "<i class=\"fa fa-fw fa-neuter\"></i>";
-    public static readonly string FemaleIcon = "<i class=\"fa fa-fw fa-venus\"></i>";
-    public static readonly string MaleIcon = "<i class=\"fa fa-fw fa-mars\"></i>";
+    public static readonly string ForceNatureIcon = HtmlStyleUtil.GetIconString("leaf");
+    public static readonly string DeityIcon = HtmlStyleUtil.GetIconString("weather-sunset");
+    public static readonly string NeuterIcon = HtmlStyleUtil.GetIconString("gender-non-binary");
+    public static readonly string FemaleIcon = HtmlStyleUtil.GetIconString("gender-female");
+    public static readonly string MaleIcon = HtmlStyleUtil.GetIconString("gender-male");
 
     public static readonly HistoricalFigure Unknown = new();
     public string Name { get; set; }
@@ -535,18 +535,18 @@ public class HistoricalFigure : WorldObject
             {
                 if (pov != null && pov.GetType() == typeof(BeastAttack) && (pov as BeastAttack)?.Beast == this) //Highlight Beast when printing Beast Attack Log
                 {
-                    return icon + "<a href=\"hf#" + Id + "\" title=\"" + Title + "\"><font color=#339900>" + ShortName + "</font></a>";
+                    return $"{HtmlStyleUtil.GetAnchorString(icon, "hf", Id, Title, ShortName)}";
                 }
 
                 return worldEvent != null
-                    ? "the " + GetRaceStringByWorldEvent(worldEvent) + " " + icon + "<a href=\"hf#" + Id + "\" title=\"" + Title + "\">" + Name + "</a>"
-                    : "the " + RaceString + " " + icon + "<a href=\"hf#" + Id + "\" title=\"" + Title + "\">" + Name + "</a>";
+                    ? $"the {GetRaceStringByWorldEvent(worldEvent)} {HtmlStyleUtil.GetAnchorString(icon, "hf", Id, Title, Name)}"
+                    : $"the {RaceString} {HtmlStyleUtil.GetAnchorString(icon, "hf", Id, Title, Name)}";
             }
-            return "<a href=\"hf#" + Id + "\" title=\"" + Title + "\">" + HtmlStyleUtil.CurrentDwarfObject(ShortName) + "</a>";
+            return $"{HtmlStyleUtil.GetAnchorString("", "hf", Id, Title, HtmlStyleUtil.CurrentDwarfObject(ShortName))}";
         }
         if (pov == null || pov != this)
         {
-            return worldEvent != null ? GetRaceStringByWorldEvent(worldEvent) + " " + Name : RaceString + " " + Name;
+            return worldEvent != null ? $"{GetRaceStringByWorldEvent(worldEvent)} {Name}" : $"{RaceString} {Name}";
         }
         return ShortName;
     }

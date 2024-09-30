@@ -5,18 +5,7 @@ import './style.css'
 import App from './App.vue'
 
 // Vue Router
-import { createMemoryHistory, createRouter } from 'vue-router'
-import WorldOverviewView from './components/WorldOverview.vue'
-
-const routes = [
-  { path: '/', component: WorldOverviewView },
-]
-
-const router = createRouter({
-  history: createMemoryHistory(),
-  routes,
-})
-
+import router from './router'
 // Pinia
 import { createPinia } from 'pinia'
 const pinia = createPinia()

@@ -161,40 +161,40 @@ public class Structure : WorldObject
         switch (Type)
         {
             case StructureType.MeadHall:
-                icon = "<i class=\"fa fa-fw fa-beer\"></i>";
+                icon = HtmlStyleUtil.GetIconString("glass-mug-variant");
                 break;
             case StructureType.Market:
-                icon = "<i class=\"fa fa-fw fa-balance-scale\"></i>";
+                icon = HtmlStyleUtil.GetIconString("scale-balance");
                 break;
             case StructureType.Keep:
-                icon = "<i class=\"fa fa-fw fa-fort-awesome\"></i>";
+                icon = HtmlStyleUtil.GetIconString("castle");
                 break;
             case StructureType.Temple:
-                icon = "<i class=\"fa fa-fw fa-university\"></i>";
+                icon = HtmlStyleUtil.GetIconString("temple-buddhist");
                 break;
             case StructureType.Dungeon:
-                icon = "<i class=\"fa fa-fw fa-magnet fa-flip-vertical\"></i>";
+                icon = HtmlStyleUtil.GetIconString("tunnel");
                 break;
             case StructureType.InnTavern:
-                icon = "<i class=\"fa fa-fw fa-cutlery\"></i>";
+                icon = HtmlStyleUtil.GetIconString("food-turkey");
                 break;
             case StructureType.Tomb:
-                icon = "<i class=\"fa fa-fw fa-youtube-play fa-rotate-270\"></i>";
+                icon = HtmlStyleUtil.GetIconString("grave-stone");
                 break;
             case StructureType.UnderworldSpire:
-                icon = "<i class=\"fa fa-fw fa-indent fa-rotate-270\"></i>";
+                icon = HtmlStyleUtil.GetIconString("star-three-points");
                 break;
             case StructureType.Library:
-                icon = "<i class=\"fa fa-fw fa-graduation-cap\"></i>";
+                icon = HtmlStyleUtil.GetIconString("library");
                 break;
             case StructureType.Tower:
-                icon = "<i class=\"fa fa-fw fa-building-o\"></i>";
+                icon = HtmlStyleUtil.GetIconString("chess-rook");
                 break;
             case StructureType.CountingHouse:
-                icon = "<i class=\"glyphicon fa-fw glyphicon-piggy-bank\"></i>";
+                icon = HtmlStyleUtil.GetIconString("bank-outline");
                 break;
             case StructureType.Guildhall:
-                icon = "<i class=\"fa fa-fw fa-tty fa-flip-vertical\"></i>";
+                icon = HtmlStyleUtil.GetIconString("town-hall");
                 break;
             default:
                 icon = "";
@@ -249,7 +249,7 @@ public class Structure : WorldObject
 
     public override string ToString() { return Name; }
 
-    public override string ToLink(bool link = true, DwarfObject pov = null, WorldEvent worldEvent = null)
+    public override string ToLink(bool link = true, DwarfObject? pov = null, WorldEvent? worldEvent = null)
     {
         if (link)
         {
@@ -266,8 +266,8 @@ public class Structure : WorldObject
             title += "Events: " + Events.Count;
 
             string linkedString = pov != this
-                ? Icon + "<a href = \"structure#" + GlobalId + "\" title=\"" + title + "\">" + Name + "</a>"
-                : Icon + "<a title=\"" + title + "\">" + HtmlStyleUtil.CurrentDwarfObject(Name) + "</a>";
+                ? $"{HtmlStyleUtil.GetAnchorString(Icon, "structure", GlobalId, title, Name)}"
+                : $"{HtmlStyleUtil.GetAnchorString(Icon, "structure", GlobalId, title, HtmlStyleUtil.CurrentDwarfObject(Name))}";
             return linkedString;
         }
         return Icon + Name;

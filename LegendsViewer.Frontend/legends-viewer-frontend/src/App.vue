@@ -1,4 +1,8 @@
 <script setup lang="ts">
+const menuItems = [
+      { title: 'World Overview', icon: 'mdi-file-tree-outline', to: '/' },
+      { title: 'Map', icon: 'mdi-map-search-outline', to: '/map' },
+    ];
 </script>
 
 <template>
@@ -15,13 +19,17 @@
 
       <v-navigation-drawer>
         <v-list>
-          <RouterLink to="/"><v-list-item>
-              <template v-slot:prepend>
-                <v-icon icon="mdi-file-tree-outline"></v-icon>
-              </template>
-              <v-list-item-title>World Overview</v-list-item-title>
-            </v-list-item>
-          </RouterLink>
+          <v-list-item
+            v-for="item in menuItems"
+            :key="item.title"
+            :to="item.to"
+            :active-class="'v-list-item--active'"
+          >
+            <template v-slot:prepend>
+              <v-icon :icon="item.icon"></v-icon>
+            </template>
+            <v-list-item-title>{{ item.title }}</v-list-item-title>
+          </v-list-item>
         </v-list>
       </v-navigation-drawer>
 

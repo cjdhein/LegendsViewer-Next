@@ -10,7 +10,7 @@ namespace LegendsViewer.Backend.Legends.WorldObjects;
 
 public class WorldRegion : WorldObject, IRegion
 {
-    public string Icon = "<i class=\"fa fa-fw fa-map-o\"></i>";
+    public string Icon = HtmlStyleUtil.GetIconString("map-legend");
 
     public string Name { get; set; }
     public int? Depth { get; set; }
@@ -164,8 +164,8 @@ public class WorldRegion : WorldObject, IRegion
             title += "Events: " + Events.Count;
 
             return pov != this
-                ? Icon + "<a href = \"region#" + Id + "\" title=\"" + title + "\">" + Name + "</a>"
-                : Icon + "<a title=\"" + title + "\">" + HtmlStyleUtil.CurrentDwarfObject(Name) + "</a>";
+                ? $"{HtmlStyleUtil.GetAnchorString(Icon, "region", Id, title, Name)}"
+                : $"{HtmlStyleUtil.GetAnchorString(Icon, "region", Id, title, HtmlStyleUtil.CurrentDwarfObject(Name))}";
         }
         return Name;
     }

@@ -10,7 +10,7 @@ public class WorldMapImageGenerator(IWorld worldDataService) : IWorldMapImageGen
 {
     public const int DefaultTileSizeMin = 2;
     public const int DefaultTileSizeMid = 4;
-    public const int DefaultTileSizeMax = 8;
+    public const int DefaultTileSizeMax = 10;
 
     private readonly IWorld _worldDataService = worldDataService;
     private byte[]? _worldMapMin;
