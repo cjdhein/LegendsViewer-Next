@@ -9,12 +9,12 @@ namespace LegendsViewer.Backend.Controllers;
 [Route("api/[controller]")]
 public class BookmarkController(IWorld worldDataService, IWorldMapImageGenerator worldMapImageGenerator, IBookmarkService bookmarkService) : ControllerBase
 {
-    private const string FileIdentifierLegendsXml = "-legends.xml";
+    public const string FileIdentifierLegendsXml = "-legends.xml";
+
     private const string FileIdentifierWorldHistoryTxt = "-world_history.txt";
     private const string FileIdentifierWorldMapBmp = "-world_map.bmp";
     private const string FileIdentifierWorldSitesAndPops = "-world_sites_and_pops.txt";
     private const string FileIdentifierLegendsPlusXml = "-legends_plus.xml";
-
     private readonly IWorld _worldDataService = worldDataService;
     private readonly IWorldMapImageGenerator _worldMapImageGenerator = worldMapImageGenerator;
     private readonly IBookmarkService _bookmarkService = bookmarkService;
@@ -40,7 +40,7 @@ public class BookmarkController(IWorld worldDataService, IWorldMapImageGenerator
         return Ok(item);
     }
 
-    [HttpPost("load")]
+    [HttpPost("loadByFullPath")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -56,7 +56,9 @@ public class BookmarkController(IWorld worldDataService, IWorldMapImageGenerator
             return BadRequest("Invalid directory.");
         }
         string directoryName = fileInfo.DirectoryName;
-        string regionId = string.Empty;
+        string regionName = string.Empty;
+        string timestamp = string.Empty;
+        string regionId;
         if (fileInfo.Name.Contains(FileIdentifierLegendsXml))
         {
             regionId = fileInfo.Name.Replace(FileIdentifierLegendsXml, "");
@@ -68,6 +70,12 @@ public class BookmarkController(IWorld worldDataService, IWorldMapImageGenerator
         else
         {
             return BadRequest("Invalid file name.");
+        }
+        int firstHyphenIndex = regionId.IndexOf('-');
+        if (firstHyphenIndex != -1)
+        {
+            regionName = regionId[..firstHyphenIndex]; // Extract the region name
+            timestamp = regionId[(firstHyphenIndex + 1)..]; // Extract the timestamp part
         }
 
         var xmlFileName = Directory.EnumerateFiles(directoryName, regionId + FileIdentifierLegendsXml).FirstOrDefault();
@@ -85,7 +93,7 @@ public class BookmarkController(IWorld worldDataService, IWorldMapImageGenerator
             // Start parsing the XML asynchronously
             await _worldDataService.ParseAsync(xmlFileName, xmlPlusFileName, historyFileName, sitesAndPopsFileName, mapFileName);
 
-            var bookmark = AddBookmark(filePath);
+            var bookmark = AddBookmark(filePath, regionName, timestamp);
 
             return Ok(bookmark);
         }
@@ -96,21 +104,38 @@ public class BookmarkController(IWorld worldDataService, IWorldMapImageGenerator
         }
     }
 
-    private Bookmark AddBookmark(string filePath)
+    [HttpPost("loadByFolderAndFile")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+    public async Task<ActionResult<Bookmark>> ParseWorldXml([FromBody] string folderPath, string fileName)
+    {
+        var fullPath = Path.Combine(folderPath, fileName);
+        if (!Path.Exists(fullPath))
+        {
+            return BadRequest("File does not exist!");
+        }
+        return await ParseWorldXml(fullPath);
+    }
+
+    private Bookmark AddBookmark(string filePath, string regionName, string timestamp)
     {
         var imageData = _worldMapImageGenerator.GenerateMapByteArray(WorldMapImageGenerator.DefaultTileSizeMin);
         var bookmark = new Bookmark
         {
-            FilePath = filePath,
+            FilePath = filePath.Replace(timestamp, BookmarkService.TimestampPlaceholder),
             WorldName = _worldDataService.Name,
             WorldAlternativeName = _worldDataService.AlternativeName,
+            WorldRegionName = regionName,
+            WorldTimestamps = [timestamp],
             WorldWidth = _worldDataService.Width,
             WorldHeight = _worldDataService.Height,
             WorldMapImage = imageData,
-            State = BookmarkState.Loaded
+            State = BookmarkState.Loaded,
+            LoadedTimestamp = timestamp,
+            LatestTimestamp = timestamp
         };
 
-        _bookmarkService.AddBookmark(bookmark);
-        return bookmark;
+        return _bookmarkService.AddBookmark(bookmark);
     }
 }

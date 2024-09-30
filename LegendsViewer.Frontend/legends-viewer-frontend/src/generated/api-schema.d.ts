@@ -293,7 +293,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/api/Bookmark/load": {
+    "/api/Bookmark/loadByFullPath": {
         parameters: {
             query?: never;
             header?: never;
@@ -305,6 +305,69 @@ export interface paths {
         post: {
             parameters: {
                 query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: {
+                content: {
+                    "application/json": string;
+                    "text/json": string;
+                    "application/*+json": string;
+                };
+            };
+            responses: {
+                /** @description OK */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["Bookmark"];
+                        "application/json": components["schemas"]["Bookmark"];
+                        "text/json": components["schemas"]["Bookmark"];
+                    };
+                };
+                /** @description Bad Request */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["ProblemDetails"];
+                        "application/json": components["schemas"]["ProblemDetails"];
+                        "text/json": components["schemas"]["ProblemDetails"];
+                    };
+                };
+                /** @description Internal Server Error */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/Bookmark/loadByFolderAndFile": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: {
+            parameters: {
+                query?: {
+                    fileName?: string;
+                };
                 header?: never;
                 path?: never;
                 cookie?: never;
@@ -1061,6 +1124,57 @@ export interface paths {
                         "text/plain": components["schemas"]["FilesAndSubdirectoriesDto"];
                         "application/json": components["schemas"]["FilesAndSubdirectoriesDto"];
                         "text/json": components["schemas"]["FilesAndSubdirectoriesDto"];
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/FileSystem/{currentPath}/{subFolder}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    currentPath: string;
+                    subFolder: string;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description OK */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": string;
+                        "application/json": string;
+                        "text/json": string;
+                    };
+                };
+                /** @description Bad Request */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["ProblemDetails"];
+                        "application/json": components["schemas"]["ProblemDetails"];
+                        "text/json": components["schemas"]["ProblemDetails"];
                     };
                 };
             };
@@ -3779,6 +3893,8 @@ export interface components {
             filePath?: string | null;
             worldName?: string | null;
             worldAlternativeName?: string | null;
+            worldRegionName?: string | null;
+            worldTimestamps?: string[] | null;
             /** Format: int32 */
             worldWidth?: number;
             /** Format: int32 */
@@ -3786,6 +3902,8 @@ export interface components {
             /** Format: byte */
             worldMapImage?: string | null;
             state?: components["schemas"]["BookmarkState"];
+            loadedTimestamp?: string | null;
+            latestTimestamp?: string | null;
         };
         /** @enum {string} */
         BookmarkState: "Default" | "Loading" | "Loaded";

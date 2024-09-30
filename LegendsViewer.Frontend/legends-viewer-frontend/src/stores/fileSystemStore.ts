@@ -36,9 +36,56 @@ export const useFileSystemStore = defineStore('fileSystem', {
         this.loading = false;
       }
     },
-
+    async loadSubDirectory(currentPath: string = "/", subFolder: string = "/") {
+        // Set loading state to true
+        this.loading = true;
+  
+        try {
+          // Fetch directory info from the backend
+          const { data, error } = await client.GET('/api/FileSystem/{currentPath}/{subFolder}', {
+              params: {
+                path:
+                { 
+                    currentPath: currentPath,
+                    subFolder: subFolder 
+                },
+              },
+            });
+  
+          if (error) {
+            console.error(error);
+          } else if (data) {
+            // Set the received data to the store state
+            this.filesAndSubdirectories = data as FilesAndSubdirectories;
+          }
+        } catch (err) {
+          console.error('Error loading directory:', err);
+        } finally {
+          // Set loading state to false after the operation
+          this.loading = false;
+        }
+      },
+  
     async getRoot() {
-      await this.loadDirectory("/");
+        // Set loading state to true
+        this.loading = true;
+  
+        try {
+          // Fetch directory info from the backend
+          const { data, error } = await client.GET('/api/FileSystem');
+  
+          if (error) {
+            console.error(error);
+          } else if (data) {
+            // Set the received data to the store state
+            this.filesAndSubdirectories = data as FilesAndSubdirectories;
+          }
+        } catch (err) {
+          console.error('Error loading directory:', err);
+        } finally {
+          // Set loading state to false after the operation
+          this.loading = false;
+        }
     },
   },
 });

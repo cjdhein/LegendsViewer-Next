@@ -1,9 +1,12 @@
 ﻿namespace LegendsViewer.Backend.Legends.Bookmarks;
 
+using LegendsViewer.Backend.Controllers;
+using System.IO;
 using System.Text.Json;
 
 public class BookmarkService : IBookmarkService
 {
+    public const string TimestampPlaceholder = "{TIMESTAMP}";
     private const string BookmarkFileName = "bookmarks.json";
 
     private readonly Dictionary<string, Bookmark> _bookmarks;
@@ -26,7 +29,9 @@ public class BookmarkService : IBookmarkService
             _bookmarks = JsonSerializer.Deserialize<Dictionary<string, Bookmark>>(json) ?? [];
             foreach (var bookmark in _bookmarks.Values)
             {
-                bookmark.State = BookmarkState.Default;   
+                bookmark.State = BookmarkState.Default;
+                bookmark.LoadedTimestamp = null;
+                bookmark.LatestTimestamp = bookmark.WorldTimestamps.Order().LastOrDefault();
             }
         }
         else
@@ -35,12 +40,28 @@ public class BookmarkService : IBookmarkService
         }
     }
 
-    public void AddBookmark(Bookmark bookmark)
+    public Bookmark AddBookmark(Bookmark bookmark)
     {
-        if (!_bookmarks.ContainsKey(bookmark.FilePath))
+        if (_bookmarks.TryGetValue(bookmark.FilePath, out var existingBookmark))
+        {
+            foreach (var timestamp in bookmark.WorldTimestamps)
+            {
+                if (!existingBookmark.WorldTimestamps.Contains(timestamp))
+                {
+                    existingBookmark.WorldTimestamps.Add(timestamp);
+                }
+            }
+            existingBookmark.State = BookmarkState.Loaded;
+            existingBookmark.LoadedTimestamp = bookmark.LoadedTimestamp;
+            existingBookmark.LatestTimestamp = bookmark.LatestTimestamp;
+            SaveBookmarksToFile();
+            return existingBookmark;
+        }
+        else
         {
             _bookmarks[bookmark.FilePath] = bookmark;
             SaveBookmarksToFile();
+            return bookmark;
         }
     }
 
@@ -51,7 +72,21 @@ public class BookmarkService : IBookmarkService
 
     public Bookmark? GetBookmark(string filePath)
     {
-        return _bookmarks.TryGetValue(filePath, out var bookmark) ? bookmark : null;
+        string timestamp = string.Empty;
+        if (filePath.Contains(BookmarkController.FileIdentifierLegendsXml))
+        {
+            string regionId = filePath.Replace(BookmarkController.FileIdentifierLegendsXml, "");
+            int firstHyphenIndex = regionId.IndexOf('-');
+            if (firstHyphenIndex != -1)
+            {
+                timestamp = regionId[(firstHyphenIndex + 1)..]; // Extract the timestamp part
+            }
+        }
+        if(string.IsNullOrWhiteSpace(timestamp))
+        {
+            return null;
+        }
+        return _bookmarks.TryGetValue(filePath.Replace(timestamp, TimestampPlaceholder), out var bookmark) ? bookmark : null;
     }
 
     private void SaveBookmarksToFile()

@@ -7,21 +7,32 @@ export type Bookmark = components['schemas']['Bookmark'];
 export const useBookmarkStore = defineStore('bookmark', {
   state: () => ({
     bookmarks: [] as Bookmark[],
-    loadingNewWorld: false as boolean
+    isLoadingNewWorld: false as boolean
   }),
+  getters: {
+    isLoadingExistingWorld: (state) => {
+      return state.bookmarks.some(bookmark => bookmark.state === 'Loading');
+    },
+    isLoading: (state) => {
+      return state.isLoadingNewWorld || state.bookmarks.some(bookmark => bookmark.state === 'Loading');
+    },
+    isLoaded: (state) => {
+      return state.bookmarks.some(bookmark => bookmark.state === 'Loaded');
+    },
+  },
   actions: {
-    async load(filePath: string) {
+    async loadByFullPath(filePath: string, latestTimestamp: string) {
       // Set the state of the bookmark to 'Loading' if it exists
       let existingBookmark = this.bookmarks.find(bookmark => bookmark.filePath === filePath);
       if (existingBookmark) {
         existingBookmark.state = 'Loading';
       }
       else {
-        this.loadingNewWorld = true;
+        this.isLoadingNewWorld = true;
       }
 
-      const { data, error } = await client.POST("/api/Bookmark/load", {
-        body: filePath, // Send the filePath as raw text
+      const { data, error } = await client.POST("/api/Bookmark/loadByFullPath", {
+        body: filePath.replace("{TIMESTAMP}", latestTimestamp), // Send the filePath as raw text
       });
 
       if (error !== undefined) {
@@ -30,7 +41,7 @@ export const useBookmarkStore = defineStore('bookmark', {
         const newBookmark = data as Bookmark;
 
         // Check if the bookmark already exists
-        const index = this.bookmarks.findIndex(bookmark => bookmark.filePath === filePath);
+        const index = this.bookmarks.findIndex(bookmark => bookmark.filePath === newBookmark.filePath);
 
         if (index !== -1) {
           // Update the existing bookmark
@@ -40,7 +51,55 @@ export const useBookmarkStore = defineStore('bookmark', {
           this.bookmarks.push(newBookmark);
         }
 
-        this.loadingNewWorld = false;
+        this.isLoadingNewWorld = false;
+      }
+    },
+    async loadByFolderAndFile(folderPath: string, fileName: string) {
+
+      let fileNameWithoutTimestamp: string = '';
+      let timestamp: string = '';
+      const firstHyphenIndex: number = fileName.indexOf('-');
+
+      if (firstHyphenIndex !== -1) {
+        timestamp = fileName.substring(firstHyphenIndex + 1); // Extract timestamp part
+        fileNameWithoutTimestamp = fileName.replace(timestamp, "{TIMESTAMP}")
+      }
+
+      // Set the state of the bookmark to 'Loading' if it exists
+      let existingBookmark = this.bookmarks.find(bookmark => bookmark.filePath?.startsWith(folderPath) && bookmark.filePath?.endsWith(fileNameWithoutTimestamp));
+      if (existingBookmark) {
+        existingBookmark.state = 'Loading';
+      }
+      else {
+        this.isLoadingNewWorld = true;
+      }
+
+      const { data, error } = await client.POST("/api/Bookmark/loadByFolderAndFile", {
+        body: folderPath, // Send the filePath as raw text
+        params: {
+          query: {
+            fileName: fileName
+          }
+        }
+      });
+
+      if (error !== undefined) {
+        console.error(error);
+      } else if (data) {
+        const newBookmark = data as Bookmark;
+
+        // Check if the bookmark already exists
+        const index = this.bookmarks.findIndex(bookmark => bookmark.filePath === newBookmark.filePath);
+
+        if (index !== -1) {
+          // Update the existing bookmark
+          this.bookmarks[index] = newBookmark;
+        } else {
+          // Add the new bookmark to the array
+          this.bookmarks.push(newBookmark);
+        }
+
+        this.isLoadingNewWorld = false;
       }
     },
     async getAll() {

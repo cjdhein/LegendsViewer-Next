@@ -36,23 +36,23 @@ public class FileSystemController : ControllerBase
             CurrentDirectory = directoryName,
             ParentDirectory = Directory.GetParent(directoryName)?.FullName,
             Subdirectories = Directory.GetDirectories(directoryName).Select(subDirectoryPath => Path.GetRelativePath(directoryName, subDirectoryPath)).ToArray(),
-            Files = Directory.GetFiles(directoryName, "*.xml").Select(p => Path.GetFileName(p) ?? "").ToArray()
+            Files = Directory.GetFiles(directoryName, $"*{BookmarkController.FileIdentifierLegendsXml}").Select(p => Path.GetFileName(p) ?? "").ToArray()
         };
         return Ok(response);
     }
 
-    //[HttpGet("combine/{path}/{fileName}")]
-    //[ProducesResponseType<string>(StatusCodes.Status200OK)]
-    //[ProducesResponseType(StatusCodes.Status400BadRequest)]
-    //public ActionResult<string> Get([FromRoute] string path, [FromRoute] string fileName)
-    //{
-    //    var fullPath = Path.Combine(path, fileName);
-    //    if (!Path.Exists(fullPath))
-    //    {
-    //        return BadRequest("File does not exist!");
-    //    }
-    //    return Ok(fullPath);
-    //}
+    [HttpGet("{currentPath}/{subFolder}")]
+    [ProducesResponseType<string>(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public ActionResult<FilesAndSubdirectoriesDto> Get([FromRoute] string currentPath, [FromRoute] string subFolder)
+    {
+        var fullPath = Path.Combine(currentPath, subFolder);
+        if (!Path.Exists(fullPath))
+        {
+            return BadRequest("File does not exist!");
+        }
+        return Get(fullPath);
+    }
 
     private static FilesAndSubdirectoriesDto GetRootInformation()
     {
