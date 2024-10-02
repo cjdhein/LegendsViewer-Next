@@ -8,7 +8,7 @@ namespace LegendsViewer.Backend.Legends.WorldObjects;
 
 public class Artifact : WorldObject, IHasCoordinates
 {
-    public static string Icon = "<i class=\"fa fa-fw fa-diamond\"></i>";
+    public string Icon { get; set; } = HtmlStyleUtil.GetIconString("diamond-stone");
 
     public string Name { get; set; }
     public string Item { get; set; }
@@ -151,7 +151,7 @@ public class Artifact : WorldObject, IHasCoordinates
 
     public override string ToString() { return Name; }
 
-    public override string ToLink(bool link = true, DwarfObject pov = null, WorldEvent worldEvent = null)
+    public override string ToLink(bool link = true, DwarfObject? pov = null, WorldEvent? worldEvent = null)
     {
         if (link)
         {
@@ -159,8 +159,8 @@ public class Artifact : WorldObject, IHasCoordinates
             title += "&#13";
             title += "Events: " + Events.Count;
             return pov != this
-                ? Icon + "<a href = \"artifact#" + Id + "\" title=\"" + title + "\">" + Name + "</a>"
-                : Icon + "<a title=\"" + title + "\">" + HtmlStyleUtil.CurrentDwarfObject(Name) + "</a>";
+                ? HtmlStyleUtil.GetAnchorString(Icon, "artifact", Id, title, Name)
+                : HtmlStyleUtil.GetAnchorCurrentString(Icon, title, HtmlStyleUtil.CurrentDwarfObject(Name));
         }
         return Name;
     }

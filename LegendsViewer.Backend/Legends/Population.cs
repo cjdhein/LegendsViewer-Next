@@ -2,7 +2,9 @@
 
 public class Population
 {
-    public bool IsMainRace => World.MainRaces.ContainsKey(Race);
+    private readonly World _world;
+
+    public bool IsMainRace => _world.MainRaces.ContainsKey(Race);
 
     public bool IsOutcasts => Race.NamePlural.Contains("Outcasts");
 
@@ -17,8 +19,9 @@ public class Population
     public CreatureInfo Race { get; set; }
     public int Count { get; set; }
 
-    public Population(CreatureInfo type, int count)
+    public Population(World world, CreatureInfo type, int count)
     {
+        _world = world;
         Race = type;
         Count = count;
     }

@@ -7,7 +7,7 @@ namespace LegendsViewer.Backend.Legends.WorldObjects;
 
 public class DanceForm : ArtForm
 {
-    public static string Icon = "<i class=\"fa fa-fw fa-street-view\"></i>";
+    public string Icon { get; set; } = HtmlStyleUtil.GetIconString("dance-ballroom");
 
     public DanceForm(List<Property> properties, World world)
         : base(properties, world)
@@ -15,24 +15,16 @@ public class DanceForm : ArtForm
         FormType = FormType.Dance;
     }
 
-    public override string ToLink(bool link = true, DwarfObject pov = null, WorldEvent worldEvent = null)
+    public override string ToLink(bool link = true, DwarfObject? pov = null, WorldEvent? worldEvent = null)
     {
         if (link)
         {
-            string linkedString = "";
-            if (pov != this)
-            {
-                string title = "Dance Form";
-                title += "&#13";
-                title += "Events: " + Events.Count;
-
-                linkedString = Icon + "<a href=\"danceform#" + Id + "\" title=\"" + title + "\">" + Name + "</a>";
-            }
-            else
-            {
-                linkedString = Icon + HtmlStyleUtil.CurrentDwarfObject(Name);
-            }
-            return linkedString;
+            string title = "Dance Form";
+            title += "&#13";
+            title += "Events: " + Events.Count;
+            return pov != this
+                ? HtmlStyleUtil.GetAnchorString(Icon, "danceform", Id, title, Name)
+                : HtmlStyleUtil.GetAnchorCurrentString(Icon, title, HtmlStyleUtil.CurrentDwarfObject(Name));
         }
         return Name;
     }

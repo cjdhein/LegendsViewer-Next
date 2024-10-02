@@ -7,7 +7,7 @@ namespace LegendsViewer.Backend.Legends.WorldObjects;
 
 public class PoeticForm : ArtForm
 {
-    public static string Icon = "<i class=\"fa fa-fw fa-sticky-note-o\"></i>";
+    public string Icon { get; set; } = HtmlStyleUtil.GetIconString("script-outline");
 
     public PoeticForm(List<Property> properties, World world)
         : base(properties, world)
@@ -15,7 +15,7 @@ public class PoeticForm : ArtForm
         FormType = FormType.Poetic;
     }
 
-    public override string ToLink(bool link = true, DwarfObject pov = null, WorldEvent worldEvent = null)
+    public override string ToLink(bool link = true, DwarfObject? pov = null, WorldEvent? worldEvent = null)
     {
         if (link)
         {
@@ -23,10 +23,9 @@ public class PoeticForm : ArtForm
             title += "&#13";
             title += "Events: " + Events.Count;
 
-            string linkedString = pov != this
-                ? Icon + "<a href=\"poeticform#" + Id + "\" title=\"" + title + "\">" + Name + "</a>"
-                : Icon + "<a title=\"" + title + "\">" + HtmlStyleUtil.CurrentDwarfObject(Name) + "</a>";
-            return linkedString;
+            return pov != this
+                ? HtmlStyleUtil.GetAnchorString(Icon, "poeticform", Id, title, Name)
+                : HtmlStyleUtil.GetAnchorCurrentString(Icon, title, HtmlStyleUtil.CurrentDwarfObject(Name));
         }
         return Name;
     }

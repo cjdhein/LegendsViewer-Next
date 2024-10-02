@@ -80,7 +80,7 @@ const readFromClipboard = async () => {
             color="blue" text="Load" :disabled="bookmarkStore.isLoading" @click="bookmarkStore.loadByFullPath(bookmark.filePath ?? '', bookmark.latestTimestamp ?? '')">
           </v-btn>
           <v-btn v-if="bookmark.filePath && bookmark.state === 'Loaded' && bookmark.latestTimestamp === bookmark.loadedTimestamp" color="green-lighten-2" text="Explore"
-            :disabled="bookmarkStore.isLoading" @click="console.log(bookmark.filePath)">
+            :disabled="bookmarkStore.isLoading" to="/map">
           </v-btn>
 
           <v-spacer></v-spacer>

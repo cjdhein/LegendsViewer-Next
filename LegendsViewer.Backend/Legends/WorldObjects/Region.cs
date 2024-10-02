@@ -10,7 +10,7 @@ namespace LegendsViewer.Backend.Legends.WorldObjects;
 
 public class WorldRegion : WorldObject, IRegion
 {
-    public string Icon = HtmlStyleUtil.GetIconString("map-legend");
+    public string Icon { get; set; } = HtmlStyleUtil.GetIconString("map-legend");
 
     public string Name { get; set; }
     public int? Depth { get; set; }
@@ -79,33 +79,43 @@ public class WorldRegion : WorldObject, IRegion
                     {
                         case "Mountains":
                             Type = RegionType.Mountains;
+                            Icon = HtmlStyleUtil.GetIconString("image-filter-hdr");
                             break;
                         case "Ocean":
                             Type = RegionType.Ocean;
+                            Icon = HtmlStyleUtil.GetIconString("tsunami");
                             break;
                         case "Tundra":
                             Type = RegionType.Tundra;
+                            Icon = HtmlStyleUtil.GetIconString("weather-snowy-heavy");
                             break;
                         case "Glacier":
                             Type = RegionType.Glacier;
+                            Icon = HtmlStyleUtil.GetIconString("snowflake");
                             break;
                         case "Forest":
                             Type = RegionType.Forest;
+                            Icon = HtmlStyleUtil.GetIconString("forest-outline");
                             break;
                         case "Wetland":
                             Type = RegionType.Wetland;
+                            Icon = HtmlStyleUtil.GetIconString("home-flood");
                             break;
                         case "Grassland":
                             Type = RegionType.Grassland;
+                            Icon = HtmlStyleUtil.GetIconString("grass");
                             break;
                         case "Desert":
                             Type = RegionType.Desert;
+                            Icon = HtmlStyleUtil.GetIconString("cactus");
                             break;
                         case "Hills":
                             Type = RegionType.Hills;
+                            Icon = HtmlStyleUtil.GetIconString("image-filter-hdr-outline");
                             break;
                         case "Lake":
                             Type = RegionType.Lake;
+                            Icon = HtmlStyleUtil.GetIconString("weather-hazy");
                             break;
                         default:
                             property.Known = false;
@@ -160,6 +170,8 @@ public class WorldRegion : WorldObject, IRegion
         if (link)
         {
             string title = Type.GetDescription();
+            title += "&#13";
+            title += "Evilness: " + Evilness;
             title += "&#13";
             title += "Events: " + Events.Count;
 

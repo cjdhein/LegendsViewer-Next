@@ -7,14 +7,14 @@ namespace LegendsViewer.Backend.Legends.EventCollections;
 
 public class Raid : EventCollection
 {
-    public static readonly string Icon = "<i class=\"fa fa-fw fa-bolt\"></i>";
+    public static readonly string Icon = HtmlStyleUtil.GetIconString("lightning-bolt");
+    public string Name { get; set; } = "";
 
-    public string Name { get => "The " + Formatting.AddOrdinal(Ordinal) + " Raid of " + Site.Name; set { } }
     public int Ordinal { get; set; }
-    public Location Coordinates { get; set; }
-    public Site Site { get; set; }
+    public Location? Coordinates { get; set; }
+    public Site? Site { get; set; }
 
-    public WorldRegion Region
+    public WorldRegion? Region
     {
         get
         {
@@ -27,13 +27,15 @@ public class Raid : EventCollection
         set => _region = value;
     }
 
-    public UndergroundRegion UndergroundRegion { get; set; }
-    public Entity Attacker { get; set; }
-    public Entity Defender { get; set; }
-    public int ItemsStolenCount { get => GetSubEvents().OfType<ItemStolen>().Count(); set { } }
-    public EventCollection ParentEventCol { get; set; }
+    public UndergroundRegion? UndergroundRegion { get; set; }
+    public Entity? Attacker { get; set; }
+    public Entity? Defender { get; set; }
+    public int ItemsStolenCount => GetSubEvents().OfType<ItemStolen>().Count();
+    public List<HistoricalFigure> Deaths => GetSubEvents().OfType<HfDied>().Select(death => death.HistoricalFigure).ToList();
+    public int DeathCount => Deaths.Count;
+    public EventCollection? ParentEventCol { get; set; }
 
-    private WorldRegion _region;
+    private WorldRegion? _region;
 
     public Raid(List<Property> properties, World world)
         : base(properties, world)
@@ -54,38 +56,55 @@ public class Raid : EventCollection
                 case "defending_enid": Defender = world.GetEntity(Convert.ToInt32(property.Value)); break;
             }
         }
-        Attacker.AddEventCollection(this);
-        Defender.AddEventCollection(this);
-        Region.AddEventCollection(this);
-        UndergroundRegion.AddEventCollection(this);
-        Site.AddEventCollection(this);
+        Attacker?.AddEventCollection(this);
+        Defender?.AddEventCollection(this);
+        Region?.AddEventCollection(this);
+        UndergroundRegion?.AddEventCollection(this);
+        Site?.AddEventCollection(this);
+
+        Site?.Warfare.Add(this);
+
+        Name = $"{Formatting.AddOrdinal(Ordinal)} raid";
     }
 
     private void Initialize()
     {
         Ordinal = 1;
-        Coordinates = new Location(0, 0);
     }
 
-    public override string ToLink(bool link = true, DwarfObject pov = null, WorldEvent worldEvent = null)
+    public override string ToLink(bool link = true, DwarfObject? pov = null, WorldEvent? worldEvent = null)
     {
         if (link)
         {
-            string title = Type;
-            title += "&#13";
-            title += "Items Stolen: " + ItemsStolenCount;
+            string title = GetTitle();
+            string linkedString = "the ";
+            linkedString += pov != this
+                ? HtmlStyleUtil.GetAnchorString(Icon, "collection", Id, title, Name)
+                : HtmlStyleUtil.GetAnchorCurrentString(Icon, title, HtmlStyleUtil.CurrentDwarfObject(Name));
 
-            string linkedString = pov != this
-                ? Icon + "<a href = \"collection#" + Id + "\" title=\"" + title + "\"><font color=\"#6E5007\">" + Name + "</font></a>"
-                : Icon + "<a title=\"" + title + "\">" + HtmlStyleUtil.CurrentDwarfObject(Name) + "</a>";
+            if (Site != null && pov != Site)
+            {
+                linkedString += $" in {Site.ToLink(true, this)}";
+            }
             return linkedString;
         }
-        return Name;
+        return ToString();
+    }
+
+    private string GetTitle()
+    {
+        string title = Type;
+        title += "&#13";
+        title += "Items Stolen: " + ItemsStolenCount;
+        title += "&#13";
+        title += "Site: ";
+        title += Site != null ? Site.ToLink(false) : "UNKNOWN";
+        return title;
     }
 
     public override string ToString()
     {
-        return Name;
+        return $"the {Name} in {Site}";
     }
 
     public override string GetIcon()

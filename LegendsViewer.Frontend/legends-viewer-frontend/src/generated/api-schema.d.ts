@@ -3891,7 +3891,7 @@ export interface components {
     schemas: {
         Artifact: {
             /** Format: int32 */
-            eventCount?: number;
+            readonly eventCount?: number;
             /** Format: int32 */
             id?: number;
             name?: string | null;
@@ -3978,7 +3978,7 @@ export interface components {
         };
         DanceForm: {
             /** Format: int32 */
-            eventCount?: number;
+            readonly eventCount?: number;
             /** Format: int32 */
             id?: number;
             name?: string | null;
@@ -4000,7 +4000,7 @@ export interface components {
         DeathCause: "Unknown" | "None" | "Struck" | "OldAge" | "Thirst" | "Suffocated" | "Bled" | "Cold" | "CrushedByABridge" | "Drowned" | "Starved" | "InACage" | "Infection" | "CollidedWithAnObstacle" | "PutToRest" | "StarvedQuit" | "Trap" | "DragonsFire" | "Burned" | "Murdered" | "Shot" | "CaveIn" | "FrozenInWater" | "ExecutedGeneric" | "ExecutedFedToBeasts" | "ExecutedBurnedAlive" | "ExecutedCrucified" | "ExecutedDrowned" | "ExecutedHackedToPieces" | "ExecutedBuriedAlive" | "ExecutedBeheaded" | "DrainedBlood" | "Collapsed" | "ScaredToDeath" | "Scuttled" | "FlyingObject" | "Slaughtered" | "Melted" | "Spikes" | "Heat" | "Vanish" | "CoolingMagma" | "Vehicle" | "SuicideDrowned" | "SuicideLeaping" | "Chasm";
         Entity: {
             /** Format: int32 */
-            eventCount?: number;
+            readonly eventCount?: number;
             /** Format: int32 */
             id?: number;
             name?: string | null;
@@ -4069,7 +4069,7 @@ export interface components {
         };
         EntityPopulation: {
             /** Format: int32 */
-            eventCount?: number;
+            readonly eventCount?: number;
             /** Format: int32 */
             id?: number;
             race?: components["schemas"]["CreatureInfo"];
@@ -4104,7 +4104,7 @@ export interface components {
         HfState: "Unknown" | "None" | "Settled" | "Wandering" | "Scouting" | "Snatcher" | "Refugee" | "Thief" | "Hunting" | "Visiting";
         HistoricalFigure: {
             /** Format: int32 */
-            eventCount?: number;
+            readonly eventCount?: number;
             /** Format: int32 */
             id?: number;
             name?: string | null;
@@ -4285,7 +4285,7 @@ export interface components {
         };
         Landmass: {
             /** Format: int32 */
-            eventCount?: number;
+            readonly eventCount?: number;
             /** Format: int32 */
             id?: number;
             name?: string | null;
@@ -4312,7 +4312,7 @@ export interface components {
         MapSize: "Default" | "Small" | "Large";
         MountainPeak: {
             /** Format: int32 */
-            eventCount?: number;
+            readonly eventCount?: number;
             /** Format: int32 */
             id?: number;
             name?: string | null;
@@ -4337,7 +4337,7 @@ export interface components {
         };
         MusicalForm: {
             /** Format: int32 */
-            eventCount?: number;
+            readonly eventCount?: number;
             /** Format: int32 */
             id?: number;
             name?: string | null;
@@ -4381,7 +4381,7 @@ export interface components {
         };
         PoeticForm: {
             /** Format: int32 */
-            eventCount?: number;
+            readonly eventCount?: number;
             /** Format: int32 */
             id?: number;
             name?: string | null;
@@ -4496,7 +4496,7 @@ export interface components {
         ReputationType: "Unknown" | "EnemyFighter" | "TradePartner" | "Killer" | "Poet" | "Bard" | "Storyteller" | "Dancer" | "Friendly" | "Buddy" | "Grudge" | "Bonded" | "Quarreler" | "Psychopath" | "LoyalSoldier" | "Bully" | "Hero" | "Hunter" | "InformationSource" | "TreasureHunter" | "KnowledgePreserver" | "ProtectorOfWeak" | "Love" | "Respect" | "Trust" | "Loyalty" | "Fear" | "Comrade" | "Murderer" | "Violent" | "Flatterer";
         River: {
             /** Format: int32 */
-            eventCount?: number;
+            readonly eventCount?: number;
             /** Format: int32 */
             id?: number;
             name?: string | null;
@@ -4517,9 +4517,10 @@ export interface components {
         };
         Site: {
             /** Format: int32 */
-            eventCount?: number;
+            readonly eventCount?: number;
             /** Format: int32 */
             id?: number;
+            icon?: string | null;
             name?: string | null;
             type?: string | null;
             readonly regionToLink?: string | null;
@@ -4531,6 +4532,13 @@ export interface components {
             readonly structuresLinks?: string[] | null;
             readonly battleLinks?: string[] | null;
             readonly conqueringLinks?: string[] | null;
+            readonly raidLinks?: string[] | null;
+            readonly purgeLinks?: string[] | null;
+            readonly persecutionLinks?: string[] | null;
+            readonly insurrectionLinks?: string[] | null;
+            readonly duelLinks?: string[] | null;
+            readonly abductionLinks?: string[] | null;
+            readonly beastAttackLinks?: string[] | null;
             readonly relatedHistoricalFigureLinks?: string[] | null;
             ownerHistory?: components["schemas"]["OwnerPeriod"][] | null;
             siteProperties?: components["schemas"]["SiteProperty"][] | null;
@@ -4538,10 +4546,10 @@ export interface components {
             readonly connectionLinks?: string[] | null;
             populations?: components["schemas"]["Population"][] | null;
             officials?: components["schemas"]["Official"][] | null;
-            deaths?: string[] | null;
+            deathsByRace?: {
+                [key: string]: number;
+            } | null;
             readonly notableDeathLinks?: string[] | null;
-            readonly beastAttackLinks?: string[] | null;
-            siteMapPath?: string | null;
         };
         SiteLink: {
             readonly siteToLink?: string | null;
@@ -4606,7 +4614,7 @@ export interface components {
         };
         Structure: {
             /** Format: int32 */
-            eventCount?: number;
+            readonly eventCount?: number;
             /** Format: int32 */
             id?: number;
             name?: string | null;
@@ -4641,7 +4649,7 @@ export interface components {
         StructureType: "Unknown" | "MeadHall" | "Market" | "Keep" | "Temple" | "Dungeon" | "InnTavern" | "Tomb" | "UnderworldSpire" | "Library" | "Tower" | "CountingHouse" | "Guildhall";
         UndergroundRegion: {
             /** Format: int32 */
-            eventCount?: number;
+            readonly eventCount?: number;
             /** Format: int32 */
             id?: number;
             /** Format: int32 */
@@ -4672,7 +4680,7 @@ export interface components {
         VagueRelationshipType: "Unknown" | "WarBuddy" | "AthleteBuddy" | "ChildhoodFriend" | "PersecutionGrudge" | "SupernaturalGrudge" | "ReligiousPersecutionGrudge" | "ArtisticBuddy" | "JealousObsession" | "Grudge" | "JealousRelationshipGrudge" | "ScholarBuddy" | "BusinessRival" | "AthleticRival" | "Lover" | "FormerLover" | "Lieutenant";
         WorldConstruction: {
             /** Format: int32 */
-            eventCount?: number;
+            readonly eventCount?: number;
             /** Format: int32 */
             id?: number;
             name?: string | null;
@@ -4733,7 +4741,7 @@ export interface components {
         };
         WorldRegion: {
             /** Format: int32 */
-            eventCount?: number;
+            readonly eventCount?: number;
             /** Format: int32 */
             id?: number;
             name?: string | null;
@@ -4764,7 +4772,7 @@ export interface components {
         };
         WrittenContent: {
             /** Format: int32 */
-            eventCount?: number;
+            readonly eventCount?: number;
             /** Format: int32 */
             id?: number;
             name?: string | null;

@@ -7,7 +7,7 @@ namespace LegendsViewer.Backend.Legends.WorldObjects;
 
 public class MusicalForm : ArtForm
 {
-    public static string Icon = "<i class=\"fa fa-fw fa-music\"></i>";
+    public string Icon { get; set; } = HtmlStyleUtil.GetIconString("music-clef-treble");
 
     public MusicalForm(List<Property> properties, World world)
         : base(properties, world)
@@ -24,8 +24,8 @@ public class MusicalForm : ArtForm
             title += "Events: " + Events.Count;
 
             return pov != this
-                ? Icon + "<a href=\"musicalform#" + Id + "\" title=\"" + title + "\">" + Name + "</a>"
-                : Icon + "<a title=\"" + title + "\">" + HtmlStyleUtil.CurrentDwarfObject(Name) + "</a>";
+                ? HtmlStyleUtil.GetAnchorString(Icon, "musicalform", Id, title, Name)
+                : HtmlStyleUtil.GetAnchorCurrentString(Icon, title, HtmlStyleUtil.CurrentDwarfObject(Name));
         }
         return Name;
     }

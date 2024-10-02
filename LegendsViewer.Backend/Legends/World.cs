@@ -11,7 +11,7 @@ namespace LegendsViewer.Backend.Legends;
 
 public class World : IDisposable, IWorld
 {
-    public static readonly Dictionary<CreatureInfo, Color> MainRaces = [];
+    public readonly Dictionary<CreatureInfo, Color> MainRaces = [];
 
     public string Name { get; set; } = string.Empty;
     public string AlternativeName { get; set; } = string.Empty;
@@ -111,6 +111,7 @@ public class World : IDisposable, IWorld
         ResolveRegionProperties();
         ResolveArtifactProperties();
         ResolveArtformEventsProperties();
+        ResolveEntityIsMainCiv();
 
         GenerateCivColors();
 
@@ -133,6 +134,17 @@ public class World : IDisposable, IWorld
             .AppendLine(" ms");
     }
 
+    private void ResolveEntityIsMainCiv()
+    {
+        foreach (var entity in Entities.Where(e => e.Type == EntityType.Civilization))
+        {
+            if (!entity.IsCiv && entity.SiteHistory.Count > 0)
+            {
+                entity.IsCiv = true;
+            }
+        }
+    }
+
     public void AddPlayerRelatedDwarfObjects(DwarfObject dwarfObject)
     {
         if (dwarfObject == null)
@@ -149,7 +161,7 @@ public class World : IDisposable, IWorld
     private void GenerateCivColors()
     {
         List<Entity> civs = Entities.Where(entity => entity.IsCiv).ToList();
-        List<CreatureInfo> races = Entities.Where(entity => entity.IsCiv).GroupBy(entity => entity.Race).Select(entity => entity.Key).OrderBy(creatureInfo => creatureInfo.NamePlural).ToList();
+        List<CreatureInfo> races = civs.GroupBy(entity => entity.Race).Select(entity => entity.Key).OrderBy(creatureInfo => creatureInfo.NamePlural).ToList();
 
         //Calculates color
         //Creates a variety of colors

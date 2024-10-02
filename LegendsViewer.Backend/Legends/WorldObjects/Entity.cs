@@ -134,10 +134,10 @@ public class Entity : WorldObject, IHasCoordinates
     }
 
     public Color LineColor { get; set; }
-    public string? IdenticonString { get; set; }
-    public string? SmallIdenticonString { get; set; }
 
     private string? _icon;
+    private readonly World _world;
+
     public string Icon
     {
         get
@@ -147,26 +147,20 @@ public class Entity : WorldObject, IHasCoordinates
                 string coloredIcon;
                 if (IsCiv)
                 {
-                    coloredIcon = PrintIdenticon() + " ";
+                    coloredIcon = HtmlStyleUtil.GetCivIconString(Formatting.GetInitials(Name), ColorTranslator.ToHtml(LineColor));
                 }
-                else if (World.MainRaces.ContainsKey(Race))
+                else if (_world.MainRaces.ContainsKey(Race))
                 {
                     Color civilizedPopColor = LineColor;
                     if (civilizedPopColor == Color.Empty)
                     {
-                        civilizedPopColor = World.MainRaces.FirstOrDefault(r => r.Key == Race).Value;
+                        civilizedPopColor = _world.MainRaces.FirstOrDefault(r => r.Key == Race).Value;
                     }
-                    coloredIcon = "<span class=\"fa-stack fa-lg\" style=\"font-size:smaller;\">";
-                    coloredIcon += "<i class=\"fa fa-square fa-stack-2x\"></i>";
-                    coloredIcon += "<i class=\"fa fa-group fa-stack-1x\" style=\"color:" + ColorTranslator.ToHtml(civilizedPopColor) + ";\"></i>";
-                    coloredIcon += "</span>";
+                    coloredIcon = HtmlStyleUtil.GetIconString("account-group", ColorTranslator.ToHtml(civilizedPopColor));
                 }
                 else
                 {
-                    coloredIcon = "<span class=\"fa-stack fa-lg\" style=\"font-size:smaller;\">";
-                    coloredIcon += "<i class=\"fa fa-square fa-stack-2x\"></i>";
-                    coloredIcon += "<i class=\"fa fa-group fa-stack-1x fa-inverse\"></i>";
-                    coloredIcon += "</span>";
+                    coloredIcon = HtmlStyleUtil.GetIconString("account-multiple");
                 }
                 _icon = coloredIcon;
             }
@@ -326,6 +320,8 @@ public class Entity : WorldObject, IHasCoordinates
                     break;
             }
         }
+
+        _world = world;
     }
     public override string ToString() { return Name ?? "UNKNOWN"; }
 
@@ -379,31 +375,11 @@ public class Entity : WorldObject, IHasCoordinates
             }
             else
             {
-                Populations.Add(new Population(population.Race, population.Count));
+                Populations.Add(new Population(_world, population.Race, population.Count));
             }
         }
         Populations = Populations.OrderByDescending(pop => pop.Count).ToList();
         Parent?.AddPopulations(populations);
-    }
-
-    public string PrintIdenticon(bool fullSize = false)
-    {
-        if (IsCiv)
-        {
-            string printIdenticon = "<img src=\"data:image/gif;base64,";
-            if (fullSize)
-            {
-                printIdenticon += IdenticonString;
-            }
-            else
-            {
-                printIdenticon += SmallIdenticonString;
-            }
-
-            printIdenticon += "\" align=absmiddle />";
-            return printIdenticon;
-        }
-        return "";
     }
 
     public override string ToLink(bool link = true, DwarfObject? pov = null, WorldEvent? worldEvent = null)
@@ -411,8 +387,8 @@ public class Entity : WorldObject, IHasCoordinates
         if (link)
         {
             return pov != this
-                ? Icon + "<a href = \"entity#" + Id + "\" title=\"" + GetToolTip() + "\">" + Name + "</a>"
-                : Icon + "<a title=\"" + GetToolTip() + "\">" + HtmlStyleUtil.CurrentDwarfObject(Name) + "</a>";
+                ? HtmlStyleUtil.GetAnchorString(Icon, "entity", Id, GetToolTip(), Name)
+                : HtmlStyleUtil.GetAnchorCurrentString(Icon, GetToolTip(), HtmlStyleUtil.CurrentDwarfObject(Name));
         }
         return Name ?? "UNKNOWN";
     }

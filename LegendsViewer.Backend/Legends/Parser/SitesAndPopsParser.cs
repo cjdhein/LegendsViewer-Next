@@ -76,7 +76,7 @@ public class SitesAndPopulationsParser : IDisposable
                 string countString = _currentLine.Substring(1, _currentLine.IndexOf(" ", StringComparison.Ordinal) - 1);
                 var count = countString == "Unnumbered" ? int.MaxValue : Convert.ToInt32(countString);
 
-                _world.CivilizedPopulations.Add(new Population(population, count));
+                _world.CivilizedPopulations.Add(new Population(_world, population, count));
                 _currentLine = _sitesAndPops.ReadLine();
             }
             _world.CivilizedPopulations.AddRange(_world.CivilizedPopulations.OrderByDescending(population => population.Count));
@@ -272,7 +272,7 @@ public class SitesAndPopulationsParser : IDisposable
         {
             CreatureInfo race = _world.GetCreatureInfo(_currentLine.Substring(_currentLine.IndexOf(' ') + 1));
             int count = Convert.ToInt32(_currentLine.Substring(1, _currentLine.IndexOf(' ') - 1));
-            populations.Add(new Population(race, count));
+            populations.Add(new Population(_world, race, count));
             ReadLine();
         }
 
@@ -353,7 +353,7 @@ public class SitesAndPopulationsParser : IDisposable
             var countString = _currentLine.Substring(1, _currentLine.IndexOf(" ", StringComparison.Ordinal) - 1);
             var count = countString == "Unnumbered" ? int.MaxValue : Convert.ToInt32(countString);
 
-            _world.OutdoorPopulations.Add(new Population(population, count));
+            _world.OutdoorPopulations.Add(new Population(_world, population, count));
             _currentLine = _sitesAndPops.ReadLine();
         }
         _world.OutdoorPopulations.AddRange(_world.OutdoorPopulations.OrderByDescending(population => population.Count));
@@ -374,7 +374,7 @@ public class SitesAndPopulationsParser : IDisposable
             var countString = _currentLine.Substring(1, _currentLine.IndexOf(" ", StringComparison.Ordinal) - 1);
             var count = countString == "Unnumbered" ? int.MaxValue : Convert.ToInt32(countString);
 
-            _world.UndergroundPopulations.Add(new Population(population, count));
+            _world.UndergroundPopulations.Add(new Population(_world, population, count));
             _currentLine = _sitesAndPops.ReadLine();
         }
         _world.UndergroundPopulations.AddRange(_world.UndergroundPopulations.OrderByDescending(population => population.Count));

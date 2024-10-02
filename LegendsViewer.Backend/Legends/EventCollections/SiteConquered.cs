@@ -9,9 +9,9 @@ namespace LegendsViewer.Backend.Legends.EventCollections;
 
 public class SiteConquered : EventCollection
 {
-    public string Icon = "<i class=\"glyphicon fa-fw glyphicon-pawn\"></i>";
+    public static readonly string Icon = HtmlStyleUtil.GetIconString("chess-pawn");
 
-    public string Name { get => Formatting.AddOrdinal(Ordinal) + " " + ConquerType.GetDescription() + " of " + Site.Name; set { } }
+    public string Name { get; set; } = "";
     public int DeathCount { get => Deaths.Count; set { } }
 
     public int Ordinal { get; set; }
@@ -20,7 +20,7 @@ public class SiteConquered : EventCollection
     public Entity? Attacker { get; set; }
     public Entity? Defender { get; set; }
     public Battle? Battle { get; set; }
-    public List<HistoricalFigure> Deaths { get => GetSubEvents().OfType<HfDied>().Select(death => death.HistoricalFigure).ToList(); set { } }
+    public List<HistoricalFigure> Deaths => GetSubEvents().OfType<HfDied>().Select(death => death.HistoricalFigure).ToList();
     public SiteConquered()
     {
         Initialize();
@@ -66,24 +66,29 @@ public class SiteConquered : EventCollection
             Notable = false;
         }
 
-        Site.Warfare.Add(this);
+        Site?.Warfare.Add(this);
         if (ParentCollection is War)
         {
-            War war = ParentCollection as War;
-            war.DeathCount += Collection.OfType<HfDied>().Count();
-
-            if (Attacker == war.Attacker)
+            War? war = ParentCollection as War;
+            if (war != null)
             {
-                war.AttackerVictories.Add(this);
+                war.DeathCount += Collection.OfType<HfDied>().Count();
+            }
+
+            if (Attacker == war?.Attacker)
+            {
+                war?.AttackerVictories.Add(this);
             }
             else
             {
-                war.DefenderVictories.Add(this);
+                war?.DefenderVictories.Add(this);
             }
         }
-        Attacker.AddEventCollection(this);
-        Defender.AddEventCollection(this);
-        Site.AddEventCollection(this);
+        Attacker?.AddEventCollection(this);
+        Defender?.AddEventCollection(this);
+        Site?.AddEventCollection(this);
+
+        Name = $"{Formatting.AddOrdinal(Ordinal)} {ConquerType.GetDescription()}";
     }
 
     private void Initialize()
@@ -91,45 +96,51 @@ public class SiteConquered : EventCollection
         Ordinal = 1;
     }
 
-    public override string ToLink(bool link = true, DwarfObject pov = null, WorldEvent worldEvent = null)
+    public override string ToLink(bool link = true, DwarfObject? pov = null, WorldEvent? worldEvent = null)
     {
-        string name = "The ";
-        name += Formatting.AddOrdinal(Ordinal) + " ";
-        name += ConquerType.GetDescription() + " of " + Site.ToLink(false);
         if (link)
         {
-            string title = Type;
-            title += "&#13";
-            if (Attacker != null)
-            {
-                title += Attacker.PrintEntity(false) + " (Attacker)(V)";
-                title += "&#13";
-            }
-            if (Defender != null)
-            {
-                title += Defender.PrintEntity(false) + " (Defender)";
-            }
+            string title = GetTitle();
 
-            string linkedString = "";
-            if (pov != this)
+            string linkedString = pov != this
+                ? HtmlStyleUtil.GetAnchorString(Icon, "collection", Id, title, Name)
+                : HtmlStyleUtil.GetAnchorCurrentString(Icon, title, HtmlStyleUtil.CurrentDwarfObject(Name));
+
+            if (Site != null && pov != Site)
             {
-                linkedString = "<a href = \"collection#" + Id + "\" title=\"" + title + "\"><font color=\"6E5007\">" + name + "</font></a>";
-                if (pov != Battle)
-                {
-                    linkedString += " as a result of " + Battle.ToLink();
-                }
+                linkedString += $" in {Site.ToLink(true, this)}";
             }
-            else
+            if (pov != this && pov != Battle)
             {
-                linkedString = Icon + "<a title=\"" + title + "\">" + HtmlStyleUtil.CurrentDwarfObject(name) + "</a>";
+                linkedString += " as a result of " + Battle?.ToLink();
             }
             return linkedString;
         }
-        return name;
+        return ToString();
     }
+
+    private string GetTitle()
+    {
+        string title = Type;
+        title += "&#13";
+        if (Attacker != null)
+        {
+            title += Attacker.PrintEntity(false) + " (Attacker)(V)";
+            title += "&#13";
+        }
+        if (Defender != null)
+        {
+            title += Defender.PrintEntity(false) + " (Defender)";
+        }
+        title += "&#13";
+        title += "Site: ";
+        title += Site != null ? Site.ToLink(false) : "UNKNOWN";
+        return title;
+    }
+
     public override string ToString()
     {
-        return ToLink(false);
+        return $"the {Name} in {Site}";
     }
 
     public override string GetIcon()

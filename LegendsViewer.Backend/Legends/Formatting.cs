@@ -5,6 +5,50 @@ namespace LegendsViewer.Backend.Legends;
 
 public static class Formatting
 {
+    public static string GetInitials(string name)
+    {
+        ReadOnlySpan<char> nameSpan = name.AsSpan();
+        Span<char> initials = stackalloc char[10]; // Allocating space for initials on the stack
+        int count = 0;
+
+        string[] fillers = { "the", "of", "and", "a", "an", "in" }; // Filler words to exclude
+
+        int i = 0;
+        while (i < nameSpan.Length && count < initials.Length)
+        {
+            // Skip leading whitespace
+            while (i < nameSpan.Length && char.IsWhiteSpace(nameSpan[i]))
+                i++;
+
+            // Identify the start of a word
+            int start = i;
+            while (i < nameSpan.Length && !char.IsWhiteSpace(nameSpan[i]))
+                i++;
+
+            // Extract the word as a span and check if it's a filler
+            ReadOnlySpan<char> word = nameSpan.Slice(start, i - start);
+            if (word.Length > 0 && !IsFillerWord(word, fillers))
+            {
+                initials[count++] = char.ToUpperInvariant(word[0]);
+            }
+        }
+
+        return new string(initials[..count]);
+    }
+
+    // Function to check if a word is a filler word
+    private static bool IsFillerWord(ReadOnlySpan<char> word, string[] fillers)
+    {
+        foreach (var filler in fillers)
+        {
+            if (word.Equals(filler, StringComparison.OrdinalIgnoreCase))
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public static string InitCaps(string text)
     {
         char[] newText = new char[text.Length];

@@ -11,7 +11,7 @@ namespace LegendsViewer.Backend.Legends.WorldObjects;
 
 public class Site : WorldObject, IHasCoordinates
 {
-    public string Icon = "<i class=\"fa fa-fw fa-home\"></i>";
+    public string Icon { get; set; } = HtmlStyleUtil.GetIconString("map-marker");
 
     public string Name { get; set; }
     public string Type { get; set; }
@@ -27,27 +27,55 @@ public class Site : WorldObject, IHasCoordinates
     public bool HasStructures { get; set; }
 
     [JsonIgnore]
-    public List<Structure> Structures { get; set; }
+    public List<Structure> Structures { get; set; } = [];
     public List<string> StructuresLinks => Structures.ConvertAll(x => x.ToLink(true, this));
 
     [JsonIgnore]
-    public List<EventCollection> Warfare { get; set; }
+    public List<EventCollection> Warfare { get; set; } = [];
 
     [JsonIgnore]
-    public List<Battle> Battles { get => Warfare.OfType<Battle>().ToList(); set { } }
+    public List<Battle> Battles => Warfare.OfType<Battle>().ToList();
     public List<string> BattleLinks => Battles.ConvertAll(x => x.ToLink(true, this));
 
     [JsonIgnore]
-    public List<SiteConquered> Conquerings { get => Warfare.OfType<SiteConquered>().ToList(); set { } }
+    public List<SiteConquered> Conquerings => Warfare.OfType<SiteConquered>().ToList();
     public List<string> ConqueringLinks => Conquerings.ConvertAll(x => x.ToLink(true, this));
 
     [JsonIgnore]
-    public List<HistoricalFigure> RelatedHistoricalFigures { get; set; }
+    public List<Raid> Raids => Warfare.OfType<Raid>().ToList();
+    public List<string> RaidLinks => Raids.ConvertAll(x => x.ToLink(true, this));
+
+    [JsonIgnore]
+    public List<Purge> Purges => Warfare.OfType<Purge>().ToList();
+    public List<string> PurgeLinks => Purges.ConvertAll(x => x.ToLink(true, this));
+
+    [JsonIgnore]
+    public List<Persecution> Persecutions => Warfare.OfType<Persecution>().ToList();
+    public List<string> PersecutionLinks => Persecutions.ConvertAll(x => x.ToLink(true, this));
+
+    [JsonIgnore]
+    public List<Insurrection> Insurrections => Warfare.OfType<Insurrection>().ToList();
+    public List<string> InsurrectionLinks => Insurrections.ConvertAll(x => x.ToLink(true, this));
+
+    [JsonIgnore]
+    public List<Duel> Duels => Warfare.OfType<Duel>().ToList();
+    public List<string> DuelLinks => Duels.ConvertAll(x => x.ToLink(true, this));
+
+    [JsonIgnore]
+    public List<Abduction> Abductions => Warfare.OfType<Abduction>().ToList();
+    public List<string> AbductionLinks => Abductions.ConvertAll(x => x.ToLink(true, this));
+
+    [JsonIgnore]
+    public List<BeastAttack> BeastAttacks => Warfare.OfType<BeastAttack>().ToList();
+    public List<string> BeastAttackLinks => BeastAttacks.ConvertAll(x => x.ToLink(true, this));
+
+    [JsonIgnore]
+    public List<HistoricalFigure> RelatedHistoricalFigures { get; set; } = [];
     public List<string> RelatedHistoricalFigureLinks => RelatedHistoricalFigures.ConvertAll(x => x.ToLink(true, this));
 
-    public List<OwnerPeriod> OwnerHistory { get; set; }
+    public List<OwnerPeriod> OwnerHistory { get; set; } = [];
 
-    public List<SiteProperty> SiteProperties { get; set; }
+    public List<SiteProperty> SiteProperties { get; set; } = [];
 
     [JsonIgnore]
     public Entity? CurrentOwner
@@ -61,23 +89,51 @@ public class Site : WorldObject, IHasCoordinates
     public string? CurrentOwnerToLink => CurrentOwner?.ToLink(true, this);
 
     [JsonIgnore]
-    public List<Site> Connections { get; set; }
+    public List<Site> Connections { get; set; } = [];
     public List<string> ConnectionLinks => Connections.ConvertAll(x => x.ToLink(true, this));
 
-    public List<Population> Populations { get; set; }
+    public List<Population> Populations { get; set; } = [];
 
-    public List<Official> Officials { get; set; }
-    public List<string> Deaths
+    public List<Official> Officials { get; set; } = [];
+    public Dictionary<string, int> DeathsByRace
     {
         get
         {
-            List<string> deaths = [.. NotableDeaths.Select(death => death.Race.Id)];
+            Dictionary<string, int> deaths = [];
 
-            foreach (Battle.Squad squad in Battles.SelectMany(battle => battle.AttackerSquads.Concat(battle.DefenderSquads)).ToList())
+            foreach(var notableDeath in NotableDeaths)
             {
-                for (int i = 0; i < squad.Deaths; i++)
+                if (deaths.TryGetValue(notableDeath.Race.NamePlural, out int deathCount))
                 {
-                    deaths.Add(squad.Race.Id);
+                    deaths[notableDeath.Race.NamePlural] = deathCount++;
+                }
+                else
+                {
+                    deaths[notableDeath.Race.NamePlural] = 1;
+                }
+            }
+
+            foreach (var hfDiedEvent in Warfare.SelectMany(c => c.GetSubEvents().OfType<HfDied>()))
+            {
+                if (deaths.TryGetValue(hfDiedEvent.HistoricalFigure.Race.NamePlural, out int deathCount))
+                {
+                    deaths[hfDiedEvent.HistoricalFigure.Race.NamePlural] = deathCount++;
+                }
+                else
+                {
+                    deaths[hfDiedEvent.HistoricalFigure.Race.NamePlural] = 1;
+                }
+            }
+
+            foreach (var squad in Battles.SelectMany(battle => battle.AttackerSquads.Concat(battle.DefenderSquads)))
+            {
+                if (deaths.TryGetValue(squad.Race.NamePlural, out int deathCount))
+                {
+                    deaths[squad.Race.NamePlural] = deathCount + squad.Deaths;
+                }
+                else
+                {
+                    deaths[squad.Race.NamePlural] = squad.Deaths;
                 }
             }
 
@@ -87,12 +143,8 @@ public class Site : WorldObject, IHasCoordinates
     }
 
     [JsonIgnore]
-    public List<HistoricalFigure> NotableDeaths { get => Events.OfType<HfDied>().Select(death => death.HistoricalFigure).ToList(); set { } }
+    public List<HistoricalFigure> NotableDeaths => Events.OfType<HfDied>().Select(death => death.HistoricalFigure).ToList();
     public List<string> NotableDeathLinks => NotableDeaths.ConvertAll(x => x.ToLink(true, this));
-
-    [JsonIgnore]
-    public List<BeastAttack> BeastAttacks { get; set; }
-    public List<string> BeastAttackLinks => BeastAttacks.ConvertAll(x => x.ToLink(true, this));
 
     public class Official
     {
@@ -109,21 +161,10 @@ public class Site : WorldObject, IHasCoordinates
         }
     }
 
-    public string SiteMapPath { get; set; }
-
     public Site(List<Property> properties, World world)
         : base(properties, world)
     {
         Type = Name = UntranslatedName = "";
-        Warfare = [];
-        OwnerHistory = [];
-        Connections = [];
-        Populations = [];
-        Officials = [];
-        BeastAttacks = [];
-        Structures = [];
-        RelatedHistoricalFigures = [];
-        SiteProperties = [];
 
         foreach (Property property in properties)
         {
@@ -211,61 +252,61 @@ public class Site : WorldObject, IHasCoordinates
         switch (siteType)
         {
             case SiteType.Cave:
-                Icon = "<i class=\"fa fa-fw fa-circle\"></i>";
+                Icon = HtmlStyleUtil.GetIconString("ocarina");
                 break;
             case SiteType.Fortress:
-                Icon = "<i class=\"fa fa-fw fa-fort-awesome\"></i>";
+                Icon = HtmlStyleUtil.GetIconString("wall");
                 break;
             case SiteType.ForestRetreat:
-                Icon = "<i class=\"glyphicon fa-fw glyphicon-tree-deciduous\"></i>";
+                Icon = HtmlStyleUtil.GetIconString("tree");
                 break;
             case SiteType.DarkFortress:
-                Icon = "<i class=\"glyphicon fa-fw glyphicon-compressed fa-rotate-90\"></i>";
+                Icon = HtmlStyleUtil.GetIconString("temple-hindu");
                 break;
             case SiteType.Town:
-                Icon = "<i class=\"glyphicon fa-fw glyphicon-home\"></i>";
+                Icon = HtmlStyleUtil.GetIconString("home-group");
                 break;
             case SiteType.Hamlet:
-                Icon = "<i class=\"fa fa-fw fa-home\"></i>";
+                Icon = HtmlStyleUtil.GetIconString("barn");
                 break;
             case SiteType.Vault:
-                Icon = "<i class=\"fa fa-fw fa-key\"></i>";
+                Icon = HtmlStyleUtil.GetIconString("treasure-chest");
                 break;
             case SiteType.DarkPits:
-                Icon = "<i class=\"fa fa-fw fa-chevron-circle-down\"></i>";
+                Icon = HtmlStyleUtil.GetIconString("bacteria");
                 break;
             case SiteType.Hillocks:
-                Icon = "<i class=\"glyphicon fa-fw glyphicon-grain\"></i>";
+                Icon = HtmlStyleUtil.GetIconString("hoop-house");
                 break;
             case SiteType.Tomb:
-                Icon = "<i class=\"fa fa-fw fa-archive fa-flip-vertical\"></i>";
+                Icon = HtmlStyleUtil.GetIconString("grave-stone");
                 break;
             case SiteType.Tower:
-                Icon = "<i class=\"glyphicon fa-fw glyphicon-tower\"></i>";
+                Icon = HtmlStyleUtil.GetIconString("chess-rook");
                 break;
             case SiteType.MountainHalls:
-                Icon = "<i class=\"fa fa-fw fa-gg-circle\"></i>";
+                Icon = HtmlStyleUtil.GetIconString("stadium-variant");
                 break;
             case SiteType.Camp:
-                Icon = "<i class=\"glyphicon fa-fw glyphicon-tent\"></i>";
+                Icon = HtmlStyleUtil.GetIconString("tent");
                 break;
             case SiteType.Lair:
-                Icon = "<i class=\"fa fa-fw fa-database\"></i>";
+                Icon = HtmlStyleUtil.GetIconString("liquid-spot");
                 break;
             case SiteType.Labyrinth:
-                Icon = "<i class=\"fa fa-fw fa-ils fa-rotate-90\"></i>";
+                Icon = HtmlStyleUtil.GetIconString("floor-plan");
                 break;
             case SiteType.Shrine:
-                Icon = "<i class=\"glyphicon fa-fw glyphicon-screenshot\"></i>";
+                Icon = HtmlStyleUtil.GetIconString("pillar");
                 break;
             case SiteType.Fort:
-                Icon = "<i class=\"fa fa-fw fa-th-list fa-rotate-270\"></i>";
+                Icon = HtmlStyleUtil.GetIconString("toy-brick");
                 break;
             case SiteType.Monastery:
-                Icon = "<i class=\"fa fa-fw fa-viacoin fa-flip-vertical\"></i>";
+                Icon = HtmlStyleUtil.GetIconString("mosque");
                 break;
             case SiteType.Castle:
-                Icon = "<i class=\"fa fa-fw fa-outdent fa-rotate-90\"></i>";
+                Icon = HtmlStyleUtil.GetIconString("castle");
                 break;
         }
     }
@@ -280,19 +321,26 @@ public class Site : WorldObject, IHasCoordinates
 
     public override string ToString() { return Name; }
 
-    public override string ToLink(bool link = true, DwarfObject pov = null, WorldEvent worldEvent = null)
+    public override string ToLink(bool link = true, DwarfObject? pov = null, WorldEvent? worldEvent = null)
     {
         if (link)
         {
-            string title = Type;
-            title += "&#13";
-            title += "Events: " + Events.Count;
-
-            return pov != this
-                ? Icon + "<a href = \"site#" + Id + "\" title=\"" + title + "\">" + Name + "</a>"
-                : Icon + "<a title=\"" + title + "\">" + HtmlStyleUtil.CurrentDwarfObject(Name) + "</a>";
+            string title = GetTitle();
+            string linkedString =  pov != this
+                ? HtmlStyleUtil.GetAnchorString(Icon, "collection", Id, title, Name)
+                : HtmlStyleUtil.GetAnchorCurrentString(Icon, title, HtmlStyleUtil.CurrentDwarfObject(Name));
+            return linkedString;
         }
-        return Name;
+        return ToString();
+    }
+
+    private string GetTitle()
+    {
+        string title = Type;
+        title += "&#13";
+        title += "&#13";
+        title += "Events: " + Events.Count;
+        return title;
     }
 
     public override string GetIcon()

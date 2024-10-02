@@ -9,15 +9,15 @@ namespace LegendsViewer.Backend.Legends.WorldObjects;
 
 public class Structure : WorldObject
 {
-    public string Name { get; set; } // legends_plus.xml
-    public string AltName { get; set; } // legends_plus.xml
+    public string Name { get; set; } = "Structure";
+    public string AltName { get; set; } = "";
     public StructureType Type { get; set; } // legends_plus.xml
 
     [JsonIgnore]
-    public List<int> InhabitantIDs { get; set; } // legends_plus.xml
+    public List<int> InhabitantIDs { get; set; } = [];
 
     [JsonIgnore]
-    public List<HistoricalFigure> Inhabitants { get; set; } // legends_plus.xml
+    public List<HistoricalFigure> Inhabitants { get; set; } = [];
     public List<string> InhabitantLinks => Inhabitants.ConvertAll(x => x.ToLink(true, this));
 
     [JsonIgnore]
@@ -68,18 +68,17 @@ public class Structure : WorldObject
     public int GlobalId { get; set; }
 
     [JsonIgnore]
-    public List<int> CopiedArtifactIds { get; set; }
+    public List<int> CopiedArtifactIds { get; set; } = [];
 
     [JsonIgnore]
-    public List<Artifact> CopiedArtifacts { get; set; }
+    public List<Artifact> CopiedArtifacts { get; set; } = [];
     public List<string> CopiedArtifactLinks => CopiedArtifacts.ConvertAll(x => x.ToLink(true, this));
 
     public Structure(List<Property> properties, World world, Site site)
         : base(properties, world)
     {
         Name = "UNKNOWN STRUCTURE";
-        InhabitantIDs = [];
-        CopiedArtifactIds = [];
+        AltName = "";
         DeityId = -1;
         ReligionId = -1;
         EntityId = -1;
@@ -209,12 +208,14 @@ public class Structure : WorldObject
 
     public void Resolve(World world)
     {
-        Inhabitants = [];
         if (InhabitantIDs.Count > 0)
         {
             foreach (int inhabitantId in InhabitantIDs)
             {
-                Inhabitants.Add(world.GetHistoricalFigure(inhabitantId));
+                if (world.GetHistoricalFigure(inhabitantId) is HistoricalFigure inhabitant)
+                {
+                    Inhabitants.Add(inhabitant);
+                }
             }
         }
         if (DeityId != -1)
@@ -237,17 +238,17 @@ public class Structure : WorldObject
                 Deity.DedicatedStructures.Add(this);
             }
         }
-        CopiedArtifacts = [];
         if (CopiedArtifactIds.Count > 0)
         {
             foreach (int copiedArtifactId in CopiedArtifactIds)
             {
-                CopiedArtifacts.Add(world.GetArtifact(copiedArtifactId));
+                if(world.GetArtifact(copiedArtifactId) is Artifact artifact)
+                {
+                    CopiedArtifacts.Add(artifact);
+                }
             }
         }
     }
-
-    public override string ToString() { return Name; }
 
     public override string ToLink(bool link = true, DwarfObject? pov = null, WorldEvent? worldEvent = null)
     {
@@ -272,6 +273,8 @@ public class Structure : WorldObject
         }
         return Icon + Name;
     }
+
+    public override string ToString() { return Name; }
 
     public override string GetIcon()
     {

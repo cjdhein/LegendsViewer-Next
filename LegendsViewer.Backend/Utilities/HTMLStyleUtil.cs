@@ -1,4 +1,5 @@
 ﻿using System.Drawing;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace LegendsViewer.Backend.Utilities;
 
@@ -13,14 +14,29 @@ public static class HtmlStyleUtil
         return $"<span class=\"legends_current_dwarfobject\">{name}</span>";
     }
 
-    public static string GetIconString(string icon)
+    public static string GetIconString(string icon, string? color = null)
     {
-        return $"<i class=\"mdi-{icon} mdi v-icon notranslate v-theme--dark v-icon--size-default\" aria-hidden=\"true\"></i>";
+        string colorString = "";
+        if (color != null)
+        {
+            colorString = $"style=\"color:{color}\"";
+        }
+        return $"<i {colorString} class=\"mdi-{icon} mdi v-icon notranslate v-theme--dark v-icon--size-default\" aria-hidden=\"true\"></i>";
+    }
+
+    public static string GetCivIconString(string text, string color)
+    {
+        return $"<div style=\"background-color:{color}\" class=\"v-avatar v-theme--dark v-avatar--density-default v-avatar--size-default v-avatar--variant-flat\"><span class=\"text-h6\">{text}</span><!----><span class=\"v-avatar__underlay\"></span></div>";
     }
 
     public static string GetAnchorString(string iconString, string type, int id, string title, string text)
     {
-        return $"{iconString} <a href=\"{type}/{id}\" title=\"{title}\">{text}</a>";
+        return $"{iconString} <a href=\"/{type}/{id}\" title=\"{title}\">{text}</a>";
+    }
+
+    internal static string GetAnchorCurrentString(string iconString, string title, string text)
+    {
+        return $"{iconString} <a title=\"{title}\">{text}</a>";
     }
 
     /// <summary>

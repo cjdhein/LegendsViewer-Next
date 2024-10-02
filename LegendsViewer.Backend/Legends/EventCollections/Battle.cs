@@ -10,14 +10,14 @@ namespace LegendsViewer.Backend.Legends.EventCollections;
 
 public class Battle : EventCollection
 {
-    public static readonly string Icon = "<i class=\"glyphicon fa-fw glyphicon-bishop\"></i>";
+    public static readonly string Icon = HtmlStyleUtil.GetIconString("chess-bishop");
 
-    public string Name { get; set; }
+    public string Name { get; set; } = string.Empty;
     public BattleOutcome Outcome { get; set; }
-    public Location Coordinates { get; set; }
-    public Site Site { get; set; }
+    public Location? Coordinates { get; set; }
+    public Site? Site { get; set; }
 
-    public WorldRegion Region
+    public WorldRegion? Region
     {
         get
         {
@@ -30,28 +30,29 @@ public class Battle : EventCollection
         set => _region = value;
     }
 
-    public UndergroundRegion UndergroundRegion { get; set; }
-    public SiteConquered Conquering { get; set; }
-    public Entity Attacker { get; set; }
-    public Entity Defender { get; set; }
-    public Entity Victor { get; set; }
-    public List<Squad> Attackers { get; set; }
-    public List<Squad> Defenders { get; set; }
-    public List<HistoricalFigure> NotableAttackers { get; set; }
-    public List<HistoricalFigure> NotableDefenders { get; set; }
-    public List<HistoricalFigure> NonCombatants { get; set; }
-    public List<Squad> AttackerSquads { get; set; }
-    public List<Squad> DefenderSquads { get; set; }
-    public int AttackerCount { get => NotableAttackers.Count + AttackerSquads.Sum(squad => squad.Numbers); set { } }
-    public int DefenderCount { get => NotableDefenders.Count + DefenderSquads.Sum(squad => squad.Numbers); set { } }
-    public int AttackersRemainingCount { get => Attackers.Sum(squad => squad.Numbers - squad.Deaths); set { } }
-    public int DefendersRemainingCount { get => Defenders.Sum(squad => squad.Numbers - squad.Deaths); set { } }
-    public int DeathCount { get => AttackerDeathCount + DefenderDeathCount; set { } }
-    public Dictionary<CreatureInfo, int> Deaths { get; set; }
-    public List<HistoricalFigure> NotableDeaths => NotableAttackers.Where(attacker => GetSubEvents().OfType<HfDied>()
-                                                                     .Count(death => death.HistoricalFigure == attacker) > 0)
-                .Concat(NotableDefenders.Where(defender => GetSubEvents().OfType<HfDied>().Count(death => death.HistoricalFigure == defender) > 0))
-                .ToList();
+    public UndergroundRegion? UndergroundRegion { get; set; }
+    public SiteConquered? Conquering { get; set; }
+    public Entity? Attacker { get; set; }
+    public Entity? Defender { get; set; }
+    public Entity? Victor { get; set; }
+    public List<Squad> Attackers { get; set; } = [];
+    public List<Squad> Defenders { get; set; } = [];
+    public List<HistoricalFigure> NotableAttackers { get; set; } = [];
+    public List<HistoricalFigure> NotableDefenders { get; set; } = [];
+    public List<HistoricalFigure> NonCombatants { get; set; } = [];
+    public List<Squad> AttackerSquads { get; set; } = [];
+    public List<Squad> DefenderSquads { get; set; } = [];
+    public int AttackerCount => NotableAttackers.Count + AttackerSquads.Sum(squad => squad.Numbers);
+    public int DefenderCount => NotableDefenders.Count + DefenderSquads.Sum(squad => squad.Numbers);
+    public int AttackersRemainingCount => Attackers.Sum(squad => squad.Numbers - squad.Deaths);
+    public int DefendersRemainingCount => Defenders.Sum(squad => squad.Numbers - squad.Deaths);
+    public int DeathCount => AttackerDeathCount + DefenderDeathCount;
+    public Dictionary<CreatureInfo, int> Deaths { get; set; } = [];
+    public List<HistoricalFigure> NotableDeaths => NotableAttackers
+        .Where(attacker => GetSubEvents().OfType<HfDied>()
+        .Count(death => death.HistoricalFigure == attacker) > 0)
+        .Concat(NotableDefenders.Where(defender => GetSubEvents().OfType<HfDied>().Count(death => death.HistoricalFigure == defender) > 0))
+        .ToList();
     public int AttackerDeathCount { get; set; }
     public int DefenderDeathCount { get; set; }
     public double AttackersToDefenders
@@ -85,22 +86,20 @@ public class Battle : EventCollection
 
     public bool IndividualMercenaries { get; set; }
     public bool CompanyMercenaries { get; set; }
-    public Entity AttackingMercenaryEntity { get; set; }
-    public Entity DefendingMercenaryEntity { get; set; }
+    public Entity? AttackingMercenaryEntity { get; set; }
+    public Entity? DefendingMercenaryEntity { get; set; }
     public bool AttackingSquadAnimated { get; set; }
     public bool DefendingSquadAnimated { get; set; }
-    public List<Entity> AttackerSupportMercenaryEntities { get; set; }
-    public List<Entity> DefenderSupportMercenaryEntities { get; set; }
-    public List<HistoricalFigure> AttackerSupportMercenaryHfs { get; set; }
-    public List<HistoricalFigure> DefenderSupportMercenaryHfs { get; set; }
+    public List<Entity> AttackerSupportMercenaryEntities { get; set; } = [];
+    public List<Entity> DefenderSupportMercenaryEntities { get; set; } = [];
+    public List<HistoricalFigure> AttackerSupportMercenaryHfs { get; set; } = [];
+    public List<HistoricalFigure> DefenderSupportMercenaryHfs { get; set; } = [];
 
-    private WorldRegion _region;
+    private WorldRegion? _region;
 
     public Battle(List<Property> properties, World world)
         : base(properties, world)
     {
-        Initialize();
-
         var attackerSquadRaces = new List<CreatureInfo>();
         var attackerSquadEntityPopulation = new List<int>();
         var attackerSquadNumbers = new List<int>();
@@ -309,8 +308,6 @@ public class Battle : EventCollection
                 parentWar.DefenderVictories.Add(this);
             }
         }
-
-        Site?.Warfare.Add(this);
         Region?.Battles.Add(this);
         UndergroundRegion?.Battles.Add(this);
 
@@ -325,35 +322,16 @@ public class Battle : EventCollection
         {
             Notable = false;
         }
-        Attacker.AddEventCollection(this);
+        Attacker?.AddEventCollection(this);
         if (Defender != Attacker)
         {
-            Defender.AddEventCollection(this);
+            Defender?.AddEventCollection(this);
         }
-        Region.AddEventCollection(this);
-        UndergroundRegion.AddEventCollection(this);
-        Site.AddEventCollection(this);
-    }
+        Region?.AddEventCollection(this);
+        UndergroundRegion?.AddEventCollection(this);
+        Site?.AddEventCollection(this);
 
-    private void Initialize()
-    {
-        Name = "";
-        Outcome = BattleOutcome.Unknown;
-        Coordinates = new Location(0, 0);
-        AttackerDeathCount = 0;
-        DefenderDeathCount = 0;
-
-        NotableAttackers = [];
-        NotableDefenders = [];
-        AttackerSquads = [];
-        DefenderSquads = [];
-        Attackers = [];
-        Defenders = [];
-        NonCombatants = [];
-        AttackerSupportMercenaryEntities = [];
-        DefenderSupportMercenaryEntities = [];
-        AttackerSupportMercenaryHfs = [];
-        DefenderSupportMercenaryHfs = [];
+        Site?.Warfare.Add(this);
     }
 
     public class Squad
@@ -374,38 +352,44 @@ public class Battle : EventCollection
         }
     }
 
-    public override string ToLink(bool link = true, DwarfObject pov = null, WorldEvent worldEvent = null)
+    public override string ToLink(bool link = true, DwarfObject? pov = null, WorldEvent? worldEvent = null)
     {
         if (link)
         {
-            string title = Type;
-            title += "&#13";
-            title += Attacker != null ? Attacker.PrintEntity(false) : "UNKNOWN";
-            title += " (Attacker)";
-            if (Victor == Attacker)
-            {
-                title += "(V)";
-            }
-
-            title += "&#13";
-            title += "Kills: " + DefenderDeathCount;
-            title += "&#13";
-            title += Defender != null ? Defender.PrintEntity(false) : "UNKNOWN";
-            title += " (Defender)";
-            if (Victor == Defender)
-            {
-                title += "(V)";
-            }
-
-            title += "&#13";
-            title += "Kills: " + AttackerDeathCount;
+            string title = GetTitle();
 
             string linkedString = pov != this
-                ? Icon + "<a href = \"collection#" + Id + "\" title=\"" + title + "\"><font color=\"#6E5007\">" + Name + "</font></a>"
-                : Icon + "<a title=\"" + title + "\">" + HtmlStyleUtil.CurrentDwarfObject(Name) + "</a>";
+                ? HtmlStyleUtil.GetAnchorString(Icon, "collection", Id, title, Name)
+                : HtmlStyleUtil.GetAnchorCurrentString(Icon, title, HtmlStyleUtil.CurrentDwarfObject(Name));
             return linkedString;
         }
         return Name;
+    }
+
+    private string GetTitle()
+    {
+        string title = Type;
+        title += "&#13";
+        title += Attacker != null ? Attacker.PrintEntity(false) : "UNKNOWN";
+        title += " (Attacker)";
+        if (Victor == Attacker)
+        {
+            title += "(V)";
+        }
+
+        title += "&#13";
+        title += "Kills: " + DefenderDeathCount;
+        title += "&#13";
+        title += Defender != null ? Defender.PrintEntity(false) : "UNKNOWN";
+        title += " (Defender)";
+        if (Victor == Defender)
+        {
+            title += "(V)";
+        }
+
+        title += "&#13";
+        title += "Kills: " + AttackerDeathCount;
+        return title;
     }
 
     public override string ToString()

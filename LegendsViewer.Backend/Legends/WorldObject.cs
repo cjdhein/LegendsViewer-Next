@@ -12,7 +12,7 @@ public abstract class WorldObject : DwarfObject
     public List<WorldEvent> Events { get; set; }
     [JsonIgnore]
     public List<EventCollection> EventCollectons { get; set; }
-    public int EventCount { get => Events.Count; set { } }
+    public int EventCount => Events.Count;
     public int Id { get; set; }
 
     protected WorldObject()
