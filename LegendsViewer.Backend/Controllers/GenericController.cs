@@ -1,4 +1,5 @@
 ﻿using LegendsViewer.Backend.Contracts;
+using LegendsViewer.Backend.Extensions;
 using LegendsViewer.Backend.Legends;
 using Microsoft.AspNetCore.Mvc;
 
@@ -70,7 +71,12 @@ public abstract class GenericController<T>(List<T> allElements, Func<int, T?> ge
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public ActionResult<PaginatedResponse<WorldEventDto>> GetEvents([FromRoute] int id, int pageNumber = 1, int pageSize = DefaultPageSize)
+    public ActionResult<PaginatedResponse<WorldEventDto>> GetEvents(
+        [FromRoute] int id,
+        [FromQuery] int pageNumber = 1,
+        [FromQuery] int pageSize = DefaultPageSize,
+        [FromQuery] string? sortKey = null,
+        [FromQuery] string? sortOrder = null)
     {
         WorldObject? item = GetById(id);
         if (item == null)
@@ -89,9 +95,10 @@ public abstract class GenericController<T>(List<T> allElements, Func<int, T?> ge
 
         // Calculate how many elements to skip based on the page number and size
         var paginatedElements = item.Events
+            .Select(e => new WorldEventDto(e, item))
+            .SortByProperty(sortKey, sortOrder)
             .Skip((pageNumber - 1) * pageSize)
             .Take(pageSize)
-            .Select(e => new WorldEventDto(e, item))
             .ToList();
 
         // Create a response object to include pagination metadata

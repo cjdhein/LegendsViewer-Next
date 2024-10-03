@@ -325,9 +325,9 @@ public class Entity : WorldObject, IHasCoordinates
     }
     public override string ToString() { return Name ?? "UNKNOWN"; }
 
-    public bool EqualsOrParentEquals(Entity entity)
+    public bool EqualsOrParentEquals(Entity? entity)
     {
-        return this == entity || Parent == entity;
+        return entity != null && (this == entity || Parent == entity);
     }
 
     public string PrintEntity(bool link = true, DwarfObject? pov = null)

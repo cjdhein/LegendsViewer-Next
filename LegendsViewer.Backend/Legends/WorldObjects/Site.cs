@@ -1,5 +1,7 @@
 ﻿using System.Drawing;
 using System.Text.Json.Serialization;
+using LegendsViewer.Backend.Contracts;
+using LegendsViewer.Backend.Extensions;
 using LegendsViewer.Backend.Legends.Enums;
 using LegendsViewer.Backend.Legends.EventCollections;
 using LegendsViewer.Backend.Legends.Events;
@@ -11,6 +13,8 @@ namespace LegendsViewer.Backend.Legends.WorldObjects;
 
 public class Site : WorldObject, IHasCoordinates
 {
+    private readonly World _world;
+
     public string Icon { get; set; } = HtmlStyleUtil.GetIconString("map-marker");
 
     public string Name { get; set; }
@@ -95,51 +99,55 @@ public class Site : WorldObject, IHasCoordinates
     public List<Population> Populations { get; set; } = [];
 
     public List<Official> Officials { get; set; } = [];
-    public Dictionary<string, int> DeathsByRace
+    public ChartDataDto DeathsByRace
     {
         get
         {
-            Dictionary<string, int> deaths = [];
+            Dictionary<CreatureInfo, int> deaths = [];
 
             foreach(var notableDeath in NotableDeaths)
             {
-                if (deaths.TryGetValue(notableDeath.Race.NamePlural, out int deathCount))
+                if (deaths.TryGetValue(notableDeath.Race, out int deathCount))
                 {
-                    deaths[notableDeath.Race.NamePlural] = deathCount++;
+                    deaths[notableDeath.Race] = ++deathCount;
                 }
                 else
                 {
-                    deaths[notableDeath.Race.NamePlural] = 1;
-                }
-            }
-
-            foreach (var hfDiedEvent in Warfare.SelectMany(c => c.GetSubEvents().OfType<HfDied>()))
-            {
-                if (deaths.TryGetValue(hfDiedEvent.HistoricalFigure.Race.NamePlural, out int deathCount))
-                {
-                    deaths[hfDiedEvent.HistoricalFigure.Race.NamePlural] = deathCount++;
-                }
-                else
-                {
-                    deaths[hfDiedEvent.HistoricalFigure.Race.NamePlural] = 1;
+                    deaths[notableDeath.Race] = 1;
                 }
             }
 
             foreach (var squad in Battles.SelectMany(battle => battle.AttackerSquads.Concat(battle.DefenderSquads)))
             {
-                if (deaths.TryGetValue(squad.Race.NamePlural, out int deathCount))
+                if (deaths.TryGetValue(squad.Race, out int deathCount))
                 {
-                    deaths[squad.Race.NamePlural] = deathCount + squad.Deaths;
+                    deaths[squad.Race] = deathCount + squad.Deaths;
                 }
                 else
                 {
-                    deaths[squad.Race.NamePlural] = squad.Deaths;
+                    deaths[squad.Race] = squad.Deaths;
                 }
             }
-
-            return deaths;
+            ChartDataDto deathsByRace = new();
+            ChartDatasetDto deathsByRaceDataset = new();
+            foreach (var death in deaths)
+            {
+                deathsByRace.Labels.Add(death.Key.NamePlural);
+                deathsByRaceDataset.Data.Add(death.Value);
+                if (_world.MainRaces.TryGetValue(death.Key, out var raceColor))
+                {
+                    deathsByRaceDataset.BorderColor.Add(raceColor.ToRgbaString());
+                    deathsByRaceDataset.BackgroundColor.Add(raceColor.ToRgbaString(0.2f));
+                }
+                else
+                {
+                    deathsByRaceDataset.BorderColor.Add(Color.SlateGray.ToRgbaString());
+                    deathsByRaceDataset.BackgroundColor.Add(Color.SlateGray.ToRgbaString(0.2f));
+                }
+            }
+            deathsByRace.Datasets.Add(deathsByRaceDataset);
+            return deathsByRace;
         }
-        set { }
     }
 
     [JsonIgnore]
@@ -245,6 +253,7 @@ public class Site : WorldObject, IHasCoordinates
             }
         }
         SetIconByType(SiteType);
+        _world = world;
     }
 
     private void SetIconByType(SiteType siteType)

@@ -8,9 +8,9 @@ namespace LegendsViewer.Backend.Legends.EventCollections;
 
 public class War : EventCollection
 {
-    public static readonly string Icon = "<i class=\"glyphicon fa-fw glyphicon-queen\"></i>";
+    public static readonly string Icon = HtmlStyleUtil.GetIconString("sword-cross");
 
-    public string Name { get; set; }
+    public string Name { get; set; } = default!;
     public int Length { get; set; }
     public int DeathCount { get; set; }
     private readonly Dictionary<CreatureInfo, int> _deaths = [];
@@ -41,20 +41,33 @@ public class War : EventCollection
     }
     public int AttackerDeathCount { get; set; }
     public int DefenderDeathCount { get; set; }
-    public Entity Attacker { get; set; }
-    public Entity Defender { get; set; }
-    public List<Battle> Battles { get => Collections.OfType<Battle>().ToList(); set { } }
-    public List<SiteConquered> Conquerings { get => Collections.OfType<SiteConquered>().ToList(); set { } }
-    public List<Site> SitesLost { get => Conquerings.Where(conquering => conquering.ConquerType == SiteConqueredType.Conquest || conquering.ConquerType == SiteConqueredType.Destruction).Select(conquering => conquering.Site).ToList(); set { } }
-    public List<Site> AttackerSitesLost { get => DefenderConquerings.Where(conquering => conquering.ConquerType == SiteConqueredType.Conquest || conquering.ConquerType == SiteConqueredType.Destruction).Select(conquering => conquering.Site).ToList(); set { } }
-    public List<Site> DefenderSitesLost { get => AttackerConquerings.Where(conquering => conquering.ConquerType == SiteConqueredType.Conquest || conquering.ConquerType == SiteConqueredType.Destruction).Select(conquering => conquering.Site).ToList(); set { } }
-    public List<EventCollection> AttackerVictories { get; set; }
-    public List<EventCollection> DefenderVictories { get; set; }
-    public List<Battle> AttackerBattleVictories { get => Collections.OfType<Battle>().Where(battle => battle.Victor.EqualsOrParentEquals(Attacker)).ToList(); set { } }
-    public List<Battle> DefenderBattleVictories { get => Collections.OfType<Battle>().Where(battle => battle.Victor.EqualsOrParentEquals(Defender)).ToList(); set { } }
-    public List<Battle> ErrorBattles { get => Collections.OfType<Battle>().Where(battle => !battle.Attacker.EqualsOrParentEquals(Attacker) && !battle.Attacker.EqualsOrParentEquals(Defender) || !battle.Defender.EqualsOrParentEquals(Defender) && !battle.Defender.EqualsOrParentEquals(Attacker)).ToList(); set { } }
-    public List<SiteConquered> AttackerConquerings { get => Collections.OfType<SiteConquered>().Where(conquering => conquering.Attacker.EqualsOrParentEquals(Attacker)).ToList(); set { } }
-    public List<SiteConquered> DefenderConquerings { get => Collections.OfType<SiteConquered>().Where(conquering => conquering.Attacker.EqualsOrParentEquals(Defender)).ToList(); set { } }
+    public Entity? Attacker { get; set; }
+    public Entity? Defender { get; set; }
+    public List<Battle> Battles => Collections.OfType<Battle>().ToList();
+    public List<SiteConquered> Conquerings => Collections.OfType<SiteConquered>().ToList();
+    public List<Site?> SitesLost => Conquerings
+        .Where(conquering => conquering.ConquerType == SiteConqueredType.Conquest || conquering.ConquerType == SiteConqueredType.Destruction)
+        .Select(conquering => conquering.Site)
+        .ToList();
+    public List<Site?> AttackerSitesLost => DefenderConquerings
+        .Where(conquering => conquering.ConquerType == SiteConqueredType.Conquest || conquering.ConquerType == SiteConqueredType.Destruction)
+        .Select(conquering => conquering.Site)
+        .ToList();
+    public List<Site?> DefenderSitesLost => AttackerConquerings
+        .Where(conquering => conquering.ConquerType == SiteConqueredType.Conquest || conquering.ConquerType == SiteConqueredType.Destruction)
+        .Select(conquering => conquering.Site)
+        .ToList();
+    public List<EventCollection> AttackerVictories { get; set; } = [];
+    public List<EventCollection> DefenderVictories { get; set; } = [];
+    public List<Battle> AttackerBattleVictories => Collections.OfType<Battle>().Where(battle => battle.Victor?.EqualsOrParentEquals(Attacker) ?? false).ToList();
+    public List<Battle> DefenderBattleVictories => Collections.OfType<Battle>().Where(battle => battle.Victor?.EqualsOrParentEquals(Defender) ?? false).ToList();
+    public List<Battle> ErrorBattles => Collections.OfType<Battle>()
+        .Where(battle =>
+            (!battle.Attacker?.EqualsOrParentEquals(Attacker) ?? false) && (!battle.Attacker?.EqualsOrParentEquals(Defender) ?? false) ||
+            (!battle.Defender?.EqualsOrParentEquals(Defender) ?? false) && (!battle.Defender?.EqualsOrParentEquals(Attacker) ?? false))
+        .ToList();
+    public List<SiteConquered> AttackerConquerings => Collections.OfType<SiteConquered>().Where(conquering => conquering.Attacker?.EqualsOrParentEquals(Attacker) ?? false).ToList();
+    public List<SiteConquered> DefenderConquerings => Collections.OfType<SiteConquered>().Where(conquering => conquering.Attacker?.EqualsOrParentEquals(Defender) ?? false).ToList();
     public double AttackerToDefenderKills
     {
         get
@@ -66,7 +79,6 @@ public class War : EventCollection
 
             return AttackerDeathCount == 0 ? double.MaxValue : Math.Round(DefenderDeathCount / Convert.ToDouble(AttackerDeathCount), 2);
         }
-        set { }
     }
     public double AttackerToDefenderVictories
     {
@@ -81,7 +93,6 @@ public class War : EventCollection
                 ? double.MaxValue
                 : Math.Round(AttackerBattleVictories.Count / Convert.ToDouble(DefenderBattleVictories.Count), 2);
         }
-        set { }
     }
 
     public War()
@@ -103,11 +114,11 @@ public class War : EventCollection
             }
         }
 
-        Defender.Wars.Add(this);
-        Defender.Parent?.Wars.Add(this);
+        Defender?.Wars.Add(this);
+        Defender?.Parent?.Wars.Add(this);
 
-        Attacker.Wars.Add(this);
-        Attacker.Parent?.Wars.Add(this);
+        Attacker?.Wars.Add(this);
+        Attacker?.Parent?.Wars.Add(this);
 
         if (EndYear >= 0)
         {
@@ -117,10 +128,10 @@ public class War : EventCollection
         {
             Length = world.Events.Last().Year - StartYear;
         }
-        Attacker.AddEventCollection(this);
+        Attacker?.AddEventCollection(this);
         if (Defender != Attacker)
         {
-            Defender.AddEventCollection(this);
+            Defender?.AddEventCollection(this);
         }
     }
 
@@ -137,21 +148,21 @@ public class War : EventCollection
         DefenderVictories = [];
     }
 
-    public override string ToLink(bool link = true, DwarfObject pov = null, WorldEvent worldEvent = null)
+    public override string ToLink(bool link = true, DwarfObject? pov = null, WorldEvent? worldEvent = null)
     {
         if (link)
         {
             string title = Type;
             title += "&#13";
-            title += Attacker.PrintEntity(false) + " (Attacker)";
+            title += Attacker?.PrintEntity(false) + " (Attacker)";
             title += "&#13";
-            title += Defender.PrintEntity(false) + " (Defender)";
+            title += Defender?.PrintEntity(false) + " (Defender)";
             title += "&#13";
             title += "Deaths: " + DeathCount + " | (" + StartYear + " - " + (EndYear == -1 ? "Present" : EndYear.ToString()) + ")";
 
             string linkedString = pov != this
-                ? Icon + "<a href = \"collection#" + Id + "\" title=\"" + title + "\"><font color=\"#6E5007\">" + Name + "</font></a>"
-                : Icon + "<a title=\"" + title + "\">" + HtmlStyleUtil.CurrentDwarfObject(Name) + "</a>";
+                ? HtmlStyleUtil.GetAnchorString(Icon, "collection", Id, title, Name)
+                : HtmlStyleUtil.GetAnchorCurrentString(Icon, title, HtmlStyleUtil.CurrentDwarfObject(Name));
             return linkedString;
         }
         return Name;

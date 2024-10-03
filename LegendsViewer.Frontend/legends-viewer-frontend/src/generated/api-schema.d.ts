@@ -154,6 +154,8 @@ export interface paths {
                 query?: {
                     pageNumber?: number;
                     pageSize?: number;
+                    sortKey?: string;
+                    sortOrder?: string;
                 };
                 header?: never;
                 path: {
@@ -567,6 +569,8 @@ export interface paths {
                 query?: {
                     pageNumber?: number;
                     pageSize?: number;
+                    sortKey?: string;
+                    sortOrder?: string;
                 };
                 header?: never;
                 path: {
@@ -769,6 +773,8 @@ export interface paths {
                 query?: {
                     pageNumber?: number;
                     pageSize?: number;
+                    sortKey?: string;
+                    sortOrder?: string;
                 };
                 header?: never;
                 path: {
@@ -1008,6 +1014,8 @@ export interface paths {
                 query?: {
                     pageNumber?: number;
                     pageSize?: number;
+                    sortKey?: string;
+                    sortOrder?: string;
                 };
                 header?: never;
                 path: {
@@ -1337,6 +1345,8 @@ export interface paths {
                 query?: {
                     pageNumber?: number;
                     pageSize?: number;
+                    sortKey?: string;
+                    sortOrder?: string;
                 };
                 header?: never;
                 path: {
@@ -1539,6 +1549,8 @@ export interface paths {
                 query?: {
                     pageNumber?: number;
                     pageSize?: number;
+                    sortKey?: string;
+                    sortOrder?: string;
                 };
                 header?: never;
                 path: {
@@ -1741,6 +1753,8 @@ export interface paths {
                 query?: {
                     pageNumber?: number;
                     pageSize?: number;
+                    sortKey?: string;
+                    sortOrder?: string;
                 };
                 header?: never;
                 path: {
@@ -1943,6 +1957,8 @@ export interface paths {
                 query?: {
                     pageNumber?: number;
                     pageSize?: number;
+                    sortKey?: string;
+                    sortOrder?: string;
                 };
                 header?: never;
                 path: {
@@ -2145,6 +2161,8 @@ export interface paths {
                 query?: {
                     pageNumber?: number;
                     pageSize?: number;
+                    sortKey?: string;
+                    sortOrder?: string;
                 };
                 header?: never;
                 path: {
@@ -2347,6 +2365,8 @@ export interface paths {
                 query?: {
                     pageNumber?: number;
                     pageSize?: number;
+                    sortKey?: string;
+                    sortOrder?: string;
                 };
                 header?: never;
                 path: {
@@ -2549,6 +2569,8 @@ export interface paths {
                 query?: {
                     pageNumber?: number;
                     pageSize?: number;
+                    sortKey?: string;
+                    sortOrder?: string;
                 };
                 header?: never;
                 path: {
@@ -2751,6 +2773,8 @@ export interface paths {
                 query?: {
                     pageNumber?: number;
                     pageSize?: number;
+                    sortKey?: string;
+                    sortOrder?: string;
                 };
                 header?: never;
                 path: {
@@ -2953,6 +2977,8 @@ export interface paths {
                 query?: {
                     pageNumber?: number;
                     pageSize?: number;
+                    sortKey?: string;
+                    sortOrder?: string;
                 };
                 header?: never;
                 path: {
@@ -3155,6 +3181,8 @@ export interface paths {
                 query?: {
                     pageNumber?: number;
                     pageSize?: number;
+                    sortKey?: string;
+                    sortOrder?: string;
                 };
                 header?: never;
                 path: {
@@ -3833,6 +3861,8 @@ export interface paths {
                 query?: {
                     pageNumber?: number;
                     pageSize?: number;
+                    sortKey?: string;
+                    sortOrder?: string;
                 };
                 header?: never;
                 path: {
@@ -3894,6 +3924,7 @@ export interface components {
             readonly eventCount?: number;
             /** Format: int32 */
             id?: number;
+            icon?: string | null;
             name?: string | null;
             item?: string | null;
             readonly creatorLink?: string | null;
@@ -3947,6 +3978,16 @@ export interface components {
         };
         /** @enum {string} */
         BookmarkState: "Default" | "Loading" | "Loaded";
+        ChartDataDto: {
+            labels?: string[] | null;
+            datasets?: components["schemas"]["ChartDatasetDto"][] | null;
+        };
+        ChartDatasetDto: {
+            label?: string | null;
+            data?: number[] | null;
+            borderColor?: string[] | null;
+            backgroundColor?: string[] | null;
+        };
         Color: {
             /** Format: int32 */
             readonly r?: number;
@@ -3984,6 +4025,7 @@ export interface components {
             name?: string | null;
             description?: string | null;
             formType?: components["schemas"]["FormType"];
+            icon?: string | null;
         };
         DanceFormPaginatedResponse: {
             items?: components["schemas"]["DanceForm"][] | null;
@@ -4038,8 +4080,6 @@ export interface components {
             /** Format: double */
             readonly warKillDeathRatio?: number;
             lineColor?: components["schemas"]["Color"];
-            identiconString?: string | null;
-            smallIdenticonString?: string | null;
             icon?: string | null;
         };
         EntityLink: {
@@ -4343,6 +4383,7 @@ export interface components {
             name?: string | null;
             description?: string | null;
             formType?: components["schemas"]["FormType"];
+            icon?: string | null;
         };
         MusicalFormPaginatedResponse: {
             items?: components["schemas"]["MusicalForm"][] | null;
@@ -4387,6 +4428,7 @@ export interface components {
             name?: string | null;
             description?: string | null;
             formType?: components["schemas"]["FormType"];
+            icon?: string | null;
         };
         PoeticFormPaginatedResponse: {
             items?: components["schemas"]["PoeticForm"][] | null;
@@ -4546,9 +4588,7 @@ export interface components {
             readonly connectionLinks?: string[] | null;
             populations?: components["schemas"]["Population"][] | null;
             officials?: components["schemas"]["Official"][] | null;
-            deathsByRace?: {
-                [key: string]: number;
-            } | null;
+            deathsByRace?: components["schemas"]["ChartDataDto"];
             readonly notableDeathLinks?: string[] | null;
         };
         SiteLink: {
@@ -4744,6 +4784,7 @@ export interface components {
             readonly eventCount?: number;
             /** Format: int32 */
             id?: number;
+            icon?: string | null;
             name?: string | null;
             /** Format: int32 */
             depth?: number | null;

@@ -9,7 +9,9 @@ namespace LegendsViewer.Backend.Legends.WorldObjects;
 
 public class WrittenContent : WorldObject
 {
-    private string _name;
+    public static readonly string Icon = HtmlStyleUtil.GetIconString("bookshelf");
+
+    private string _name = default!;
     public string Name
     {
         get
@@ -33,20 +35,16 @@ public class WrittenContent : WorldObject
     [JsonIgnore]
     public HistoricalFigure? Author { get; set; } // legends_plus.xml
     public int AuthorId { get; set; } // legends_plus.xml
-    public List<string> Styles { get; set; } // legends_plus.xml
-    public List<Reference> References { get; set; } // legends_plus.xml
-    public string TypeAsString { get => Type.GetDescription(); set { } }
-    public int PageCount { get => PageEnd - PageStart + 1; set { } }
+    public List<string> Styles { get; set; } = [];
+    public List<Reference> References { get; set; } = [];
+    public string TypeAsString => Type.GetDescription();
+    public int PageCount => PageEnd - PageStart + 1;
     public int AuthorRoll { get; set; }
     public int FormId { get; set; }
-
-    public static string Icon = "<i class=\"fa fa-fw fa-book\"></i>";
 
     public WrittenContent(List<Property> properties, World world)
         : base(properties, world)
     {
-        Styles = [];
-        References = [];
         FormId = -1;
         AuthorId = -1;
 
@@ -205,8 +203,8 @@ public class WrittenContent : WorldObject
             title += "Events: " + Events.Count;
 
             string linkedString = pov != this
-                ? Icon + "<a href = \"writtencontent#" + Id + "\" title=\"" + title + "\">" + Name + "</a>"
-                : Icon + "<a title=\"" + title + "\">" + HtmlStyleUtil.CurrentDwarfObject(Name) + "</a>";
+                ? HtmlStyleUtil.GetAnchorString(Icon, "writtencontent", Id, title, Name)
+                : HtmlStyleUtil.GetAnchorCurrentString(Icon, title, HtmlStyleUtil.CurrentDwarfObject(Name));
             return linkedString;
         }
         return Name;

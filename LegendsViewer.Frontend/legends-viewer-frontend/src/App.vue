@@ -10,7 +10,7 @@ const menuItems = [
     <v-app>
       <v-app-bar>
         <div class="logo">
-          <v-img src="book.png"></v-img>
+          <v-img src="../public/ceretelina.png"></v-img>
         </div>
         <h1>
           Legends Viewer
@@ -45,6 +45,6 @@ const menuItems = [
 <style scoped>
 .logo {
   margin: 12px;
-  width: 32px;
+  width: 36px;
 }
 </style>

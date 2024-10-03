@@ -10,10 +10,12 @@
     "generate-api-schema": "npx openapi-typescript http://localhost:5054/swagger/v1/swagger.json -o ./src/generated/api-schema.d.ts"
   },
   "dependencies": {
+    "chart.js": "^4.4.4",
     "leaflet": "^1.9.4",
     "openapi-fetch": "^0.12.2",
     "pinia": "^2.2.2",
     "vue": "^3.4.37",
+    "vue-chartjs": "^5.3.1",
     "vue-router": "^4.4.5",
     "vuetify": "^3.7.2"
   },
