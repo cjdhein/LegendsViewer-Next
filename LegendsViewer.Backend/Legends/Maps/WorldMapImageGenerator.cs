@@ -95,7 +95,7 @@ public class WorldMapImageGenerator(IWorld worldDataService) : IWorldMapImageGen
                     else
                     {
                         // Otherwise, get the region type and color
-                        RegionType regionType = worldTiles[x, y]?.Type ?? RegionType.Default;
+                        RegionType regionType = worldTiles[x, y]?.RegionType ?? RegionType.Default;
                         tileColor = GetRegionColor(regionType, worldTiles[x, y]?.Id);
                     }
 

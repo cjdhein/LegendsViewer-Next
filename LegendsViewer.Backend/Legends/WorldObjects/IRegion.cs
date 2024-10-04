@@ -7,5 +7,5 @@ internal interface IRegion : IHasCoordinates
 {
     int Id { get; }
     int? Depth { get; set; }
-    RegionType Type { get; set; }
+    RegionType RegionType { get; set; }
 }

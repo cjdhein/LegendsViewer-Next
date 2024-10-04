@@ -11,7 +11,7 @@ public class Structure : WorldObject
 {
     public string Name { get; set; } = "Structure";
     public string AltName { get; set; } = "";
-    public StructureType Type { get; set; } // legends_plus.xml
+    public StructureType TypeEnum { get; set; } // legends_plus.xml
 
     [JsonIgnore]
     public List<int> InhabitantIDs { get; set; } = [];
@@ -42,15 +42,6 @@ public class Structure : WorldObject
     [JsonIgnore]
     public HistoricalFigure? Owner { get; set; } // resolved from site properties
     public string? OwnerToLink => Owner?.ToLink(true);
-
-    [JsonIgnore]
-    public string TypeAsString
-    {
-        get
-        {
-            return StructureSubType != StructureSubType.Unknown ? StructureSubType.GetDescription() : Type.GetDescription();
-        }
-    }
 
     public string Icon { get; set; }
 
@@ -131,24 +122,24 @@ public class Structure : WorldObject
                     {
                         case "mead_hall":
                         case "mead hall":
-                            Type = StructureType.MeadHall; break;
-                        case "market": Type = StructureType.Market; break;
-                        case "keep": Type = StructureType.Keep; break;
-                        case "temple": Type = StructureType.Temple; break;
-                        case "dungeon": Type = StructureType.Dungeon; break;
-                        case "tomb": Type = StructureType.Tomb; break;
+                            TypeEnum = StructureType.MeadHall; break;
+                        case "market": TypeEnum = StructureType.Market; break;
+                        case "keep": TypeEnum = StructureType.Keep; break;
+                        case "temple": TypeEnum = StructureType.Temple; break;
+                        case "dungeon": TypeEnum = StructureType.Dungeon; break;
+                        case "tomb": TypeEnum = StructureType.Tomb; break;
                         case "inn_tavern":
                         case "inn tavern":
-                            Type = StructureType.InnTavern; break;
+                            TypeEnum = StructureType.InnTavern; break;
                         case "underworld_spire":
                         case "underworld spire":
-                            Type = StructureType.UnderworldSpire; break;
-                        case "library": Type = StructureType.Library; break;
-                        case "tower": Type = StructureType.Tower; break;
+                            TypeEnum = StructureType.UnderworldSpire; break;
+                        case "library": TypeEnum = StructureType.Library; break;
+                        case "tower": TypeEnum = StructureType.Tower; break;
                         case "counting_house":
                         case "counting house":
-                            Type = StructureType.CountingHouse; break;
-                        case "guildhall": Type = StructureType.Guildhall; break;
+                            TypeEnum = StructureType.CountingHouse; break;
+                        case "guildhall": TypeEnum = StructureType.Guildhall; break;
                         default:
                             property.Known = false;
                             break;
@@ -157,7 +148,7 @@ public class Structure : WorldObject
             }
         }
         string icon = "";
-        switch (Type)
+        switch (TypeEnum)
         {
             case StructureType.MeadHall:
                 icon = HtmlStyleUtil.GetIconString("glass-mug-variant");
@@ -204,6 +195,9 @@ public class Structure : WorldObject
 
         GlobalId = world.Structures.Count;
         world.Structures.Add(this);
+
+        Type = TypeEnum.GetDescription();
+        Subtype = StructureSubType != StructureSubType.Unknown ? StructureSubType.GetDescription() : "";
     }
 
     public void Resolve(World world)
@@ -261,7 +255,7 @@ public class Structure : WorldObject
             }
             else
             {
-                title += Type.GetDescription();
+                title += TypeEnum.GetDescription();
             }
             title += "&#13";
             title += "Events: " + Events.Count;

@@ -7,7 +7,6 @@ namespace LegendsViewer.Backend.Legends.WorldObjects;
 
 public class River : WorldObject, IHasCoordinates
 {
-    public string Name { get; set; } // legends_plus.xml
     public Location EndPos { get; set; } // legends_plus.xml
     public string Path { get; set; } // legends_plus.xml
     public List<Location> Coordinates { get; set; } // legends_plus.xml
@@ -50,6 +49,7 @@ public class River : WorldObject, IHasCoordinates
         {
             Id = world.Rivers.Count;
         }
+        Type = "River";
     }
 
     public override string ToString() { return Name; }

@@ -26,7 +26,7 @@ public class SitesAndPopulationsParser : IDisposable
         ReadLine();
         ReadWorldPopulations();
         var mainRaces = _world.CivilizedPopulations.Select(cp => cp.Race);
-        foreach (Entity civilization in _world.Entities.Where(entity => entity.Type == EntityType.Civilization && mainRaces.Contains(entity.Race)))
+        foreach (Entity civilization in _world.Entities.Where(entity => entity.EntityType == EntityType.Civilization && mainRaces.Contains(entity.Race)))
         {
             civilization.IsCiv = true;
         }
@@ -194,7 +194,7 @@ public class SitesAndPopulationsParser : IDisposable
                 }
                 else
                 {
-                    var possibleCivilizations = possibleEntities.Where(entity => entity.Type == EntityType.Civilization).ToList();
+                    var possibleCivilizations = possibleEntities.Where(entity => entity.EntityType == EntityType.Civilization).ToList();
                     if (possibleCivilizations.Count == 1)
                     {
                         parent = possibleEntities[0];

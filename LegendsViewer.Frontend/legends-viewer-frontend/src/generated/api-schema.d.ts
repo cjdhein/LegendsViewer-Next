@@ -16,6 +16,8 @@ export interface paths {
                 query?: {
                     pageNumber?: number;
                     pageSize?: number;
+                    sortKey?: string;
+                    sortOrder?: string;
                 };
                 header?: never;
                 path?: never;
@@ -29,13 +31,24 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "text/plain": components["schemas"]["ArtifactPaginatedResponse"];
-                        "application/json": components["schemas"]["ArtifactPaginatedResponse"];
-                        "text/json": components["schemas"]["ArtifactPaginatedResponse"];
+                        "text/plain": components["schemas"]["WorldObjectDtoPaginatedResponse"];
+                        "application/json": components["schemas"]["WorldObjectDtoPaginatedResponse"];
+                        "text/json": components["schemas"]["WorldObjectDtoPaginatedResponse"];
                     };
                 };
                 /** @description Bad Request */
                 400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["ProblemDetails"];
+                        "application/json": components["schemas"]["ProblemDetails"];
+                        "text/json": components["schemas"]["ProblemDetails"];
+                    };
+                };
+                /** @description Not Found */
+                404: {
                     headers: {
                         [name: string]: unknown;
                     };
@@ -492,6 +505,8 @@ export interface paths {
                 query?: {
                     pageNumber?: number;
                     pageSize?: number;
+                    sortKey?: string;
+                    sortOrder?: string;
                 };
                 header?: never;
                 path?: never;
@@ -505,13 +520,24 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "text/plain": components["schemas"]["WorldConstructionPaginatedResponse"];
-                        "application/json": components["schemas"]["WorldConstructionPaginatedResponse"];
-                        "text/json": components["schemas"]["WorldConstructionPaginatedResponse"];
+                        "text/plain": components["schemas"]["WorldObjectDtoPaginatedResponse"];
+                        "application/json": components["schemas"]["WorldObjectDtoPaginatedResponse"];
+                        "text/json": components["schemas"]["WorldObjectDtoPaginatedResponse"];
                     };
                 };
                 /** @description Bad Request */
                 400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["ProblemDetails"];
+                        "application/json": components["schemas"]["ProblemDetails"];
+                        "text/json": components["schemas"]["ProblemDetails"];
+                    };
+                };
+                /** @description Not Found */
+                404: {
                     headers: {
                         [name: string]: unknown;
                     };
@@ -757,6 +783,8 @@ export interface paths {
                 query?: {
                     pageNumber?: number;
                     pageSize?: number;
+                    sortKey?: string;
+                    sortOrder?: string;
                 };
                 header?: never;
                 path?: never;
@@ -770,13 +798,24 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "text/plain": components["schemas"]["DanceFormPaginatedResponse"];
-                        "application/json": components["schemas"]["DanceFormPaginatedResponse"];
-                        "text/json": components["schemas"]["DanceFormPaginatedResponse"];
+                        "text/plain": components["schemas"]["WorldObjectDtoPaginatedResponse"];
+                        "application/json": components["schemas"]["WorldObjectDtoPaginatedResponse"];
+                        "text/json": components["schemas"]["WorldObjectDtoPaginatedResponse"];
                     };
                 };
                 /** @description Bad Request */
                 400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["ProblemDetails"];
+                        "application/json": components["schemas"]["ProblemDetails"];
+                        "text/json": components["schemas"]["ProblemDetails"];
+                    };
+                };
+                /** @description Not Found */
+                404: {
                     headers: {
                         [name: string]: unknown;
                     };
@@ -1059,6 +1098,8 @@ export interface paths {
                 query?: {
                     pageNumber?: number;
                     pageSize?: number;
+                    sortKey?: string;
+                    sortOrder?: string;
                 };
                 header?: never;
                 path?: never;
@@ -1072,13 +1113,24 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "text/plain": components["schemas"]["EntityPaginatedResponse"];
-                        "application/json": components["schemas"]["EntityPaginatedResponse"];
-                        "text/json": components["schemas"]["EntityPaginatedResponse"];
+                        "text/plain": components["schemas"]["WorldObjectDtoPaginatedResponse"];
+                        "application/json": components["schemas"]["WorldObjectDtoPaginatedResponse"];
+                        "text/json": components["schemas"]["WorldObjectDtoPaginatedResponse"];
                     };
                 };
                 /** @description Bad Request */
                 400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["ProblemDetails"];
+                        "application/json": components["schemas"]["ProblemDetails"];
+                        "text/json": components["schemas"]["ProblemDetails"];
+                    };
+                };
+                /** @description Not Found */
+                404: {
                     headers: {
                         [name: string]: unknown;
                     };
@@ -1451,6 +1503,8 @@ export interface paths {
                 query?: {
                     pageNumber?: number;
                     pageSize?: number;
+                    sortKey?: string;
+                    sortOrder?: string;
                 };
                 header?: never;
                 path?: never;
@@ -1464,13 +1518,24 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "text/plain": components["schemas"]["HistoricalFigurePaginatedResponse"];
-                        "application/json": components["schemas"]["HistoricalFigurePaginatedResponse"];
-                        "text/json": components["schemas"]["HistoricalFigurePaginatedResponse"];
+                        "text/plain": components["schemas"]["WorldObjectDtoPaginatedResponse"];
+                        "application/json": components["schemas"]["WorldObjectDtoPaginatedResponse"];
+                        "text/json": components["schemas"]["WorldObjectDtoPaginatedResponse"];
                     };
                 };
                 /** @description Bad Request */
                 400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["ProblemDetails"];
+                        "application/json": components["schemas"]["ProblemDetails"];
+                        "text/json": components["schemas"]["ProblemDetails"];
+                    };
+                };
+                /** @description Not Found */
+                404: {
                     headers: {
                         [name: string]: unknown;
                     };
@@ -1716,6 +1781,8 @@ export interface paths {
                 query?: {
                     pageNumber?: number;
                     pageSize?: number;
+                    sortKey?: string;
+                    sortOrder?: string;
                 };
                 header?: never;
                 path?: never;
@@ -1729,13 +1796,24 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "text/plain": components["schemas"]["LandmassPaginatedResponse"];
-                        "application/json": components["schemas"]["LandmassPaginatedResponse"];
-                        "text/json": components["schemas"]["LandmassPaginatedResponse"];
+                        "text/plain": components["schemas"]["WorldObjectDtoPaginatedResponse"];
+                        "application/json": components["schemas"]["WorldObjectDtoPaginatedResponse"];
+                        "text/json": components["schemas"]["WorldObjectDtoPaginatedResponse"];
                     };
                 };
                 /** @description Bad Request */
                 400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["ProblemDetails"];
+                        "application/json": components["schemas"]["ProblemDetails"];
+                        "text/json": components["schemas"]["ProblemDetails"];
+                    };
+                };
+                /** @description Not Found */
+                404: {
                     headers: {
                         [name: string]: unknown;
                     };
@@ -1981,6 +2059,8 @@ export interface paths {
                 query?: {
                     pageNumber?: number;
                     pageSize?: number;
+                    sortKey?: string;
+                    sortOrder?: string;
                 };
                 header?: never;
                 path?: never;
@@ -1994,13 +2074,24 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "text/plain": components["schemas"]["MountainPeakPaginatedResponse"];
-                        "application/json": components["schemas"]["MountainPeakPaginatedResponse"];
-                        "text/json": components["schemas"]["MountainPeakPaginatedResponse"];
+                        "text/plain": components["schemas"]["WorldObjectDtoPaginatedResponse"];
+                        "application/json": components["schemas"]["WorldObjectDtoPaginatedResponse"];
+                        "text/json": components["schemas"]["WorldObjectDtoPaginatedResponse"];
                     };
                 };
                 /** @description Bad Request */
                 400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["ProblemDetails"];
+                        "application/json": components["schemas"]["ProblemDetails"];
+                        "text/json": components["schemas"]["ProblemDetails"];
+                    };
+                };
+                /** @description Not Found */
+                404: {
                     headers: {
                         [name: string]: unknown;
                     };
@@ -2246,6 +2337,8 @@ export interface paths {
                 query?: {
                     pageNumber?: number;
                     pageSize?: number;
+                    sortKey?: string;
+                    sortOrder?: string;
                 };
                 header?: never;
                 path?: never;
@@ -2259,13 +2352,24 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "text/plain": components["schemas"]["MusicalFormPaginatedResponse"];
-                        "application/json": components["schemas"]["MusicalFormPaginatedResponse"];
-                        "text/json": components["schemas"]["MusicalFormPaginatedResponse"];
+                        "text/plain": components["schemas"]["WorldObjectDtoPaginatedResponse"];
+                        "application/json": components["schemas"]["WorldObjectDtoPaginatedResponse"];
+                        "text/json": components["schemas"]["WorldObjectDtoPaginatedResponse"];
                     };
                 };
                 /** @description Bad Request */
                 400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["ProblemDetails"];
+                        "application/json": components["schemas"]["ProblemDetails"];
+                        "text/json": components["schemas"]["ProblemDetails"];
+                    };
+                };
+                /** @description Not Found */
+                404: {
                     headers: {
                         [name: string]: unknown;
                     };
@@ -2511,6 +2615,8 @@ export interface paths {
                 query?: {
                     pageNumber?: number;
                     pageSize?: number;
+                    sortKey?: string;
+                    sortOrder?: string;
                 };
                 header?: never;
                 path?: never;
@@ -2524,13 +2630,24 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "text/plain": components["schemas"]["PoeticFormPaginatedResponse"];
-                        "application/json": components["schemas"]["PoeticFormPaginatedResponse"];
-                        "text/json": components["schemas"]["PoeticFormPaginatedResponse"];
+                        "text/plain": components["schemas"]["WorldObjectDtoPaginatedResponse"];
+                        "application/json": components["schemas"]["WorldObjectDtoPaginatedResponse"];
+                        "text/json": components["schemas"]["WorldObjectDtoPaginatedResponse"];
                     };
                 };
                 /** @description Bad Request */
                 400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["ProblemDetails"];
+                        "application/json": components["schemas"]["ProblemDetails"];
+                        "text/json": components["schemas"]["ProblemDetails"];
+                    };
+                };
+                /** @description Not Found */
+                404: {
                     headers: {
                         [name: string]: unknown;
                     };
@@ -2776,6 +2893,8 @@ export interface paths {
                 query?: {
                     pageNumber?: number;
                     pageSize?: number;
+                    sortKey?: string;
+                    sortOrder?: string;
                 };
                 header?: never;
                 path?: never;
@@ -2789,13 +2908,24 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "text/plain": components["schemas"]["WorldRegionPaginatedResponse"];
-                        "application/json": components["schemas"]["WorldRegionPaginatedResponse"];
-                        "text/json": components["schemas"]["WorldRegionPaginatedResponse"];
+                        "text/plain": components["schemas"]["WorldObjectDtoPaginatedResponse"];
+                        "application/json": components["schemas"]["WorldObjectDtoPaginatedResponse"];
+                        "text/json": components["schemas"]["WorldObjectDtoPaginatedResponse"];
                     };
                 };
                 /** @description Bad Request */
                 400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["ProblemDetails"];
+                        "application/json": components["schemas"]["ProblemDetails"];
+                        "text/json": components["schemas"]["ProblemDetails"];
+                    };
+                };
+                /** @description Not Found */
+                404: {
                     headers: {
                         [name: string]: unknown;
                     };
@@ -3041,6 +3171,8 @@ export interface paths {
                 query?: {
                     pageNumber?: number;
                     pageSize?: number;
+                    sortKey?: string;
+                    sortOrder?: string;
                 };
                 header?: never;
                 path?: never;
@@ -3054,13 +3186,24 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "text/plain": components["schemas"]["RiverPaginatedResponse"];
-                        "application/json": components["schemas"]["RiverPaginatedResponse"];
-                        "text/json": components["schemas"]["RiverPaginatedResponse"];
+                        "text/plain": components["schemas"]["WorldObjectDtoPaginatedResponse"];
+                        "application/json": components["schemas"]["WorldObjectDtoPaginatedResponse"];
+                        "text/json": components["schemas"]["WorldObjectDtoPaginatedResponse"];
                     };
                 };
                 /** @description Bad Request */
                 400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["ProblemDetails"];
+                        "application/json": components["schemas"]["ProblemDetails"];
+                        "text/json": components["schemas"]["ProblemDetails"];
+                    };
+                };
+                /** @description Not Found */
+                404: {
                     headers: {
                         [name: string]: unknown;
                     };
@@ -3306,6 +3449,8 @@ export interface paths {
                 query?: {
                     pageNumber?: number;
                     pageSize?: number;
+                    sortKey?: string;
+                    sortOrder?: string;
                 };
                 header?: never;
                 path?: never;
@@ -3319,13 +3464,24 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "text/plain": components["schemas"]["SitePaginatedResponse"];
-                        "application/json": components["schemas"]["SitePaginatedResponse"];
-                        "text/json": components["schemas"]["SitePaginatedResponse"];
+                        "text/plain": components["schemas"]["WorldObjectDtoPaginatedResponse"];
+                        "application/json": components["schemas"]["WorldObjectDtoPaginatedResponse"];
+                        "text/json": components["schemas"]["WorldObjectDtoPaginatedResponse"];
                     };
                 };
                 /** @description Bad Request */
                 400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["ProblemDetails"];
+                        "application/json": components["schemas"]["ProblemDetails"];
+                        "text/json": components["schemas"]["ProblemDetails"];
+                    };
+                };
+                /** @description Not Found */
+                404: {
                     headers: {
                         [name: string]: unknown;
                     };
@@ -3571,6 +3727,8 @@ export interface paths {
                 query?: {
                     pageNumber?: number;
                     pageSize?: number;
+                    sortKey?: string;
+                    sortOrder?: string;
                 };
                 header?: never;
                 path?: never;
@@ -3584,13 +3742,24 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "text/plain": components["schemas"]["StructurePaginatedResponse"];
-                        "application/json": components["schemas"]["StructurePaginatedResponse"];
-                        "text/json": components["schemas"]["StructurePaginatedResponse"];
+                        "text/plain": components["schemas"]["WorldObjectDtoPaginatedResponse"];
+                        "application/json": components["schemas"]["WorldObjectDtoPaginatedResponse"];
+                        "text/json": components["schemas"]["WorldObjectDtoPaginatedResponse"];
                     };
                 };
                 /** @description Bad Request */
                 400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["ProblemDetails"];
+                        "application/json": components["schemas"]["ProblemDetails"];
+                        "text/json": components["schemas"]["ProblemDetails"];
+                    };
+                };
+                /** @description Not Found */
+                404: {
                     headers: {
                         [name: string]: unknown;
                     };
@@ -3836,6 +4005,8 @@ export interface paths {
                 query?: {
                     pageNumber?: number;
                     pageSize?: number;
+                    sortKey?: string;
+                    sortOrder?: string;
                 };
                 header?: never;
                 path?: never;
@@ -3849,13 +4020,24 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "text/plain": components["schemas"]["UndergroundRegionPaginatedResponse"];
-                        "application/json": components["schemas"]["UndergroundRegionPaginatedResponse"];
-                        "text/json": components["schemas"]["UndergroundRegionPaginatedResponse"];
+                        "text/plain": components["schemas"]["WorldObjectDtoPaginatedResponse"];
+                        "application/json": components["schemas"]["WorldObjectDtoPaginatedResponse"];
+                        "text/json": components["schemas"]["WorldObjectDtoPaginatedResponse"];
                     };
                 };
                 /** @description Bad Request */
                 400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["ProblemDetails"];
+                        "application/json": components["schemas"]["ProblemDetails"];
+                        "text/json": components["schemas"]["ProblemDetails"];
+                    };
+                };
+                /** @description Not Found */
+                404: {
                     headers: {
                         [name: string]: unknown;
                     };
@@ -4577,6 +4759,8 @@ export interface paths {
                 query?: {
                     pageNumber?: number;
                     pageSize?: number;
+                    sortKey?: string;
+                    sortOrder?: string;
                 };
                 header?: never;
                 path?: never;
@@ -4590,13 +4774,24 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "text/plain": components["schemas"]["WrittenContentPaginatedResponse"];
-                        "application/json": components["schemas"]["WrittenContentPaginatedResponse"];
-                        "text/json": components["schemas"]["WrittenContentPaginatedResponse"];
+                        "text/plain": components["schemas"]["WorldObjectDtoPaginatedResponse"];
+                        "application/json": components["schemas"]["WorldObjectDtoPaginatedResponse"];
+                        "text/json": components["schemas"]["WorldObjectDtoPaginatedResponse"];
                     };
                 };
                 /** @description Bad Request */
                 400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["ProblemDetails"];
+                        "application/json": components["schemas"]["ProblemDetails"];
+                        "text/json": components["schemas"]["ProblemDetails"];
+                    };
+                };
+                /** @description Not Found */
+                404: {
                     headers: {
                         [name: string]: unknown;
                     };
@@ -4837,18 +5032,18 @@ export interface components {
         Artifact: {
             /** Format: int32 */
             id?: number;
+            name?: string | null;
+            type?: string | null;
+            subtype?: string | null;
             /** Format: int32 */
             readonly eventCount?: number;
             icon?: string | null;
-            name?: string | null;
             item?: string | null;
             readonly creatorLink?: string | null;
             readonly holderLink?: string | null;
             readonly structureLink?: string | null;
             /** Format: int32 */
             holderId?: number;
-            type?: string | null;
-            subType?: string | null;
             description?: string | null;
             material?: string | null;
             /** Format: int32 */
@@ -4863,17 +5058,6 @@ export interface components {
             coordinates?: components["schemas"]["Location"][] | null;
             readonly siteLink?: string | null;
             readonly regionLink?: string | null;
-        };
-        ArtifactPaginatedResponse: {
-            items?: components["schemas"]["Artifact"][] | null;
-            /** Format: int32 */
-            totalCount?: number;
-            /** Format: int32 */
-            pageSize?: number;
-            /** Format: int32 */
-            pageNumber?: number;
-            /** Format: int32 */
-            totalPages?: number;
         };
         Bookmark: {
             filePath?: string | null;
@@ -4935,32 +5119,25 @@ export interface components {
         DanceForm: {
             /** Format: int32 */
             id?: number;
+            name?: string | null;
+            type?: string | null;
+            subtype?: string | null;
             /** Format: int32 */
             readonly eventCount?: number;
-            name?: string | null;
             description?: string | null;
             formType?: components["schemas"]["FormType"];
             icon?: string | null;
-        };
-        DanceFormPaginatedResponse: {
-            items?: components["schemas"]["DanceForm"][] | null;
-            /** Format: int32 */
-            totalCount?: number;
-            /** Format: int32 */
-            pageSize?: number;
-            /** Format: int32 */
-            pageNumber?: number;
-            /** Format: int32 */
-            totalPages?: number;
         };
         /** @enum {string} */
         DeathCause: "Unknown" | "None" | "Struck" | "OldAge" | "Thirst" | "Suffocated" | "Bled" | "Cold" | "CrushedByABridge" | "Drowned" | "Starved" | "InACage" | "Infection" | "CollidedWithAnObstacle" | "PutToRest" | "StarvedQuit" | "Trap" | "DragonsFire" | "Burned" | "Murdered" | "Shot" | "CaveIn" | "FrozenInWater" | "ExecutedGeneric" | "ExecutedFedToBeasts" | "ExecutedBurnedAlive" | "ExecutedCrucified" | "ExecutedDrowned" | "ExecutedHackedToPieces" | "ExecutedBuriedAlive" | "ExecutedBeheaded" | "DrainedBlood" | "Collapsed" | "ScaredToDeath" | "Scuttled" | "FlyingObject" | "Slaughtered" | "Melted" | "Spikes" | "Heat" | "Vanish" | "CoolingMagma" | "Vehicle" | "SuicideDrowned" | "SuicideLeaping" | "Chasm";
         Entity: {
             /** Format: int32 */
             id?: number;
+            name?: string | null;
+            type?: string | null;
+            subtype?: string | null;
             /** Format: int32 */
             readonly eventCount?: number;
-            name?: string | null;
             readonly parentLink?: string | null;
             race?: components["schemas"]["CreatureInfo"];
             readonly worshippedLinks?: string[] | null;
@@ -4972,9 +5149,8 @@ export interface components {
             readonly lostSiteLinks?: string[] | null;
             readonly siteLinks?: string[] | null;
             honors?: components["schemas"]["Honor"][] | null;
-            type?: components["schemas"]["EntityType"];
+            entityType?: components["schemas"]["EntityType"];
             isCiv?: boolean;
-            typeAsString?: string | null;
             coordinates?: components["schemas"]["Location"][] | null;
             readonly occassionLinks?: string[] | null;
             weapons?: string[] | null;
@@ -5011,20 +5187,12 @@ export interface components {
         };
         /** @enum {string} */
         EntityLinkType: "Unknown" | "Criminal" | "Enemy" | "Member" | "FormerMember" | "Position" | "FormerPosition" | "Prisoner" | "FormerPrisoner" | "FormerSlave" | "Slave" | "Hero";
-        EntityPaginatedResponse: {
-            items?: components["schemas"]["Entity"][] | null;
-            /** Format: int32 */
-            totalCount?: number;
-            /** Format: int32 */
-            pageSize?: number;
-            /** Format: int32 */
-            pageNumber?: number;
-            /** Format: int32 */
-            totalPages?: number;
-        };
         EntityPopulation: {
             /** Format: int32 */
             id?: number;
+            name?: string | null;
+            type?: string | null;
+            subtype?: string | null;
             /** Format: int32 */
             readonly eventCount?: number;
             race?: components["schemas"]["CreatureInfo"];
@@ -5060,9 +5228,11 @@ export interface components {
         HistoricalFigure: {
             /** Format: int32 */
             id?: number;
+            name?: string | null;
+            type?: string | null;
+            subtype?: string | null;
             /** Format: int32 */
             readonly eventCount?: number;
-            name?: string | null;
             readonly titleRaceString?: string | null;
             race?: components["schemas"]["CreatureInfo"];
             caste?: string | null;
@@ -5141,17 +5311,6 @@ export interface components {
         };
         /** @enum {string} */
         HistoricalFigureLinkType: "Unknown" | "Apprentice" | "Master" | "FormerApprentice" | "FormerMaster" | "Child" | "Deity" | "Father" | "Lover" | "Mother" | "Spouse" | "Imprisoner" | "Prisoner" | "ExSpouse" | "Companion" | "PetOwner" | "FormerSpouse" | "DeceasedSpouse";
-        HistoricalFigurePaginatedResponse: {
-            items?: components["schemas"]["HistoricalFigure"][] | null;
-            /** Format: int32 */
-            totalCount?: number;
-            /** Format: int32 */
-            pageSize?: number;
-            /** Format: int32 */
-            pageNumber?: number;
-            /** Format: int32 */
-            totalPages?: number;
-        };
         Honor: {
             readonly entityToLink?: string | null;
             /** Format: int32 */
@@ -5241,21 +5400,12 @@ export interface components {
         Landmass: {
             /** Format: int32 */
             id?: number;
+            name?: string | null;
+            type?: string | null;
+            subtype?: string | null;
             /** Format: int32 */
             readonly eventCount?: number;
-            name?: string | null;
             coordinates?: components["schemas"]["Location"][] | null;
-        };
-        LandmassPaginatedResponse: {
-            items?: components["schemas"]["Landmass"][] | null;
-            /** Format: int32 */
-            totalCount?: number;
-            /** Format: int32 */
-            pageSize?: number;
-            /** Format: int32 */
-            pageNumber?: number;
-            /** Format: int32 */
-            totalPages?: number;
         };
         Location: {
             /** Format: int32 */
@@ -5268,9 +5418,11 @@ export interface components {
         MountainPeak: {
             /** Format: int32 */
             id?: number;
+            name?: string | null;
+            type?: string | null;
+            subtype?: string | null;
             /** Format: int32 */
             readonly eventCount?: number;
-            name?: string | null;
             region?: components["schemas"]["WorldRegion"];
             coordinates?: components["schemas"]["Location"][] | null;
             /** Format: int32 */
@@ -5280,37 +5432,17 @@ export interface components {
             readonly typeAsString?: string | null;
             icon?: string | null;
         };
-        MountainPeakPaginatedResponse: {
-            items?: components["schemas"]["MountainPeak"][] | null;
-            /** Format: int32 */
-            totalCount?: number;
-            /** Format: int32 */
-            pageSize?: number;
-            /** Format: int32 */
-            pageNumber?: number;
-            /** Format: int32 */
-            totalPages?: number;
-        };
         MusicalForm: {
             /** Format: int32 */
             id?: number;
+            name?: string | null;
+            type?: string | null;
+            subtype?: string | null;
             /** Format: int32 */
             readonly eventCount?: number;
-            name?: string | null;
             description?: string | null;
             formType?: components["schemas"]["FormType"];
             icon?: string | null;
-        };
-        MusicalFormPaginatedResponse: {
-            items?: components["schemas"]["MusicalForm"][] | null;
-            /** Format: int32 */
-            totalCount?: number;
-            /** Format: int32 */
-            pageSize?: number;
-            /** Format: int32 */
-            pageNumber?: number;
-            /** Format: int32 */
-            totalPages?: number;
         };
         Official: {
             readonly historicalFigureToLink?: string | null;
@@ -5339,23 +5471,14 @@ export interface components {
         PoeticForm: {
             /** Format: int32 */
             id?: number;
+            name?: string | null;
+            type?: string | null;
+            subtype?: string | null;
             /** Format: int32 */
             readonly eventCount?: number;
-            name?: string | null;
             description?: string | null;
             formType?: components["schemas"]["FormType"];
             icon?: string | null;
-        };
-        PoeticFormPaginatedResponse: {
-            items?: components["schemas"]["PoeticForm"][] | null;
-            /** Format: int32 */
-            totalCount?: number;
-            /** Format: int32 */
-            pageSize?: number;
-            /** Format: int32 */
-            pageNumber?: number;
-            /** Format: int32 */
-            totalPages?: number;
         };
         Point: {
             readonly isEmpty?: boolean;
@@ -5455,32 +5578,24 @@ export interface components {
         River: {
             /** Format: int32 */
             id?: number;
+            name?: string | null;
+            type?: string | null;
+            subtype?: string | null;
             /** Format: int32 */
             readonly eventCount?: number;
-            name?: string | null;
             endPos?: components["schemas"]["Location"];
             path?: string | null;
             coordinates?: components["schemas"]["Location"][] | null;
         };
-        RiverPaginatedResponse: {
-            items?: components["schemas"]["River"][] | null;
-            /** Format: int32 */
-            totalCount?: number;
-            /** Format: int32 */
-            pageSize?: number;
-            /** Format: int32 */
-            pageNumber?: number;
-            /** Format: int32 */
-            totalPages?: number;
-        };
         Site: {
             /** Format: int32 */
             id?: number;
+            name?: string | null;
+            type?: string | null;
+            subtype?: string | null;
             /** Format: int32 */
             readonly eventCount?: number;
             icon?: string | null;
-            name?: string | null;
-            type?: string | null;
             readonly regionToLink?: string | null;
             siteType?: components["schemas"]["SiteType"];
             untranslatedName?: string | null;
@@ -5525,17 +5640,6 @@ export interface components {
             type?: components["schemas"]["SiteType"];
             coordinates?: components["schemas"]["Location"][] | null;
         };
-        SitePaginatedResponse: {
-            items?: components["schemas"]["Site"][] | null;
-            /** Format: int32 */
-            totalCount?: number;
-            /** Format: int32 */
-            pageSize?: number;
-            /** Format: int32 */
-            pageNumber?: number;
-            /** Format: int32 */
-            totalPages?: number;
-        };
         SiteProperty: {
             /** Format: int32 */
             id?: number;
@@ -5571,11 +5675,13 @@ export interface components {
         Structure: {
             /** Format: int32 */
             id?: number;
+            type?: string | null;
+            subtype?: string | null;
             /** Format: int32 */
             readonly eventCount?: number;
             name?: string | null;
             altName?: string | null;
-            type?: components["schemas"]["StructureType"];
+            typeEnum?: components["schemas"]["StructureType"];
             readonly inhabitantLinks?: string[] | null;
             readonly deityToLink?: string | null;
             readonly religionToLink?: string | null;
@@ -5588,17 +5694,6 @@ export interface components {
             globalId?: number;
             readonly copiedArtifactLinks?: string[] | null;
         };
-        StructurePaginatedResponse: {
-            items?: components["schemas"]["Structure"][] | null;
-            /** Format: int32 */
-            totalCount?: number;
-            /** Format: int32 */
-            pageSize?: number;
-            /** Format: int32 */
-            pageNumber?: number;
-            /** Format: int32 */
-            totalPages?: number;
-        };
         /** @enum {string} */
         StructureSubType: "Unknown" | "Dungeon" | "Sewers" | "Catacombs";
         /** @enum {string} */
@@ -5606,26 +5701,18 @@ export interface components {
         UndergroundRegion: {
             /** Format: int32 */
             id?: number;
+            name?: string | null;
+            type?: string | null;
+            subtype?: string | null;
             /** Format: int32 */
             readonly eventCount?: number;
             /** Format: int32 */
             depth?: number | null;
-            type?: components["schemas"]["RegionType"];
+            regionType?: components["schemas"]["RegionType"];
             readonly battleLinks?: string[] | null;
             coordinates?: components["schemas"]["Location"][] | null;
             /** Format: int32 */
             readonly squareTiles?: number;
-        };
-        UndergroundRegionPaginatedResponse: {
-            items?: components["schemas"]["UndergroundRegion"][] | null;
-            /** Format: int32 */
-            totalCount?: number;
-            /** Format: int32 */
-            pageSize?: number;
-            /** Format: int32 */
-            pageNumber?: number;
-            /** Format: int32 */
-            totalPages?: number;
         };
         VagueRelationship: {
             /** Format: int32 */
@@ -5637,27 +5724,17 @@ export interface components {
         WorldConstruction: {
             /** Format: int32 */
             id?: number;
+            name?: string | null;
+            type?: string | null;
+            subtype?: string | null;
             /** Format: int32 */
             readonly eventCount?: number;
-            name?: string | null;
-            type?: components["schemas"]["WorldConstructionType"];
-            typeAsString?: string | null;
+            worldConstructionType?: components["schemas"]["WorldConstructionType"];
             coordinates?: components["schemas"]["Location"][] | null;
             readonly site1ToLink?: string | null;
             readonly site2ToLink?: string | null;
             readonly sectionLinks?: string[] | null;
             readonly masterConstructionToLink?: string | null;
-        };
-        WorldConstructionPaginatedResponse: {
-            items?: components["schemas"]["WorldConstruction"][] | null;
-            /** Format: int32 */
-            totalCount?: number;
-            /** Format: int32 */
-            pageSize?: number;
-            /** Format: int32 */
-            pageNumber?: number;
-            /** Format: int32 */
-            totalPages?: number;
         };
         /** @enum {string} */
         WorldConstructionType: "Unknown" | "Road" | "Bridge" | "Tunnel";
@@ -5701,16 +5778,39 @@ export interface components {
             /** Format: int32 */
             totalPages?: number;
         };
+        WorldObjectDto: {
+            /** Format: int32 */
+            id?: number;
+            name?: string | null;
+            type?: string | null;
+            subtype?: string | null;
+            html?: string | null;
+            /** Format: int32 */
+            eventCount?: number;
+        };
+        WorldObjectDtoPaginatedResponse: {
+            items?: components["schemas"]["WorldObjectDto"][] | null;
+            /** Format: int32 */
+            totalCount?: number;
+            /** Format: int32 */
+            pageSize?: number;
+            /** Format: int32 */
+            pageNumber?: number;
+            /** Format: int32 */
+            totalPages?: number;
+        };
         WorldRegion: {
             /** Format: int32 */
             id?: number;
+            name?: string | null;
+            type?: string | null;
+            subtype?: string | null;
             /** Format: int32 */
             readonly eventCount?: number;
             icon?: string | null;
-            name?: string | null;
             /** Format: int32 */
             depth?: number | null;
-            type?: components["schemas"]["RegionType"];
+            regionType?: components["schemas"]["RegionType"];
             deaths?: string[] | null;
             readonly notableDeathLinks?: string[] | null;
             readonly battleLinks?: string[] | null;
@@ -5722,28 +5822,19 @@ export interface components {
             evilness?: components["schemas"]["Evilness"];
             readonly forceLink?: string | null;
         };
-        WorldRegionPaginatedResponse: {
-            items?: components["schemas"]["WorldRegion"][] | null;
-            /** Format: int32 */
-            totalCount?: number;
-            /** Format: int32 */
-            pageSize?: number;
-            /** Format: int32 */
-            pageNumber?: number;
-            /** Format: int32 */
-            totalPages?: number;
-        };
         WrittenContent: {
             /** Format: int32 */
             id?: number;
+            name?: string | null;
+            type?: string | null;
+            subtype?: string | null;
             /** Format: int32 */
             readonly eventCount?: number;
-            name?: string | null;
             /** Format: int32 */
             pageStart?: number;
             /** Format: int32 */
             pageEnd?: number;
-            type?: components["schemas"]["WrittenContentType"];
+            writtenContentType?: components["schemas"]["WrittenContentType"];
             /** Format: int32 */
             authorId?: number;
             styles?: string[] | null;
@@ -5755,17 +5846,6 @@ export interface components {
             authorRoll?: number;
             /** Format: int32 */
             formId?: number;
-        };
-        WrittenContentPaginatedResponse: {
-            items?: components["schemas"]["WrittenContent"][] | null;
-            /** Format: int32 */
-            totalCount?: number;
-            /** Format: int32 */
-            pageSize?: number;
-            /** Format: int32 */
-            pageNumber?: number;
-            /** Format: int32 */
-            totalPages?: number;
         };
         /** @enum {string} */
         WrittenContentType: "Unknown" | "Autobiography" | "Biography" | "Chronicle" | "Dialog" | "Essay" | "Guide" | "Letter" | "Manual" | "Novel" | "Play" | "Poem" | "ShortStory" | "Choreography" | "MusicalComposition" | "StarChart" | "CulturalHistory" | "ComparativeBiography" | "CulturalComparison" | "Atlas" | "TreatiseOnTechnologicalEvolution" | "AlternateHistory" | "StarCatalogue" | "Dictionary" | "Genealogy" | "Encyclopedia" | "BiographicalDictionary";

@@ -12,8 +12,6 @@ namespace LegendsViewer.Backend.Legends.WorldObjects;
 
 public class Entity : WorldObject, IHasCoordinates
 {
-    public string Name { get; set; }
-
     [JsonIgnore]
     public Entity? Parent { get; set; }
     public string? ParentLink => Parent?.ToLink(true, this);
@@ -57,9 +55,8 @@ public class Entity : WorldObject, IHasCoordinates
 
     public List<Honor> Honors { get; set; }
 
-    public EntityType Type { get; set; } // legends_plus.xml
+    public EntityType EntityType { get; set; } // legends_plus.xml
     public bool IsCiv { get; set; }
-    public string TypeAsString { get => Type.GetDescription(); set { } }
 
     [JsonIgnore]
     public List<EntitySiteLink> EntitySiteLinks { get; set; } // legends_plus.xml
@@ -173,7 +170,7 @@ public class Entity : WorldObject, IHasCoordinates
     {
         Name = "";
         Race = CreatureInfo.Unknown;
-        Type = EntityType.Unknown;
+        EntityType = EntityType.Unknown;
         Parent = null;
         Worshipped = [];
         LeaderTypes = [];
@@ -202,37 +199,37 @@ public class Entity : WorldObject, IHasCoordinates
                     switch (property.Value)
                     {
                         case "civilization":
-                            Type = EntityType.Civilization;
+                            EntityType = EntityType.Civilization;
                             break;
                         case "religion":
-                            Type = EntityType.Religion;
+                            EntityType = EntityType.Religion;
                             break;
                         case "sitegovernment":
-                            Type = EntityType.SiteGovernment;
+                            EntityType = EntityType.SiteGovernment;
                             break;
                         case "nomadicgroup":
-                            Type = EntityType.NomadicGroup;
+                            EntityType = EntityType.NomadicGroup;
                             break;
                         case "outcast":
-                            Type = EntityType.Outcast;
+                            EntityType = EntityType.Outcast;
                             break;
                         case "migratinggroup":
-                            Type = EntityType.MigratingGroup;
+                            EntityType = EntityType.MigratingGroup;
                             break;
                         case "performancetroupe":
-                            Type = EntityType.PerformanceTroupe;
+                            EntityType = EntityType.PerformanceTroupe;
                             break;
                         case "guild":
-                            Type = EntityType.Guild;
+                            EntityType = EntityType.Guild;
                             break;
                         case "militaryunit":
-                            Type = EntityType.MilitaryUnit;
+                            EntityType = EntityType.MilitaryUnit;
                             break;
                         case "merchantcompany":
-                            Type = EntityType.MerchantCompany;
+                            EntityType = EntityType.MerchantCompany;
                             break;
                         default:
-                            Type = EntityType.Unknown;
+                            EntityType = EntityType.Unknown;
                             property.Known = false;
                             break;
                     }
@@ -319,6 +316,8 @@ public class Entity : WorldObject, IHasCoordinates
                     break;
             }
         }
+        Type = EntityType.GetDescription();
+        Subtype = Race?.NamePlural ?? string.Empty;
     }
     public override string ToString() { return Name ?? "UNKNOWN"; }
 
@@ -416,7 +415,7 @@ public class Entity : WorldObject, IHasCoordinates
 
     private string GetTypeAsString()
     {
-        switch (Type)
+        switch (EntityType)
         {
             case EntityType.Civilization:
                 return "Civilization";
@@ -460,7 +459,7 @@ public class Entity : WorldObject, IHasCoordinates
             summary += " of " + Parent.ToLink(link, pov);
         }
 
-        switch (Type)
+        switch (EntityType)
         {
             case EntityType.Religion:
                 if (Worshipped.Count > 0)

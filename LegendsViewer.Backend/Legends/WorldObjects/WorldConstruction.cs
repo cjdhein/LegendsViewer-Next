@@ -10,9 +10,7 @@ namespace LegendsViewer.Backend.Legends.WorldObjects;
 
 public class WorldConstruction : WorldObject, IHasCoordinates
 {
-    public string Name { get; set; } // legends_plus.xml
-    public WorldConstructionType Type { get; set; } // legends_plus.xml
-    public string TypeAsString { get => Type.GetDescription(); set { } }
+    public WorldConstructionType WorldConstructionType { get; set; } // legends_plus.xml
     public List<Location> Coordinates { get; set; } // legends_plus.xml
 
     [JsonIgnore]
@@ -48,19 +46,19 @@ public class WorldConstruction : WorldObject, IHasCoordinates
                     switch (property.Value)
                     {
                         case "road":
-                            Type = WorldConstructionType.Road;
+                            WorldConstructionType = WorldConstructionType.Road;
                             Icon = "<i class=\"fa fa-fw fa-road\"></i>";
                             break;
                         case "bridge":
-                            Type = WorldConstructionType.Bridge;
+                            WorldConstructionType = WorldConstructionType.Bridge;
                             Icon = "<i class=\"glyphicon fa-fw glyphicon-menu-up\"></i>";
                             break;
                         case "tunnel":
-                            Type = WorldConstructionType.Tunnel;
+                            WorldConstructionType = WorldConstructionType.Tunnel;
                             Icon = "<i class=\"glyphicon fa-fw glyphicon-oil\"></i>";
                             break;
                         default:
-                            Type = WorldConstructionType.Unknown;
+                            WorldConstructionType = WorldConstructionType.Unknown;
                             property.Known = false;
                             break;
                     }
@@ -78,31 +76,24 @@ public class WorldConstruction : WorldObject, IHasCoordinates
                     break;
             }
         }
+        Type = WorldConstructionType.GetDescription();
     }
 
     public override string ToString() { return Name; }
 
-    public override string ToLink(bool link = true, DwarfObject pov = null, WorldEvent worldEvent = null)
+    public override string ToLink(bool link = true, DwarfObject? pov = null, WorldEvent? worldEvent = null)
     {
         if (link)
         {
-            string linkedString = "";
-            if (pov != this)
-            {
-                string title = "";
-                title += "World Construction";
-                title += Type != WorldConstructionType.Unknown ? "" : ", " + Type;
-                title += "&#13";
-                title += "Events: " + Events.Count;
+            string title = "";
+            title += "World Construction";
+            title += WorldConstructionType != WorldConstructionType.Unknown ? "" : ", " + WorldConstructionType;
+            title += "&#13";
+            title += "Events: " + Events.Count;
 
-                linkedString = Icon + "<a href = \"worldconstruction#" + Id + "\" title=\"" + title + "\">" + Name + "</a>";
-            }
-            else
-            {
-                linkedString = Icon + HtmlStyleUtil.CurrentDwarfObject(Name);
-            }
-
-            return linkedString;
+            return pov != this
+                ? HtmlStyleUtil.GetAnchorString(Icon, "worldconstruction", Id, title, Name)
+                : HtmlStyleUtil.GetAnchorCurrentString(Icon, title, HtmlStyleUtil.CurrentDwarfObject(Name));
         }
         return Name;
     }

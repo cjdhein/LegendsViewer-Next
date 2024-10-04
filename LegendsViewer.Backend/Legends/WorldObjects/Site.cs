@@ -15,9 +15,6 @@ public class Site : WorldObject, IHasCoordinates
 {
     public string Icon { get; set; } = HtmlStyleUtil.GetIconString("map-marker");
 
-    public string Name { get; set; }
-    public string Type { get; set; }
-
     [JsonIgnore]
     public WorldRegion? Region { get; set; }
     public string? RegionToLink => Region?.ToLink(true, this);

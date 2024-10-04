@@ -9,7 +9,6 @@ public class Landmass : WorldObject, IHasCoordinates
 {
     public static readonly string Icon = HtmlStyleUtil.GetIconString("island-variant");
 
-    public string Name { get; set; } // legends_plus.xml
     public List<Location> Coordinates { get; set; } // legends_plus.xml
 
     public Landmass(List<Property> properties, World world)

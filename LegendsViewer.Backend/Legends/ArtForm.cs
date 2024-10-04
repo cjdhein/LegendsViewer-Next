@@ -7,8 +7,7 @@ namespace LegendsViewer.Backend.Legends;
 
 public class ArtForm : WorldObject
 {
-    public string Name { get; set; } // legends_plus.xml
-    public string Description { get; set; }
+    public string Description { get; set; } = string.Empty;
     public FormType FormType { get; set; }
 
     public ArtForm(List<Property> properties, World world)
@@ -39,5 +38,5 @@ public class ArtForm : WorldObject
 
     public override string ToString() { return Name; }
 
-    public override string ToLink(bool link = true, DwarfObject pov = null, WorldEvent worldEvent = null) { return Name; }
+    public override string ToLink(bool link = true, DwarfObject? pov = null, WorldEvent? worldEvent = null) { return Name; }
 }

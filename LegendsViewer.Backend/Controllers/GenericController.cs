@@ -2,7 +2,6 @@
 using LegendsViewer.Backend.Extensions;
 using LegendsViewer.Backend.Legends;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 
 namespace LegendsViewer.Backend.Controllers;
 
@@ -14,11 +13,15 @@ public abstract class GenericController<T>(List<T> allElements, Func<int, T?> ge
     protected readonly List<T> AllElements = allElements;
     protected readonly Func<int, T?> GetById = getById;
 
-    // Default values for pageNumber and pageSize
     [HttpGet]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public ActionResult<PaginatedResponse<T>> Get(int pageNumber = 1, int pageSize = DefaultPageSize)
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public ActionResult<PaginatedResponse<WorldObjectDto>> Get(
+        [FromQuery] int pageNumber = 1,
+        [FromQuery] int pageSize = DefaultPageSize,
+        [FromQuery] string? sortKey = null,
+        [FromQuery] string? sortOrder = null)
     {
         // Validate pagination parameters
         if (pageNumber <= 0 || pageSize <= 0)
@@ -31,12 +34,14 @@ public abstract class GenericController<T>(List<T> allElements, Func<int, T?> ge
 
         // Calculate how many elements to skip based on the page number and size
         var paginatedElements = AllElements
+            .Select(worldObject => new WorldObjectDto(worldObject))
+            .SortByProperty(sortKey, sortOrder)
             .Skip((pageNumber - 1) * pageSize)
             .Take(pageSize)
             .ToList();
 
         // Create a response object to include pagination metadata
-        var response = new PaginatedResponse<T>
+        var response = new PaginatedResponse<WorldObjectDto>
         {
             Items = paginatedElements,
             TotalCount = totalElements,

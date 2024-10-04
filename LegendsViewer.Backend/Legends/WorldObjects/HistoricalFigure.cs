@@ -21,7 +21,6 @@ public class HistoricalFigure : WorldObject
     public static readonly string MaleIcon = HtmlStyleUtil.GetIconString("gender-male");
 
     public static readonly HistoricalFigure Unknown = new();
-    public string Name { get; set; }
 
     private string ShortName
     {
@@ -477,6 +476,8 @@ public class HistoricalFigure : WorldObject
         {
             Name = !string.IsNullOrWhiteSpace(AnimatedType) ? Formatting.InitCaps(AnimatedType) : "(Unnamed)";
         }
+        Type = Race?.NameSingular ?? string.Empty;
+        Subtype = Caste ?? string.Empty;
         if (Adventurer)
         {
             world.AddPlayerRelatedDwarfObjects(this);

@@ -13,7 +13,7 @@ public class UndergroundRegion : WorldObject, IRegion
     public static readonly string Icon = HtmlStyleUtil.GetIconString("tunnel");
 
     public int? Depth { get; set; }
-    public RegionType Type { get; set; }
+    public RegionType RegionType { get; set; }
 
     [JsonIgnore]
     public List<Battle> Battles { get; set; } = [];
@@ -34,13 +34,13 @@ public class UndergroundRegion : WorldObject, IRegion
                     switch (property.Value)
                     {
                         case "cavern":
-                            Type = RegionType.Cavern;
+                            RegionType = RegionType.Cavern;
                             break;
                         case "underworld":
-                            Type = RegionType.Underworld;
+                            RegionType = RegionType.Underworld;
                             break;
                         case "magma":
-                            Type = RegionType.Magma;
+                            RegionType = RegionType.Magma;
                             break;
                         default:
                             property.Known = false;
@@ -60,12 +60,8 @@ public class UndergroundRegion : WorldObject, IRegion
                     break;
             }
         }
-    }
-    public override string ToString() { return Type.GetDescription(); }
-    public override string ToLink(bool link = true, DwarfObject? pov = null, WorldEvent? worldEvent = null)
-    {
         string name;
-        switch (Type)
+        switch (RegionType)
         {
             case RegionType.Cavern:
                 name = "the depths of the world";
@@ -77,20 +73,27 @@ public class UndergroundRegion : WorldObject, IRegion
                 name = "the magma seas";
                 break;
             default:
-                name = $"an underground region ({Type})";
+                name = $"an underground region ({RegionType})";
                 break;
         }
+        Name = Name;
+        Type = RegionType.GetDescription();
+    }
+
+    public override string ToString() { return RegionType.GetDescription(); }
+    public override string ToLink(bool link = true, DwarfObject? pov = null, WorldEvent? worldEvent = null)
+    {
 
         if (link)
         {
-            string title = Type.GetDescription();
+            string title = RegionType.GetDescription();
             title += "&#13";
             title += "Events: " + Events.Count;
             return pov != this
-                ? HtmlStyleUtil.GetAnchorString(Icon, "uregion", Id, title, name)
-                : HtmlStyleUtil.GetAnchorCurrentString(Icon, title, HtmlStyleUtil.CurrentDwarfObject(name));
+                ? HtmlStyleUtil.GetAnchorString(Icon, "uregion", Id, title, Name)
+                : HtmlStyleUtil.GetAnchorCurrentString(Icon, title, HtmlStyleUtil.CurrentDwarfObject(Name));
         }
-        return name;
+        return Name;
     }
 
     public override string GetIcon()

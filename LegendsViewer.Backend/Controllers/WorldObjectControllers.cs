@@ -50,7 +50,7 @@ public class EntityController(IWorld worldDataService) : GenericController<Entit
     [ProducesResponseType(StatusCodes.Status200OK)]
     public ActionResult<List<Entity>> GetMainCivilizations()
     {
-        return Ok(AllElements.Where(x => x.IsCiv || (x.Type == Legends.Enums.EntityType.Civilization && x.SiteHistory.Count > 0)));
+        return Ok(AllElements.Where(x => x.IsCiv || (x.EntityType == Legends.Enums.EntityType.Civilization && x.SiteHistory.Count > 0)));
     }
 }
 

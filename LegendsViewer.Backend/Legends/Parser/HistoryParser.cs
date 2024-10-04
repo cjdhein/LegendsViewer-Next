@@ -75,7 +75,7 @@ public class HistoryParser : IDisposable
             }
             else
             {
-                var possibleCivilizations = possibleEntities.Where(entity => entity.Type == EntityType.Civilization).ToList();
+                var possibleCivilizations = possibleEntities.Where(entity => entity.EntityType == EntityType.Civilization).ToList();
                 if (possibleCivilizations.Count == 1)
                 {
                     _currentCiv = possibleEntities[0];
@@ -97,7 +97,7 @@ public class HistoryParser : IDisposable
             }
 
             _currentCiv.IsCiv = true;
-            _currentCiv.Type = EntityType.Civilization;
+            _currentCiv.EntityType = EntityType.Civilization;
         }
         ReadLine();
         return true;

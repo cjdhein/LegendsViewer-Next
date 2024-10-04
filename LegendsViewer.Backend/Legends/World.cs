@@ -139,7 +139,7 @@ public class World : IDisposable, IWorld
 
     private void ResolveEntityIsMainCiv()
     {
-        foreach (var entity in Entities.Where(e => e.Type == EntityType.Civilization))
+        foreach (var entity in Entities.Where(e => e.EntityType == EntityType.Civilization))
         {
             if (!entity.IsCiv && entity.SiteHistory.Count > 0)
             {

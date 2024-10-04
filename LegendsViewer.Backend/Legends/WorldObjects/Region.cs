@@ -12,9 +12,8 @@ public class WorldRegion : WorldObject, IRegion
 {
     public string Icon { get; set; } = HtmlStyleUtil.GetIconString("map-legend");
 
-    public string Name { get; set; }
     public int? Depth { get; set; }
-    public RegionType Type { get; set; }
+    public RegionType RegionType { get; set; }
     public List<string> Deaths
     {
         get
@@ -78,43 +77,43 @@ public class WorldRegion : WorldObject, IRegion
                     switch (property.Value)
                     {
                         case "Mountains":
-                            Type = RegionType.Mountains;
+                            RegionType = RegionType.Mountains;
                             Icon = HtmlStyleUtil.GetIconString("image-filter-hdr");
                             break;
                         case "Ocean":
-                            Type = RegionType.Ocean;
+                            RegionType = RegionType.Ocean;
                             Icon = HtmlStyleUtil.GetIconString("tsunami");
                             break;
                         case "Tundra":
-                            Type = RegionType.Tundra;
+                            RegionType = RegionType.Tundra;
                             Icon = HtmlStyleUtil.GetIconString("weather-snowy-heavy");
                             break;
                         case "Glacier":
-                            Type = RegionType.Glacier;
+                            RegionType = RegionType.Glacier;
                             Icon = HtmlStyleUtil.GetIconString("snowflake");
                             break;
                         case "Forest":
-                            Type = RegionType.Forest;
+                            RegionType = RegionType.Forest;
                             Icon = HtmlStyleUtil.GetIconString("forest-outline");
                             break;
                         case "Wetland":
-                            Type = RegionType.Wetland;
+                            RegionType = RegionType.Wetland;
                             Icon = HtmlStyleUtil.GetIconString("home-flood");
                             break;
                         case "Grassland":
-                            Type = RegionType.Grassland;
+                            RegionType = RegionType.Grassland;
                             Icon = HtmlStyleUtil.GetIconString("grass");
                             break;
                         case "Desert":
-                            Type = RegionType.Desert;
+                            RegionType = RegionType.Desert;
                             Icon = HtmlStyleUtil.GetIconString("cactus");
                             break;
                         case "Hills":
-                            Type = RegionType.Hills;
+                            RegionType = RegionType.Hills;
                             Icon = HtmlStyleUtil.GetIconString("image-filter-hdr-outline");
                             break;
                         case "Lake":
-                            Type = RegionType.Lake;
+                            RegionType = RegionType.Lake;
                             Icon = HtmlStyleUtil.GetIconString("weather-hazy");
                             break;
                         default:
@@ -163,13 +162,14 @@ public class WorldRegion : WorldObject, IRegion
                     break;
             }
         }
+        Type = RegionType.GetDescription();
     }
     public override string ToString() { return Name; }
     public override string ToLink(bool link = true, DwarfObject? pov = null, WorldEvent? worldEvent = null)
     {
         if (link)
         {
-            string title = Type.GetDescription();
+            string title = RegionType.GetDescription();
             title += "&#13";
             title += "Evilness: " + Evilness;
             title += "&#13";

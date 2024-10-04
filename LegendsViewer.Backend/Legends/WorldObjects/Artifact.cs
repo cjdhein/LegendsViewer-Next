@@ -10,7 +10,6 @@ public class Artifact : WorldObject, IHasCoordinates
 {
     public string Icon { get; set; } = HtmlStyleUtil.GetIconString("diamond-stone");
 
-    public string Name { get; set; }
     public string Item { get; set; }
     [JsonIgnore]
     public HistoricalFigure? Creator { get; set; }
@@ -25,8 +24,6 @@ public class Artifact : WorldObject, IHasCoordinates
     public string? StructureLink => Structure?.ToLink(true, this);
 
     public int HolderId { get; set; }
-    public string? Type { get; set; } // legends_plus.xml
-    public string? SubType { get; set; } // legends_plus.xml
     public string? Description { get; set; } // legends_plus.xml
     public string? Material { get; set; } // legends_plus.xml
     public int PageCount { get; set; } // legends_plus.xml
@@ -56,7 +53,7 @@ public class Artifact : WorldObject, IHasCoordinates
     {
         Name = "Untitled";
         Type = "Unknown";
-        SubType = "";
+        Subtype = "";
 
         foreach (Property property in properties)
         {
@@ -93,7 +90,7 @@ public class Artifact : WorldObject, IHasCoordinates
                     }
                     break;
                 case "item_type": Type = Formatting.InitCaps(property.Value); break;
-                case "item_subtype": SubType = string.Intern(property.Value); break;
+                case "item_subtype": Subtype = string.Intern(property.Value); break;
                 case "item_description": Description = Formatting.InitCaps(property.Value); break;
                 case "mat": Material = string.Intern(property.Value); break;
                 case "page_count": PageCount = Convert.ToInt32(property.Value); break;

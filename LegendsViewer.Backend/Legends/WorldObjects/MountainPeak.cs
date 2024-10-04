@@ -7,7 +7,6 @@ namespace LegendsViewer.Backend.Legends.WorldObjects;
 
 public class MountainPeak : WorldObject, IHasCoordinates
 {
-    public string Name { get; set; } = "Mountain Peak";
     public WorldRegion? Region { get; set; }
     public List<Location> Coordinates { get; set; } = [];
     public int Height { get; set; } // legends_plus.xml
@@ -49,6 +48,11 @@ public class MountainPeak : WorldObject, IHasCoordinates
                     break;
             }
         }
+        if(string.IsNullOrEmpty(Name))
+        {
+            Name = IsVolcano ? "Volcano" : "Mountain Peak";
+        }
+        Type = IsVolcano ? "Volcano" : "Mountain Peak";
     }
 
     public override string ToString() { return Name; }

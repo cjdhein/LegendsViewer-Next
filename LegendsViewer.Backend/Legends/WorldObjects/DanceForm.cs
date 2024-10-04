@@ -1,5 +1,6 @@
 ﻿using LegendsViewer.Backend.Legends.Enums;
 using LegendsViewer.Backend.Legends.Events;
+using LegendsViewer.Backend.Legends.Extensions;
 using LegendsViewer.Backend.Legends.Parser;
 using LegendsViewer.Backend.Utilities;
 
@@ -13,6 +14,7 @@ public class DanceForm : ArtForm
         : base(properties, world)
     {
         FormType = FormType.Dance;
+        Type = FormType.GetDescription();
     }
 
     public override string ToLink(bool link = true, DwarfObject? pov = null, WorldEvent? worldEvent = null)

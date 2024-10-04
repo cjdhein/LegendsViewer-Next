@@ -11,33 +11,16 @@ public class WrittenContent : WorldObject
 {
     public static readonly string Icon = HtmlStyleUtil.GetIconString("bookshelf");
 
-    private string _name = default!;
-    public string Name
-    {
-        get
-        {
-            if (!string.IsNullOrWhiteSpace(_name))
-            {
-                return _name;
-            }
-
-            var type = Type.GetDescription();
-            _name = "An untitled " + type.ToLower();
-            return _name;
-        }
-        set => _name = value;
-    } // legends_plus.xml
-
     public int PageStart { get; set; } // legends_plus.xml
     public int PageEnd { get; set; } // legends_plus.xml
-    public WrittenContentType Type { get; set; } // legends_plus.xml
+    public WrittenContentType WrittenContentType { get; set; } // legends_plus.xml
 
     [JsonIgnore]
     public HistoricalFigure? Author { get; set; } // legends_plus.xml
     public int AuthorId { get; set; } // legends_plus.xml
     public List<string> Styles { get; set; } = [];
     public List<Reference> References { get; set; } = [];
-    public string TypeAsString => Type.GetDescription();
+    public string TypeAsString => WrittenContentType.GetDescription();
     public int PageCount => PageEnd - PageStart + 1;
     public int AuthorRoll { get; set; }
     public int FormId { get; set; }
@@ -69,84 +52,84 @@ public class WrittenContent : WorldObject
                     {
                         case "Autobiography":
                         case "autobiography":
-                            Type = WrittenContentType.Autobiography; break;
+                            WrittenContentType = WrittenContentType.Autobiography; break;
                         case "Biography":
                         case "biography":
-                            Type = WrittenContentType.Biography; break;
+                            WrittenContentType = WrittenContentType.Biography; break;
                         case "Chronicle":
                         case "chronicle":
-                            Type = WrittenContentType.Chronicle; break;
+                            WrittenContentType = WrittenContentType.Chronicle; break;
                         case "Dialog":
                         case "dialog":
-                            Type = WrittenContentType.Dialog; break;
+                            WrittenContentType = WrittenContentType.Dialog; break;
                         case "Essay":
                         case "essay":
-                            Type = WrittenContentType.Essay; break;
+                            WrittenContentType = WrittenContentType.Essay; break;
                         case "Guide":
                         case "guide":
-                            Type = WrittenContentType.Guide; break;
+                            WrittenContentType = WrittenContentType.Guide; break;
                         case "Letter":
                         case "letter":
-                            Type = WrittenContentType.Letter; break;
+                            WrittenContentType = WrittenContentType.Letter; break;
                         case "Manual":
                         case "manual":
-                            Type = WrittenContentType.Manual; break;
+                            WrittenContentType = WrittenContentType.Manual; break;
                         case "Novel":
                         case "novel":
-                            Type = WrittenContentType.Novel; break;
+                            WrittenContentType = WrittenContentType.Novel; break;
                         case "Play":
                         case "play":
-                            Type = WrittenContentType.Play; break;
+                            WrittenContentType = WrittenContentType.Play; break;
                         case "Poem":
                         case "poem":
-                            Type = WrittenContentType.Poem; break;
+                            WrittenContentType = WrittenContentType.Poem; break;
                         case "ShortStory":
                         case "short story":
-                            Type = WrittenContentType.ShortStory; break;
+                            WrittenContentType = WrittenContentType.ShortStory; break;
                         case "MusicalComposition":
                         case "musical composition":
-                            Type = WrittenContentType.MusicalComposition; break;
+                            WrittenContentType = WrittenContentType.MusicalComposition; break;
                         case "Choreography":
                         case "choreography":
-                            Type = WrittenContentType.Choreography; break;
+                            WrittenContentType = WrittenContentType.Choreography; break;
                         case "CulturalHistory":
                         case "cultural history":
-                            Type = WrittenContentType.CulturalHistory; break;
+                            WrittenContentType = WrittenContentType.CulturalHistory; break;
                         case "StarChart":
                         case "star chart":
-                            Type = WrittenContentType.StarChart; break;
+                            WrittenContentType = WrittenContentType.StarChart; break;
                         case "ComparativeBiography":
                         case "comparative biography":
-                            Type = WrittenContentType.ComparativeBiography; break;
+                            WrittenContentType = WrittenContentType.ComparativeBiography; break;
                         case "CulturalComparison":
                         case "cultural comparison":
-                            Type = WrittenContentType.CulturalComparison; break;
+                            WrittenContentType = WrittenContentType.CulturalComparison; break;
                         case "Atlas":
                         case "atlas":
-                            Type = WrittenContentType.Atlas; break;
+                            WrittenContentType = WrittenContentType.Atlas; break;
                         case "TreatiseOnTechnologicalEvolution":
                         case "treatise on technological evolution":
-                            Type = WrittenContentType.TreatiseOnTechnologicalEvolution; break;
+                            WrittenContentType = WrittenContentType.TreatiseOnTechnologicalEvolution; break;
                         case "AlternateHistory":
                         case "alternate history":
-                            Type = WrittenContentType.AlternateHistory; break;
+                            WrittenContentType = WrittenContentType.AlternateHistory; break;
                         case "StarCatalogue":
                         case "star catalogue":
-                            Type = WrittenContentType.StarCatalogue; break;
+                            WrittenContentType = WrittenContentType.StarCatalogue; break;
                         case "Dictionary":
                         case "dictionary":
-                            Type = WrittenContentType.Dictionary; break;
+                            WrittenContentType = WrittenContentType.Dictionary; break;
                         case "Genealogy":
                         case "genealogy":
-                            Type = WrittenContentType.Genealogy; break;
+                            WrittenContentType = WrittenContentType.Genealogy; break;
                         case "Encyclopedia":
                         case "encyclopedia":
-                            Type = WrittenContentType.Encyclopedia; break;
+                            WrittenContentType = WrittenContentType.Encyclopedia; break;
                         case "BiographicalDictionary":
                         case "biographical dictionary":
-                            Type = WrittenContentType.BiographicalDictionary; break;
+                            WrittenContentType = WrittenContentType.BiographicalDictionary; break;
                         default:
-                            Type = WrittenContentType.Unknown;
+                            WrittenContentType = WrittenContentType.Unknown;
                             if (!int.TryParse(property.Value.Replace("unknown ", ""), out _))
                             {
                                 property.Known = false;
@@ -181,6 +164,11 @@ public class WrittenContent : WorldObject
                     break;
             }
         }
+        if (string.IsNullOrWhiteSpace(Name))
+        {
+            Name = "An untitled " + WrittenContentType.GetDescription().ToLower();
+        }
+        Type = WrittenContentType.GetDescription();
     }
 
     public override string ToString()
@@ -193,9 +181,9 @@ public class WrittenContent : WorldObject
         if (link)
         {
             string? type = null;
-            if (Type != WrittenContentType.Unknown)
+            if (WrittenContentType != WrittenContentType.Unknown)
             {
-                type = Type.GetDescription();
+                type = WrittenContentType.GetDescription();
             }
             string title = "Written Content";
             title += string.IsNullOrWhiteSpace(type) ? "" : ", " + type;

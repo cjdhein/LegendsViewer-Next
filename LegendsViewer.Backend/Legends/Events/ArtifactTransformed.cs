@@ -40,10 +40,10 @@ public class ArtifactTransformed : WorldEvent
         {
             eventString += NewArtifact.Material;
         }
-        if (!string.IsNullOrWhiteSpace(NewArtifact.SubType))
+        if (!string.IsNullOrWhiteSpace(NewArtifact.Subtype))
         {
             eventString += " ";
-            eventString += NewArtifact.SubType;
+            eventString += NewArtifact.Subtype;
         }
         else
         {
@@ -57,10 +57,10 @@ public class ArtifactTransformed : WorldEvent
         {
             eventString += OldArtifact.Material;
         }
-        if (!string.IsNullOrWhiteSpace(OldArtifact.SubType))
+        if (!string.IsNullOrWhiteSpace(OldArtifact.Subtype))
         {
             eventString += " ";
-            eventString += OldArtifact.SubType;
+            eventString += OldArtifact.Subtype;
         }
         else
         {
