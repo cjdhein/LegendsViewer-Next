@@ -46,6 +46,9 @@ public class World : IDisposable, IWorld
 
     public int Width { get; set; }
     public int Height { get; set; }
+    public int CurrentYear { get; set; }
+    public int CurrentMonth { get; set; }
+    public int CurrentDay { get; set; }
 
     public List<DwarfObject> PlayerRelatedObjects { get; } = [];
 

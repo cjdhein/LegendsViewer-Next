@@ -2,6 +2,7 @@
 using LegendsViewer.Backend.Extensions;
 using LegendsViewer.Backend.Legends;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 
 namespace LegendsViewer.Backend.Controllers;
 
@@ -111,6 +112,52 @@ public abstract class GenericController<T>(List<T> allElements, Func<int, T?> ge
             TotalPages = (int)Math.Ceiling(totalElements / (double)pageSize)
         };
 
+        return Ok(response);
+    }
+
+    [HttpGet("{id}/eventchart")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public ActionResult<ChartDataDto> GetEventChart([FromRoute] int id)
+    {
+        WorldObject? item = GetById(id);
+        if (item == null)
+        {
+            return NotFound();
+        }
+
+        var response = new ChartDataDto();
+        var dataset = new ChartDatasetDto
+        {
+            Label = "Events per Year"
+        };
+
+        // Group by year and count events per year
+        var eventCounts = item.Events
+            .GroupBy(e => e.Year)
+            .ToDictionary(g => g.Key, g => g.Count());
+
+        const int startYear = 0;
+        int endYear = item.World?.CurrentYear ?? eventCounts.Keys.Max();
+
+        // Fill in missing years with 0 events
+        for (int year = startYear; year <= endYear; year++)
+        {
+            if (!eventCounts.ContainsKey(year))
+            {
+                eventCounts[year] = 0;
+            }
+        }
+
+        // Output the results (sorted by year)
+        foreach (var eventItem in eventCounts.OrderBy(kv => kv.Key))
+        {
+            response.Labels.Add(eventItem.Key.ToString());
+            dataset.Data.Add(eventItem.Value);
+        }
+
+        response.Datasets.Add(dataset);
         return Ok(response);
     }
 }

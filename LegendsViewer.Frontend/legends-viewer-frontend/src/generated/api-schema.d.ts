@@ -208,6 +208,67 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/Artifact/{id}/eventchart": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    id: number;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description OK */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["ChartDataDto"];
+                        "application/json": components["schemas"]["ChartDataDto"];
+                        "text/json": components["schemas"]["ChartDataDto"];
+                    };
+                };
+                /** @description Bad Request */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["ProblemDetails"];
+                        "application/json": components["schemas"]["ProblemDetails"];
+                        "text/json": components["schemas"]["ProblemDetails"];
+                    };
+                };
+                /** @description Not Found */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["ProblemDetails"];
+                        "application/json": components["schemas"]["ProblemDetails"];
+                        "text/json": components["schemas"]["ProblemDetails"];
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/Bookmark": {
         parameters: {
             query?: never;
@@ -623,6 +684,67 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/Construction/{id}/eventchart": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    id: number;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description OK */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["ChartDataDto"];
+                        "application/json": components["schemas"]["ChartDataDto"];
+                        "text/json": components["schemas"]["ChartDataDto"];
+                    };
+                };
+                /** @description Bad Request */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["ProblemDetails"];
+                        "application/json": components["schemas"]["ProblemDetails"];
+                        "text/json": components["schemas"]["ProblemDetails"];
+                    };
+                };
+                /** @description Not Found */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["ProblemDetails"];
+                        "application/json": components["schemas"]["ProblemDetails"];
+                        "text/json": components["schemas"]["ProblemDetails"];
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/DanceForm": {
         parameters: {
             query?: never;
@@ -793,6 +915,67 @@ export interface paths {
                         "text/plain": components["schemas"]["WorldEventDtoPaginatedResponse"];
                         "application/json": components["schemas"]["WorldEventDtoPaginatedResponse"];
                         "text/json": components["schemas"]["WorldEventDtoPaginatedResponse"];
+                    };
+                };
+                /** @description Bad Request */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["ProblemDetails"];
+                        "application/json": components["schemas"]["ProblemDetails"];
+                        "text/json": components["schemas"]["ProblemDetails"];
+                    };
+                };
+                /** @description Not Found */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["ProblemDetails"];
+                        "application/json": components["schemas"]["ProblemDetails"];
+                        "text/json": components["schemas"]["ProblemDetails"];
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/DanceForm/{id}/eventchart": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    id: number;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description OK */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["ChartDataDto"];
+                        "application/json": components["schemas"]["ChartDataDto"];
+                        "text/json": components["schemas"]["ChartDataDto"];
                     };
                 };
                 /** @description Bad Request */
@@ -1034,6 +1217,67 @@ export interface paths {
                         "text/plain": components["schemas"]["WorldEventDtoPaginatedResponse"];
                         "application/json": components["schemas"]["WorldEventDtoPaginatedResponse"];
                         "text/json": components["schemas"]["WorldEventDtoPaginatedResponse"];
+                    };
+                };
+                /** @description Bad Request */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["ProblemDetails"];
+                        "application/json": components["schemas"]["ProblemDetails"];
+                        "text/json": components["schemas"]["ProblemDetails"];
+                    };
+                };
+                /** @description Not Found */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["ProblemDetails"];
+                        "application/json": components["schemas"]["ProblemDetails"];
+                        "text/json": components["schemas"]["ProblemDetails"];
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/Entity/{id}/eventchart": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    id: number;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description OK */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["ChartDataDto"];
+                        "application/json": components["schemas"]["ChartDataDto"];
+                        "text/json": components["schemas"]["ChartDataDto"];
                     };
                 };
                 /** @description Bad Request */
@@ -1399,6 +1643,67 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/HistoricalFigure/{id}/eventchart": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    id: number;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description OK */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["ChartDataDto"];
+                        "application/json": components["schemas"]["ChartDataDto"];
+                        "text/json": components["schemas"]["ChartDataDto"];
+                    };
+                };
+                /** @description Bad Request */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["ProblemDetails"];
+                        "application/json": components["schemas"]["ProblemDetails"];
+                        "text/json": components["schemas"]["ProblemDetails"];
+                    };
+                };
+                /** @description Not Found */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["ProblemDetails"];
+                        "application/json": components["schemas"]["ProblemDetails"];
+                        "text/json": components["schemas"]["ProblemDetails"];
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/Landmass": {
         parameters: {
             query?: never;
@@ -1569,6 +1874,67 @@ export interface paths {
                         "text/plain": components["schemas"]["WorldEventDtoPaginatedResponse"];
                         "application/json": components["schemas"]["WorldEventDtoPaginatedResponse"];
                         "text/json": components["schemas"]["WorldEventDtoPaginatedResponse"];
+                    };
+                };
+                /** @description Bad Request */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["ProblemDetails"];
+                        "application/json": components["schemas"]["ProblemDetails"];
+                        "text/json": components["schemas"]["ProblemDetails"];
+                    };
+                };
+                /** @description Not Found */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["ProblemDetails"];
+                        "application/json": components["schemas"]["ProblemDetails"];
+                        "text/json": components["schemas"]["ProblemDetails"];
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/Landmass/{id}/eventchart": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    id: number;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description OK */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["ChartDataDto"];
+                        "application/json": components["schemas"]["ChartDataDto"];
+                        "text/json": components["schemas"]["ChartDataDto"];
                     };
                 };
                 /** @description Bad Request */
@@ -1807,6 +2173,67 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/MountainPeak/{id}/eventchart": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    id: number;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description OK */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["ChartDataDto"];
+                        "application/json": components["schemas"]["ChartDataDto"];
+                        "text/json": components["schemas"]["ChartDataDto"];
+                    };
+                };
+                /** @description Bad Request */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["ProblemDetails"];
+                        "application/json": components["schemas"]["ProblemDetails"];
+                        "text/json": components["schemas"]["ProblemDetails"];
+                    };
+                };
+                /** @description Not Found */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["ProblemDetails"];
+                        "application/json": components["schemas"]["ProblemDetails"];
+                        "text/json": components["schemas"]["ProblemDetails"];
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/MusicalForm": {
         parameters: {
             query?: never;
@@ -1977,6 +2404,67 @@ export interface paths {
                         "text/plain": components["schemas"]["WorldEventDtoPaginatedResponse"];
                         "application/json": components["schemas"]["WorldEventDtoPaginatedResponse"];
                         "text/json": components["schemas"]["WorldEventDtoPaginatedResponse"];
+                    };
+                };
+                /** @description Bad Request */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["ProblemDetails"];
+                        "application/json": components["schemas"]["ProblemDetails"];
+                        "text/json": components["schemas"]["ProblemDetails"];
+                    };
+                };
+                /** @description Not Found */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["ProblemDetails"];
+                        "application/json": components["schemas"]["ProblemDetails"];
+                        "text/json": components["schemas"]["ProblemDetails"];
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/MusicalForm/{id}/eventchart": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    id: number;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description OK */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["ChartDataDto"];
+                        "application/json": components["schemas"]["ChartDataDto"];
+                        "text/json": components["schemas"]["ChartDataDto"];
                     };
                 };
                 /** @description Bad Request */
@@ -2215,6 +2703,67 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/PoeticForm/{id}/eventchart": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    id: number;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description OK */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["ChartDataDto"];
+                        "application/json": components["schemas"]["ChartDataDto"];
+                        "text/json": components["schemas"]["ChartDataDto"];
+                    };
+                };
+                /** @description Bad Request */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["ProblemDetails"];
+                        "application/json": components["schemas"]["ProblemDetails"];
+                        "text/json": components["schemas"]["ProblemDetails"];
+                    };
+                };
+                /** @description Not Found */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["ProblemDetails"];
+                        "application/json": components["schemas"]["ProblemDetails"];
+                        "text/json": components["schemas"]["ProblemDetails"];
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/Region": {
         parameters: {
             query?: never;
@@ -2385,6 +2934,67 @@ export interface paths {
                         "text/plain": components["schemas"]["WorldEventDtoPaginatedResponse"];
                         "application/json": components["schemas"]["WorldEventDtoPaginatedResponse"];
                         "text/json": components["schemas"]["WorldEventDtoPaginatedResponse"];
+                    };
+                };
+                /** @description Bad Request */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["ProblemDetails"];
+                        "application/json": components["schemas"]["ProblemDetails"];
+                        "text/json": components["schemas"]["ProblemDetails"];
+                    };
+                };
+                /** @description Not Found */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["ProblemDetails"];
+                        "application/json": components["schemas"]["ProblemDetails"];
+                        "text/json": components["schemas"]["ProblemDetails"];
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/Region/{id}/eventchart": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    id: number;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description OK */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["ChartDataDto"];
+                        "application/json": components["schemas"]["ChartDataDto"];
+                        "text/json": components["schemas"]["ChartDataDto"];
                     };
                 };
                 /** @description Bad Request */
@@ -2623,6 +3233,67 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/River/{id}/eventchart": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    id: number;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description OK */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["ChartDataDto"];
+                        "application/json": components["schemas"]["ChartDataDto"];
+                        "text/json": components["schemas"]["ChartDataDto"];
+                    };
+                };
+                /** @description Bad Request */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["ProblemDetails"];
+                        "application/json": components["schemas"]["ProblemDetails"];
+                        "text/json": components["schemas"]["ProblemDetails"];
+                    };
+                };
+                /** @description Not Found */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["ProblemDetails"];
+                        "application/json": components["schemas"]["ProblemDetails"];
+                        "text/json": components["schemas"]["ProblemDetails"];
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/Site": {
         parameters: {
             query?: never;
@@ -2793,6 +3464,67 @@ export interface paths {
                         "text/plain": components["schemas"]["WorldEventDtoPaginatedResponse"];
                         "application/json": components["schemas"]["WorldEventDtoPaginatedResponse"];
                         "text/json": components["schemas"]["WorldEventDtoPaginatedResponse"];
+                    };
+                };
+                /** @description Bad Request */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["ProblemDetails"];
+                        "application/json": components["schemas"]["ProblemDetails"];
+                        "text/json": components["schemas"]["ProblemDetails"];
+                    };
+                };
+                /** @description Not Found */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["ProblemDetails"];
+                        "application/json": components["schemas"]["ProblemDetails"];
+                        "text/json": components["schemas"]["ProblemDetails"];
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/Site/{id}/eventchart": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    id: number;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description OK */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["ChartDataDto"];
+                        "application/json": components["schemas"]["ChartDataDto"];
+                        "text/json": components["schemas"]["ChartDataDto"];
                     };
                 };
                 /** @description Bad Request */
@@ -3031,6 +3763,67 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/Structure/{id}/eventchart": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    id: number;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description OK */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["ChartDataDto"];
+                        "application/json": components["schemas"]["ChartDataDto"];
+                        "text/json": components["schemas"]["ChartDataDto"];
+                    };
+                };
+                /** @description Bad Request */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["ProblemDetails"];
+                        "application/json": components["schemas"]["ProblemDetails"];
+                        "text/json": components["schemas"]["ProblemDetails"];
+                    };
+                };
+                /** @description Not Found */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["ProblemDetails"];
+                        "application/json": components["schemas"]["ProblemDetails"];
+                        "text/json": components["schemas"]["ProblemDetails"];
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/UndergroundRegion": {
         parameters: {
             query?: never;
@@ -3201,6 +3994,67 @@ export interface paths {
                         "text/plain": components["schemas"]["WorldEventDtoPaginatedResponse"];
                         "application/json": components["schemas"]["WorldEventDtoPaginatedResponse"];
                         "text/json": components["schemas"]["WorldEventDtoPaginatedResponse"];
+                    };
+                };
+                /** @description Bad Request */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["ProblemDetails"];
+                        "application/json": components["schemas"]["ProblemDetails"];
+                        "text/json": components["schemas"]["ProblemDetails"];
+                    };
+                };
+                /** @description Not Found */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["ProblemDetails"];
+                        "application/json": components["schemas"]["ProblemDetails"];
+                        "text/json": components["schemas"]["ProblemDetails"];
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/UndergroundRegion/{id}/eventchart": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    id: number;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description OK */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["ChartDataDto"];
+                        "application/json": components["schemas"]["ChartDataDto"];
+                        "text/json": components["schemas"]["ChartDataDto"];
                     };
                 };
                 /** @description Bad Request */
@@ -3915,15 +4769,76 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/WrittenContent/{id}/eventchart": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    id: number;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description OK */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["ChartDataDto"];
+                        "application/json": components["schemas"]["ChartDataDto"];
+                        "text/json": components["schemas"]["ChartDataDto"];
+                    };
+                };
+                /** @description Bad Request */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["ProblemDetails"];
+                        "application/json": components["schemas"]["ProblemDetails"];
+                        "text/json": components["schemas"]["ProblemDetails"];
+                    };
+                };
+                /** @description Not Found */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["ProblemDetails"];
+                        "application/json": components["schemas"]["ProblemDetails"];
+                        "text/json": components["schemas"]["ProblemDetails"];
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
 }
 export type webhooks = Record<string, never>;
 export interface components {
     schemas: {
         Artifact: {
             /** Format: int32 */
-            readonly eventCount?: number;
-            /** Format: int32 */
             id?: number;
+            /** Format: int32 */
+            readonly eventCount?: number;
             icon?: string | null;
             name?: string | null;
             item?: string | null;
@@ -4019,9 +4934,9 @@ export interface components {
         };
         DanceForm: {
             /** Format: int32 */
-            readonly eventCount?: number;
-            /** Format: int32 */
             id?: number;
+            /** Format: int32 */
+            readonly eventCount?: number;
             name?: string | null;
             description?: string | null;
             formType?: components["schemas"]["FormType"];
@@ -4042,9 +4957,9 @@ export interface components {
         DeathCause: "Unknown" | "None" | "Struck" | "OldAge" | "Thirst" | "Suffocated" | "Bled" | "Cold" | "CrushedByABridge" | "Drowned" | "Starved" | "InACage" | "Infection" | "CollidedWithAnObstacle" | "PutToRest" | "StarvedQuit" | "Trap" | "DragonsFire" | "Burned" | "Murdered" | "Shot" | "CaveIn" | "FrozenInWater" | "ExecutedGeneric" | "ExecutedFedToBeasts" | "ExecutedBurnedAlive" | "ExecutedCrucified" | "ExecutedDrowned" | "ExecutedHackedToPieces" | "ExecutedBuriedAlive" | "ExecutedBeheaded" | "DrainedBlood" | "Collapsed" | "ScaredToDeath" | "Scuttled" | "FlyingObject" | "Slaughtered" | "Melted" | "Spikes" | "Heat" | "Vanish" | "CoolingMagma" | "Vehicle" | "SuicideDrowned" | "SuicideLeaping" | "Chasm";
         Entity: {
             /** Format: int32 */
-            readonly eventCount?: number;
-            /** Format: int32 */
             id?: number;
+            /** Format: int32 */
+            readonly eventCount?: number;
             name?: string | null;
             readonly parentLink?: string | null;
             race?: components["schemas"]["CreatureInfo"];
@@ -4109,9 +5024,9 @@ export interface components {
         };
         EntityPopulation: {
             /** Format: int32 */
-            readonly eventCount?: number;
-            /** Format: int32 */
             id?: number;
+            /** Format: int32 */
+            readonly eventCount?: number;
             race?: components["schemas"]["CreatureInfo"];
             /** Format: int32 */
             count?: number;
@@ -4144,9 +5059,9 @@ export interface components {
         HfState: "Unknown" | "None" | "Settled" | "Wandering" | "Scouting" | "Snatcher" | "Refugee" | "Thief" | "Hunting" | "Visiting";
         HistoricalFigure: {
             /** Format: int32 */
-            readonly eventCount?: number;
-            /** Format: int32 */
             id?: number;
+            /** Format: int32 */
+            readonly eventCount?: number;
             name?: string | null;
             readonly titleRaceString?: string | null;
             race?: components["schemas"]["CreatureInfo"];
@@ -4325,9 +5240,9 @@ export interface components {
         };
         Landmass: {
             /** Format: int32 */
-            readonly eventCount?: number;
-            /** Format: int32 */
             id?: number;
+            /** Format: int32 */
+            readonly eventCount?: number;
             name?: string | null;
             coordinates?: components["schemas"]["Location"][] | null;
         };
@@ -4352,9 +5267,9 @@ export interface components {
         MapSize: "Default" | "Small" | "Large";
         MountainPeak: {
             /** Format: int32 */
-            readonly eventCount?: number;
-            /** Format: int32 */
             id?: number;
+            /** Format: int32 */
+            readonly eventCount?: number;
             name?: string | null;
             region?: components["schemas"]["WorldRegion"];
             coordinates?: components["schemas"]["Location"][] | null;
@@ -4363,6 +5278,7 @@ export interface components {
             heightMeter?: string | null;
             isVolcano?: boolean;
             readonly typeAsString?: string | null;
+            icon?: string | null;
         };
         MountainPeakPaginatedResponse: {
             items?: components["schemas"]["MountainPeak"][] | null;
@@ -4377,9 +5293,9 @@ export interface components {
         };
         MusicalForm: {
             /** Format: int32 */
-            readonly eventCount?: number;
-            /** Format: int32 */
             id?: number;
+            /** Format: int32 */
+            readonly eventCount?: number;
             name?: string | null;
             description?: string | null;
             formType?: components["schemas"]["FormType"];
@@ -4422,9 +5338,9 @@ export interface components {
         };
         PoeticForm: {
             /** Format: int32 */
-            readonly eventCount?: number;
-            /** Format: int32 */
             id?: number;
+            /** Format: int32 */
+            readonly eventCount?: number;
             name?: string | null;
             description?: string | null;
             formType?: components["schemas"]["FormType"];
@@ -4538,9 +5454,9 @@ export interface components {
         ReputationType: "Unknown" | "EnemyFighter" | "TradePartner" | "Killer" | "Poet" | "Bard" | "Storyteller" | "Dancer" | "Friendly" | "Buddy" | "Grudge" | "Bonded" | "Quarreler" | "Psychopath" | "LoyalSoldier" | "Bully" | "Hero" | "Hunter" | "InformationSource" | "TreasureHunter" | "KnowledgePreserver" | "ProtectorOfWeak" | "Love" | "Respect" | "Trust" | "Loyalty" | "Fear" | "Comrade" | "Murderer" | "Violent" | "Flatterer";
         River: {
             /** Format: int32 */
-            readonly eventCount?: number;
-            /** Format: int32 */
             id?: number;
+            /** Format: int32 */
+            readonly eventCount?: number;
             name?: string | null;
             endPos?: components["schemas"]["Location"];
             path?: string | null;
@@ -4559,9 +5475,9 @@ export interface components {
         };
         Site: {
             /** Format: int32 */
-            readonly eventCount?: number;
-            /** Format: int32 */
             id?: number;
+            /** Format: int32 */
+            readonly eventCount?: number;
             icon?: string | null;
             name?: string | null;
             type?: string | null;
@@ -4654,9 +5570,9 @@ export interface components {
         };
         Structure: {
             /** Format: int32 */
-            readonly eventCount?: number;
-            /** Format: int32 */
             id?: number;
+            /** Format: int32 */
+            readonly eventCount?: number;
             name?: string | null;
             altName?: string | null;
             type?: components["schemas"]["StructureType"];
@@ -4689,9 +5605,9 @@ export interface components {
         StructureType: "Unknown" | "MeadHall" | "Market" | "Keep" | "Temple" | "Dungeon" | "InnTavern" | "Tomb" | "UnderworldSpire" | "Library" | "Tower" | "CountingHouse" | "Guildhall";
         UndergroundRegion: {
             /** Format: int32 */
-            readonly eventCount?: number;
-            /** Format: int32 */
             id?: number;
+            /** Format: int32 */
+            readonly eventCount?: number;
             /** Format: int32 */
             depth?: number | null;
             type?: components["schemas"]["RegionType"];
@@ -4720,9 +5636,9 @@ export interface components {
         VagueRelationshipType: "Unknown" | "WarBuddy" | "AthleteBuddy" | "ChildhoodFriend" | "PersecutionGrudge" | "SupernaturalGrudge" | "ReligiousPersecutionGrudge" | "ArtisticBuddy" | "JealousObsession" | "Grudge" | "JealousRelationshipGrudge" | "ScholarBuddy" | "BusinessRival" | "AthleticRival" | "Lover" | "FormerLover" | "Lieutenant";
         WorldConstruction: {
             /** Format: int32 */
-            readonly eventCount?: number;
-            /** Format: int32 */
             id?: number;
+            /** Format: int32 */
+            readonly eventCount?: number;
             name?: string | null;
             type?: components["schemas"]["WorldConstructionType"];
             typeAsString?: string | null;
@@ -4752,6 +5668,12 @@ export interface components {
             width?: number;
             /** Format: int32 */
             height?: number;
+            /** Format: int32 */
+            currentYear?: number;
+            /** Format: int32 */
+            currentMonth?: number;
+            /** Format: int32 */
+            currentDay?: number;
             siteMarkers?: components["schemas"]["SiteMarkerDto"][] | null;
         };
         WorldEventDto: {
@@ -4781,9 +5703,9 @@ export interface components {
         };
         WorldRegion: {
             /** Format: int32 */
-            readonly eventCount?: number;
-            /** Format: int32 */
             id?: number;
+            /** Format: int32 */
+            readonly eventCount?: number;
             icon?: string | null;
             name?: string | null;
             /** Format: int32 */
@@ -4813,9 +5735,9 @@ export interface components {
         };
         WrittenContent: {
             /** Format: int32 */
-            readonly eventCount?: number;
-            /** Format: int32 */
             id?: number;
+            /** Format: int32 */
+            readonly eventCount?: number;
             name?: string | null;
             /** Format: int32 */
             pageStart?: number;
@@ -4826,9 +5748,9 @@ export interface components {
             authorId?: number;
             styles?: string[] | null;
             references?: components["schemas"]["Reference"][] | null;
-            typeAsString?: string | null;
+            readonly typeAsString?: string | null;
             /** Format: int32 */
-            pageCount?: number;
+            readonly pageCount?: number;
             /** Format: int32 */
             authorRoll?: number;
             /** Format: int32 */

@@ -5,6 +5,7 @@ import { LoadItemsSortOption } from '../types/legends';
 
 export type Site = components['schemas']['Site'];
 export type WorldEventDto = components['schemas']['WorldEventDto'];
+type ChartDataDto = components['schemas']['ChartDataDto'];
 
 export const useSiteStore = defineStore('site', {
     state: () => ({
@@ -12,6 +13,7 @@ export const useSiteStore = defineStore('site', {
         objectEvents: [] as WorldEventDto[],
         objectEventsTotalItems: 0 as number,
         objectEventsPerPage: 10 as number,
+        objectEventChartData: null as ChartDataDto | null,
         isLoading: false as boolean
     }),
     actions: {
@@ -53,6 +55,24 @@ export const useSiteStore = defineStore('site', {
             } else if (data) {
                 this.objectEvents = data.items ?? [];
                 this.objectEventsTotalItems = data.totalCount ?? 0;
+                this.isLoading = false;
+            }
+        },
+        async loadEventChartData(id: number) {
+            this.isLoading = true;
+            const { data, error } = await client.GET("/api/Site/{id}/eventchart", {
+                params: {
+                    path: {
+                        id: id
+                    },
+                },
+            });
+
+            if (error !== undefined) {
+                this.isLoading = false;
+                console.error(error);
+            } else if (data) {
+                this.objectEventChartData = data;
                 this.isLoading = false;
             }
         },

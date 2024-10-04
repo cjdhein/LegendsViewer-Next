@@ -160,10 +160,9 @@ public class War : EventCollection
             title += "&#13";
             title += "Deaths: " + DeathCount + " | (" + StartYear + " - " + (EndYear == -1 ? "Present" : EndYear.ToString()) + ")";
 
-            string linkedString = pov != this
+            return pov != this
                 ? HtmlStyleUtil.GetAnchorString(Icon, "collection", Id, title, Name)
                 : HtmlStyleUtil.GetAnchorCurrentString(Icon, title, HtmlStyleUtil.CurrentDwarfObject(Name));
-            return linkedString;
         }
         return Name;
     }

@@ -1,7 +1,6 @@
 ﻿using LegendsViewer.Backend.Legends.EventCollections;
 using LegendsViewer.Backend.Legends.Events;
 using LegendsViewer.Backend.Legends.WorldObjects;
-using System.Text.Json.Serialization;
 
 namespace LegendsViewer.Backend.Legends;
 
@@ -12,6 +11,9 @@ public interface IWorld
 
     int Width { get; set; }
     int Height { get; set; }
+    int CurrentYear { get; set; }
+    int CurrentMonth { get; set; }
+    int CurrentDay { get; set; }
 
     List<WorldRegion> Regions { get; }
     List<UndergroundRegion> UndergroundRegions { get; }

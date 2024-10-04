@@ -136,7 +136,6 @@ public class Entity : WorldObject, IHasCoordinates
     public Color LineColor { get; set; }
 
     private string? _icon;
-    private readonly World _world;
 
     public string Icon
     {
@@ -149,12 +148,12 @@ public class Entity : WorldObject, IHasCoordinates
                 {
                     coloredIcon = HtmlStyleUtil.GetCivIconString(Formatting.GetInitials(Name), ColorTranslator.ToHtml(LineColor));
                 }
-                else if (_world.MainRaces.ContainsKey(Race))
+                else if (World.MainRaces.ContainsKey(Race))
                 {
                     Color civilizedPopColor = LineColor;
                     if (civilizedPopColor == Color.Empty)
                     {
-                        civilizedPopColor = _world.MainRaces.FirstOrDefault(r => r.Key == Race).Value;
+                        civilizedPopColor = World.MainRaces.FirstOrDefault(r => r.Key == Race).Value;
                     }
                     coloredIcon = HtmlStyleUtil.GetIconString("account-group", ColorTranslator.ToHtml(civilizedPopColor));
                 }
@@ -320,8 +319,6 @@ public class Entity : WorldObject, IHasCoordinates
                     break;
             }
         }
-
-        _world = world;
     }
     public override string ToString() { return Name ?? "UNKNOWN"; }
 
@@ -375,7 +372,7 @@ public class Entity : WorldObject, IHasCoordinates
             }
             else
             {
-                Populations.Add(new Population(_world, population.Race, population.Count));
+                Populations.Add(new Population(World, population.Race, population.Count));
             }
         }
         Populations = Populations.OrderByDescending(pop => pop.Count).ToList();

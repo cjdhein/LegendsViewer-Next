@@ -202,10 +202,9 @@ public class WrittenContent : WorldObject
             title += "&#13";
             title += "Events: " + Events.Count;
 
-            string linkedString = pov != this
+            return pov != this
                 ? HtmlStyleUtil.GetAnchorString(Icon, "writtencontent", Id, title, Name)
                 : HtmlStyleUtil.GetAnchorCurrentString(Icon, title, HtmlStyleUtil.CurrentDwarfObject(Name));
-            return linkedString;
         }
         return Name;
     }

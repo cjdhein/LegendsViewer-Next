@@ -7,7 +7,7 @@ namespace LegendsViewer.Backend.Legends.WorldObjects;
 
 public class Landmass : WorldObject, IHasCoordinates
 {
-    public static readonly string Icon = "<i class=\"fa fa-fw fa-life-ring\"></i>";
+    public static readonly string Icon = HtmlStyleUtil.GetIconString("island-variant");
 
     public string Name { get; set; } // legends_plus.xml
     public List<Location> Coordinates { get; set; } // legends_plus.xml
@@ -51,26 +51,18 @@ public class Landmass : WorldObject, IHasCoordinates
 
     public override string ToString() { return Name; }
 
-    public override string ToLink(bool link = true, DwarfObject pov = null, WorldEvent worldEvent = null)
+    public override string ToLink(bool link = true, DwarfObject? pov = null, WorldEvent? worldEvent = null)
     {
         if (link)
         {
-            string linkedString = "";
-            if (pov != this)
-            {
-                string title = "";
-                title += "Landmass";
-                title += "&#13";
-                title += "Events: " + Events.Count;
+            string title = "";
+            title += "Landmass";
+            title += "&#13";
+            title += "Events: " + Events.Count;
 
-                linkedString = Icon + "<a href = \"landmass#" + Id + "\" title=\"" + title + "\">" + Name + "</a>";
-            }
-            else
-            {
-                linkedString = Icon + HtmlStyleUtil.CurrentDwarfObject(Name);
-            }
-
-            return linkedString;
+            return pov != this
+                ? HtmlStyleUtil.GetAnchorString(Icon, "landmass", Id, title, Name)
+                : HtmlStyleUtil.GetAnchorCurrentString(Icon, title, HtmlStyleUtil.CurrentDwarfObject(Name));
         }
         return Name;
     }

@@ -12,7 +12,7 @@ public class River : WorldObject, IHasCoordinates
     public string Path { get; set; } // legends_plus.xml
     public List<Location> Coordinates { get; set; } // legends_plus.xml
 
-    public string Icon = "<i class=\"fa fa-fw fa-tint\"></i>";
+    public static readonly string Icon = HtmlStyleUtil.GetIconString("waves");
 
     public River(List<Property> properties, World world)
         : base(properties, world)
@@ -54,26 +54,17 @@ public class River : WorldObject, IHasCoordinates
 
     public override string ToString() { return Name; }
 
-    public override string ToLink(bool link = true, DwarfObject pov = null, WorldEvent worldEvent = null)
+    public override string ToLink(bool link = true, DwarfObject? pov = null, WorldEvent? worldEvent = null)
     {
         if (link)
         {
-            string linkedString = "";
-            if (pov != this)
-            {
-                string title = "";
-                title += "River";
-                title += "&#13";
-                title += "Events: " + Events.Count;
-
-                linkedString = Icon + "<a href = \"river#" + Id + "\" title=\"" + title + "\">" + Name + "</a>";
-            }
-            else
-            {
-                linkedString = Icon + HtmlStyleUtil.CurrentDwarfObject(Name);
-            }
-
-            return linkedString;
+            string title = "";
+            title += "River";
+            title += "&#13";
+            title += "Events: " + Events.Count;
+            return pov != this
+                ? HtmlStyleUtil.GetAnchorString(Icon, "river", Id, title, Name)
+                : HtmlStyleUtil.GetAnchorCurrentString(Icon, title, HtmlStyleUtil.CurrentDwarfObject(Name));
         }
         return Name;
     }

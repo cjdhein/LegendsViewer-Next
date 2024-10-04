@@ -6,6 +6,7 @@ import { useMapStore } from '../stores/mapStore';
 import { LegendLinkListData, LoadItemsOptions } from '../types/legends';
 import LegendsCardList from '../components/LegendsCardList.vue';
 import DoughnutChart from '../components/DoughnutChart.vue';
+import LineChart from '../components/LineChart.vue';
 
 const route = useRoute()
 const siteStore = useSiteStore()
@@ -33,6 +34,7 @@ const loadSite = async (idString: string | string[]) => {
         const id = parseInt(idString, 10)
         await siteStore.load(id)
         await mapStore.loadWorldSiteMap(id, 'Default')
+        await siteStore.loadEventChartData(id)
         await loadSiteEvents({ page: 1, itemsPerPage: siteStore.objectEventsPerPage, sortBy: [] })
     }
 }
@@ -138,17 +140,10 @@ watch(
                     <v-icon class="mr-2" icon="mdi-grave-stone" size="32px"></v-icon>
                 </template>
                 <v-card-text>
-                    <DoughnutChart :chart-data="siteStore.object?.deathsByRace"></DoughnutChart>
+                    <DoughnutChart :chart-data="siteStore.object?.deathsByRace" />
                 </v-card-text>
             </v-card>
         </v-col>
-    </v-row>
-    <v-row>
-        <template v-for="(list, i) in lists" :key="i">
-            <v-col v-if="list?.items.length" cols="12" xl="4" lg="6" md="12">
-                <LegendsCardList :list="list" />
-            </v-col>
-        </template>
     </v-row>
     <v-row>
         <v-col v-if="siteStore.object?.eventCount != null && siteStore.object?.eventCount > 0">
@@ -157,6 +152,7 @@ watch(
                     <v-icon class="mr-2" icon="mdi-calendar-clock" size="32px"></v-icon>
                 </template>
                 <v-card-text>
+                    <LineChart v-if="siteStore.objectEventChartData != null" :chart-data="siteStore.objectEventChartData" />
                     <v-data-table-server v-model:items-per-page="siteStore.objectEventsPerPage" :headers="eventTableHeaders" :items="siteStore.objectEvents"
                     :items-length="siteStore.objectEventsTotalItems" :loading="siteStore.isLoading" item-value="name"
                     @update:options="loadSiteEvents">
@@ -167,6 +163,13 @@ watch(
                 </v-card-text>
             </v-card>
         </v-col>
+    </v-row>
+    <v-row>
+        <template v-for="(list, i) in lists" :key="i">
+            <v-col v-if="list?.items.length" cols="12" xl="4" lg="6" md="12">
+                <LegendsCardList :list="list" />
+            </v-col>
+        </template>
     </v-row>
 </template>
 

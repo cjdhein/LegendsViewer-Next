@@ -10,7 +10,7 @@ namespace LegendsViewer.Backend.Legends.WorldObjects;
 
 public class UndergroundRegion : WorldObject, IRegion
 {
-    public string Icon = "<i class=\"fa fa-fw fa-map\"></i>";
+    public static readonly string Icon = HtmlStyleUtil.GetIconString("tunnel");
 
     public int? Depth { get; set; }
     public RegionType Type { get; set; }
@@ -21,7 +21,7 @@ public class UndergroundRegion : WorldObject, IRegion
 
     public List<Location> Coordinates { get; set; } = []; // legends_plus.xml
     public int SquareTiles => Coordinates.Count;
-    public UndergroundRegion() { }
+
     public UndergroundRegion(List<Property> properties, World world)
         : base(properties, world)
     {
@@ -86,10 +86,9 @@ public class UndergroundRegion : WorldObject, IRegion
             string title = Type.GetDescription();
             title += "&#13";
             title += "Events: " + Events.Count;
-
             return pov != this
-                ? Icon + "<a href = \"uregion#" + Id + "\" title=\"" + title + "\">" + name + "</a>"
-                : Icon + "<a title=\"" + title + "\">" + HtmlStyleUtil.CurrentDwarfObject(name) + "</a>";
+                ? HtmlStyleUtil.GetAnchorString(Icon, "uregion", Id, title, name)
+                : HtmlStyleUtil.GetAnchorCurrentString(Icon, title, HtmlStyleUtil.CurrentDwarfObject(name));
         }
         return name;
     }

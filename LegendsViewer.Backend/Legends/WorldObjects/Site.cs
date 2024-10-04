@@ -13,8 +13,6 @@ namespace LegendsViewer.Backend.Legends.WorldObjects;
 
 public class Site : WorldObject, IHasCoordinates
 {
-    private readonly World _world;
-
     public string Icon { get; set; } = HtmlStyleUtil.GetIconString("map-marker");
 
     public string Name { get; set; }
@@ -134,7 +132,7 @@ public class Site : WorldObject, IHasCoordinates
             {
                 deathsByRace.Labels.Add(death.Key.NamePlural);
                 deathsByRaceDataset.Data.Add(death.Value);
-                if (_world.MainRaces.TryGetValue(death.Key, out var raceColor))
+                if (World.MainRaces.TryGetValue(death.Key, out var raceColor))
                 {
                     deathsByRaceDataset.BorderColor.Add(raceColor.ToRgbaString());
                     deathsByRaceDataset.BackgroundColor.Add(raceColor.ToRgbaString(0.2f));
@@ -253,7 +251,6 @@ public class Site : WorldObject, IHasCoordinates
             }
         }
         SetIconByType(SiteType);
-        _world = world;
     }
 
     private void SetIconByType(SiteType siteType)
