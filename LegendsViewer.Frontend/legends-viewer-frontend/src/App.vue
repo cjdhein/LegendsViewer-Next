@@ -10,7 +10,7 @@ const menuItems = [
     <v-app>
       <v-app-bar>
         <div class="logo">
-          <v-img src="../public/ceretelina.png"></v-img>
+          <v-img src="/ceretelina.png"></v-img>
         </div>
         <h1>
           Legends Viewer
