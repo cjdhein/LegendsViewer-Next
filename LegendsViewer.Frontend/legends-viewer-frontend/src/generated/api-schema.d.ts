@@ -5738,11 +5738,11 @@ export interface components {
         Structure: {
             /** Format: int32 */
             id?: number;
+            name?: string | null;
             type?: string | null;
             subtype?: string | null;
             /** Format: int32 */
             readonly eventCount?: number;
-            name?: string | null;
             altName?: string | null;
             typeEnum?: components["schemas"]["StructureType"];
             readonly inhabitantLinks?: string[] | null;
@@ -5754,7 +5754,7 @@ export interface components {
             readonly entityToLink?: string | null;
             readonly siteToLink?: string | null;
             /** Format: int32 */
-            globalId?: number;
+            localId?: number;
             readonly copiedArtifactLinks?: string[] | null;
         };
         /** @enum {string} */

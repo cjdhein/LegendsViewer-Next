@@ -142,7 +142,7 @@ public class BodyAbused : WorldEvent
         Victim.AddEvent(this);
         if (structureId != -1 && Site != null)
         {
-            Structure = Site.Structures.Find(structure => structure.Id == structureId);
+            Structure = Site.Structures.Find(structure => structure.LocalId == structureId);
             Structure.AddEvent(this);
         }
     }

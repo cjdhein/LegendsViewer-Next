@@ -9,7 +9,6 @@ namespace LegendsViewer.Backend.Legends.WorldObjects;
 
 public class Structure : WorldObject
 {
-    public string Name { get; set; } = "Structure";
     public string AltName { get; set; } = "";
     public StructureType TypeEnum { get; set; } // legends_plus.xml
 
@@ -21,14 +20,14 @@ public class Structure : WorldObject
     public List<string> InhabitantLinks => Inhabitants.ConvertAll(x => x.ToLink(true, this));
 
     [JsonIgnore]
-    public int DeityId { get; set; } // legends_plus.xml
+    public int DeityId { get; set; } = -1;
 
     [JsonIgnore]
     public HistoricalFigure? Deity { get; set; } // legends_plus.xml
     public string? DeityToLink => Deity?.ToLink(true);
 
     [JsonIgnore]
-    public int ReligionId { get; set; } // legends_plus.xml
+    public int ReligionId { get; set; } = -1;
 
     [JsonIgnore]
     public Entity? Religion { get; set; } // legends_plus.xml
@@ -37,7 +36,7 @@ public class Structure : WorldObject
     public StructureSubType StructureSubType { get; set; } // legends_plus.xml
 
     [JsonIgnore]
-    public int DeityType { get; set; } // TODO legends_plus.xml
+    public int DeityType { get; set; } = -1;
 
     [JsonIgnore]
     public HistoricalFigure? Owner { get; set; } // resolved from site properties
@@ -46,7 +45,7 @@ public class Structure : WorldObject
     public string Icon { get; set; }
 
     [JsonIgnore]
-    public int EntityId { get; set; }
+    public int EntityId { get; set; } = -1;
 
     [JsonIgnore]
     public Entity? Entity { get; set; }
@@ -56,7 +55,7 @@ public class Structure : WorldObject
     public Site? Site { get; set; }
     public string? SiteToLink => Site?.ToLink(true);
 
-    public int GlobalId { get; set; }
+    public int LocalId { get; set; }
 
     [JsonIgnore]
     public List<int> CopiedArtifactIds { get; set; } = [];
@@ -68,18 +67,13 @@ public class Structure : WorldObject
     public Structure(List<Property> properties, World world, Site site)
         : base(properties, world)
     {
-        Name = "UNKNOWN STRUCTURE";
-        AltName = "";
-        DeityId = -1;
-        ReligionId = -1;
-        EntityId = -1;
-        DeityType = -1;
+        Name = "Structure";
 
         foreach (Property property in properties)
         {
             switch (property.Name)
             {
-                case "local_id": Id = Convert.ToInt32(property.Value); break;
+                case "local_id": LocalId = Convert.ToInt32(property.Value); break;
                 case "name": Name = Formatting.InitCaps(property.Value); break;
                 case "name2": AltName = Formatting.InitCaps(property.Value); break;
                 case "inhabitant":
@@ -193,7 +187,7 @@ public class Structure : WorldObject
         Icon = icon;
         Site = site;
 
-        GlobalId = world.Structures.Count;
+        Id = world.Structures.Count;
         world.Structures.Add(this);
 
         Type = TypeEnum.GetDescription();
@@ -261,8 +255,8 @@ public class Structure : WorldObject
             title += "Events: " + Events.Count;
 
             string linkedString = pov != this
-                ? $"{HtmlStyleUtil.GetAnchorString(Icon, "structure", GlobalId, title, Name)}"
-                : $"{HtmlStyleUtil.GetAnchorString(Icon, "structure", GlobalId, title, HtmlStyleUtil.CurrentDwarfObject(Name))}";
+                ? $"{HtmlStyleUtil.GetAnchorString(Icon, "structure", Id, title, Name)}"
+                : $"{HtmlStyleUtil.GetAnchorString(Icon, "structure", Id, title, HtmlStyleUtil.CurrentDwarfObject(Name))}";
             return linkedString;
         }
         return Icon + Name;

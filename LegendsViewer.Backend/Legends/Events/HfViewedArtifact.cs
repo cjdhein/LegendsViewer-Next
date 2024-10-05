@@ -36,7 +36,7 @@ public class HfViewedArtifact : WorldEvent
 
         if (Site != null)
         {
-            Structure = Site.Structures.Find(structure => structure.Id == StructureId);
+            Structure = Site.Structures.Find(structure => structure.LocalId == StructureId);
         }
         Artifact.AddEvent(this);
         HistoricalFigure.AddEvent(this);

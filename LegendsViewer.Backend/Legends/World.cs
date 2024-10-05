@@ -421,7 +421,7 @@ public class World : IDisposable, IWorld
             return null;
         }
 
-        if (id < Structures.Count && Structures[id].GlobalId == id)
+        if (id < Structures.Count && Structures[id].Id == id)
         {
             return Structures[id];
         }
@@ -430,11 +430,11 @@ public class World : IDisposable, IWorld
         while (min <= max)
         {
             int mid = min + (max - min) / 2;
-            if (id > Structures[mid].GlobalId)
+            if (id > Structures[mid].Id)
             {
                 min = mid + 1;
             }
-            else if (id < Structures[mid].GlobalId)
+            else if (id < Structures[mid].Id)
             {
                 max = mid - 1;
             }

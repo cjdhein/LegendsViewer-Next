@@ -50,7 +50,7 @@ public class SiteProperty
                     OwnerId = Convert.ToInt32(property.Value);
                     break;
                 case "structure_id":
-                    Structure = site.Structures.Find(structure => structure.Id == Convert.ToInt32(property.Value));
+                    Structure = site.Structures.Find(structure => structure.LocalId == Convert.ToInt32(property.Value));
                     break;
                 default:
                     property.Known = false;

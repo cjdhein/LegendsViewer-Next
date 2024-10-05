@@ -40,12 +40,12 @@ public class ArtifactCopied : WorldEvent
 
         if (DestSite != null)
         {
-            DestStructure = DestSite.Structures.Find(structure => structure.Id == DestStructureId);
+            DestStructure = DestSite.Structures.Find(structure => structure.LocalId == DestStructureId);
         }
 
         if (SourceSite != null)
         {
-            SourceStructure = SourceSite.Structures.Find(structure => structure.Id == SourceStructureId);
+            SourceStructure = SourceSite.Structures.Find(structure => structure.LocalId == SourceStructureId);
         }
 
         Artifact.AddEvent(this);

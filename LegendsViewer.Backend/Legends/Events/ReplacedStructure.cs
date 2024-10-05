@@ -31,8 +31,8 @@ public class ReplacedStructure : WorldEvent
         }
         if (Site != null)
         {
-            OldStructure = Site.Structures.Find(structure => structure.Id == OldStructureId);
-            NewStructure = Site.Structures.Find(structure => structure.Id == NewStructureId);
+            OldStructure = Site.Structures.Find(structure => structure.LocalId == OldStructureId);
+            NewStructure = Site.Structures.Find(structure => structure.LocalId == NewStructureId);
         }
         Civ.AddEvent(this);
         SiteEntity.AddEvent(this);

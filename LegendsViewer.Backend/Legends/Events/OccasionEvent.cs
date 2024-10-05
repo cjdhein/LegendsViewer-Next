@@ -140,8 +140,8 @@ public class OccasionEvent : WorldEvent
             switch (Schedule.ScheduleType)
             {
                 case ScheduleType.Procession:
-                    Structure startStructure = Site.Structures.Find(s => s.Id == Schedule.Reference);
-                    Structure endStructure = Site.Structures.Find(s => s.Id == Schedule.Reference2);
+                    Structure startStructure = Site.Structures.Find(s => s.LocalId == Schedule.Reference);
+                    Structure endStructure = Site.Structures.Find(s => s.LocalId == Schedule.Reference2);
                     if (startStructure != null || endStructure != null)
                     {
                         eventString += " It started at ";

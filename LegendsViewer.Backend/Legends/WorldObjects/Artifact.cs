@@ -109,7 +109,7 @@ public class Artifact : WorldObject, IHasCoordinates
                     HolderId = Convert.ToInt32(property.Value);
                     break;
                 case "structure_local_id":
-                    Structure = Site?.Structures.Find(structure => structure.Id == Convert.ToInt32(property.Value));
+                    Structure = Site?.Structures.Find(structure => structure.LocalId == Convert.ToInt32(property.Value));
                     break;
             }
         }

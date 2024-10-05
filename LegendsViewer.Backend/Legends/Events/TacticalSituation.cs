@@ -64,7 +64,7 @@ public class TacticalSituation : WorldEvent
         }
         if (Site != null)
         {
-            Structure = Site.Structures.Find(structure => structure.Id == StructureId);
+            Structure = Site.Structures.Find(structure => structure.LocalId == StructureId);
         }
         AttackerTactician.AddEvent(this);
         DefenderTactician.AddEvent(this);

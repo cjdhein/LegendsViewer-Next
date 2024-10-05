@@ -50,7 +50,7 @@ public class ChangeHfBodyState : WorldEvent
         }
         if (Site != null)
         {
-            Structure = Site.Structures.Find(structure => structure.Id == StructureId);
+            Structure = Site.Structures.Find(structure => structure.LocalId == StructureId);
         }
         Structure.AddEvent(this);
         HistoricalFigure.AddEvent(this);

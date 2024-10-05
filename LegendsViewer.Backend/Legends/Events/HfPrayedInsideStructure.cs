@@ -53,7 +53,7 @@ public class HfPrayedInsideStructure : WorldEvent
 
         if (Site != null)
         {
-            Structure = Site.Structures.Find(structure => structure.Id == StructureId);
+            Structure = Site.Structures.Find(structure => structure.LocalId == StructureId);
         }
         HistoricalFigure.AddEvent(this);
         Site.AddEvent(this);

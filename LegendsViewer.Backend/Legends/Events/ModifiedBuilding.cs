@@ -27,7 +27,7 @@ public class ModifiedBuilding : WorldEvent
 
         if (Site != null)
         {
-            Structure = Site.Structures.Find(structure => structure.Id == StructureId);
+            Structure = Site.Structures.Find(structure => structure.LocalId == StructureId);
         }
         ModifierHf.AddEvent(this);
         Site.AddEvent(this);

@@ -95,7 +95,7 @@ public class ItemStolen : WorldEvent
         }
         if (Site != null)
         {
-            Structure = Site.Structures.Find(structure => structure.Id == StructureId);
+            Structure = Site.Structures.Find(structure => structure.LocalId == StructureId);
         }
         Thief?.AddEvent(this);
         Site?.AddEvent(this);

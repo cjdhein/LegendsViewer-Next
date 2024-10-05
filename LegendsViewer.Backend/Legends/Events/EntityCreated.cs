@@ -27,7 +27,7 @@ public class EntityCreated : WorldEvent
         }
         if (Site != null)
         {
-            Structure = Site.Structures.Find(structure => structure.Id == StructureId);
+            Structure = Site.Structures.Find(structure => structure.LocalId == StructureId);
             if (Entity != null && Structure != null)
             {
                 Entity.OriginStructure = Structure;

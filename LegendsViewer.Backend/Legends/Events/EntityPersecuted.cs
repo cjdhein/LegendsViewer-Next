@@ -47,7 +47,7 @@ public class EntityPersecuted : WorldEvent
         }
         if (Site != null)
         {
-            DestroyedStructure = Site.Structures.Find(structure => structure.Id == DestroyedStructureId);
+            DestroyedStructure = Site.Structures.Find(structure => structure.LocalId == DestroyedStructureId);
             DestroyedStructure.AddEvent(this);
         }
         PersecutorHf.AddEvent(this);

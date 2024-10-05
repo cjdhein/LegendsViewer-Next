@@ -36,7 +36,7 @@ public class HfCarouse : WorldEvent
 
         if (Site != null)
         {
-            Structure = Site.Structures.Find(structure => structure.Id == StructureId);
+            Structure = Site.Structures.Find(structure => structure.LocalId == StructureId);
         }
         GroupHf.AddEvent(this);
         Site.AddEvent(this);
