@@ -2,6 +2,7 @@
 const menuItems = [
       { title: 'World Overview', icon: 'mdi-file-tree-outline', to: '/' },
       { title: 'Map', icon: 'mdi-map-search-outline', to: '/map' },
+      { title: 'Sites', icon: 'mdi-map-marker', to: '/site' },
     ];
 </script>
 

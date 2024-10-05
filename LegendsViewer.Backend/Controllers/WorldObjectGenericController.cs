@@ -7,7 +7,7 @@ namespace LegendsViewer.Backend.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-public abstract class GenericController<T>(List<T> allElements, Func<int, T?> getById) : ControllerBase where T : WorldObject
+public abstract class WorldObjectGenericController<T>(List<T> allElements, Func<int, T?> getById) : ControllerBase where T : WorldObject
 {
     private const int DefaultPageSize = 10;
     protected readonly List<T> AllElements = allElements;

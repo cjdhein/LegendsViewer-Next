@@ -4,47 +4,47 @@ using LegendsViewer.Backend.Legends.Interfaces;
 
 namespace LegendsViewer.Backend.Controllers;
 
-public class DanceFormController(IWorld worldDataService) : GenericController<DanceForm>(worldDataService.DanceForms, worldDataService.GetDanceForm)
+public class DanceFormController(IWorld worldDataService) : WorldObjectGenericController<DanceForm>(worldDataService.DanceForms, worldDataService.GetDanceForm)
 {
 }
 
-public class MusicalFormController(IWorld worldDataService) : GenericController<MusicalForm>(worldDataService.MusicalForms, worldDataService.GetMusicalForm)
+public class MusicalFormController(IWorld worldDataService) : WorldObjectGenericController<MusicalForm>(worldDataService.MusicalForms, worldDataService.GetMusicalForm)
 {
 }
 
-public class PoeticFormController(IWorld worldDataService) : GenericController<PoeticForm>(worldDataService.PoeticForms, worldDataService.GetPoeticForm)
+public class PoeticFormController(IWorld worldDataService) : WorldObjectGenericController<PoeticForm>(worldDataService.PoeticForms, worldDataService.GetPoeticForm)
 {
 }
 
-public class WrittenContentController(IWorld worldDataService) : GenericController<WrittenContent>(worldDataService.WrittenContents, worldDataService.GetWrittenContent)
+public class WrittenContentController(IWorld worldDataService) : WorldObjectGenericController<WrittenContent>(worldDataService.WrittenContents, worldDataService.GetWrittenContent)
 {
 }
 
-public class LandmassController(IWorld worldDataService) : GenericController<Landmass>(worldDataService.Landmasses, worldDataService.GetLandmass)
+public class LandmassController(IWorld worldDataService) : WorldObjectGenericController<Landmass>(worldDataService.Landmasses, worldDataService.GetLandmass)
 {
 }
 
-public class RiverController(IWorld worldDataService) : GenericController<River>(worldDataService.Rivers, worldDataService.GetRiver)
+public class RiverController(IWorld worldDataService) : WorldObjectGenericController<River>(worldDataService.Rivers, worldDataService.GetRiver)
 {
 }
 
-public class SiteController(IWorld worldDataService) : GenericController<Site>(worldDataService.Sites, worldDataService.GetSite)
+public class SiteController(IWorld worldDataService) : WorldObjectGenericController<Site>(worldDataService.Sites, worldDataService.GetSite)
 {
 }
 
-public class RegionController(IWorld worldDataService) : GenericController<WorldRegion>(worldDataService.Regions, worldDataService.GetRegion)
+public class RegionController(IWorld worldDataService) : WorldObjectGenericController<WorldRegion>(worldDataService.Regions, worldDataService.GetRegion)
 {
 }
 
-public class UndergroundRegionController(IWorld worldDataService) : GenericController<UndergroundRegion>(worldDataService.UndergroundRegions, worldDataService.GetUndergroundRegion)
+public class UndergroundRegionController(IWorld worldDataService) : WorldObjectGenericController<UndergroundRegion>(worldDataService.UndergroundRegions, worldDataService.GetUndergroundRegion)
 {
 }
 
-public class ArtifactController(IWorld worldDataService) : GenericController<Artifact>(worldDataService.Artifacts, worldDataService.GetArtifact)
+public class ArtifactController(IWorld worldDataService) : WorldObjectGenericController<Artifact>(worldDataService.Artifacts, worldDataService.GetArtifact)
 {
 }
 
-public class EntityController(IWorld worldDataService) : GenericController<Entity>(worldDataService.Entities, worldDataService.GetEntity)
+public class EntityController(IWorld worldDataService) : WorldObjectGenericController<Entity>(worldDataService.Entities, worldDataService.GetEntity)
 {
     [HttpGet("civs")]
     [ProducesResponseType(StatusCodes.Status200OK)]
@@ -54,18 +54,22 @@ public class EntityController(IWorld worldDataService) : GenericController<Entit
     }
 }
 
-public class HistoricalFigureController(IWorld worldDataService) : GenericController<HistoricalFigure>(worldDataService.HistoricalFigures, worldDataService.GetHistoricalFigure)
+public class HistoricalFigureController(IWorld worldDataService) : WorldObjectGenericController<HistoricalFigure>(worldDataService.HistoricalFigures, worldDataService.GetHistoricalFigure)
 {
 }
 
-public class MountainPeakController(IWorld worldDataService) : GenericController<MountainPeak>(worldDataService.MountainPeaks, worldDataService.GetMountainPeak)
+public class MountainPeakController(IWorld worldDataService) : WorldObjectGenericController<MountainPeak>(worldDataService.MountainPeaks, worldDataService.GetMountainPeak)
 {
 }
 
-public class StructureController(IWorld worldDataService) : GenericController<Structure>(worldDataService.Structures, worldDataService.GetStructure)
+public class StructureController(IWorld worldDataService) : WorldObjectGenericController<Structure>(worldDataService.Structures, worldDataService.GetStructure)
 {
 }
 
-public class ConstructionController(IWorld worldDataService) : GenericController<WorldConstruction>(worldDataService.WorldConstructions, worldDataService.GetWorldConstruction)
+public class ConstructionController(IWorld worldDataService) : WorldObjectGenericController<WorldConstruction>(worldDataService.WorldConstructions, worldDataService.GetWorldConstruction)
+{
+}
+
+public class EraController(IWorld worldDataService) : WorldObjectGenericController<Era>(worldDataService.Eras, worldDataService.GetEra)
 {
 }

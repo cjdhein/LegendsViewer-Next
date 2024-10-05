@@ -1,6 +1,6 @@
 @LegendsViewer.Backend_HostAddress = http://localhost:5054
 
-POST {{LegendsViewer.Backend_HostAddress}}/api/WorldParser/parse
+POST {{LegendsViewer.Backend_HostAddress}}/api/Bookmark/loadByFullPath
 Content-Type: application/json
 Accept: application/json
 
@@ -8,7 +8,7 @@ Accept: application/json
 
 ###
 
-POST {{LegendsViewer.Backend_HostAddress}}/api/WorldParser/parse
+POST {{LegendsViewer.Backend_HostAddress}}/api/Bookmark/loadByFullPath
 Content-Type: application/json
 Accept: application/json
 

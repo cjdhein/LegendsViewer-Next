@@ -4,19 +4,48 @@ import { components } from '../generated/api-schema'; // Import from the OpenAPI
 import { LoadItemsSortOption } from '../types/legends';
 
 export type Site = components['schemas']['Site'];
+export type WorldObjectDto = components['schemas']['WorldObjectDto'];
 export type WorldEventDto = components['schemas']['WorldEventDto'];
 type ChartDataDto = components['schemas']['ChartDataDto'];
 
 export const useSiteStore = defineStore('site', {
     state: () => ({
+        objects: [] as WorldObjectDto[],
+        objectsTotalItems: 0 as number,
+        objectsPerPage: 10 as number,
+
         object: null as Site | null,
         objectEvents: [] as WorldEventDto[],
         objectEventsTotalItems: 0 as number,
         objectEventsPerPage: 10 as number,
+
         objectEventChartData: null as ChartDataDto | null,
+        
         isLoading: false as boolean
     }),
     actions: {
+        async loadOverview(pageNumber: number, pageSize: number, sortBy: LoadItemsSortOption[]) {
+            this.isLoading = true;
+            const { data, error } = await client.GET("/api/Site", {
+                params: {
+                    query: {
+                        pageNumber: pageNumber,
+                        pageSize: pageSize,
+                        sortKey: sortBy[0]?.key,
+                        sortOrder: sortBy[0]?.order
+                    },
+                },
+            });
+
+            if (error !== undefined) {
+                this.isLoading = false;
+                console.error(error);
+            } else if (data) {
+                this.objects = data.items ?? [];
+                this.objectsTotalItems = data.totalCount ?? 0;
+                this.isLoading = false;
+            }
+        },
         async load(id: number) {
             this.isLoading = true;
             const { data, error } = await client.GET("/api/Site/{id}", {

@@ -248,7 +248,6 @@ public class Site : WorldObject, IHasCoordinates
             }
         }
         SetIconByType(SiteType);
-        Subtype = Region?.RegionType.GetDescription() ?? string.Empty;
     }
 
     private void SetIconByType(SiteType siteType)
@@ -331,7 +330,7 @@ public class Site : WorldObject, IHasCoordinates
         {
             string title = GetTitle();
             string linkedString =  pov != this
-                ? HtmlStyleUtil.GetAnchorString(Icon, "collection", Id, title, Name)
+                ? HtmlStyleUtil.GetAnchorString(Icon, "site", Id, title, Name)
                 : HtmlStyleUtil.GetAnchorCurrentString(Icon, title, HtmlStyleUtil.CurrentDwarfObject(Name));
             return linkedString;
         }

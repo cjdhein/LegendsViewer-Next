@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Text;
 using LegendsViewer.Backend.Legends.Enums;
@@ -11,6 +12,7 @@ using LegendsViewer.Backend.Legends.Various;
 using LegendsViewer.Backend.Legends.WorldLinks;
 using LegendsViewer.Backend.Legends.WorldObjects;
 using LegendsViewer.Backend.Utilities;
+using SkiaSharp;
 
 namespace LegendsViewer.Backend.Legends;
 
@@ -731,6 +733,8 @@ public class World : IDisposable, IWorld
                 if (region.Coordinates.Intersect(site.Coordinates).Any())
                 {
                     site.Region = region;
+                    site.Subtype = region.RegionType.GetDescription();
+
                     region.Sites.Add(site);
                     break;
                 }
