@@ -1,5 +1,5 @@
-﻿using LegendsViewer.Backend.Legends;
-using LegendsViewer.Backend.Legends.Enums;
+﻿using LegendsViewer.Backend.Legends.Enums;
+using LegendsViewer.Backend.Legends.Various;
 using LegendsViewer.Backend.Legends.WorldObjects;
 
 namespace LegendsViewer.Backend.Contracts;

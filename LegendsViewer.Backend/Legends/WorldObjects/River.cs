@@ -1,14 +1,15 @@
 ﻿using LegendsViewer.Backend.Legends.Events;
 using LegendsViewer.Backend.Legends.Interfaces;
 using LegendsViewer.Backend.Legends.Parser;
+using LegendsViewer.Backend.Legends.Various;
 using LegendsViewer.Backend.Utilities;
 
 namespace LegendsViewer.Backend.Legends.WorldObjects;
 
 public class River : WorldObject, IHasCoordinates
 {
-    public Location EndPos { get; set; } // legends_plus.xml
-    public string Path { get; set; } // legends_plus.xml
+    public Location? EndPos { get; set; } // legends_plus.xml
+    public string? Path { get; set; } // legends_plus.xml
     public List<Location> Coordinates { get; set; } // legends_plus.xml
 
     public static readonly string Icon = HtmlStyleUtil.GetIconString("waves");

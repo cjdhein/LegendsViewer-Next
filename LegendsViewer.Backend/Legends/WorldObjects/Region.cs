@@ -2,7 +2,9 @@
 using LegendsViewer.Backend.Legends.EventCollections;
 using LegendsViewer.Backend.Legends.Events;
 using LegendsViewer.Backend.Legends.Extensions;
+using LegendsViewer.Backend.Legends.Interfaces;
 using LegendsViewer.Backend.Legends.Parser;
+using LegendsViewer.Backend.Legends.Various;
 using LegendsViewer.Backend.Utilities;
 using System.Text.Json.Serialization;
 

@@ -1,19 +1,22 @@
+using LegendsViewer.Backend.Legends.Extensions;
 using LegendsViewer.Backend.Legends.Parser;
+using LegendsViewer.Backend.Legends.Various;
 using LegendsViewer.Backend.Legends.WorldObjects;
+using LegendsViewer.Backend.Utilities;
 
 namespace LegendsViewer.Backend.Legends.Events;
 
 public class AssumeIdentity : WorldEvent
 {
-    public HistoricalFigure Trickster { get; set; }
+    public HistoricalFigure? Trickster { get; set; }
     public int IdentityId { get; set; }
-    public Entity Target { get; set; }
+    public Entity? Target { get; set; }
 
-    public Identity Identity { get; set; }
+    public Identity? Identity { get; set; }
 
-    public string IdentityName { get; set; }
-    public CreatureInfo IdentityRace { get; set; }
-    public string IdentityCaste { get; set; }
+    public string? IdentityName { get; set; }
+    public CreatureInfo IdentityRace { get; set; } = CreatureInfo.Unknown;
+    public string? IdentityCaste { get; set; }
 
     public AssumeIdentity(List<Property> properties, World world)
         : base(properties, world)
@@ -63,15 +66,15 @@ public class AssumeIdentity : WorldEvent
             }
         }
 
-        Trickster.AddEvent(this);
-        Target.AddEvent(this);
+        Trickster?.AddEvent(this);
+        Target?.AddEvent(this);
         if (!string.IsNullOrEmpty(IdentityName))
         {
             Identity = new Identity(IdentityName, IdentityRace, IdentityCaste);
         }
     }
 
-    public override string Print(bool link = true, DwarfObject pov = null)
+    public override string Print(bool link = true, DwarfObject? pov = null)
     {
         string eventString = GetYearTime();
         eventString += Trickster?.ToLink(link, pov, this) ?? "an unknown creature";
@@ -87,7 +90,7 @@ public class AssumeIdentity : WorldEvent
         {
             eventString += " assumed the identity of ";
         }
-        Identity identity = Trickster?.Identities.Find(i => i.Id == IdentityId) ?? Identity;
+        Identity? identity = Trickster?.Identities.Find(i => i.Id == IdentityId) ?? Identity;
         if (identity != null)
         {
             eventString += identity.Print(link, pov, this);

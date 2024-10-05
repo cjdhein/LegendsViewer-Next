@@ -1,4 +1,6 @@
-﻿namespace LegendsViewer.Backend.Legends.Interfaces;
+﻿using LegendsViewer.Backend.Legends.Various;
+
+namespace LegendsViewer.Backend.Legends.Interfaces;
 
 public interface IHasCoordinates
 {

@@ -6,6 +6,8 @@ using LegendsViewer.Backend.Legends.Events;
 using LegendsViewer.Backend.Legends.Extensions;
 using LegendsViewer.Backend.Legends.Interfaces;
 using LegendsViewer.Backend.Legends.Parser;
+using LegendsViewer.Backend.Legends.Various;
+using LegendsViewer.Backend.Legends.WorldLinks;
 using LegendsViewer.Backend.Utilities;
 
 namespace LegendsViewer.Backend.Legends.WorldObjects;
@@ -74,7 +76,6 @@ public class Entity : WorldObject, IHasCoordinates
 
     [JsonIgnore]
     public List<EntityOccasion> Occassions { get; set; } // legends_plus.xml
-    public List<string> OccassionLinks => Occassions.ConvertAll(x => x.ToLink(true, this));
 
     public List<string> Weapons { get; set; }
     public string? Profession { get; set; }
@@ -145,7 +146,7 @@ public class Entity : WorldObject, IHasCoordinates
                 {
                     coloredIcon = HtmlStyleUtil.GetCivIconString(Formatting.GetInitials(Name), ColorTranslator.ToHtml(LineColor));
                 }
-                else if (World.MainRaces.ContainsKey(Race))
+                else if (World != null && World.MainRaces.ContainsKey(Race))
                 {
                     Color civilizedPopColor = LineColor;
                     if (civilizedPopColor == Color.Empty)

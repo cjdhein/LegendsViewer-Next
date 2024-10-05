@@ -4,8 +4,13 @@ using System.Text;
 using LegendsViewer.Backend.Legends.Enums;
 using LegendsViewer.Backend.Legends.EventCollections;
 using LegendsViewer.Backend.Legends.Events;
+using LegendsViewer.Backend.Legends.Extensions;
+using LegendsViewer.Backend.Legends.Interfaces;
 using LegendsViewer.Backend.Legends.Parser;
+using LegendsViewer.Backend.Legends.Various;
+using LegendsViewer.Backend.Legends.WorldLinks;
 using LegendsViewer.Backend.Legends.WorldObjects;
+using LegendsViewer.Backend.Utilities;
 
 namespace LegendsViewer.Backend.Legends;
 
@@ -733,25 +738,22 @@ public class World : IDisposable, IWorld
         }
     }
 
+    private void ResolveEntityToEntityPopulation()
+    {
+        foreach (var entityPopulation in EntityPopulations)
+        {
+            entityPopulation.Entity = GetEntity(entityPopulation.EntityId);
+        }
+    }
+
     private void ResolveHfToEntityPopulation()
     {
-        if (EntityPopulations.Any(ep => ep.Entity != null))
+        foreach (HistoricalFigure historicalFigure in HistoricalFigures.Where(hf => hf.EntityPopulationId != -1))
         {
-            foreach (HistoricalFigure historicalFigure in HistoricalFigures.Where(hf => hf.EntityPopulationId != -1))
+            historicalFigure.EntityPopulation = GetEntityPopulation(historicalFigure.EntityPopulationId);
+            if (historicalFigure.EntityPopulation != null)
             {
-                historicalFigure.EntityPopulation = GetEntityPopulation(historicalFigure.EntityPopulationId);
-                if (historicalFigure.EntityPopulation != null)
-                {
-                    if (historicalFigure.EntityPopulation.Members == null)
-                    {
-                        historicalFigure.EntityPopulation.Members = [];
-                    }
-                    if (historicalFigure.EntityPopulation.EntityId != -1 && historicalFigure.EntityPopulation.Entity == null)
-                    {
-                        historicalFigure.EntityPopulation.Entity = GetEntity(historicalFigure.EntityPopulation.EntityId);
-                    }
-                    historicalFigure.EntityPopulation.Members.Add(historicalFigure);
-                }
+                historicalFigure.EntityPopulation.Members.Add(historicalFigure);
             }
         }
     }

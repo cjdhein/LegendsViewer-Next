@@ -5,8 +5,10 @@ using LegendsViewer.Backend.Extensions;
 using LegendsViewer.Backend.Legends.Enums;
 using LegendsViewer.Backend.Legends.EventCollections;
 using LegendsViewer.Backend.Legends.Events;
+using LegendsViewer.Backend.Legends.Extensions;
 using LegendsViewer.Backend.Legends.Interfaces;
 using LegendsViewer.Backend.Legends.Parser;
+using LegendsViewer.Backend.Legends.Various;
 using LegendsViewer.Backend.Utilities;
 
 namespace LegendsViewer.Backend.Legends.WorldObjects;
@@ -167,8 +169,6 @@ public class Site : WorldObject, IHasCoordinates
     public Site(List<Property> properties, World world)
         : base(properties, world)
     {
-        Type = Name = UntranslatedName = "";
-
         foreach (Property property in properties)
         {
             switch (property.Name)
@@ -248,6 +248,7 @@ public class Site : WorldObject, IHasCoordinates
             }
         }
         SetIconByType(SiteType);
+        Subtype = Region?.RegionType.GetDescription() ?? string.Empty;
     }
 
     private void SetIconByType(SiteType siteType)

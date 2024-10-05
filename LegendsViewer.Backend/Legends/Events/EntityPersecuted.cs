@@ -1,5 +1,7 @@
-﻿using LegendsViewer.Backend.Legends.Parser;
+﻿using LegendsViewer.Backend.Legends.Extensions;
+using LegendsViewer.Backend.Legends.Parser;
 using LegendsViewer.Backend.Legends.WorldObjects;
+using LegendsViewer.Backend.Utilities;
 
 namespace LegendsViewer.Backend.Legends.Events;
 

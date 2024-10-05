@@ -1,6 +1,4 @@
-﻿using LegendsViewer.Backend.Legends.WorldObjects;
-
-namespace LegendsViewer.Backend.Legends.Interfaces;
+﻿namespace LegendsViewer.Backend.Legends.Interfaces;
 
 internal interface IFeatured
 {

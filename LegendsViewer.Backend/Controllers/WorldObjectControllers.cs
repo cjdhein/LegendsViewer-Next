@@ -1,6 +1,6 @@
 ﻿using LegendsViewer.Backend.Legends.WorldObjects;
-using LegendsViewer.Backend.Legends;
 using Microsoft.AspNetCore.Mvc;
+using LegendsViewer.Backend.Legends.Interfaces;
 
 namespace LegendsViewer.Backend.Controllers;
 

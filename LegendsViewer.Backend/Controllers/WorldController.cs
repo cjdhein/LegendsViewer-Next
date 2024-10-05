@@ -1,5 +1,5 @@
 ﻿using LegendsViewer.Backend.Contracts;
-using LegendsViewer.Backend.Legends;
+using LegendsViewer.Backend.Legends.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LegendsViewer.Backend.Controllers;

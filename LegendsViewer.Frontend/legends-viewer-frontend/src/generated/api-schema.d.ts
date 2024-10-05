@@ -5152,7 +5152,6 @@ export interface components {
             entityType?: components["schemas"]["EntityType"];
             isCiv?: boolean;
             coordinates?: components["schemas"]["Location"][] | null;
-            readonly occassionLinks?: string[] | null;
             weapons?: string[] | null;
             profession?: string | null;
             readonly warLinks?: string[] | null;
@@ -5210,6 +5209,70 @@ export interface components {
             /** Format: int32 */
             firstSuspectedAgelessYear?: number;
             firstSuspectedAgelessSeason?: string | null;
+            reputations?: {
+                /** Format: int32 */
+                Unknown?: number;
+                /** Format: int32 */
+                EnemyFighter?: number;
+                /** Format: int32 */
+                TradePartner?: number;
+                /** Format: int32 */
+                Killer?: number;
+                /** Format: int32 */
+                Poet?: number;
+                /** Format: int32 */
+                Bard?: number;
+                /** Format: int32 */
+                Storyteller?: number;
+                /** Format: int32 */
+                Dancer?: number;
+                /** Format: int32 */
+                Friendly?: number;
+                /** Format: int32 */
+                Buddy?: number;
+                /** Format: int32 */
+                Grudge?: number;
+                /** Format: int32 */
+                Bonded?: number;
+                /** Format: int32 */
+                Quarreler?: number;
+                /** Format: int32 */
+                Psychopath?: number;
+                /** Format: int32 */
+                LoyalSoldier?: number;
+                /** Format: int32 */
+                Bully?: number;
+                /** Format: int32 */
+                Hero?: number;
+                /** Format: int32 */
+                Hunter?: number;
+                /** Format: int32 */
+                InformationSource?: number;
+                /** Format: int32 */
+                TreasureHunter?: number;
+                /** Format: int32 */
+                KnowledgePreserver?: number;
+                /** Format: int32 */
+                ProtectorOfWeak?: number;
+                /** Format: int32 */
+                Love?: number;
+                /** Format: int32 */
+                Respect?: number;
+                /** Format: int32 */
+                Trust?: number;
+                /** Format: int32 */
+                Loyalty?: number;
+                /** Format: int32 */
+                Fear?: number;
+                /** Format: int32 */
+                Comrade?: number;
+                /** Format: int32 */
+                Murderer?: number;
+                /** Format: int32 */
+                Violent?: number;
+                /** Format: int32 */
+                Flatterer?: number;
+            } | null;
         };
         /** @enum {string} */
         EntityType: "Unknown" | "Civilization" | "NomadicGroup" | "MigratingGroup" | "Outcast" | "Religion" | "SiteGovernment" | "PerformanceTroupe" | "MercenaryCompany" | "Guild" | "MilitaryUnit" | "MerchantCompany";

@@ -2,6 +2,7 @@ using LegendsViewer.Backend.Legends.Enums;
 using LegendsViewer.Backend.Legends.Extensions;
 using LegendsViewer.Backend.Legends.Interfaces;
 using LegendsViewer.Backend.Legends.Parser;
+using LegendsViewer.Backend.Legends.Various;
 using LegendsViewer.Backend.Legends.WorldObjects;
 
 namespace LegendsViewer.Backend.Legends.Events;
@@ -16,7 +17,7 @@ public class OccasionEvent : WorldEvent
     public int ScheduleId { get; set; }
     public OccasionType OccasionType { get; set; }
     public EntityOccasion EntityOccasion { get; set; }
-    public Schedule Schedule { get; set; }
+    public EntityOccasionSchedule Schedule { get; set; }
     public ArtForm ReferencedArtForm { get; set; }
 
     public OccasionEvent(List<Property> properties, World world) : base(properties, world)
@@ -76,7 +77,7 @@ public class OccasionEvent : WorldEvent
     {
         if (Schedule != null)
         {
-            switch (Schedule.Type)
+            switch (Schedule.ScheduleType)
             {
                 case ScheduleType.PoetryRecital:
                     if (Schedule.Reference != -1)
@@ -114,13 +115,13 @@ public class OccasionEvent : WorldEvent
                 eventString += " ";
             }
         }
-        eventString += Schedule?.Type.GetDescription().ToLowerInvariant() ?? OccasionType.GetDescription().ToLowerInvariant();
+        eventString += Schedule?.ScheduleType.GetDescription().ToLowerInvariant() ?? OccasionType.GetDescription().ToLowerInvariant();
         if (ReferencedArtForm != null)
         {
             eventString += " of ";
             eventString += ReferencedArtForm.ToLink(link, pov, this);
         }
-        else if (Schedule?.Type == ScheduleType.Storytelling && Schedule.Reference != -1)
+        else if (Schedule?.ScheduleType == ScheduleType.Storytelling && Schedule.Reference != -1)
         {
             WorldEvent worldEvent = World.GetEvent(Schedule.Reference);
             if (worldEvent is IFeatured featured)
@@ -132,11 +133,11 @@ public class OccasionEvent : WorldEvent
         eventString += " in ";
         eventString += Site != null ? Site.ToLink(link, pov, this) : "UNKNOWN SITE";
         eventString += " as part of ";
-        eventString += EntityOccasion != null ? EntityOccasion.ToLink(link, pov, this) : "UNKNOWN OCCASION";
+        eventString += EntityOccasion != null ? EntityOccasion.Name : "UNKNOWN OCCASION";
         eventString += ".";
         if (Schedule != null)
         {
-            switch (Schedule.Type)
+            switch (Schedule.ScheduleType)
             {
                 case ScheduleType.Procession:
                     Structure startStructure = Site.Structures.Find(s => s.Id == Schedule.Reference);

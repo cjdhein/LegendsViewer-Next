@@ -3,7 +3,6 @@
 using LegendsViewer.Backend.Legends.Enums;
 using LegendsViewer.Backend.Legends.Extensions;
 using LegendsViewer.Backend.Legends.Interfaces;
-using LegendsViewer.Backend.Legends.WorldObjects;
 using SkiaSharp;
 
 public class WorldMapImageGenerator(IWorld worldDataService) : IWorldMapImageGenerator

@@ -1,5 +1,4 @@
 ﻿using LegendsViewer.Backend.Legends;
-using LegendsViewer.Backend.Legends.WorldObjects;
 
 namespace LegendsViewer.Backend.Contracts;
 

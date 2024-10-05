@@ -1,4 +1,4 @@
-﻿using LegendsViewer.Backend.Legends;
+﻿using LegendsViewer.Backend.Legends.Various;
 
 namespace LegendsViewer.Backend.Utilities;
 

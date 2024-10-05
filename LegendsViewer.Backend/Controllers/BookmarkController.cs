@@ -1,5 +1,5 @@
-﻿using LegendsViewer.Backend.Legends;
-using LegendsViewer.Backend.Legends.Bookmarks;
+﻿using LegendsViewer.Backend.Legends.Bookmarks;
+using LegendsViewer.Backend.Legends.Interfaces;
 using LegendsViewer.Backend.Legends.Maps;
 using Microsoft.AspNetCore.Mvc;
 

@@ -1,4 +1,5 @@
 using LegendsViewer.Backend.Legends.Enums;
+using LegendsViewer.Backend.Legends.Extensions;
 using LegendsViewer.Backend.Legends.Parser;
 
 namespace LegendsViewer.Backend.Legends.Events;
