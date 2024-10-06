@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-import { useSiteStore } from '../stores/worldObjectStores';
 import { LoadItemsOptionsWithSearch } from '../types/legends';
+import { useSiteStore } from '../stores/worldObjectStores';
 
 const store = useSiteStore()
 const icon = "mdi-map-marker"
