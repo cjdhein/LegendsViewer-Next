@@ -16,3 +16,10 @@ export interface LoadItemsOptions {
     itemsPerPage: number;
     sortBy: LoadItemsSortOption[];
 }
+
+export interface LoadItemsOptionsWithSearch {
+    page: number;
+    itemsPerPage: number;
+    sortBy: LoadItemsSortOption[];
+    search: string;
+}

@@ -21,7 +21,8 @@ public abstract class WorldObjectGenericController<T>(List<T> allElements, Func<
         [FromQuery] int pageNumber = 1,
         [FromQuery] int pageSize = DefaultPageSize,
         [FromQuery] string? sortKey = null,
-        [FromQuery] string? sortOrder = null)
+        [FromQuery] string? sortOrder = null,
+        [FromQuery] string? search = null)
     {
         // Validate pagination parameters
         if (pageNumber <= 0 || pageSize <= 0)
@@ -29,11 +30,22 @@ public abstract class WorldObjectGenericController<T>(List<T> allElements, Func<
             return BadRequest("Page number and page size must be greater than zero.");
         }
 
+        // Filter world objects
+        var filteredWorldObjects = AllElements
+            .Where(worldObject =>
+                string.IsNullOrWhiteSpace(search) ||
+                worldObject.Name.Contains(search, StringComparison.InvariantCultureIgnoreCase) ||
+                worldObject.Type?.Contains(search, StringComparison.InvariantCultureIgnoreCase) == true ||
+                worldObject.Subtype?.Contains(search, StringComparison.InvariantCultureIgnoreCase) == true);
+
         // Get total number of elements
         int totalElements = AllElements.Count;
 
+        // Get total number of filtered elements
+        int totalFilteredElements = filteredWorldObjects.Count();
+
         // Calculate how many elements to skip based on the page number and size
-        var paginatedElements = AllElements
+        var paginatedElements = filteredWorldObjects
             .Select(worldObject => new WorldObjectDto(worldObject))
             .SortByProperty(sortKey, sortOrder)
             .Skip((pageNumber - 1) * pageSize)
@@ -45,6 +57,7 @@ public abstract class WorldObjectGenericController<T>(List<T> allElements, Func<
         {
             Items = paginatedElements,
             TotalCount = totalElements,
+            TotalFilteredCount = totalFilteredElements,
             PageSize = pageSize,
             PageNumber = pageNumber,
             TotalPages = (int)Math.Ceiling(totalElements / (double)pageSize)
@@ -171,6 +184,7 @@ public class PaginatedResponse<T> where T : class
 {
     public List<T> Items { get; set; } = [];
     public int TotalCount { get; set; }
+    public int TotalFilteredCount { get; set; }
     public int PageSize { get; set; }
     public int PageNumber { get; set; }
     public int TotalPages { get; set; }

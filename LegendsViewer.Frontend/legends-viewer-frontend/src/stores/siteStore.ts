@@ -3,15 +3,17 @@ import client from "../apiClient"; // Import the global client
 import { components } from '../generated/api-schema'; // Import from the OpenAPI schema
 import { LoadItemsSortOption } from '../types/legends';
 
-export type Site = components['schemas']['Site'];
-export type WorldObjectDto = components['schemas']['WorldObjectDto'];
-export type WorldEventDto = components['schemas']['WorldEventDto'];
+type Site = components['schemas']['Site'];
+
+type WorldObjectDto = components['schemas']['WorldObjectDto'];
+type WorldEventDto = components['schemas']['WorldEventDto'];
 type ChartDataDto = components['schemas']['ChartDataDto'];
 
 export const useSiteStore = defineStore('site', {
     state: () => ({
         objects: [] as WorldObjectDto[],
         objectsTotalItems: 0 as number,
+        objectsTotalFilteredItems: 0 as number,
         objectsPerPage: 10 as number,
 
         object: null as Site | null,
@@ -24,7 +26,7 @@ export const useSiteStore = defineStore('site', {
         isLoading: false as boolean
     }),
     actions: {
-        async loadOverview(pageNumber: number, pageSize: number, sortBy: LoadItemsSortOption[]) {
+        async loadOverview(pageNumber: number, pageSize: number, sortBy: LoadItemsSortOption[], search: string) {
             this.isLoading = true;
             const { data, error } = await client.GET("/api/Site", {
                 params: {
@@ -32,7 +34,8 @@ export const useSiteStore = defineStore('site', {
                         pageNumber: pageNumber,
                         pageSize: pageSize,
                         sortKey: sortBy[0]?.key,
-                        sortOrder: sortBy[0]?.order
+                        sortOrder: sortBy[0]?.order,
+                        search: search
                     },
                 },
             });
@@ -43,6 +46,7 @@ export const useSiteStore = defineStore('site', {
             } else if (data) {
                 this.objects = data.items ?? [];
                 this.objectsTotalItems = data.totalCount ?? 0;
+                this.objectsTotalFilteredItems = data.totalFilteredCount ?? 0;
                 this.isLoading = false;
             }
         },
