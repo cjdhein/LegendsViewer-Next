@@ -1,8 +1,20 @@
 <script setup lang="ts">
 const menuItems = [
-      { title: 'World Overview', icon: 'mdi-file-tree-outline', to: '/' },
+      { title: 'Explore Worlds', icon: 'mdi-file-tree-outline', to: '/' },
+      { type: 'subheader', title: 'Societies and Figures' },
+      { title: 'Entities', icon: 'mdi-account-group', to: '/entity' },
+      { title: 'Historical Figures', icon: 'mdi-account', to: '/hf' },
+      { type: 'subheader', title: 'Geography' },
       { title: 'Map', icon: 'mdi-map-search-outline', to: '/map' },
-      { title: 'Sites', icon: 'mdi-map-marker', to: '/site' },
+      { title: 'Regions', icon: 'mdi-map-legend', to: '/region' },
+      { title: 'Underground', icon: 'mdi-tunnel', to: '/uregion' },
+      { title: 'Landmasses', icon: 'mdi-island-variant', to: '/landmass' },
+      { title: 'Rivers', icon: 'mdi-waves', to: '/river' },
+      { title: 'Mountain Peaks', icon: 'mdi-summit', to: '/mountainpeak' },
+      { type: 'subheader', title: 'Infrastructure' },
+      { title: 'Sites', icon: 'mdi-home-modern', to: '/site' },
+      { title: 'Structures', icon: 'mdi-home-silo', to: '/structure' },
+      { title: 'Constructions', icon: 'mdi-sign-caution', to: '/construction' },
     ];
 </script>
 
@@ -20,17 +32,15 @@ const menuItems = [
 
       <v-navigation-drawer>
         <v-list>
-          <v-list-item
-            v-for="item in menuItems"
-            :key="item.title"
-            :to="item.to"
-            :active-class="'v-list-item--active'"
-          >
-            <template v-slot:prepend>
-              <v-icon :icon="item.icon"></v-icon>
-            </template>
-            <v-list-item-title>{{ item.title }}</v-list-item-title>
-          </v-list-item>
+          <template v-for="(item, i) in menuItems" :key="i">
+            <v-list-subheader v-if="item.type == 'subheader'">{{ item.title.toUpperCase() }}</v-list-subheader>
+            <v-list-item v-else
+              :prepend-icon="item.icon"
+              :title="item.title"
+              :to="item.to"
+              :active-class="'v-list-item--active'"
+            />
+          </template>
         </v-list>
       </v-navigation-drawer>
 

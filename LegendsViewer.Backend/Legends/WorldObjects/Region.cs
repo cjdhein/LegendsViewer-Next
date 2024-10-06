@@ -165,6 +165,7 @@ public class WorldRegion : WorldObject, IRegion
             }
         }
         Type = RegionType.GetDescription();
+        Subtype = Evilness.GetDescription();
     }
     public override string ToString() { return Name; }
     public override string ToLink(bool link = true, DwarfObject? pov = null, WorldEvent? worldEvent = null)

@@ -47,6 +47,24 @@ public class Landmass : WorldObject, IHasCoordinates
                     break;
             }
         }
+        Type = GetTypeByName(Name);
+    }
+
+    private string GetTypeByName(string name)
+    {
+        if (name.Contains("Continent", StringComparison.InvariantCultureIgnoreCase))
+        {
+            return "Continent";
+        }
+        if (name.Contains("Island", StringComparison.InvariantCultureIgnoreCase))
+        {
+            return "Island";
+        }
+        if (name.Contains("Land", StringComparison.InvariantCultureIgnoreCase))
+        {
+            return "Land";
+        }
+        return "Unknown";
     }
 
     public override string ToString() { return Name; }

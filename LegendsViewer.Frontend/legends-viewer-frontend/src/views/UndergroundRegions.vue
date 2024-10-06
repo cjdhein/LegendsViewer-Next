@@ -1,19 +1,19 @@
 <script setup lang="ts">
-import { useSiteStore } from '../stores/worldObjectStores';
+import { useUndergroundRegionStore } from '../stores/worldObjectStores';
 import WorldObjectsPage from '../components/WorldObjectsPage.vue';
 import { TableHeader } from '../types/legends'; // Adjust the import path as needed
 
-const store = useSiteStore();
-const icon = "mdi-home-modern";
-const title = "Sites";
-const subtitle = "Sites are diverse inhabited locations, including towns, fortresses, and other settlements, found throughout the world. Explore their history, structures, and inhabitants";
-const overviewSubtitle = "Browse and search all world sites";
+const store = useUndergroundRegionStore();
+const icon = "mdi-tunnel";
+const title = "Underground Regions";
+const subtitle = "Discover the secrets of the underground, where darkness holds treasures and ancient civilizations thrive";
+const overviewSubtitle = "Browse and search all underground regions";
 const overviewTitle = "Overview";
 const tableHeaders: TableHeader[] = [ // Specify the type here
     { title: 'Id', key: 'id', align: 'end' },
     { title: 'Name', key: 'name', align: 'start' },
     { title: 'Type', key: 'type', align: 'start' },
-    { title: 'Region', key: 'subtype', align: 'start' },
+    { title: 'Depth', key: 'subtype', align: 'center' },
     { title: 'Link', key: 'html', align: 'start' },
     { title: 'Events', key: 'eventCount', align: 'end' },
 ];

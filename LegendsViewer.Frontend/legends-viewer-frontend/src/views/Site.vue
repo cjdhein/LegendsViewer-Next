@@ -42,7 +42,7 @@ const loadSite = async (idString: string | string[]) => {
 loadSite(route.params.id)
 
 const lists: ComputedRef<LegendLinkListData[]> = computed(() => [
-    { title: 'Structures', items: siteStore.object?.structuresLinks ?? [], icon: "mdi-domain", subtitle: "Notable buildings at this site" },
+    { title: 'Structures', items: siteStore.object?.structuresLinks ?? [], icon: "mdi-home-silo", subtitle: "Notable buildings at this site" },
     { title: 'Related Historical Figures', items: siteStore.object?.relatedHistoricalFigureLinks ?? [], icon: "mdi-account-star", subtitle: "Famous figures tied to this site" },
     { title: 'Notable Deaths', items: siteStore.object?.notableDeathLinks ?? [], icon: "mdi-grave-stone", subtitle: "Key figures who died here" },
     { title: 'Battles', items: siteStore.object?.battleLinks ?? [], icon: "mdi-chess-bishop", subtitle: "Battles fought at this site" },

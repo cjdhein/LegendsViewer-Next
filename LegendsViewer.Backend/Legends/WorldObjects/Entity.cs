@@ -384,13 +384,14 @@ public class Entity : WorldObject, IHasCoordinates
 
     public override string ToLink(bool link = true, DwarfObject? pov = null, WorldEvent? worldEvent = null)
     {
+        string name = string.IsNullOrWhiteSpace(Name) ? GetTitle() : Name;
         if (link)
         {
             return pov != this
-                ? HtmlStyleUtil.GetAnchorString(Icon, "entity", Id, GetToolTip(), Name)
-                : HtmlStyleUtil.GetAnchorCurrentString(Icon, GetToolTip(), HtmlStyleUtil.CurrentDwarfObject(Name));
+                ? HtmlStyleUtil.GetAnchorString(Icon, "entity", Id, GetToolTip(), name)
+                : HtmlStyleUtil.GetAnchorCurrentString(Icon, GetToolTip(), HtmlStyleUtil.CurrentDwarfObject(name));
         }
-        return Name ?? "UNKNOWN";
+        return name;
     }
 
     private string GetToolTip()

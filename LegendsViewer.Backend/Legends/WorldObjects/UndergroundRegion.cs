@@ -80,6 +80,7 @@ public class UndergroundRegion : WorldObject, IRegion
         }
         Name = name;
         Type = RegionType.GetDescription();
+        Subtype = Depth?.ToString() ?? string.Empty;
     }
 
     public override string ToString() { return RegionType.GetDescription(); }

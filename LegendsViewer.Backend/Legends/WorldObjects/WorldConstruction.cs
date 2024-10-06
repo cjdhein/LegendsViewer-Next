@@ -30,7 +30,7 @@ public class WorldConstruction : WorldObject, IHasCoordinates
     public WorldConstruction? MasterConstruction { get; set; } // legends_plus.xml
     public string? MasterConstructionToLink => MasterConstruction?.ToLink(true);
 
-    public string Icon = "<i class=\"fa fa-fw fa-puzzle-piece\"></i>";
+    public string Icon = HtmlStyleUtil.GetIconString("sign-caution");
 
     public WorldConstruction(List<Property> properties, World world)
         : base(properties, world)
@@ -48,15 +48,15 @@ public class WorldConstruction : WorldObject, IHasCoordinates
                     {
                         case "road":
                             WorldConstructionType = WorldConstructionType.Road;
-                            Icon = "<i class=\"fa fa-fw fa-road\"></i>";
+                            Icon = HtmlStyleUtil.GetIconString("road");
                             break;
                         case "bridge":
                             WorldConstructionType = WorldConstructionType.Bridge;
-                            Icon = "<i class=\"glyphicon fa-fw glyphicon-menu-up\"></i>";
+                            Icon = HtmlStyleUtil.GetIconString("bridge");
                             break;
                         case "tunnel":
                             WorldConstructionType = WorldConstructionType.Tunnel;
-                            Icon = "<i class=\"glyphicon fa-fw glyphicon-oil\"></i>";
+                            Icon = HtmlStyleUtil.GetIconString("tunnel-outline");
                             break;
                         default:
                             WorldConstructionType = WorldConstructionType.Unknown;

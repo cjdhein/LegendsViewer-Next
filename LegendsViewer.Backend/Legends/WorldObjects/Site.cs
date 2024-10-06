@@ -5,7 +5,6 @@ using LegendsViewer.Backend.Extensions;
 using LegendsViewer.Backend.Legends.Enums;
 using LegendsViewer.Backend.Legends.EventCollections;
 using LegendsViewer.Backend.Legends.Events;
-using LegendsViewer.Backend.Legends.Extensions;
 using LegendsViewer.Backend.Legends.Interfaces;
 using LegendsViewer.Backend.Legends.Parser;
 using LegendsViewer.Backend.Legends.Various;
@@ -15,7 +14,7 @@ namespace LegendsViewer.Backend.Legends.WorldObjects;
 
 public class Site : WorldObject, IHasCoordinates
 {
-    public string Icon { get; set; } = HtmlStyleUtil.GetIconString("map-marker");
+    public string Icon { get; set; } = HtmlStyleUtil.GetIconString("home-modern");
 
     [JsonIgnore]
     public WorldRegion? Region { get; set; }

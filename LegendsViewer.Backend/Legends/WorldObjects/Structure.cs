@@ -181,7 +181,7 @@ public class Structure : WorldObject
                 icon = HtmlStyleUtil.GetIconString("town-hall");
                 break;
             default:
-                icon = "";
+                icon = HtmlStyleUtil.GetIconString("home-silo");
                 break;
         }
         Icon = icon;

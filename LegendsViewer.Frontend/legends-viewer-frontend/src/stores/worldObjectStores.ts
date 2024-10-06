@@ -32,15 +32,67 @@ const apiPaths: Record<string, {
         objectEvents: "/api/Region/{id}/events" as PathsWithMethod<paths, "get">,
         eventChart: "/api/Region/{id}/eventchart" as PathsWithMethod<paths, "get">
     },
+    UndergroundRegion: {
+        overview: "/api/UndergroundRegion" as PathsWithMethod<paths, "get">,
+        object: "/api/UndergroundRegion/{id}" as PathsWithMethod<paths, "get">,
+        objectEvents: "/api/UndergroundRegion/{id}/events" as PathsWithMethod<paths, "get">,
+        eventChart: "/api/UndergroundRegion/{id}/eventchart" as PathsWithMethod<paths, "get">
+    },
+    Landmass: {
+        overview: "/api/Landmass" as PathsWithMethod<paths, "get">,
+        object: "/api/Landmass/{id}" as PathsWithMethod<paths, "get">,
+        objectEvents: "/api/Landmass/{id}/events" as PathsWithMethod<paths, "get">,
+        eventChart: "/api/Landmass/{id}/eventchart" as PathsWithMethod<paths, "get">
+    },
+    River: {
+        overview: "/api/River" as PathsWithMethod<paths, "get">,
+        object: "/api/River/{id}" as PathsWithMethod<paths, "get">,
+        objectEvents: "/api/River/{id}/events" as PathsWithMethod<paths, "get">,
+        eventChart: "/api/River/{id}/eventchart" as PathsWithMethod<paths, "get">
+    },
+    Structure: {
+        overview: "/api/Structure" as PathsWithMethod<paths, "get">,
+        object: "/api/Structure/{id}" as PathsWithMethod<paths, "get">,
+        objectEvents: "/api/Structure/{id}/events" as PathsWithMethod<paths, "get">,
+        eventChart: "/api/Structure/{id}/eventchart" as PathsWithMethod<paths, "get">
+    },
+    Construction: {
+        overview: "/api/Construction" as PathsWithMethod<paths, "get">,
+        object: "/api/Construction/{id}" as PathsWithMethod<paths, "get">,
+        objectEvents: "/api/Construction/{id}/events" as PathsWithMethod<paths, "get">,
+        eventChart: "/api/Construction/{id}/eventchart" as PathsWithMethod<paths, "get">
+    },
+    MountainPeak: {
+        overview: "/api/MountainPeak" as PathsWithMethod<paths, "get">,
+        object: "/api/MountainPeak/{id}" as PathsWithMethod<paths, "get">,
+        objectEvents: "/api/MountainPeak/{id}/events" as PathsWithMethod<paths, "get">,
+        eventChart: "/api/MountainPeak/{id}/eventchart" as PathsWithMethod<paths, "get">
+    },
+    HistoricalFigure: {
+        overview: "/api/HistoricalFigure" as PathsWithMethod<paths, "get">,
+        object: "/api/HistoricalFigure/{id}" as PathsWithMethod<paths, "get">,
+        objectEvents: "/api/HistoricalFigure/{id}/events" as PathsWithMethod<paths, "get">,
+        eventChart: "/api/HistoricalFigure/{id}/eventchart" as PathsWithMethod<paths, "get">
+    },
+    Entity: {
+        overview: "/api/Entity" as PathsWithMethod<paths, "get">,
+        object: "/api/Entity/{id}" as PathsWithMethod<paths, "get">,
+        objectEvents: "/api/Entity/{id}/events" as PathsWithMethod<paths, "get">,
+        eventChart: "/api/Entity/{id}/eventchart" as PathsWithMethod<paths, "get">
+    },
     // Add more mappings for other resources like Artifact, etc.
 };
 
-// Create a store for 'Site'
 export const useSiteStore = createWorldObjectStore<components['schemas']['Site']>('Site');
-
-// Create a store for 'Region'
 export const useRegionStore = createWorldObjectStore<components['schemas']['WorldRegion']>('Region');
-
+export const useUndergroundRegionStore = createWorldObjectStore<components['schemas']['UndergroundRegion']>('UndergroundRegion');
+export const useLandmassStore = createWorldObjectStore<components['schemas']['Landmass']>('Landmass');
+export const useRiverStore = createWorldObjectStore<components['schemas']['River']>('River');
+export const useStructureStore = createWorldObjectStore<components['schemas']['Structure']>('Structure');
+export const useConstructionStore = createWorldObjectStore<components['schemas']['WorldConstruction']>('Construction');
+export const useMountainPeakStore = createWorldObjectStore<components['schemas']['MountainPeak']>('MountainPeak');
+export const useHistoricalFigureStore = createWorldObjectStore<components['schemas']['HistoricalFigure']>('HistoricalFigure');
+export const useEntityStore = createWorldObjectStore<components['schemas']['Entity']>('Entity');
 
 export function createWorldObjectStore<T>(resourceName: string) {
     const pathsForResource = apiPaths[resourceName];

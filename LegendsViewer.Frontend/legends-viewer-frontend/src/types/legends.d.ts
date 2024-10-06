@@ -23,3 +23,9 @@ export interface LoadItemsOptionsWithSearch {
     sortBy: LoadItemsSortOption[];
     search: string;
 }
+
+export interface TableHeader {
+    title: string;
+    key: string;
+    align?: 'start' | 'end' | 'center';
+}
