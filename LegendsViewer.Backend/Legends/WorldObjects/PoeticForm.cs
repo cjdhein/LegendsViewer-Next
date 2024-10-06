@@ -8,7 +8,7 @@ namespace LegendsViewer.Backend.Legends.WorldObjects;
 
 public class PoeticForm : ArtForm
 {
-    public string Icon { get; set; } = HtmlStyleUtil.GetIconString("script-outline");
+    public string Icon { get; set; } = HtmlStyleUtil.GetIconString("account-voice");
 
     public PoeticForm(List<Property> properties, World world)
         : base(properties, world)

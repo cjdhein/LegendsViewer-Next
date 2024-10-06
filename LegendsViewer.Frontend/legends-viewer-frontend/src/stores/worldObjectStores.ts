@@ -80,6 +80,36 @@ const apiPaths: Record<string, {
         objectEvents: "/api/Entity/{id}/events" as PathsWithMethod<paths, "get">,
         eventChart: "/api/Entity/{id}/eventchart" as PathsWithMethod<paths, "get">
     },
+    DanceForm: {
+        overview: "/api/DanceForm" as PathsWithMethod<paths, "get">,
+        object: "/api/DanceForm/{id}" as PathsWithMethod<paths, "get">,
+        objectEvents: "/api/DanceForm/{id}/events" as PathsWithMethod<paths, "get">,
+        eventChart: "/api/DanceForm/{id}/eventchart" as PathsWithMethod<paths, "get">
+    },
+    MusicalForm: {
+        overview: "/api/MusicalForm" as PathsWithMethod<paths, "get">,
+        object: "/api/MusicalForm/{id}" as PathsWithMethod<paths, "get">,
+        objectEvents: "/api/MusicalForm/{id}/events" as PathsWithMethod<paths, "get">,
+        eventChart: "/api/MusicalForm/{id}/eventchart" as PathsWithMethod<paths, "get">
+    },
+    PoeticForm: {
+        overview: "/api/PoeticForm" as PathsWithMethod<paths, "get">,
+        object: "/api/PoeticForm/{id}" as PathsWithMethod<paths, "get">,
+        objectEvents: "/api/PoeticForm/{id}/events" as PathsWithMethod<paths, "get">,
+        eventChart: "/api/PoeticForm/{id}/eventchart" as PathsWithMethod<paths, "get">
+    },
+    WrittenContent: {
+        overview: "/api/WrittenContent" as PathsWithMethod<paths, "get">,
+        object: "/api/WrittenContent/{id}" as PathsWithMethod<paths, "get">,
+        objectEvents: "/api/WrittenContent/{id}/events" as PathsWithMethod<paths, "get">,
+        eventChart: "/api/WrittenContent/{id}/eventchart" as PathsWithMethod<paths, "get">
+    },
+    Artifact: {
+        overview: "/api/Artifact" as PathsWithMethod<paths, "get">,
+        object: "/api/Artifact/{id}" as PathsWithMethod<paths, "get">,
+        objectEvents: "/api/Artifact/{id}/events" as PathsWithMethod<paths, "get">,
+        eventChart: "/api/Artifact/{id}/eventchart" as PathsWithMethod<paths, "get">
+    },
     // Add more mappings for other resources like Artifact, etc.
 };
 
@@ -93,6 +123,11 @@ export const useConstructionStore = createWorldObjectStore<components['schemas']
 export const useMountainPeakStore = createWorldObjectStore<components['schemas']['MountainPeak']>('MountainPeak');
 export const useHistoricalFigureStore = createWorldObjectStore<components['schemas']['HistoricalFigure']>('HistoricalFigure');
 export const useEntityStore = createWorldObjectStore<components['schemas']['Entity']>('Entity');
+export const useDanceFormStore = createWorldObjectStore<components['schemas']['DanceForm']>('DanceForm');
+export const useMusicalFormStore = createWorldObjectStore<components['schemas']['MusicalForm']>('MusicalForm');
+export const usePoeticFormStore = createWorldObjectStore<components['schemas']['PoeticForm']>('PoeticForm');
+export const useWrittenContentStore = createWorldObjectStore<components['schemas']['WrittenContent']>('WrittenContent');
+export const useArtifactStore = createWorldObjectStore<components['schemas']['Artifact']>('Artifact');
 
 export function createWorldObjectStore<T>(resourceName: string) {
     const pathsForResource = apiPaths[resourceName];

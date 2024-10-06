@@ -14,6 +14,11 @@ const routes = [
   { path: '/mountainpeak', name: 'Mountain Peaks', component: () => import('../views/MountainPeaks.vue') },
   { path: '/entity', name: 'Entities', component: () => import('../views/Entities.vue') },
   { path: '/hf', name: 'Historical Figures', component: () => import('../views/HistoricalFigures.vue') },
+  { path: '/artifact', name: 'Artifacts', component: () => import('../views/Artifacts.vue') },
+  { path: '/danceform', name: 'Dance Forms', component: () => import('../views/DanceForms.vue') },
+  { path: '/musicalform', name: 'Musical Forms', component: () => import('../views/MusicalForms.vue') },
+  { path: '/poeticform', name: 'Poetic Forms', component: () => import('../views/PoeticForms.vue') },
+  { path: '/writtencontent', name: 'Written Content', component: () => import('../views/WrittenContents.vue') },
 ]
 
 const router = createRouter({

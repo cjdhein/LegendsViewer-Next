@@ -15,6 +15,12 @@ const menuItems = [
       { title: 'Sites', icon: 'mdi-home-modern', to: '/site' },
       { title: 'Structures', icon: 'mdi-home-silo', to: '/structure' },
       { title: 'Constructions', icon: 'mdi-sign-caution', to: '/construction' },
+      { type: 'subheader', title: 'Art and Craft' },
+      { title: 'Artifacts', icon: 'mdi-diamond-stone', to: '/artifact' },
+      { title: 'Dance Forms', icon: 'mdi-dance-ballroom', to: '/danceform' },
+      { title: 'Musical Forms', icon: 'mdi-music-clef-treble', to: '/musicalform' },
+      { title: 'Poetic Forms', icon: 'mdi-account-voice', to: '/poeticform' },
+      { title: 'Written Content', icon: 'mdi-bookshelf', to: '/writtencontent' },
     ];
 </script>
 
