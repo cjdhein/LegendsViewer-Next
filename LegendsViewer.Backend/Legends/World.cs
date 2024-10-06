@@ -112,6 +112,7 @@ public class World : IDisposable, IWorld
         }
 
         ProcessHFtoEntityLinks();
+        ResolveEntityToEntityPopulation();
         ResolveHfToEntityPopulation();
         ResolveStructureProperties();
         ResolveSitePropertyOwners();
@@ -746,7 +747,12 @@ public class World : IDisposable, IWorld
     {
         foreach (var entityPopulation in EntityPopulations)
         {
-            entityPopulation.Entity = GetEntity(entityPopulation.EntityId);
+            Entity? civ = GetEntity(entityPopulation.EntityId);
+            if (civ != null)
+            {
+                civ.EntityPopulation = entityPopulation;
+                entityPopulation.Entity = civ;
+            }
         }
     }
 

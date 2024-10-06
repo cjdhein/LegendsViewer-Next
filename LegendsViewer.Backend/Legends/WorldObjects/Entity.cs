@@ -30,6 +30,9 @@ public class Entity : WorldObject, IHasCoordinates
     public List<List<HistoricalFigure>> Leaders { get; set; }
     // TODO Leaders API
 
+    [JsonIgnore]
+    public EntityPopulation? EntityPopulation { get; set; }
+
     public List<Population> Populations { get; set; }
 
     [JsonIgnore]
