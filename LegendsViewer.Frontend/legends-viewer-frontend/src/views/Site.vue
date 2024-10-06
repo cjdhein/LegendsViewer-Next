@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useSiteStore } from '../stores/siteStore';
+import { useSiteStore } from '../stores/worldObjectStores';
 import { useRoute } from 'vue-router'
 import { computed, ComputedRef, watch } from 'vue'
 import { useMapStore } from '../stores/mapStore';

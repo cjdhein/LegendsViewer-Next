@@ -1,12 +1,9 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-import { useSiteStore } from '../stores/siteStore';
+import { useSiteStore } from '../stores/worldObjectStores';
 import { LoadItemsOptionsWithSearch } from '../types/legends';
 
 const store = useSiteStore()
-
-const searchString = ref("")
-
 const icon = "mdi-map-marker"
 const title = "Sites"
 const subtitle = "Sites are diverse inhabited locations, including towns, fortresses, and other settlements, found throughout the world. Explore their history, structures, and inhabitants"
@@ -20,10 +17,10 @@ const tableHeaders = [
     { title: 'Events', key: 'eventCount', align: 'end' as ("start" | "end" | "center") | undefined },
 ]
 
+const searchString = ref("")
 const loadWorldObjects = async ({ page, itemsPerPage, sortBy, search }: LoadItemsOptionsWithSearch) => {
     await store.loadOverview(page, itemsPerPage, sortBy, search)
 }
-
 loadWorldObjects({ page: 1, itemsPerPage: store.objectEventsPerPage, sortBy: [], search: searchString.value })
 
 </script>
