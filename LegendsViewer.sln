@@ -3,9 +3,16 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.11.35312.102
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LegendsViewer.Backend", "LegendsViewer.Backend\LegendsViewer.Backend.csproj", "{F46548D3-818A-4C12-A4AD-28D132E745DD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LegendsViewer.Backend", "LegendsViewer.Backend\LegendsViewer.Backend.csproj", "{F46548D3-818A-4C12-A4AD-28D132E745DD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LegendsViewer.Frontend", "LegendsViewer.Frontend\LegendsViewer.Frontend.csproj", "{9AD21B79-09BC-4C21-B181-27BF65999DD4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LegendsViewer.Frontend", "LegendsViewer.Frontend\LegendsViewer.Frontend.csproj", "{9AD21B79-09BC-4C21-B181-27BF65999DD4}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution", "Solution", "{C001882B-B859-4E9F-B8F6-DFFA2759785F}"
+	ProjectSection(SolutionItems) = preProject
+		.gitignore = .gitignore
+		LICENSE = LICENSE
+		README.md = README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
