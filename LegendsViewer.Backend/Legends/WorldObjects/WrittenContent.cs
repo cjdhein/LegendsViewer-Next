@@ -10,8 +10,6 @@ namespace LegendsViewer.Backend.Legends.WorldObjects;
 
 public class WrittenContent : WorldObject
 {
-    public static readonly string Icon = HtmlStyleUtil.GetIconString("bookshelf");
-
     public int PageStart { get; set; } // legends_plus.xml
     public int PageEnd { get; set; } // legends_plus.xml
     public WrittenContentType WrittenContentType { get; set; } // legends_plus.xml
@@ -29,6 +27,7 @@ public class WrittenContent : WorldObject
     public WrittenContent(List<Property> properties, World world)
         : base(properties, world)
     {
+        Icon = HtmlStyleUtil.GetIconString("bookshelf");
         FormId = -1;
         AuthorId = -1;
 

@@ -484,6 +484,7 @@ public class HistoricalFigure : WorldObject
         {
             world.AddPlayerRelatedDwarfObjects(this);
         }
+        Icon = GetIcon();
     }
 
     private void Initialize()
@@ -533,17 +534,16 @@ public class HistoricalFigure : WorldObject
 
         if (link)
         {
-            string icon = GetIcon();
             if (pov == null || pov != this)
             {
                 if (pov != null && pov.GetType() == typeof(BeastAttack) && (pov as BeastAttack)?.Beast == this) //Highlight Beast when printing Beast Attack Log
                 {
-                    return $"{HtmlStyleUtil.GetAnchorString(icon, "hf", Id, Title, ShortName)}";
+                    return $"{HtmlStyleUtil.GetAnchorString(Icon, "hf", Id, Title, ShortName)}";
                 }
 
                 return worldEvent != null
-                    ? $"the {GetRaceStringByWorldEvent(worldEvent)} {HtmlStyleUtil.GetAnchorString(icon, "hf", Id, Title, Name)}"
-                    : $"the {RaceString} {HtmlStyleUtil.GetAnchorString(icon, "hf", Id, Title, Name)}";
+                    ? $"the {GetRaceStringByWorldEvent(worldEvent)} {HtmlStyleUtil.GetAnchorString(Icon, "hf", Id, Title, Name)}"
+                    : $"the {RaceString} {HtmlStyleUtil.GetAnchorString(Icon, "hf", Id, Title, Name)}";
             }
             return $"{HtmlStyleUtil.GetAnchorString("", "hf", Id, Title, HtmlStyleUtil.CurrentDwarfObject(ShortName))}";
         }

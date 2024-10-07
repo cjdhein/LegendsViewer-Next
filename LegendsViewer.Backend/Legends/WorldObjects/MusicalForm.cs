@@ -8,16 +8,15 @@ namespace LegendsViewer.Backend.Legends.WorldObjects;
 
 public class MusicalForm : ArtForm
 {
-    public string Icon { get; set; } = HtmlStyleUtil.GetIconString("music-clef-treble");
-
     public MusicalForm(List<Property> properties, World world)
         : base(properties, world)
     {
         FormType = FormType.Musical;
         Type = FormType.GetDescription();
+        Icon = HtmlStyleUtil.GetIconString("music-clef-treble");
     }
 
-    public override string ToLink(bool link = true, DwarfObject pov = null, WorldEvent worldEvent = null)
+    public override string ToLink(bool link = true, DwarfObject? pov = null, WorldEvent? worldEvent = null)
     {
         if (link)
         {

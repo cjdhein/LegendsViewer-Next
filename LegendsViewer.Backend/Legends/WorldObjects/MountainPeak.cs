@@ -16,11 +16,10 @@ public class MountainPeak : WorldObject, IHasCoordinates
 
     public string TypeAsString => IsVolcano ? "Volcano" : "Mountain";
 
-    public string Icon { get; set; } = HtmlStyleUtil.GetIconString("summit");
-
     public MountainPeak(List<Property> properties, World world)
         : base(properties, world)
     {
+        Icon = HtmlStyleUtil.GetIconString("summit");
         foreach (Property property in properties)
         {
             switch (property.Name)

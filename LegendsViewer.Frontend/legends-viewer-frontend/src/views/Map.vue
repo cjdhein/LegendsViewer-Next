@@ -9,7 +9,7 @@
 <script lang="ts">
 import { defineComponent, onMounted, watch, ref, onBeforeUnmount } from 'vue';
 import { useWorldStore } from '../stores/worldStore';
-import { useMapStore } from '../stores/mapStore';
+import { useWorldMapStore } from '../stores/mapStore';
 import L, { Map, ImageOverlay, Layer } from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import { components } from '../generated/api-schema'; // Import from the OpenAPI schema
@@ -97,7 +97,7 @@ function createStar(center: L.LatLngExpression, points: number, outer: number, i
 export default defineComponent({
   setup() {
     const worldStore = useWorldStore();
-    const mapStore = useMapStore();
+    const mapStore = useWorldMapStore();
     const leafletMap = ref<Map>();
     const currentOverlay = ref<ImageOverlay | null>(null);
 

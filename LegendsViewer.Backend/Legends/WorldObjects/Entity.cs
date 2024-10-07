@@ -138,7 +138,7 @@ public class Entity : WorldObject, IHasCoordinates
 
     private string? _icon;
 
-    public string Icon
+    public new string Icon
     {
         get
         {

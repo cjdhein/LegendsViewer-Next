@@ -12,8 +12,6 @@ namespace LegendsViewer.Backend.Legends.WorldObjects;
 
 public class UndergroundRegion : WorldObject, IRegion
 {
-    public static readonly string Icon = HtmlStyleUtil.GetIconString("tunnel");
-
     public int? Depth { get; set; }
     public RegionType RegionType { get; set; }
 
@@ -27,6 +25,7 @@ public class UndergroundRegion : WorldObject, IRegion
     public UndergroundRegion(List<Property> properties, World world)
         : base(properties, world)
     {
+        Icon = HtmlStyleUtil.GetIconString("tunnel");
         foreach (Property property in properties)
         {
             switch (property.Name)

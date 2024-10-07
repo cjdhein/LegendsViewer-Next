@@ -78,6 +78,12 @@ public class WorldMapController(IWorld worldDataService, IWorldMapImageGenerator
         return GetWorldObjectMap(GetTileSizeByEnum(size), _worldDataService.GetSite(id));
     }
 
+    [HttpGet("structure/{id}/{size}")]
+    public ActionResult<byte[]?> GetStructureMap(int id, MapSize size = MapSize.Default)
+    {
+        return GetWorldObjectMap(GetTileSizeByEnum(size), _worldDataService.GetStructure(id));
+    }
+
     [HttpGet("entity/{id}/{size}")]
     public ActionResult<byte[]?> GetEntityMap(int id, MapSize size = MapSize.Default)
     {

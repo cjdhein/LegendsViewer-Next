@@ -30,11 +30,10 @@ public class WorldConstruction : WorldObject, IHasCoordinates
     public WorldConstruction? MasterConstruction { get; set; } // legends_plus.xml
     public string? MasterConstructionToLink => MasterConstruction?.ToLink(true);
 
-    public string Icon = HtmlStyleUtil.GetIconString("sign-caution");
-
     public WorldConstruction(List<Property> properties, World world)
         : base(properties, world)
     {
+        Icon = HtmlStyleUtil.GetIconString("sign-caution");
         Name = "Untitled";
         Coordinates = [];
         Sections = [];
@@ -93,7 +92,7 @@ public class WorldConstruction : WorldObject, IHasCoordinates
             title += "Events: " + Events.Count;
 
             return pov != this
-                ? HtmlStyleUtil.GetAnchorString(Icon, "worldconstruction", Id, title, Name)
+                ? HtmlStyleUtil.GetAnchorString(Icon, "construction", Id, title, Name)
                 : HtmlStyleUtil.GetAnchorCurrentString(Icon, title, HtmlStyleUtil.CurrentDwarfObject(Name));
         }
         return Name;

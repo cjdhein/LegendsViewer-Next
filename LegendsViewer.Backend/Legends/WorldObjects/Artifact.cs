@@ -9,8 +9,6 @@ namespace LegendsViewer.Backend.Legends.WorldObjects;
 
 public class Artifact : WorldObject, IHasCoordinates
 {
-    public string Icon { get; set; } = HtmlStyleUtil.GetIconString("diamond-stone");
-
     public string Item { get; set; }
     [JsonIgnore]
     public HistoricalFigure? Creator { get; set; }
@@ -52,6 +50,7 @@ public class Artifact : WorldObject, IHasCoordinates
     public Artifact(List<Property> properties, World world)
         : base(properties, world)
     {
+        Icon = HtmlStyleUtil.GetIconString("diamond-stone");
         Name = "Untitled";
         Type = "Unknown";
         Subtype = "";

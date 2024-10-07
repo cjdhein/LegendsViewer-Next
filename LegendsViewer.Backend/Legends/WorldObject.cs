@@ -17,6 +17,7 @@ public abstract class WorldObject : DwarfObject
     public List<EventCollection> EventCollectons { get; set; } = [];
 
     public int Id { get; set; }
+    public string Icon { get; set; } = string.Empty;
     public string Name { get; set; } = string.Empty;
     public string Type { get; set; } = string.Empty;
     public string Subtype { get; set; } = string.Empty;

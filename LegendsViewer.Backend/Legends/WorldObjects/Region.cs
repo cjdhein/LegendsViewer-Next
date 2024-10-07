@@ -12,8 +12,6 @@ namespace LegendsViewer.Backend.Legends.WorldObjects;
 
 public class WorldRegion : WorldObject, IRegion
 {
-    public string Icon { get; set; } = HtmlStyleUtil.GetIconString("map-legend");
-
     public int? Depth { get; set; }
     public RegionType RegionType { get; set; }
     public List<string> Deaths
@@ -64,6 +62,7 @@ public class WorldRegion : WorldObject, IRegion
     public WorldRegion(List<Property> properties, World world)
         : base(properties, world)
     {
+        Icon = HtmlStyleUtil.GetIconString("map-legend");
         Name = "UNKNOWN REGION";
         ForceId = -1;
         Battles = [];

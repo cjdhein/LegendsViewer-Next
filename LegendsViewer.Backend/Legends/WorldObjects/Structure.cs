@@ -1,16 +1,20 @@
 ﻿using LegendsViewer.Backend.Legends.Enums;
 using LegendsViewer.Backend.Legends.Events;
 using LegendsViewer.Backend.Legends.Extensions;
+using LegendsViewer.Backend.Legends.Interfaces;
 using LegendsViewer.Backend.Legends.Parser;
+using LegendsViewer.Backend.Legends.Various;
 using LegendsViewer.Backend.Utilities;
 using System.Text.Json.Serialization;
 
 namespace LegendsViewer.Backend.Legends.WorldObjects;
 
-public class Structure : WorldObject
+public class Structure : WorldObject, IHasCoordinates
 {
     public string AltName { get; set; } = "";
     public StructureType TypeEnum { get; set; } // legends_plus.xml
+
+    public List<Location> Coordinates { get; set; } = [];
 
     [JsonIgnore]
     public List<int> InhabitantIDs { get; set; } = [];
@@ -41,8 +45,6 @@ public class Structure : WorldObject
     [JsonIgnore]
     public HistoricalFigure? Owner { get; set; } // resolved from site properties
     public string? OwnerToLink => Owner?.ToLink(true);
-
-    public string Icon { get; set; }
 
     [JsonIgnore]
     public int EntityId { get; set; } = -1;
@@ -186,6 +188,7 @@ public class Structure : WorldObject
         }
         Icon = icon;
         Site = site;
+        Coordinates = site.Coordinates;
 
         Id = world.Structures.Count;
         world.Structures.Add(this);

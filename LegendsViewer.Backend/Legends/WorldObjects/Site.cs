@@ -14,8 +14,6 @@ namespace LegendsViewer.Backend.Legends.WorldObjects;
 
 public class Site : WorldObject, IHasCoordinates
 {
-    public string Icon { get; set; } = HtmlStyleUtil.GetIconString("home-modern");
-
     [JsonIgnore]
     public WorldRegion? Region { get; set; }
     public string? RegionToLink => Region?.ToLink(true, this);
@@ -101,7 +99,7 @@ public class Site : WorldObject, IHasCoordinates
         {
             Dictionary<CreatureInfo, int> deaths = [];
 
-            foreach(var notableDeath in NotableDeaths)
+            foreach (var notableDeath in NotableDeaths)
             {
                 if (deaths.TryGetValue(notableDeath.Race, out int deathCount))
                 {
@@ -310,6 +308,9 @@ public class Site : WorldObject, IHasCoordinates
             case SiteType.Castle:
                 Icon = HtmlStyleUtil.GetIconString("castle");
                 break;
+            default:
+                Icon = HtmlStyleUtil.GetIconString("home-modern");
+                break;
         }
     }
 
@@ -328,7 +329,7 @@ public class Site : WorldObject, IHasCoordinates
         if (link)
         {
             string title = GetTitle();
-            string linkedString =  pov != this
+            string linkedString = pov != this
                 ? HtmlStyleUtil.GetAnchorString(Icon, "site", Id, title, Name)
                 : HtmlStyleUtil.GetAnchorCurrentString(Icon, title, HtmlStyleUtil.CurrentDwarfObject(Name));
             return linkedString;

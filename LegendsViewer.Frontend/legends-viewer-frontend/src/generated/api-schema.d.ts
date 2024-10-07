@@ -4960,6 +4960,46 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/WorldMap/structure/{id}/{size}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    id: number;
+                    size: components["schemas"]["MapSize"];
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description OK */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": string;
+                        "application/json": string;
+                        "text/json": string;
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/WorldMap/entity/{id}/{size}": {
         parameters: {
             query?: never;
@@ -5326,12 +5366,12 @@ export interface components {
         Artifact: {
             /** Format: int32 */
             id?: number;
+            icon?: string | null;
             name?: string | null;
             type?: string | null;
             subtype?: string | null;
             /** Format: int32 */
             readonly eventCount?: number;
-            icon?: string | null;
             item?: string | null;
             readonly creatorLink?: string | null;
             readonly holderLink?: string | null;
@@ -5517,6 +5557,7 @@ export interface components {
         DanceForm: {
             /** Format: int32 */
             id?: number;
+            icon?: string | null;
             name?: string | null;
             type?: string | null;
             subtype?: string | null;
@@ -5524,7 +5565,6 @@ export interface components {
             readonly eventCount?: number;
             description?: string | null;
             formType?: components["schemas"]["FormType"];
-            icon?: string | null;
         };
         /** @enum {string} */
         DeathCause: "Unknown" | "None" | "Struck" | "OldAge" | "Thirst" | "Suffocated" | "Bled" | "Cold" | "CrushedByABridge" | "Drowned" | "Starved" | "InACage" | "Infection" | "CollidedWithAnObstacle" | "PutToRest" | "StarvedQuit" | "Trap" | "DragonsFire" | "Burned" | "Murdered" | "Shot" | "CaveIn" | "FrozenInWater" | "ExecutedGeneric" | "ExecutedFedToBeasts" | "ExecutedBurnedAlive" | "ExecutedCrucified" | "ExecutedDrowned" | "ExecutedHackedToPieces" | "ExecutedBuriedAlive" | "ExecutedBeheaded" | "DrainedBlood" | "Collapsed" | "ScaredToDeath" | "Scuttled" | "FlyingObject" | "Slaughtered" | "Melted" | "Spikes" | "Heat" | "Vanish" | "CoolingMagma" | "Vehicle" | "SuicideDrowned" | "SuicideLeaping" | "Chasm";
@@ -5588,6 +5628,7 @@ export interface components {
         EntityPopulation: {
             /** Format: int32 */
             id?: number;
+            icon?: string | null;
             name?: string | null;
             type?: string | null;
             subtype?: string | null;
@@ -5678,6 +5719,7 @@ export interface components {
         Era: {
             /** Format: int32 */
             id?: number;
+            icon?: string | null;
             name?: string | null;
             type?: string | null;
             subtype?: string | null;
@@ -5720,6 +5762,7 @@ export interface components {
         HistoricalFigure: {
             /** Format: int32 */
             id?: number;
+            icon?: string | null;
             name?: string | null;
             type?: string | null;
             subtype?: string | null;
@@ -5892,6 +5935,7 @@ export interface components {
         Landmass: {
             /** Format: int32 */
             id?: number;
+            icon?: string | null;
             name?: string | null;
             type?: string | null;
             subtype?: string | null;
@@ -5910,6 +5954,7 @@ export interface components {
         MountainPeak: {
             /** Format: int32 */
             id?: number;
+            icon?: string | null;
             name?: string | null;
             type?: string | null;
             subtype?: string | null;
@@ -5922,11 +5967,11 @@ export interface components {
             heightMeter?: string | null;
             isVolcano?: boolean;
             readonly typeAsString?: string | null;
-            icon?: string | null;
         };
         MusicalForm: {
             /** Format: int32 */
             id?: number;
+            icon?: string | null;
             name?: string | null;
             type?: string | null;
             subtype?: string | null;
@@ -5934,7 +5979,6 @@ export interface components {
             readonly eventCount?: number;
             description?: string | null;
             formType?: components["schemas"]["FormType"];
-            icon?: string | null;
         };
         Official: {
             readonly historicalFigureToLink?: string | null;
@@ -5963,6 +6007,7 @@ export interface components {
         PoeticForm: {
             /** Format: int32 */
             id?: number;
+            icon?: string | null;
             name?: string | null;
             type?: string | null;
             subtype?: string | null;
@@ -5970,7 +6015,6 @@ export interface components {
             readonly eventCount?: number;
             description?: string | null;
             formType?: components["schemas"]["FormType"];
-            icon?: string | null;
         };
         Point: {
             readonly isEmpty?: boolean;
@@ -6070,6 +6114,7 @@ export interface components {
         River: {
             /** Format: int32 */
             id?: number;
+            icon?: string | null;
             name?: string | null;
             type?: string | null;
             subtype?: string | null;
@@ -6082,12 +6127,12 @@ export interface components {
         Site: {
             /** Format: int32 */
             id?: number;
+            icon?: string | null;
             name?: string | null;
             type?: string | null;
             subtype?: string | null;
             /** Format: int32 */
             readonly eventCount?: number;
-            icon?: string | null;
             readonly regionToLink?: string | null;
             siteType?: components["schemas"]["SiteType"];
             untranslatedName?: string | null;
@@ -6211,6 +6256,7 @@ export interface components {
         Structure: {
             /** Format: int32 */
             id?: number;
+            icon?: string | null;
             name?: string | null;
             type?: string | null;
             subtype?: string | null;
@@ -6218,12 +6264,12 @@ export interface components {
             readonly eventCount?: number;
             altName?: string | null;
             typeEnum?: components["schemas"]["StructureType"];
+            coordinates?: components["schemas"]["Location"][] | null;
             readonly inhabitantLinks?: string[] | null;
             readonly deityToLink?: string | null;
             readonly religionToLink?: string | null;
             structureSubType?: components["schemas"]["StructureSubType"];
             readonly ownerToLink?: string | null;
-            icon?: string | null;
             readonly entityToLink?: string | null;
             readonly siteToLink?: string | null;
             /** Format: int32 */
@@ -6237,6 +6283,7 @@ export interface components {
         UndergroundRegion: {
             /** Format: int32 */
             id?: number;
+            icon?: string | null;
             name?: string | null;
             type?: string | null;
             subtype?: string | null;
@@ -6352,6 +6399,7 @@ export interface components {
         WorldConstruction: {
             /** Format: int32 */
             id?: number;
+            icon?: string | null;
             name?: string | null;
             type?: string | null;
             subtype?: string | null;
@@ -6451,12 +6499,12 @@ export interface components {
         WorldRegion: {
             /** Format: int32 */
             id?: number;
+            icon?: string | null;
             name?: string | null;
             type?: string | null;
             subtype?: string | null;
             /** Format: int32 */
             readonly eventCount?: number;
-            icon?: string | null;
             /** Format: int32 */
             depth?: number | null;
             regionType?: components["schemas"]["RegionType"];
@@ -6474,6 +6522,7 @@ export interface components {
         WrittenContent: {
             /** Format: int32 */
             id?: number;
+            icon?: string | null;
             name?: string | null;
             type?: string | null;
             subtype?: string | null;

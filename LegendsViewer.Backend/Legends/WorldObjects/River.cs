@@ -12,11 +12,10 @@ public class River : WorldObject, IHasCoordinates
     public string? Path { get; set; } // legends_plus.xml
     public List<Location> Coordinates { get; set; } // legends_plus.xml
 
-    public static readonly string Icon = HtmlStyleUtil.GetIconString("waves");
-
     public River(List<Property> properties, World world)
         : base(properties, world)
     {
+        Icon = HtmlStyleUtil.GetIconString("waves");
         Name = "Untitled";
         Coordinates = [];
 

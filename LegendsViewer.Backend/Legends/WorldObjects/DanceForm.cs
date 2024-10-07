@@ -8,11 +8,11 @@ namespace LegendsViewer.Backend.Legends.WorldObjects;
 
 public class DanceForm : ArtForm
 {
-    public string Icon { get; set; } = HtmlStyleUtil.GetIconString("dance-ballroom");
 
     public DanceForm(List<Property> properties, World world)
         : base(properties, world)
     {
+        Icon = HtmlStyleUtil.GetIconString("dance-ballroom");
         FormType = FormType.Dance;
         Type = FormType.GetDescription();
     }

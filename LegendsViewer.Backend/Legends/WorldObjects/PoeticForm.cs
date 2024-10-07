@@ -8,13 +8,12 @@ namespace LegendsViewer.Backend.Legends.WorldObjects;
 
 public class PoeticForm : ArtForm
 {
-    public string Icon { get; set; } = HtmlStyleUtil.GetIconString("account-voice");
-
     public PoeticForm(List<Property> properties, World world)
         : base(properties, world)
     {
         FormType = FormType.Poetic;
         Type = FormType.GetDescription();
+        Icon = HtmlStyleUtil.GetIconString("account-voice");
     }
 
     public override string ToLink(bool link = true, DwarfObject? pov = null, WorldEvent? worldEvent = null)
