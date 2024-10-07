@@ -91,7 +91,7 @@ public class Artifact : WorldObject, IHasCoordinates
                     }
                     break;
                 case "item_type": Type = Formatting.InitCaps(property.Value); break;
-                case "item_subtype": Subtype = string.Intern(property.Value); break;
+                case "item_subtype": Subtype = Formatting.InitCaps(property.Value); break;
                 case "item_description": Description = Formatting.InitCaps(property.Value); break;
                 case "mat": Material = string.Intern(property.Value); break;
                 case "page_count": PageCount = Convert.ToInt32(property.Value); break;

@@ -13,7 +13,6 @@ const tableHeaders: TableHeader[] = [ // Specify the type here
     { title: 'Id', key: 'id', align: 'end' },
     { title: 'Name', key: 'name', align: 'start' },
     { title: 'Type', key: 'type', align: 'start' },
-    { title: 'Subtype', key: 'subtype', align: 'start' },
     { title: 'Link', key: 'html', align: 'start' },
     { title: 'Events', key: 'eventCount', align: 'end' },
 ];

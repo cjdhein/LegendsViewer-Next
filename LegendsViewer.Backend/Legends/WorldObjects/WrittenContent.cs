@@ -170,6 +170,7 @@ public class WrittenContent : WorldObject
             Name = "An untitled " + WrittenContentType.GetDescription().ToLower();
         }
         Type = WrittenContentType.GetDescription();
+        Subtype = Author?.ToLink(true, this) ?? string.Empty;
     }
 
     public override string ToString()
