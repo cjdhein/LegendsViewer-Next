@@ -1,8 +1,12 @@
 ﻿using System.Globalization;
+using System.Linq;
+using System.Net;
 using System.Text.Json.Serialization;
+using LegendsViewer.Backend.Extensions;
 using LegendsViewer.Backend.Legends.Enums;
 using LegendsViewer.Backend.Legends.EventCollections;
 using LegendsViewer.Backend.Legends.Events;
+using LegendsViewer.Backend.Legends.FamilyTree;
 using LegendsViewer.Backend.Legends.Parser;
 using LegendsViewer.Backend.Legends.Various;
 using LegendsViewer.Backend.Legends.WorldLinks;
@@ -188,6 +192,24 @@ public class HistoricalFigure : WorldObject
     public List<IntrigueActor> IntrigueActors { get; set; }
     public List<IntriguePlot> IntriguePlots { get; set; }
     public List<Identity> Identities { get; set; } = [];
+
+    private FamilyTreeData? _familyTreeData;
+    public FamilyTreeData? FamilyTreeData
+    {
+        get
+        {
+            if (_familyTreeData == null &&
+            RelatedHistoricalFigures.Any(rel => rel.Type == HistoricalFigureLinkType.Mother ||
+                                                rel.Type == HistoricalFigureLinkType.Father ||
+                                                rel.Type == HistoricalFigureLinkType.Child))
+            {
+                _familyTreeData = this.CreateFamilyTreeElements();
+            }
+            return _familyTreeData;
+        }
+
+        set => _familyTreeData = value;
+    }
 
     public bool Alive
     {
@@ -614,6 +636,7 @@ public class HistoricalFigure : WorldObject
     }
 
     private List<Assignment> _assignments;
+
     public string GetLastAssignmentString()
     {
         if (_assignments?.Count > 0)
@@ -654,14 +677,14 @@ public class HistoricalFigure : WorldObject
                 }
                 else if (relevantEvent is AddHfEntityLink addHfEntityLinkEvent && (addHfEntityLinkEvent.LinkType == HfEntityLinkType.Squad || addHfEntityLinkEvent.LinkType == HfEntityLinkType.Position))
                 {
-                    EntityPosition position = addHfEntityLinkEvent.Entity.EntityPositions.Find(pos => string.Equals(pos.Name, addHfEntityLinkEvent.Position, StringComparison.OrdinalIgnoreCase) || pos.Id == addHfEntityLinkEvent.PositionId);
+                    EntityPosition? position = addHfEntityLinkEvent.Entity.EntityPositions.Find(pos => string.Equals(pos.Name, addHfEntityLinkEvent.Position, StringComparison.OrdinalIgnoreCase) || pos.Id == addHfEntityLinkEvent.PositionId);
                     if (position != null)
                     {
                         if (lastAssignment != null)
                         {
                             lastAssignment.Ended = addHfEntityLinkEvent.Year;
                         }
-                        string positionName = position.GetTitleByCaste(addHfEntityLinkEvent.HistoricalFigure?.Caste);
+                        string positionName = position.GetTitleByCaste(addHfEntityLinkEvent.HistoricalFigure?.Caste ?? string.Empty);
                         _assignments.Add(new Assignment(addHfEntityLinkEvent.Entity, addHfEntityLinkEvent.Year, -1, positionName));
                     }
                     else if (!string.IsNullOrWhiteSpace(addHfEntityLinkEvent.Position))
@@ -684,7 +707,7 @@ public class HistoricalFigure : WorldObject
             }
             return lastAssignment.Title;
         }
-        return AssociatedType;
+        return AssociatedType ?? string.Empty;
     }
 
     public string GetHighestSkillAsString()

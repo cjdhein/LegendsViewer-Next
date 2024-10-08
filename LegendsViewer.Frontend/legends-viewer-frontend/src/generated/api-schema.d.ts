@@ -5749,6 +5749,27 @@ export interface components {
         };
         /** @enum {string} */
         Evilness: "Neutral" | "Good" | "Evil";
+        FamilyTreeData: {
+            nodes?: components["schemas"]["FamilyTreeNodeElement"][] | null;
+            edges?: components["schemas"]["FamilyTreeEdgeElement"][] | null;
+        };
+        FamilyTreeEdgeData: {
+            source?: string | null;
+            target?: string | null;
+        };
+        FamilyTreeEdgeElement: {
+            data?: components["schemas"]["FamilyTreeEdgeData"];
+            classes?: string[] | null;
+        };
+        FamilyTreeNodeData: {
+            id?: string | null;
+            label?: string | null;
+            href?: string | null;
+        };
+        FamilyTreeNodeElement: {
+            data?: components["schemas"]["FamilyTreeNodeData"];
+            classes?: string[] | null;
+        };
         FilesAndSubdirectoriesDto: {
             currentDirectory?: string | null;
             parentDirectory?: string | null;
@@ -5827,6 +5848,7 @@ export interface components {
             intrigueActors?: components["schemas"]["IntrigueActor"][] | null;
             intriguePlots?: components["schemas"]["IntriguePlot"][] | null;
             identities?: components["schemas"]["Identity"][] | null;
+            familyTreeData?: components["schemas"]["FamilyTreeData"];
             alive?: boolean;
             deity?: boolean;
             skeleton?: boolean;
