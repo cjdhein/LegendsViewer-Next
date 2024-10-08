@@ -5794,13 +5794,7 @@ export interface components {
             caste?: string | null;
             associatedType?: string | null;
             previousRace?: string | null;
-            /** Format: int32 */
-            entityPopulationId?: number;
-            entityPopulation?: components["schemas"]["EntityPopulation"];
             currentState?: components["schemas"]["HfState"];
-            usedIdentityIds?: number[] | null;
-            /** Format: int32 */
-            currentIdentityId?: number;
             readonly holdingArtifactLinks?: string[] | null;
             states?: components["schemas"]["State"][] | null;
             creatureTypes?: components["schemas"]["CreatureType"][] | null;
@@ -5811,7 +5805,7 @@ export interface components {
             relationshipProfiles?: components["schemas"]["RelationshipProfileHf"][] | null;
             relatedSites?: components["schemas"]["SiteLink"][] | null;
             readonly relatedRegionLinks?: string[] | null;
-            skills?: components["schemas"]["Skill"][] | null;
+            readonly skillDescriptions?: components["schemas"]["SkillDescription"][] | null;
             vagueRelationships?: components["schemas"]["VagueRelationship"][] | null;
             readonly dedicatedStructuresLinks?: string[] | null;
             /** Format: int32 */
@@ -6256,6 +6250,16 @@ export interface components {
             /** Format: int32 */
             points?: number;
             readonly rank?: string | null;
+        };
+        SkillDescription: {
+            token?: string | null;
+            name?: string | null;
+            description?: string | null;
+            category?: string | null;
+            rank?: string | null;
+            readonly subrank?: string | null;
+            /** Format: int32 */
+            points?: number;
         };
         Squad: {
             race?: components["schemas"]["CreatureInfo"];

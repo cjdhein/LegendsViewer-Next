@@ -85,10 +85,16 @@ public class HistoricalFigure : WorldObject
     public string? Caste { get; set; }
     public string? AssociatedType { get; set; }
     public string? PreviousRace { get; set; }
+
+    [JsonIgnore]
     public int EntityPopulationId { get; set; }
+
+    [JsonIgnore]
     public EntityPopulation? EntityPopulation { get; set; }
     public HfState CurrentState { get; set; }
+    [JsonIgnore]
     public List<int> UsedIdentityIds { get; set; }
+    [JsonIgnore]
     public int CurrentIdentityId { get; set; }
 
     [JsonIgnore]
@@ -112,7 +118,10 @@ public class HistoricalFigure : WorldObject
     public List<WorldRegion> RelatedRegions { get; set; }
     public List<string> RelatedRegionLinks => RelatedRegions.ConvertAll(x => x.ToLink(true, this));
 
+    [JsonIgnore]
     public List<Skill> Skills { get; set; }
+    public List<SkillDescription> SkillDescriptions => [.. Skills.Select(SkillDictionary.LookupSkill).OrderByDescending(d => d.Points)];
+
     public List<VagueRelationship> VagueRelationships { get; set; }
 
     [JsonIgnore]
@@ -684,7 +693,7 @@ public class HistoricalFigure : WorldObject
                         {
                             lastAssignment.Ended = addHfEntityLinkEvent.Year;
                         }
-                        string positionName = position.GetTitleByCaste(addHfEntityLinkEvent.HistoricalFigure?.Caste ?? string.Empty);
+                        string positionName = position.GetTitleByCaste(Caste ?? string.Empty);
                         _assignments.Add(new Assignment(addHfEntityLinkEvent.Entity, addHfEntityLinkEvent.Year, -1, positionName));
                     }
                     else if (!string.IsNullOrWhiteSpace(addHfEntityLinkEvent.Position))

@@ -13,3 +13,94 @@
 .large-icon {
     font-size: 32px;
 }
+
+
+ /* SKILLS */
+
+.v-chip.stn,
+.v-chip.pmp {
+    color: #c0c0c0;
+}
+
+.v-chip.doc,
+.v-chip.msc {
+    color: #c49e9f;
+}
+
+.v-chip.frm,
+.v-chip.mlk {
+    color: #dab587;
+}
+
+.v-chip.fsh,
+.v-chip.soc {
+    color: #c6e3ff;
+}
+
+.v-chip.min {
+    color: #acacac;
+}
+
+.v-chip.wod {
+    color: #b29c85;
+}
+
+.v-chip.hnt {
+    color: #afc37e;
+}
+
+.v-chip.cem {
+    color: #dac8af;
+}
+
+.v-chip.plt {
+    color: #83d2aa;
+}
+
+.v-chip.cok {
+    color: #c1bfab;
+}
+
+.v-chip.but {
+    color: #aaaa7e;
+}
+
+.v-chip.mtl {
+    color: #bdbdbd;
+}
+
+.v-chip.gem {
+    color: #acabcf;
+}
+
+.v-chip.gls {
+    color: #bebece;
+}
+
+.v-chip.crf {
+    color: #9bcdff;
+}
+
+.v-chip.pot {
+    color: #ffe1f0;
+}
+
+.v-chip.eng {
+    color: #df929e;
+}
+
+.v-chip.sig {
+    color: #b08e9c;
+}
+
+.v-chip.bee {
+    color: #ffff9d;
+}
+
+.v-chip.ppr {
+    color: #d3a960;
+}
+
+.v-chip.mil {
+    color: #e87c7c;
+}

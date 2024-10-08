@@ -75,7 +75,10 @@ public class Structure : WorldObject, IHasCoordinates
         {
             switch (property.Name)
             {
-                case "local_id": LocalId = Convert.ToInt32(property.Value); break;
+                case "id":
+                case "local_id": 
+                    LocalId = Convert.ToInt32(property.Value);
+                    break;
                 case "name": Name = Formatting.InitCaps(property.Value); break;
                 case "name2": AltName = Formatting.InitCaps(property.Value); break;
                 case "inhabitant":

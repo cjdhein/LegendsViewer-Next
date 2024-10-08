@@ -56,7 +56,7 @@ public class EntityPosition
             }
             else if (caste == "Male" && !string.IsNullOrEmpty(NameMale))
             {
-                positionName = NameFemale;
+                positionName = NameMale;
             }
             else
             {

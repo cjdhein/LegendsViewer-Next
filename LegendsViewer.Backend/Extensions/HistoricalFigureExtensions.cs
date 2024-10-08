@@ -177,7 +177,7 @@ public static class HistoricalFigureExtensions
         title += current.Name;
         if (!current.Alive)
         {
-            title += "\n✝";
+            title += "\n\n✝";
             classes.Add("dead");
         }
 

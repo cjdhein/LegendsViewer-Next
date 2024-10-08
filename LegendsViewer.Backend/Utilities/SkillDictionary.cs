@@ -9,6 +9,7 @@ public class SkillDescription
     public string Description { get; set; }
     public string Category { get; set; }
     public string Rank { get; set; }
+    public string Subrank => Rank.ToLower().Replace(" ", string.Empty)[..5];
     public int Points { get; set; }
 
     public SkillDescription(string category, string token, string name, string desc)

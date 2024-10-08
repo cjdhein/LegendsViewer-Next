@@ -2,8 +2,55 @@
 import { useHistoricalFigureStore } from '../stores/worldObjectStores';
 import WorldObjectPage from '../components/WorldObjectPage.vue';
 import FamilyTree from '../components/FamilyTree.vue';
+import LegendsCardList from '../components/LegendsCardList.vue';
+import { computed, ComputedRef } from 'vue';
+import { LegendLinkListData } from '../types/legends';
 
 const store = useHistoricalFigureStore()
+
+const getByRank = (subrank: string) => {
+    switch (subrank) {
+        case 'dabbl':
+        return 'mdi-square-medium-outline'
+        case 'novic':
+            return 'mdi-square-medium'
+        case 'adequ':
+        case 'compe':
+            return 'mdi-square-outline'
+        case 'skill':
+        case 'profi':
+            return 'mdi-square'
+        case 'talen':
+        case 'adept':
+            return 'mdi-star-outline'
+        case 'exper':
+        case 'profe':
+            return 'mdi-star'
+        case 'accom':
+        case 'great':
+        return 'mdi-diamond-outline'
+        case 'maste':
+            return 'mdi-diamond-outline'
+        case 'highm':
+        return 'mdi-crown-outline'
+        case 'grand':
+        return 'mdi-crown'
+        case 'legen':
+            return 'mdi-trophy '
+
+        default:
+            return 'mdi-help-circle-outline'
+    }
+}
+
+const lists: ComputedRef<LegendLinkListData[]> = computed(() => [
+    { title: 'Artifacts', items: store.object?.holdingArtifactLinks ?? [], icon: "mdi-diamond", subtitle: "Currently held artifacts" },
+    // { title: 'Worshipped By', items: [store.object?.worshippedByToLink ?? ''], icon: "mdi-hands-pray", subtitle: "Worshipped " +  store.object?.name },
+    { title: 'Dedicated Structures', items: store.object?.dedicatedStructuresLinks ?? [], icon: "mdi-home-silo", subtitle: "Structures dedicated to " +  store.object?.name },
+    { title: 'Snatcher Of', items: store.object?.snatchedHfLinks ?? [], icon: "mdi-chess-bishop", subtitle: "Victims snatched by " +  store.object?.name },
+    { title: 'Battles', items: store.object?.battleLinks ?? [], icon: "mdi-chess-bishop", subtitle: "Battles fought by " +  store.object?.name },
+    { title: 'Beast Attacks', items: store.object?.beastAttackLinks ?? [], icon: "mdi-chess-knight", subtitle: "Beast attacks recorded" }
+]);
 
 </script>
 
@@ -30,7 +77,8 @@ const store = useHistoricalFigureStore()
                                         <v-icon class="mr-2" icon="mdi-family-tree" size="32px"></v-icon>
                                     </template>
                                     <v-card-text>
-                                        <FamilyTree :key="-(store.object.id ?? 0)" :data="store.object.familyTreeData as any" :fullscreen="true" />
+                                        <FamilyTree :key="-(store.object.id ?? 0)"
+                                            :data="store.object.familyTreeData as any" :fullscreen="true" />
                                     </v-card-text>
 
                                     <v-card-actions>
@@ -44,6 +92,40 @@ const store = useHistoricalFigureStore()
                     </template>
                 </v-card>
             </v-col>
+            <v-col v-if="store.object?.skillDescriptions != null && store.object.skillDescriptions.length > 0"
+                cols="12" xl="4" lg="6" md="12">
+                <v-card title="Skills" subtitle="Expertise and Abilities" height="400" variant="text">
+                    <template v-slot:prepend>
+                        <v-icon class="mr-2" icon="mdi-account-star-outline" size="32px"></v-icon>
+                    </template>
+                    <v-card-text height="360">
+                        <v-list class="pb-10" height="360" scrollable style="background-color: rgb(var(--v-theme-background));">
+                            <v-list-item v-for="(skillDescription, i) in store.object?.skillDescriptions" :key="i">
+                                <template v-slot:prepend>
+                                    <v-chip :class="'mr-4 ' + skillDescription.category" label>
+                                        <v-icon :icon="getByRank(skillDescription.subrank ?? '')"></v-icon>
+                                    </v-chip>
+                                </template>
+                                <v-list-item-title>{{ skillDescription.rank }}
+                                    {{ skillDescription.name }}</v-list-item-title>
+                                <v-list-item-subtitle>{{ skillDescription.token }} | {{ skillDescription.rank }}</v-list-item-subtitle>
+                                    <template v-slot:append>
+                                    <v-chip :class="skillDescription.category" label>
+                                        {{ skillDescription.points }}
+                                    </v-chip>
+                                </template>
+                            </v-list-item>
+                        </v-list>
+                    </v-card-text>
+                </v-card>
+            </v-col>
+        </template>
+        <template v-slot:type-specific-after-table>
+            <template v-for="(list, i) in lists" :key="i">
+                <v-col v-if="list?.items.length" cols="12" xl="4" lg="6" md="12">
+                    <LegendsCardList :list="list" />
+                </v-col>
+            </template>
         </template>
     </WorldObjectPage>
 </template>

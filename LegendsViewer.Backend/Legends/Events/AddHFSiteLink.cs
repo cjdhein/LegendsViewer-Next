@@ -8,10 +8,10 @@ namespace LegendsViewer.Backend.Legends.Events;
 public class AddHfSiteLink : WorldEvent
 {
     public int StructureId { get; set; }
-    public Structure Structure { get; set; } // TODO
-    public Entity Civ { get; set; }
-    public HistoricalFigure HistoricalFigure { get; set; }
-    public Site Site { get; set; }
+    public Structure? Structure { get; set; }
+    public Entity? Civ { get; set; }
+    public HistoricalFigure? HistoricalFigure { get; set; }
+    public Site? Site { get; set; }
     public SiteLinkType LinkType { get; set; }
 
     public AddHfSiteLink(List<Property> properties, World world)
@@ -47,16 +47,12 @@ public class AddHfSiteLink : WorldEvent
                 case "site": if (Site == null) { Site = world.GetSite(Convert.ToInt32(property.Value)); } else { property.Known = true; } break;
             }
         }
-        if (Site != null)
-        {
-            Structure = Site.Structures.Find(structure => structure.LocalId == StructureId);
-        }
-        HistoricalFigure.AddEvent(this);
-        Civ.AddEvent(this);
-        Site.AddEvent(this);
-        Structure.AddEvent(this);
+        HistoricalFigure?.AddEvent(this);
+        Civ?.AddEvent(this);
+        Site?.AddEvent(this);
+        Structure?.AddEvent(this);
     }
-    public override string Print(bool link = true, DwarfObject pov = null)
+    public override string Print(bool link = true, DwarfObject? pov = null)
     {
         string eventString = GetYearTime();
         eventString += HistoricalFigure != null ? HistoricalFigure.ToLink(link, pov, this) : "UNKNOWN HISTORICAL FIGURE";
@@ -78,6 +74,10 @@ public class AddHfSiteLink : WorldEvent
             default:
                 eventString += " UNKNOWN LINKTYPE (" + LinkType + ") ";
                 break;
+        }
+        if (Site != null)
+        {
+            Structure = Site.Structures.Find(structure => structure.LocalId == StructureId);
         }
         eventString += Structure != null ? Structure.ToLink(link, pov, this) : "UNKNOWN STRUCTURE";
         if (Civ != null)
