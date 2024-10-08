@@ -4,17 +4,24 @@
     <v-fab class="me-16" icon="mdi-chevron-left" location="top end" absolute :to="'/' + objectType + '/' + (routeId - 1)">
     </v-fab>
     <v-row>
-        <v-col cols="12" xl="4" lg="6" md="12">
-            <v-card :title="store.object?.name ?? ''" :subtitle="store.object?.type ?? ''" max-height="400"
-                variant="text">
-                <template v-slot:prepend>
-                    <div class="large-icon mr-2" v-html="store.object?.icon"></div>
-                </template>
+        <v-col cols="12">
+            <v-card variant="text">
+                <v-row align="center" no-gutters>
+                    <v-col class="large-icon" cols="auto">
+                        <div v-html="store.object?.icon"></div>
+                    </v-col>
+                    <v-col>
+                        <v-card-title>{{ store.object?.name ?? '' }}</v-card-title>
+                        <v-card-subtitle class="multiline-subtitle">
+                            {{ store.object?.type ?? '' }}
+                        </v-card-subtitle>
+                    </v-col>
+                </v-row>
             </v-card>
         </v-col>
     </v-row>
     <v-row>
-        <v-col v-if="mapStore.currentWorldObjectMap" cols="12" xl="4" lg="6" md="12">
+        <v-col v-if="mapStore?.currentWorldObjectMap" cols="12" xl="4" lg="6" md="12">
             <!-- Location on World Map -->
             <v-card title="Location" :subtitle="'The location of ' + store.object?.name + ' on the world map'"
                 height="400" variant="text" to="/map">
@@ -84,7 +91,7 @@ const props = defineProps({
     },
     mapStore: {
         type: Object,
-        required: true,
+        required: false,
     },
     objectType: {
         type: String,
@@ -96,7 +103,7 @@ const load = async (idString: string | string[]) => {
     if (typeof idString === 'string') {
         const id = parseInt(idString, 10)
         await props.store.load(id)
-        await props.mapStore.loadWorldObjectMap(id, 'Default')
+        await props.mapStore?.loadWorldObjectMap(id, 'Default')
         await props.store.loadEventChartData(id)
         await loadEvents({ page: 1, itemsPerPage: props.store.objectEventsPerPage, sortBy: [] })
     }

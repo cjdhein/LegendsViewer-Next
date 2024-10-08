@@ -3,7 +3,7 @@
         <v-col cols="12">
             <v-card variant="text">
                 <v-row align="center" no-gutters>
-                    <v-col class="large-icon mr-2" cols="auto">
+                    <v-col class="large-icon" cols="auto">
                         <v-icon :icon="icon"></v-icon>
                     </v-col>
                     <v-col>

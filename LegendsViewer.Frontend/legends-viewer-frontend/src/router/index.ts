@@ -20,12 +20,19 @@ const routes = [
   { path: '/mountainpeak', name: 'Mountain Peaks', component: () => import('../views/MountainPeaks.vue') },
   { path: '/mountainpeak/:id', name: 'Mountain Peak', component: () => import('../views/MountainPeak.vue') },
   { path: '/entity', name: 'Entities', component: () => import('../views/Entities.vue') },
+  { path: '/entity/:id', name: 'Entity', component: () => import('../views/Entity.vue') },
   { path: '/hf', name: 'Historical Figures', component: () => import('../views/HistoricalFigures.vue') },
+  { path: '/hf/:id', name: 'Historical Figure', component: () => import('../views/HistoricalFigure.vue') },
   { path: '/artifact', name: 'Artifacts', component: () => import('../views/Artifacts.vue') },
+  { path: '/artifact/:id', name: 'Artifact', component: () => import('../views/Artifact.vue') },
   { path: '/danceform', name: 'Dance Forms', component: () => import('../views/DanceForms.vue') },
+  { path: '/danceform/:id', name: 'Dance Form', component: () => import('../views/DanceForm.vue') },
   { path: '/musicalform', name: 'Musical Forms', component: () => import('../views/MusicalForms.vue') },
+  { path: '/musicalform/:id', name: 'Musical Form', component: () => import('../views/MusicalForm.vue') },
   { path: '/poeticform', name: 'Poetic Forms', component: () => import('../views/PoeticForms.vue') },
-  { path: '/writtencontent', name: 'Written Content', component: () => import('../views/WrittenContents.vue') },
+  { path: '/poeticform/:id', name: 'Poetic Form', component: () => import('../views/PoeticForm.vue') },
+  { path: '/writtencontent', name: 'Written Contents', component: () => import('../views/WrittenContents.vue') },
+  { path: '/writtencontent/:id', name: 'Written Content', component: () => import('../views/WrittenContent.vue') },
 ]
 
 const router = createRouter({
