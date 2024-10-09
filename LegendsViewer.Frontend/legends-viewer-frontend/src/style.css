@@ -6,6 +6,10 @@
     text-decoration: none;
 }
 
+.nav-list .v-list-item-title {
+    font-size: 14px !important;
+}
+
 .navlink {
     text-decoration: none;
 }

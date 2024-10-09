@@ -1,29 +1,31 @@
 <script setup lang="ts">
 import { useBookmarkStore } from './stores/bookmarkStore';
 const bookmarkStore = useBookmarkStore()
+bookmarkStore.getAll()
 
-const menuItems = [
-      { type: 'subheader', title: 'Societies and Figures' },
-      { title: 'Entities', icon: 'mdi-account-group', to: '/entity' },
-      { title: 'Historical Figures', icon: 'mdi-account', to: '/hf' },
-      { type: 'subheader', title: 'Geography' },
-      { title: 'Map', icon: 'mdi-map-search-outline', to: '/map' },
-      { title: 'Regions', icon: 'mdi-map-legend', to: '/region' },
-      { title: 'Underground', icon: 'mdi-tunnel', to: '/uregion' },
-      { title: 'Landmasses', icon: 'mdi-island-variant', to: '/landmass' },
-      { title: 'Rivers', icon: 'mdi-waves', to: '/river' },
-      { title: 'Mountain Peaks', icon: 'mdi-summit', to: '/mountainpeak' },
-      { type: 'subheader', title: 'Infrastructure' },
-      { title: 'Sites', icon: 'mdi-home-modern', to: '/site' },
-      { title: 'Structures', icon: 'mdi-home-silo', to: '/structure' },
-      { title: 'Constructions', icon: 'mdi-sign-caution', to: '/construction' },
-      { type: 'subheader', title: 'Art and Craft' },
-      { title: 'Artifacts', icon: 'mdi-diamond-stone', to: '/artifact' },
-      { title: 'Dance Forms', icon: 'mdi-dance-ballroom', to: '/danceform' },
-      { title: 'Musical Forms', icon: 'mdi-music-clef-treble', to: '/musicalform' },
-      { title: 'Poetic Forms', icon: 'mdi-account-voice', to: '/poeticform' },
-      { title: 'Written Content', icon: 'mdi-bookshelf', to: '/writtencontent' },
-    ];
+const societyItems = [
+  { title: 'Entities', to: '/entity' },
+  { title: 'Historical Figures', to: '/hf' },
+];
+const geographyItems = [
+  { title: 'Regions', to: '/region' },
+  { title: 'Underground', to: '/uregion' },
+  { title: 'Landmasses', to: '/landmass' },
+  { title: 'Rivers', to: '/river' },
+  { title: 'Mountain Peaks', to: '/mountainpeak' },
+];
+const infrastructureItems = [
+  { title: 'Sites', to: '/site' },
+  { title: 'Structures', to: '/structure' },
+  { title: 'Constructions', to: '/construction' },
+];
+const artItems = [
+  { title: 'Artifacts', to: '/artifact' },
+  { title: 'Dance Forms', to: '/danceform' },
+  { title: 'Musical Forms', to: '/musicalform' },
+  { title: 'Poetic Forms', to: '/poeticform' },
+  { title: 'Written Content', to: '/writtencontent' },
+];
 </script>
 
 <template>
@@ -39,23 +41,47 @@ const menuItems = [
       </v-app-bar>
 
       <v-navigation-drawer>
-        <v-list>
-          <v-list-item
-              prepend-icon="mdi-file-tree-outline"
-              title="Explore Worlds"
-              to="/"
-              :active-class="'v-list-item--active'"
-            />
-         <template v-for="(item, i) in menuItems" :key="i">
-            <v-list-subheader v-if="item.type == 'subheader'">{{ item.title.toUpperCase() }}</v-list-subheader>
-            <v-list-item v-else
-              :prepend-icon="item.icon"
-              :title="item.title"
-              :to="item.to"
-              :active-class="'v-list-item--active'"
-              :disabled="bookmarkStore?.isLoaded == false"
-            />
-          </template>
+        <v-list nav class="nav-list">
+          <v-list-item prepend-icon="mdi-file-tree-outline" title="Explore Worlds" to="/"
+            :active-class="'v-list-item--active'" />
+          <v-list-item prepend-icon="mdi-map-search-outline" title="Map" to="/map" :active-class="'v-list-item--active'"
+            :disabled="bookmarkStore?.isLoaded == false" />
+          <v-list-group value="Factions & Figures">
+            <template v-slot:activator="{ props }">
+              <v-list-item v-bind="props" prepend-icon="mdi-account-group" title="Factions & Figures"></v-list-item>
+            </template>
+            <template v-for="(item, i) in societyItems" :key="i">
+              <v-list-item :value="item.title + i" :title="item.title" :to="item.to"
+                :disabled="bookmarkStore?.isLoaded == false" />
+            </template>
+          </v-list-group>
+          <v-list-group value="Geography">
+            <template v-slot:activator="{ props }">
+              <v-list-item v-bind="props" prepend-icon="mdi-island-variant" title="Geography"></v-list-item>
+            </template>
+            <template v-for="(item, i) in geographyItems" :key="i">
+              <v-list-item :value="item.title + i" :title="item.title" :to="item.to"
+                :disabled="bookmarkStore?.isLoaded == false" />
+            </template>
+          </v-list-group>
+          <v-list-group value="Infrastructure">
+            <template v-slot:activator="{ props }">
+              <v-list-item v-bind="props" prepend-icon="mdi-home-modern" title="Infrastructure"></v-list-item>
+            </template>
+            <template v-for="(item, i) in infrastructureItems" :key="i">
+              <v-list-item :value="item.title + i" :title="item.title" :to="item.to"
+                :disabled="bookmarkStore?.isLoaded == false" />
+            </template>
+          </v-list-group>
+          <v-list-group value="Art and Craft">
+            <template v-slot:activator="{ props }">
+              <v-list-item v-bind="props" prepend-icon="mdi-diamond-stone" title="Art and Craft"></v-list-item>
+            </template>
+            <template v-for="(item, i) in artItems" :key="i">
+              <v-list-item :value="item.title + i" :title="item.title" :to="item.to"
+                :disabled="bookmarkStore?.isLoaded == false" />
+            </template>
+          </v-list-group>
         </v-list>
       </v-navigation-drawer>
 
