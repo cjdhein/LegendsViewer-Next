@@ -129,8 +129,20 @@ public class Battle : EventCollection
                 case "subregion_id": Region = world.GetRegion(Convert.ToInt32(property.Value)); break;
                 case "feature_layer_id": UndergroundRegion = world.GetUndergroundRegion(Convert.ToInt32(property.Value)); break;
                 case "site_id": Site = world.GetSite(Convert.ToInt32(property.Value)); break;
-                case "attacking_hfid": NotableAttackers.Add(world.GetHistoricalFigure(Convert.ToInt32(property.Value))); break;
-                case "defending_hfid": NotableDefenders.Add(world.GetHistoricalFigure(Convert.ToInt32(property.Value))); break;
+                case "attacking_hfid":
+                    HistoricalFigure? attackingHf = world.GetHistoricalFigure(Convert.ToInt32(property.Value));
+                    if (attackingHf != null)
+                    {
+                        NotableAttackers.Add(attackingHf);
+                    }
+                    break;
+                case "defending_hfid":
+                    HistoricalFigure? defendingHf = world.GetHistoricalFigure(Convert.ToInt32(property.Value));
+                    if (defendingHf != null)
+                    {
+                        NotableDefenders.Add(defendingHf);
+                    }
+                    break;
                 case "attacking_squad_race": attackerSquadRaces.Add(world.GetCreatureInfo(property.Value)); break;
                 case "attacking_squad_entity_pop": attackerSquadEntityPopulation.Add(Convert.ToInt32(property.Value)); break;
                 case "attacking_squad_number":
@@ -153,7 +165,13 @@ public class Battle : EventCollection
                     defenderSquadDeaths.Add(defenderSquadDeath < 0 || defenderSquadDeath > Squad.MAX_SIZE ? Squad.MAX_SIZE : defenderSquadDeath);
                     break;
                 case "defending_squad_site": defenderSquadSite.Add(Convert.ToInt32(property.Value)); break;
-                case "noncom_hfid": NonCombatants.Add(world.GetHistoricalFigure(Convert.ToInt32(property.Value))); break;
+                case "noncom_hfid":
+                    HistoricalFigure? nonCombatantHf = world.GetHistoricalFigure(Convert.ToInt32(property.Value));
+                    if (nonCombatantHf != null)
+                    {
+                        NonCombatants.Add(nonCombatantHf);
+                    }
+                    break;
                 case "individual_merc": property.Known = true; IndividualMercenaries = true; break;
                 case "company_merc": property.Known = true; CompanyMercenaries = true; break;
                 case "attacking_merc_enid":
@@ -188,8 +206,20 @@ public class Battle : EventCollection
                         //defenderSupportMercenaryEntity.Type = EntityType.MercenaryCompany;
                     }
                     break;
-                case "a_support_merc_hfid": AttackerSupportMercenaryHfs.Add(world.GetHistoricalFigure(Convert.ToInt32(property.Value))); break;
-                case "d_support_merc_hfid": DefenderSupportMercenaryHfs.Add(world.GetHistoricalFigure(Convert.ToInt32(property.Value))); break;
+                case "a_support_merc_hfid":
+                    HistoricalFigure? attackerSupportMercenaryHf = world.GetHistoricalFigure(Convert.ToInt32(property.Value));
+                    if (attackerSupportMercenaryHf != null)
+                    {
+                        AttackerSupportMercenaryHfs.Add(attackerSupportMercenaryHf);
+                    }
+                    break;
+                case "d_support_merc_hfid":
+                    HistoricalFigure? defenderSupportMercenaryHf = world.GetHistoricalFigure(Convert.ToInt32(property.Value));
+                    if(defenderSupportMercenaryHf != null)
+                    {
+                        DefenderSupportMercenaryHfs.Add(defenderSupportMercenaryHf);
+                    }
+                    break;
             }
         }
 

@@ -1,6 +1,8 @@
 <script setup lang="ts">
+import { useBookmarkStore } from './stores/bookmarkStore';
+const bookmarkStore = useBookmarkStore()
+
 const menuItems = [
-      { title: 'Explore Worlds', icon: 'mdi-file-tree-outline', to: '/' },
       { type: 'subheader', title: 'Societies and Figures' },
       { title: 'Entities', icon: 'mdi-account-group', to: '/entity' },
       { title: 'Historical Figures', icon: 'mdi-account', to: '/hf' },
@@ -38,13 +40,20 @@ const menuItems = [
 
       <v-navigation-drawer>
         <v-list>
-          <template v-for="(item, i) in menuItems" :key="i">
+          <v-list-item
+              prepend-icon="mdi-file-tree-outline"
+              title="Explore Worlds"
+              to="/"
+              :active-class="'v-list-item--active'"
+            />
+         <template v-for="(item, i) in menuItems" :key="i">
             <v-list-subheader v-if="item.type == 'subheader'">{{ item.title.toUpperCase() }}</v-list-subheader>
             <v-list-item v-else
               :prepend-icon="item.icon"
               :title="item.title"
               :to="item.to"
               :active-class="'v-list-item--active'"
+              :disabled="bookmarkStore?.isLoaded == false"
             />
           </template>
         </v-list>

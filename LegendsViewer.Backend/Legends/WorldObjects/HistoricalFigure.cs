@@ -1,6 +1,4 @@
 ﻿using System.Globalization;
-using System.Linq;
-using System.Net;
 using System.Text.Json.Serialization;
 using LegendsViewer.Backend.Extensions;
 using LegendsViewer.Backend.Legends.Enums;
@@ -81,98 +79,97 @@ public class HistoricalFigure : WorldObject
         }
     }
 
-    public CreatureInfo Race { get; set; }
-    public string? Caste { get; set; }
-    public string? AssociatedType { get; set; }
-    public string? PreviousRace { get; set; }
+    public CreatureInfo Race { get; set; } = CreatureInfo.Unknown;
+    public string Caste { get; set; } = string.Empty;
+    public string AssociatedType { get; set; } = string.Empty;
+    public string PreviousRace { get; set; } = string.Empty;
 
     [JsonIgnore]
     public int EntityPopulationId { get; set; }
 
     [JsonIgnore]
     public EntityPopulation? EntityPopulation { get; set; }
-    public HfState CurrentState { get; set; }
+    public HfState CurrentState { get; set; } = HfState.None;
+
     [JsonIgnore]
-    public List<int> UsedIdentityIds { get; set; }
+    public List<int> UsedIdentityIds { get; set; } = [];
     [JsonIgnore]
     public int CurrentIdentityId { get; set; }
 
     [JsonIgnore]
-    public List<Artifact> HoldingArtifacts { get; set; }
+    public List<Artifact> HoldingArtifacts { get; set; } = [];
     public List<string> HoldingArtifactLinks => HoldingArtifacts.ConvertAll(x => x.ToLink(true, this));
 
-    public List<State> States { get; set; }
+    public List<State> States { get; set; } = [];
 
-    public List<CreatureType> CreatureTypes { get; set; }
-    public List<HistoricalFigureLink> RelatedHistoricalFigures { get; set; }
-    public List<SiteProperty> SiteProperties { get; set; }
-    public List<EntityLink> RelatedEntities { get; set; }
-    public List<EntityReputation> Reputations { get; set; }
-    public List<RelationshipProfileHf> RelationshipProfiles { get; set; }
-
-    [JsonIgnore]
-    public Dictionary<int, RelationshipProfileHf> RelationshipProfilesOfIdentities { get; set; } // TODO not used in Legends Mode
-    public List<SiteLink> RelatedSites { get; set; }
+    public List<CreatureType> CreatureTypes { get; set; } = [];
+    public List<HistoricalFigureLink> RelatedHistoricalFigures { get; set; } = [];
+    public List<SiteProperty> SiteProperties { get; set; } = [];
+    public List<EntityLink> RelatedEntities { get; set; } = [];
+    public List<EntityReputation> Reputations { get; set; } = [];
+    public List<RelationshipProfileHf> RelationshipProfiles { get; set; } = [];
 
     [JsonIgnore]
-    public List<WorldRegion> RelatedRegions { get; set; }
+    public Dictionary<int, RelationshipProfileHf> RelationshipProfilesOfIdentities { get; set; } = []; // TODO not used in Legends Mode
+
+    public List<SiteLink> RelatedSites { get; set; } = [];
+
+    [JsonIgnore]
+    public List<WorldRegion> RelatedRegions { get; set; } = [];
     public List<string> RelatedRegionLinks => RelatedRegions.ConvertAll(x => x.ToLink(true, this));
 
     [JsonIgnore]
-    public List<Skill> Skills { get; set; }
+    public List<Skill> Skills { get; set; } = [];
     public List<SkillDescription> SkillDescriptions => [.. Skills.Select(SkillDictionary.LookupSkill).OrderByDescending(d => d.Points)];
 
-    public List<VagueRelationship> VagueRelationships { get; set; }
+    public List<VagueRelationship> VagueRelationships { get; set; } = [];
 
     [JsonIgnore]
-    public List<Structure> DedicatedStructures { get; set; }
+    public List<Structure> DedicatedStructures { get; set; } = [];
     public List<string> DedicatedStructuresLinks => DedicatedStructures.ConvertAll(x => x.ToLink(true, this));
 
-    public int Age { get; set; }
-    public int Appeared { get; set; }
-    public int BirthYear { get; set; }
-    public int BirthSeconds72 { get; set; }
-    public int DeathYear { get; set; }
-    public int DeathSeconds72 { get; set; }
-    public DeathCause DeathCause { get; set; }
-    public List<string> ActiveInteractions { get; set; }
-    public List<string> InteractionKnowledge { get; set; }
-    public string Goal { get; set; }
-    public string Interaction { get; set; }
+    public int Age { get; set; } = -1;
+    public int Appeared { get; set; } = -1;
+    public int BirthYear { get; set; } = -1;
+    public int BirthSeconds72 { get; set; } = -1;
+    public int DeathYear { get; set; } = -1;
+    public int DeathSeconds72 { get; set; } = -1;
+
+    public DeathCause DeathCause { get; set; } = DeathCause.None;
+    public List<string> ActiveInteractions { get; set; } = [];
+    public List<string> InteractionKnowledge { get; set; } = [];
+    public string Goal { get; set; } = string.Empty;
+    public string Interaction { get; set; } = string.Empty;
 
     [JsonIgnore]
     public HistoricalFigure? LineageCurseParent { get; set; }
     public string? LineageCurseParentToLink => LineageCurseParent?.ToLink(true, this);
 
     [JsonIgnore]
-    public List<HistoricalFigure> LineageCurseChilds { get; set; }
+    public List<HistoricalFigure> LineageCurseChilds { get; set; } = [];
     public List<string> LineageCurseChildLinks => LineageCurseChilds.ConvertAll(x => x.ToLink(true, this));
 
-    public List<string> JourneyPets { get; set; }
+    public List<string> JourneyPets { get; set; } = [];
 
     [JsonIgnore]
-    public List<HfDied> NotableKills { get; set; }
+    public List<HfDied> NotableKills { get; set; } = [];
 
     [JsonIgnore]
     public List<HistoricalFigure> HFKills => NotableKills.ConvertAll(kill => kill.HistoricalFigure);
     public List<string> HFKillLinks => HFKills.ConvertAll(x => x.ToLink(true, this));
 
     [JsonIgnore]
-    public List<HistoricalFigure> SnatchedHfs
-    {
-        get => Events
+    public List<HistoricalFigure> SnatchedHfs => Events
             .OfType<HfAbducted>()
             .Where(abduction => abduction.Snatcher == this && abduction.Target != null)
             .Select(abduction => abduction.Target!)
             .ToList();
-        set { }
-    }
     public List<string> SnatchedHfLinks => SnatchedHfs.ConvertAll(x => x.ToLink(true, this));
 
-    public List<string> Spheres { get; set; }
+    public List<string> Spheres { get; set; } = [];
 
     [JsonIgnore]
-    public List<Battle> Battles { get; set; }
+    public List<Battle> Battles { get; set; } = [];
     public List<string> BattleLinks => Battles.ConvertAll(x => x.ToLink(true, this));
 
     [JsonIgnore]
@@ -187,19 +184,19 @@ public class HistoricalFigure : WorldObject
     public List<Battle> BattlesNonCombatant => Battles.Where(battle => battle.NonCombatants.Contains(this)).ToList();
     public List<string> BattlesNonCombatantLinks => BattlesNonCombatant.ConvertAll(x => x.ToLink(true, this));
 
-    public List<Position> Positions { get; set; }
+    public List<Position> Positions { get; set; } = [];
 
     [JsonIgnore]
     public Entity? WorshippedBy { get; set; }
     public string? WorshippedByToLink => WorshippedBy?.ToLink(true);
 
     [JsonIgnore]
-    public List<BeastAttack> BeastAttacks { get; set; }
+    public List<BeastAttack> BeastAttacks { get; set; } = [];
     public List<string> BeastAttackLinks => BeastAttacks.ConvertAll(x => x.ToLink(true, this));
 
-    public HonorEntity HonorEntity { get; set; }
-    public List<IntrigueActor> IntrigueActors { get; set; }
-    public List<IntriguePlot> IntriguePlots { get; set; }
+    public HonorEntity? HonorEntity { get; set; }
+    public List<IntrigueActor> IntrigueActors { get; set; } = [];
+    public List<IntriguePlot> IntriguePlots { get; set; } = [];
     public List<Identity> Identities { get; set; } = [];
 
     private FamilyTreeData? _familyTreeData;
@@ -232,22 +229,18 @@ public class HistoricalFigure : WorldObject
     public bool Zombie { get; set; }
     public bool Ghost { get; set; }
     public bool Animated { get; set; }
-    public string AnimatedType { get; set; }
+    public string AnimatedType { get; set; } = string.Empty;
     public bool Adventurer { get; set; }
-    public string BreedId { get; set; }
+    public string? BreedId { get; set; }
 
-    private string _shortName;
-    private string _raceString;
-    private string _TitleRaceString;
-    private string _title;
+    private string? _shortName;
+    private string? _raceString;
+    private string? _TitleRaceString;
+    private string? _title;
 
     public HistoricalFigure()
     {
-        Initialize();
         Name = "an unknown creature";
-        Race = CreatureInfo.Unknown;
-        Caste = "UNKNOWN";
-        AssociatedType = "UNKNOWN";
     }
 
     public override string ToString()
@@ -258,7 +251,6 @@ public class HistoricalFigure : WorldObject
     public HistoricalFigure(List<Property> properties, World world)
         : base(properties, world)
     {
-        Initialize();
         foreach (Property property in properties)
         {
             switch (property.Name)
@@ -285,7 +277,7 @@ public class HistoricalFigure : WorldObject
                     {
                         foreach (string subPropertyName in knownSubProperties)
                         {
-                            Property subProperty = property.SubProperties.Find(property1 => property1.Name == subPropertyName);
+                            Property? subProperty = property.SubProperties.Find(property1 => property1.Name == subPropertyName);
                             if (subProperty != null)
                             {
                                 subProperty.Known = true;
@@ -304,7 +296,7 @@ public class HistoricalFigure : WorldObject
                     {
                         foreach (string subPropertyName in KnownEntitySubProperties)
                         {
-                            Property subProperty = property.SubProperties.Find(property1 => property1.Name == subPropertyName);
+                            Property? subProperty = property.SubProperties.Find(property1 => property1.Name == subPropertyName);
                             if (subProperty != null)
                             {
                                 subProperty.Known = true;
@@ -321,7 +313,7 @@ public class HistoricalFigure : WorldObject
                     {
                         foreach (string subPropertyName in Reputation.KnownReputationSubProperties)
                         {
-                            Property subProperty = property.SubProperties.Find(property1 => property1.Name == subPropertyName);
+                            Property? subProperty = property.SubProperties.Find(property1 => property1.Name == subPropertyName);
                             if (subProperty != null)
                             {
                                 subProperty.Known = true;
@@ -338,7 +330,7 @@ public class HistoricalFigure : WorldObject
                     {
                         foreach (string subPropertyName in KnownEntitySquadLinkProperties)
                         {
-                            Property subProperty = property.SubProperties.Find(property1 => property1.Name == subPropertyName);
+                            Property? subProperty = property.SubProperties.Find(property1 => property1.Name == subPropertyName);
                             if (subProperty != null)
                             {
                                 subProperty.Known = true;
@@ -387,7 +379,7 @@ public class HistoricalFigure : WorldObject
                     {
                         foreach (string subPropertyName in KnownSiteLinkSubProperties)
                         {
-                            Property subProperty = property.SubProperties.Find(property1 => property1.Name == subPropertyName);
+                            Property? subProperty = property.SubProperties.Find(property1 => property1.Name == subPropertyName);
                             if (subProperty != null)
                             {
                                 subProperty.Known = true;
@@ -428,8 +420,11 @@ public class HistoricalFigure : WorldObject
                 case "ent_pop_id": EntityPopulationId = Convert.ToInt32(property.Value); break;
                 case "holds_artifact":
                     var artifact = world.GetArtifact(Convert.ToInt32(property.Value));
-                    HoldingArtifacts.Add(artifact);
-                    artifact.Holder = this;
+                    if (artifact != null)
+                    {
+                        HoldingArtifacts.Add(artifact);
+                        artifact.Holder = this;
+                    }
                     break;
 
                 case "adventurer":
@@ -518,44 +513,6 @@ public class HistoricalFigure : WorldObject
         Icon = GetIcon();
     }
 
-    private void Initialize()
-    {
-        Appeared = BirthYear = BirthSeconds72 = DeathYear = DeathSeconds72 = EntityPopulationId = -1;
-        Name = Caste = AssociatedType = "";
-        Race = CreatureInfo.Unknown;
-        DeathCause = DeathCause.None;
-        CurrentState = HfState.None;
-        NotableKills = [];
-        Battles = [];
-        Positions = [];
-        Spheres = [];
-        BeastAttacks = [];
-        States = [];
-        CreatureTypes = [];
-        RelatedHistoricalFigures = [];
-        RelatedEntities = [];
-        Reputations = [];
-        RelationshipProfiles = [];
-        RelationshipProfilesOfIdentities = [];
-        RelatedSites = [];
-        RelatedRegions = [];
-        Skills = [];
-        AnimatedType = "";
-        Goal = "";
-        ActiveInteractions = [];
-        PreviousRace = "";
-        InteractionKnowledge = [];
-        JourneyPets = [];
-        HoldingArtifacts = [];
-        LineageCurseChilds = [];
-        DedicatedStructures = [];
-        UsedIdentityIds = [];
-        SiteProperties = [];
-        VagueRelationships = [];
-        IntrigueActors = [];
-        IntriguePlots = [];
-    }
-
     public override string ToLink(bool link = true, DwarfObject? pov = null, WorldEvent? worldEvent = null)
     {
         if (this == Unknown)
@@ -636,15 +593,15 @@ public class HistoricalFigure : WorldObject
         if (Positions.Count > 0)
         {
             string positionName = "";
-            var hfposition = Positions.Last();
-            EntityPosition position = hfposition.Entity.EntityPositions.Find(pos => string.Equals(pos.Name, hfposition.Title, StringComparison.OrdinalIgnoreCase));
+            var hfposition = Positions[^1];
+            EntityPosition? position = hfposition.Entity?.EntityPositions.Find(pos => string.Equals(pos.Name, hfposition.Title, StringComparison.OrdinalIgnoreCase));
             positionName = position != null ? position.GetTitleByCaste(Caste) : hfposition.Title;
-            title += (hfposition.Ended == -1 ? "" : "Former ") + positionName + " of " + hfposition.Entity.Name;
+            title += (hfposition.Ended == -1 ? "" : "Former ") + positionName + " of " + (string.IsNullOrEmpty(hfposition.Entity?.Name) ? "Unknown" : hfposition.Entity.Name);
         }
         return title;
     }
 
-    private List<Assignment> _assignments;
+    private List<Assignment>? _assignments;
 
     public string GetLastAssignmentString()
     {
@@ -739,7 +696,7 @@ public class HistoricalFigure : WorldObject
         string spheres = "";
         foreach (string sphere in Spheres)
         {
-            if (Spheres.Last() == sphere && Spheres.Count > 1)
+            if (Spheres[^1] == sphere && Spheres.Count > 1)
             {
                 spheres += " and ";
             }
@@ -753,26 +710,18 @@ public class HistoricalFigure : WorldObject
         return spheres;
     }
 
-    public string ToTreeLeafLink(DwarfObject pov = null)
-    {
-        string dead = DeathYear != -1 ? "<br/>" + HtmlStyleUtil.SymbolDead : "";
-        return pov == null || pov != this
-            ? "<a " + (Deity ? "class=\"hf_deity\"" : "") + " href=\"hf#" + Id + "\" title=\"" + Title + "\">" + GetRaceString() + "<br/>" + Name + dead + "</a>"
-            : "<a " + (Deity ? "class=\"hf_deity\"" : "") + " title=\"" + Title + "\">" + GetRaceString() + "<br/>" + HtmlStyleUtil.CurrentDwarfObject(Name) + dead + "</a>";
-    }
-
     public class Assignment : Position
     {
-        public Assignment(Site site, int began, int ended, string title) : this(site?.CurrentOwner as Entity, began, ended, title)
+        public Assignment(Site? site, int began, int ended, string title) : this(site?.CurrentOwner, began, ended, title)
         {
             Site = site;
         }
 
-        public Assignment(Entity entity, int began, int ended, string title) : base(entity, began, ended, title)
+        public Assignment(Entity? entity, int began, int ended, string title) : base(entity, began, ended, title)
         {
         }
 
-        public Site Site { get; set; }
+        public Site? Site { get; set; }
 
         public override string ToString()
         {
@@ -799,9 +748,12 @@ public class HistoricalFigure : WorldObject
         public int Ended { get; set; }
         public int Length { get; set; }
 
-        public Position(Entity entity, int began, int ended, string title)
+        public Position(Entity? entity, int began, int ended, string title)
         {
-            Entity = entity; Began = began; Ended = ended; Title = Formatting.InitCaps(title);
+            Entity = entity;
+            Began = began;
+            Ended = ended;
+            Title = Formatting.InitCaps(title);
         }
     }
 

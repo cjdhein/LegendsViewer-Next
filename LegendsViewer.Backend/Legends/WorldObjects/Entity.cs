@@ -18,87 +18,87 @@ public class Entity : WorldObject, IHasCoordinates
     public Entity? Parent { get; set; }
     public string? ParentLink => Parent?.ToLink(true, this);
 
-    public CreatureInfo Race { get; set; }
+    public CreatureInfo Race { get; set; } = CreatureInfo.Unknown;
 
     [JsonIgnore]
-    public List<HistoricalFigure> Worshipped { get; set; }
+    public List<HistoricalFigure> Worshipped { get; set; } = [];
     public List<string> WorshippedLinks => Worshipped.ConvertAll(x => x.ToLink(true, this));
 
-    public List<string> LeaderTypes { get; set; }
+    public List<string> LeaderTypes { get; set; } = [];
 
     [JsonIgnore]
-    public List<List<HistoricalFigure>> Leaders { get; set; }
+    public List<List<HistoricalFigure>> Leaders { get; set; } = [];
     // TODO Leaders API
 
     [JsonIgnore]
     public EntityPopulation? EntityPopulation { get; set; }
 
-    public List<Population> Populations { get; set; }
+    public List<Population> Populations { get; set; } = [];
 
     [JsonIgnore]
     public Structure? OriginStructure { get; set; }
     public string? OriginStructureLink => OriginStructure?.ToLink(true, this);
 
     [JsonIgnore]
-    public List<Entity> Groups { get; set; }
+    public List<Entity> Groups { get; set; } = [];
     public List<string> GroupLinks => Groups.ConvertAll(x => x.ToLink(true, this));
 
     [JsonIgnore]
-    public List<OwnerPeriod> SiteHistory { get; set; }
+    public List<OwnerPeriod> SiteHistory { get; set; } = [];
 
     [JsonIgnore]
-    public List<Site> CurrentSites { get => SiteHistory.Where(site => site.EndYear == -1).Select(site => site.Site).ToList(); set { } }
+    public List<Site> CurrentSites => SiteHistory.Where(site => site.EndYear == -1).Select(site => site.Site).ToList();
     public List<string> CurrentSiteLinks => CurrentSites.ConvertAll(x => x.ToLink(true, this));
 
     [JsonIgnore]
-    public List<Site> LostSites { get => SiteHistory.Where(site => site.EndYear >= 0).Select(site => site.Site).ToList(); set { } }
+    public List<Site> LostSites => SiteHistory.Where(site => site.EndYear >= 0).Select(site => site.Site).ToList();
     public List<string> LostSiteLinks => LostSites.ConvertAll(x => x.ToLink(true, this));
 
     [JsonIgnore]
-    public List<Site> Sites { get => SiteHistory.ConvertAll(site => site.Site); set { } }
+    public List<Site> Sites => SiteHistory.ConvertAll(site => site.Site);
     public List<string> SiteLinks => Sites.ConvertAll(x => x.ToLink(true, this));
 
-    public List<Honor> Honors { get; set; }
+    public List<Honor> Honors { get; set; } = [];
 
-    public EntityType EntityType { get; set; } // legends_plus.xml
+    public EntityType EntityType { get; set; } = EntityType.Unknown; // legends_plus.xml
     public bool IsCiv { get; set; }
 
     [JsonIgnore]
-    public List<EntitySiteLink> EntitySiteLinks { get; set; } // legends_plus.xml
+    public List<EntitySiteLink> EntitySiteLinks { get; set; } = []; // legends_plus.xml
 
     [JsonIgnore]
-    public List<EntityEntityLink> EntityEntityLinks { get; set; } // legends_plus.xml
+    public List<EntityEntityLink> EntityEntityLinks { get; set; } = []; // legends_plus.xml
 
     [JsonIgnore]
-    public List<EntityPosition> EntityPositions { get; set; } // legends_plus.xml
+    public List<EntityPosition> EntityPositions { get; set; } = []; // legends_plus.xml
 
     [JsonIgnore]
-    public List<EntityPositionAssignment> EntityPositionAssignments { get; set; } // legends_plus.xml
+    public List<EntityPositionAssignment> EntityPositionAssignments { get; set; } = []; // legends_plus.xml
 
-    public List<Location> Coordinates { get => CurrentSites.SelectMany(s => s.Coordinates).ToList(); set { } }// legends_plus.xml
+    public List<Location> Coordinates => CurrentSites.SelectMany(s => s.Coordinates).ToList(); // legends_plus.xml
 
     [JsonIgnore]
-    public List<EntityOccasion> Occassions { get; set; } // legends_plus.xml
+    public List<EntityOccasion> Occassions { get; set; } = []; // legends_plus.xml
 
-    public List<string> Weapons { get; set; }
+    public List<string> Weapons { get; set; } = [];
     public string? Profession { get; set; }
 
     [JsonIgnore]
-    public List<War> Wars { get; set; }
+    public List<War> Wars { get; set; } = [];
     public List<string> WarLinks => Wars.ConvertAll(x => x.ToLink(true, this));
 
     [JsonIgnore]
-    public List<War> WarsAttacking { get => Wars.Where(war => war.Attacker == this).ToList(); set { } }
+    public List<War> WarsAttacking => Wars.Where(war => war.Attacker == this).ToList();
     public List<string> WarAttackingLinks => WarsAttacking.ConvertAll(x => x.ToLink(true, this));
 
     [JsonIgnore]
-    public List<War> WarsDefending { get => Wars.Where(war => war.Defender == this).ToList(); set { } }
+    public List<War> WarsDefending => Wars.Where(war => war.Defender == this).ToList();
     public List<string> WarDefendingLinks => WarsDefending.ConvertAll(x => x.ToLink(true, this));
 
-    public int WarVictories { get => WarsAttacking.Sum(war => war.AttackerBattleVictories.Count) + WarsDefending.Sum(war => war.DefenderBattleVictories.Count); set { } }
-    public int WarLosses { get => WarsAttacking.Sum(war => war.DefenderBattleVictories.Count) + WarsDefending.Sum(war => war.AttackerBattleVictories.Count); set { } }
-    public int WarKills { get => WarsAttacking.Sum(war => war.DefenderDeathCount) + WarsDefending.Sum(war => war.AttackerDeathCount); set { } }
-    public int WarDeaths { get => WarsAttacking.Sum(war => war.AttackerDeathCount) + WarsDefending.Sum(war => war.DefenderDeathCount); set { } }
+    public int WarVictories => WarsAttacking.Sum(war => war.AttackerBattleVictories.Count) + WarsDefending.Sum(war => war.DefenderBattleVictories.Count);
+    public int WarLosses => WarsAttacking.Sum(war => war.DefenderBattleVictories.Count) + WarsDefending.Sum(war => war.AttackerBattleVictories.Count);
+    public int WarKills => WarsAttacking.Sum(war => war.DefenderDeathCount) + WarsDefending.Sum(war => war.AttackerDeathCount);
+    public int WarDeaths => WarsAttacking.Sum(war => war.AttackerDeathCount) + WarsDefending.Sum(war => war.DefenderDeathCount);
 
     [JsonIgnore]
     public List<HistoricalFigure> AllLeaders => Leaders.SelectMany(l => l).ToList();
@@ -172,25 +172,6 @@ public class Entity : WorldObject, IHasCoordinates
     public Entity(List<Property> properties, World world)
         : base(properties, world)
     {
-        Name = "";
-        Race = CreatureInfo.Unknown;
-        EntityType = EntityType.Unknown;
-        Parent = null;
-        Worshipped = [];
-        LeaderTypes = [];
-        Leaders = [];
-        Groups = [];
-        SiteHistory = [];
-        EntitySiteLinks = [];
-        EntityEntityLinks = [];
-        Wars = [];
-        Populations = [];
-        EntityPositions = [];
-        EntityPositionAssignments = [];
-        Occassions = [];
-        Honors = [];
-        Weapons = [];
-
         foreach (Property property in properties)
         {
             switch (property.Name)

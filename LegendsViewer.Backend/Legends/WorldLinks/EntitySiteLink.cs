@@ -31,6 +31,6 @@ public class EntitySiteLink : DwarfObject // legends_plus.xml
     }
 
     public EntitySiteLinkType Type { get; set; }
-    public Site Site { get; set; }
+    public Site? Site { get; set; }
     public int Strength { get; set; }
 }

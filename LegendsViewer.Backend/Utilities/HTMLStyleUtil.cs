@@ -26,7 +26,7 @@ public static class HtmlStyleUtil
 
     public static string GetCivIconString(string text, string color)
     {
-        return $"<div style=\"background-color:{color}\" class=\"v-avatar v-theme--dark v-avatar--density-default v-avatar--size-default v-avatar--variant-flat\"><span class=\"text-h6\">{text}</span><!----><span class=\"v-avatar__underlay\"></span></div>";
+        return $"<span style=\"background-color:{color}\" class=\"v-chip v-chip--label v-theme--dark v-chip--density-compact v-chip--size-default v-chip--variant-tonal soc\" draggable=\"false\"><span class=\"v-chip__underlay\"></span><div class=\"v-chip__content\" data-no-activator=\"\">{text}</div></span>";
     }
 
     public static string GetAnchorString(string iconString, string type, int id, string title, string text)

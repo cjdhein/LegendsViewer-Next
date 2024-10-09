@@ -6,10 +6,10 @@ namespace LegendsViewer.Backend.Legends.Various;
 public class CreatureInfo
 {
     public static readonly CreatureInfo Unknown = new("UNKNOWN");
-    public string Id { get; set; }
+    public string Id { get; set; } = string.Empty;
 
-    public string NameSingular { get; set; }
-    public string NamePlural { get; set; }
+    public string NameSingular { get; set; } = string.Empty;
+    public string NamePlural { get; set; } = string.Empty;
 
     public CreatureInfo(List<Property> properties, World world)
     {

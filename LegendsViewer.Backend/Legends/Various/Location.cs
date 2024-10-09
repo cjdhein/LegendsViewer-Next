@@ -62,21 +62,21 @@ public class Location : IEqualityComparer<Location>
         return new Point(X, Y);
     }
 
-    public static bool operator ==(Location a, Location b)
+    public static bool operator ==(Location? a, Location? b)
     {
-        if ((object)a == null && (object)b == null)
+        if (a is null && b is null)
         {
             return true;
         }
-        return (object)a != null && (object)b != null && a.X == b.X && a.Y == b.Y;
+        return a is not null && b is not null && a.X == b.X && a.Y == b.Y;
     }
 
-    public static bool operator !=(Location a, Location b)
+    public static bool operator !=(Location? a, Location? b)
     {
         return !(a == b);
     }
 
-    public override bool Equals(object obj)
+    public override bool Equals(object? obj)
     {
         if (obj == null)
         {
@@ -91,12 +91,12 @@ public class Location : IEqualityComparer<Location>
         return X ^ Y;
     }
 
-    public bool Equals(Location b)
+    public bool Equals(Location? b)
     {
-        return X == b.X && Y == b.Y;
+        return this == b;
     }
 
-    public bool Equals(Location a, Location b)
+    public bool Equals(Location? a, Location? b)
     {
         return a == b;
     }
