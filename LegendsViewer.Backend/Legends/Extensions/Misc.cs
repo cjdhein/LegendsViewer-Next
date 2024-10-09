@@ -32,10 +32,10 @@ public static class Misc
             return;
         }
 #if DEBUG
-        if (!worldObject.EventCollectons.Contains(eventCollection))
+        if (!worldObject.EventCollections.Contains(eventCollection))
         {
 #endif
-            worldObject.EventCollectons.Add(eventCollection);
+            worldObject.EventCollections.Add(eventCollection);
 #if DEBUG
         }
         else

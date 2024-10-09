@@ -11,7 +11,6 @@ public class SiteConquered : EventCollection
 {
     public static readonly string Icon = HtmlStyleUtil.GetIconString("chess-pawn");
 
-    public string Name { get; set; } = "";
     public int DeathCount { get => Deaths.Count; set { } }
 
     public int Ordinal { get; set; }
@@ -21,15 +20,10 @@ public class SiteConquered : EventCollection
     public Entity? Defender { get; set; }
     public Battle? Battle { get; set; }
     public List<HistoricalFigure> Deaths => GetSubEvents().OfType<HfDied>().Select(death => death.HistoricalFigure).ToList();
-    public SiteConquered()
-    {
-        Initialize();
-    }
 
     public SiteConquered(List<Property> properties, World world)
         : base(properties, world)
     {
-        Initialize();
         foreach (Property property in properties)
         {
             switch (property.Name)
@@ -42,21 +36,21 @@ public class SiteConquered : EventCollection
             }
         }
 
-        if (Collection.OfType<PlunderedSite>().Any())
+        if (Events.OfType<PlunderedSite>().Any())
         {
             ConquerType = SiteConqueredType.Pillaging;
         }
-        else if (Collection.OfType<DestroyedSite>().Any())
+        else if (Events.OfType<DestroyedSite>().Any())
         {
             ConquerType = SiteConqueredType.Destruction;
         }
-        else if (Collection.OfType<NewSiteLeader>().Any() || Collection.OfType<SiteTakenOver>().Any())
+        else if (Events.OfType<NewSiteLeader>().Any() || Events.OfType<SiteTakenOver>().Any())
         {
             ConquerType = SiteConqueredType.Conquest;
         }
         else
         {
-            ConquerType = Collection.OfType<SiteTributeForced>().Any() ? SiteConqueredType.TributeEnforcement : SiteConqueredType.Invasion;
+            ConquerType = Events.OfType<SiteTributeForced>().Any() ? SiteConqueredType.TributeEnforcement : SiteConqueredType.Invasion;
         }
 
         if (ConquerType == SiteConqueredType.Pillaging ||
@@ -72,7 +66,7 @@ public class SiteConquered : EventCollection
             War? war = ParentCollection as War;
             if (war != null)
             {
-                war.DeathCount += Collection.OfType<HfDied>().Count();
+                war.DeathCount += Events.OfType<HfDied>().Count();
             }
 
             if (Attacker == war?.Attacker)
@@ -89,11 +83,6 @@ public class SiteConquered : EventCollection
         Site?.AddEventCollection(this);
 
         Name = $"{Formatting.AddOrdinal(Ordinal)} {ConquerType.GetDescription()}";
-    }
-
-    private void Initialize()
-    {
-        Ordinal = 1;
     }
 
     public override string ToLink(bool link = true, DwarfObject? pov = null, WorldEvent? worldEvent = null)

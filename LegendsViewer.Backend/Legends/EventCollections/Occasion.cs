@@ -8,10 +8,10 @@ namespace LegendsViewer.Backend.Legends.EventCollections;
 
 public class Occasion : EventCollection
 {
-    public Entity Civ { get; set; }
-    public string Ordinal { get; set; }
+    public Entity? Civ { get; set; }
+    public int Ordinal { get; set; }
     public int OccasionId { get; set; }
-    public EntityOccasion EntityOccasion { get; set; }
+    public EntityOccasion? EntityOccasion { get; set; }
 
     public Occasion(List<Property> properties, World world)
         : base(properties, world)
@@ -21,7 +21,7 @@ public class Occasion : EventCollection
             switch (property.Name)
             {
                 case "civ_id": Civ = world.GetEntity(Convert.ToInt32(property.Value)); break;
-                case "ordinal": Ordinal = string.Intern(property.Value); break;
+                case "ordinal": Ordinal = Convert.ToInt32(property.Value); break;
                 case "occasion_id": OccasionId = Convert.ToInt32(property.Value); break;
             }
         }
@@ -29,10 +29,10 @@ public class Occasion : EventCollection
         {
             EntityOccasion = Civ.Occassions.ElementAt(OccasionId);
         }
-        Civ.AddEventCollection(this);
+        Civ?.AddEventCollection(this);
     }
 
-    public override string ToLink(bool link = true, DwarfObject pov = null, WorldEvent worldEvent = null)
+    public override string ToLink(bool link = true, DwarfObject? pov = null, WorldEvent? worldEvent = null)
     {
         return "an occasion";
     }

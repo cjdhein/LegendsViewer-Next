@@ -4,35 +4,19 @@ using LegendsViewer.Backend.Utilities;
 
 namespace LegendsViewer.Backend.Legends.EventCollections;
 
-public abstract class EventCollection : DwarfObject
+public abstract class EventCollection : WorldObject
 {
-    public int Id { get; set; }
-    public int StartYear { get; set; }
-    public int StartSeconds72 { get; set; }
-    public int EndYear { get; set; }
-    public int EndSeconds72 { get; set; }
-    public string Type { get; set; }
+    public int StartYear { get; set; } = -1;
+    public int StartSeconds72 { get; set; } = -1;
+    public int EndYear { get; set; } = -1;
+    public int EndSeconds72 { get; set; } = -1;
     public EventCollection? ParentCollection { get; set; }
-    public List<WorldEvent> Collection { get; set; }
-    public List<EventCollection> Collections { get; set; }
-    public List<int> CollectionIDs { get; set; }
-    public bool Notable { get; set; }
-    public List<WorldEvent> AllEvents { get => GetSubEvents(); set { } }
-    public World World { get; }
+    public List<int> CollectionIDs { get; set; } = [];
+    public bool Notable { get; set; } = true;
+    public List<WorldEvent> AllEvents => GetSubEvents();
 
-    public EventCollection()
+    protected EventCollection(List<Property> properties, World world) :base(properties, world)
     {
-        Id = StartYear = StartSeconds72 = EndYear = EndSeconds72 = -1;
-        Type = "INVALID";
-        Collection = [];
-        Collections = [];
-        CollectionIDs = [];
-        Notable = true;
-    }
-
-    protected EventCollection(List<Property> properties, World world) : this()
-    {
-        World = world;
         foreach (Property property in properties)
         {
             switch (property.Name)
@@ -50,7 +34,7 @@ public abstract class EventCollection : DwarfObject
                     if (collectionEvent != null)
                     {
                         collectionEvent.ParentCollection = this;
-                        Collection.Add(collectionEvent); property.Known = true;
+                        Events.Add(collectionEvent); property.Known = true;
                     }
                     break;
                 case "eventcol": CollectionIDs.Add(Convert.ToInt32(property.Value)); property.Known = true; break;
@@ -124,12 +108,12 @@ public abstract class EventCollection : DwarfObject
     public List<WorldEvent> GetSubEvents()
     {
         List<WorldEvent> events = [];
-        foreach (EventCollection subCollection in Collections)
+        foreach (EventCollection subCollection in EventCollections)
         {
             events.AddRange(subCollection.GetSubEvents());
         }
 
-        events.AddRange(Collection);
+        events.AddRange(Events);
         return events.OrderBy(collectionEvent => collectionEvent.Id).ToList();
     }
 }

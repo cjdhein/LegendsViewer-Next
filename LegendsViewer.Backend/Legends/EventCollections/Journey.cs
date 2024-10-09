@@ -5,7 +5,7 @@ namespace LegendsViewer.Backend.Legends.EventCollections;
 
 public class Journey : EventCollection
 {
-    public string Ordinal;
+    public int Ordinal;
     public Journey(List<Property> properties, World world)
         : base(properties, world)
     {
@@ -13,11 +13,11 @@ public class Journey : EventCollection
         {
             switch (property.Name)
             {
-                case "ordinal": Ordinal = string.Intern(property.Value); break;
+                case "ordinal": Ordinal = Convert.ToInt32(property.Value); break;
             }
         }
     }
-    public override string ToLink(bool link = true, DwarfObject pov = null, WorldEvent worldEvent = null)
+    public override string ToLink(bool link = true, DwarfObject? pov = null, WorldEvent? worldEvent = null)
     {
         return "a journey";
     }

@@ -963,7 +963,7 @@ public class XmlParser : IDisposable
                 EventCollection? subEventCollection = World.GetEventCollection(collectionId);
                 if (subEventCollection != null)
                 {
-                    eventCollection.Collections.Add(subEventCollection);
+                    eventCollection.EventCollections.Add(subEventCollection);
                 }
             }
         }
@@ -1021,7 +1021,7 @@ public class XmlParser : IDisposable
             //Fill in some various event info from collections.
 
             int insertIndex;
-            foreach (ItemStolen theft in beastAttack.Collection.OfType<ItemStolen>())
+            foreach (ItemStolen theft in beastAttack.Events.OfType<ItemStolen>())
             {
                 if (theft.Site == null)
                 {
@@ -1057,7 +1057,7 @@ public class XmlParser : IDisposable
                     }
                 }
             }
-            foreach (CreatureDevoured devoured in beastAttack.Collection.OfType<CreatureDevoured>())
+            foreach (CreatureDevoured devoured in beastAttack.Events.OfType<CreatureDevoured>())
             {
                 if (devoured.Eater == null)
                 {
@@ -1076,7 +1076,7 @@ public class XmlParser : IDisposable
                     }
                 }
             }
-            foreach (HfAbducted abducted in beastAttack.Collection.OfType<HfAbducted>())
+            foreach (HfAbducted abducted in beastAttack.Events.OfType<HfAbducted>())
             {
                 if (abducted.Snatcher == null)
                 {

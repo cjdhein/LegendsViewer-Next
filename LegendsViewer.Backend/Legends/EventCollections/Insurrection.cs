@@ -9,7 +9,6 @@ namespace LegendsViewer.Backend.Legends.EventCollections;
 public class Insurrection : EventCollection
 {
     public static readonly string Icon = HtmlStyleUtil.GetIconString("map-marker-alert");
-    public string Name { get; set; } = "";
 
     public Site? Site { get; set; }
     public Entity? TargetEntity { get; set; }
@@ -37,7 +36,7 @@ public class Insurrection : EventCollection
             }
         }
 
-        var insurrectionStart = Collection.OfType<InsurrectionStarted>().FirstOrDefault();
+        var insurrectionStart = Events.OfType<InsurrectionStarted>().FirstOrDefault();
         if (insurrectionStart != null)
         {
             insurrectionStart.ActualStart = true;

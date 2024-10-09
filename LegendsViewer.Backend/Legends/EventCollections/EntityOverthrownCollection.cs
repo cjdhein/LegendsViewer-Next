@@ -9,13 +9,13 @@ namespace LegendsViewer.Backend.Legends.EventCollections;
 
 public class EntityOverthrownCollection : EventCollection
 {
-    public string Ordinal;
-    public Location Coordinates;
+    public int Ordinal;
+    public Location? Coordinates;
 
-    public WorldRegion Region;
-    public UndergroundRegion UndergroundRegion;
-    public Site Site;
-    public Entity TargetEntity;
+    public WorldRegion? Region;
+    public UndergroundRegion? UndergroundRegion;
+    public Site? Site;
+    public Entity? TargetEntity;
 
     public EntityOverthrownCollection(List<Property> properties, World world)
         : base(properties, world)
@@ -24,7 +24,7 @@ public class EntityOverthrownCollection : EventCollection
         {
             switch (property.Name)
             {
-                case "ordinal": Ordinal = string.Intern(property.Value); break;
+                case "ordinal": Ordinal = Convert.ToInt32(property.Value); break;
                 case "coords": Coordinates = Formatting.ConvertToLocation(property.Value); break;
                 case "parent_eventcol": ParentCollection = world.GetEventCollection(Convert.ToInt32(property.Value)); break;
                 case "site_id": Site = world.GetSite(Convert.ToInt32(property.Value)); break;
@@ -34,12 +34,12 @@ public class EntityOverthrownCollection : EventCollection
             }
         }
 
-        Region.AddEventCollection(this);
-        UndergroundRegion.AddEventCollection(this);
-        Site.AddEventCollection(this);
-        TargetEntity.AddEventCollection(this);
+        Region?.AddEventCollection(this);
+        UndergroundRegion?.AddEventCollection(this);
+        Site?.AddEventCollection(this);
+        TargetEntity?.AddEventCollection(this);
     }
-    public override string ToLink(bool link = true, DwarfObject pov = null, WorldEvent worldEvent = null)
+    public override string ToLink(bool link = true, DwarfObject? pov = null, WorldEvent? worldEvent = null)
     {
         return "a coup";
     }

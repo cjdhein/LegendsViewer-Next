@@ -10,8 +10,6 @@ namespace LegendsViewer.Backend.Legends.EventCollections;
 public class Raid : EventCollection
 {
     public static readonly string Icon = HtmlStyleUtil.GetIconString("lightning-bolt");
-    public string Name { get; set; } = "";
-
     public int Ordinal { get; set; }
     public Location? Coordinates { get; set; }
     public Site? Site { get; set; }

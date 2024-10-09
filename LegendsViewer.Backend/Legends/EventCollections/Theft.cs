@@ -9,13 +9,13 @@ namespace LegendsViewer.Backend.Legends.EventCollections;
 
 public class Theft : EventCollection
 {
-    public string Ordinal;
-    private readonly Location _coordinates;
-    public WorldRegion Region;
-    public UndergroundRegion UndergroundRegion;
-    public Site Site;
-    public Entity Attacker;
-    public Entity Defender;
+    public int Ordinal;
+    public Location? Coordinates;
+    public WorldRegion? Region;
+    public UndergroundRegion? UndergroundRegion;
+    public Site? Site;
+    public Entity? Attacker;
+    public Entity? Defender;
     public Theft(List<Property> properties, World world)
         : base(properties, world)
     {
@@ -23,8 +23,8 @@ public class Theft : EventCollection
         {
             switch (property.Name)
             {
-                case "ordinal": Ordinal = string.Intern(property.Value); break;
-                case "coords": _coordinates = Formatting.ConvertToLocation(property.Value); break;
+                case "ordinal": Ordinal = Convert.ToInt32(property.Value); break;
+                case "coords": Coordinates = Formatting.ConvertToLocation(property.Value); break;
                 case "parent_eventcol": ParentCollection = world.GetEventCollection(Convert.ToInt32(property.Value)); break;
                 case "subregion_id": Region = world.GetRegion(Convert.ToInt32(property.Value)); break;
                 case "feature_layer_id": UndergroundRegion = world.GetUndergroundRegion(Convert.ToInt32(property.Value)); break;
@@ -34,18 +34,18 @@ public class Theft : EventCollection
             }
         }
 
-        foreach (ItemStolen theft in Collection.OfType<ItemStolen>())
+        foreach (ItemStolen theft in Events.OfType<ItemStolen>())
         {
             if (theft.Site == null)
             {
                 theft.Site = Site;
             }
-            if (!Site.Events.Contains(theft))
+            if (Site != null && !Site.Events.Contains(theft))
             {
                 Site.AddEvent(theft);
                 Site.Events = Site.Events.OrderBy(ev => ev.Id).ToList();
             }
-            if (Attacker.SiteHistory.Count == 1)
+            if (Attacker != null && Attacker.SiteHistory.Count == 1)
             {
                 if (theft.ReturnSite == null)
                 {
@@ -58,14 +58,14 @@ public class Theft : EventCollection
                 }
             }
         }
-        Attacker.AddEventCollection(this);
-        Defender.AddEventCollection(this);
-        Region.AddEventCollection(this);
-        UndergroundRegion.AddEventCollection(this);
-        Site.AddEventCollection(this);
+        Attacker?.AddEventCollection(this);
+        Defender?.AddEventCollection(this);
+        Region?.AddEventCollection(this);
+        UndergroundRegion?.AddEventCollection(this);
+        Site?.AddEventCollection(this);
     }
 
-    public override string ToLink(bool link = true, DwarfObject pov = null, WorldEvent worldEvent = null)
+    public override string ToLink(bool link = true, DwarfObject? pov = null, WorldEvent? worldEvent = null)
     {
         return "a theft";
     }

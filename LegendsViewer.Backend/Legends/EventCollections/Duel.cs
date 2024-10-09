@@ -12,7 +12,6 @@ public class Duel : EventCollection
     public static readonly string Icon = HtmlStyleUtil.GetIconString("fencing");
 
     public int Ordinal;
-    public string Name { get; set; } = "";
     public Location? Coordinates;
     public WorldRegion? Region;
     public UndergroundRegion? UndergroundRegion;
@@ -39,7 +38,7 @@ public class Duel : EventCollection
         //foreach (WorldEvent collectionEvent in Collection) this.AddEvent(collectionEvent);
         if (ParentCollection != null && ParentCollection.GetType() == typeof(Battle))
         {
-            foreach (HfDied death in Collection.OfType<HfDied>())
+            foreach (HfDied death in Events.OfType<HfDied>())
             {
                 Battle? battle = ParentCollection as Battle;
                 War? parentWar = battle?.ParentCollection as War;

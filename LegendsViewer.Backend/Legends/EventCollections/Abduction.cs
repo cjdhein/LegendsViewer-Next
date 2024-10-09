@@ -12,7 +12,6 @@ public class Abduction : EventCollection
     public static readonly string Icon = HtmlStyleUtil.GetIconString("map-marker-alert");
 
     public int Ordinal;
-    public string Name { get; set; } = "";
     public Location? Coordinates;
 
     public HistoricalFigure? Abductee;

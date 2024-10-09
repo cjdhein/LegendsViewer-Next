@@ -7,20 +7,20 @@ namespace LegendsViewer.Backend.Legends;
 
 public abstract class WorldObject : DwarfObject
 {
-    [JsonIgnore]
-    public World? World { get; }
-
-    [JsonIgnore]
-    public List<WorldEvent> Events { get; set; } = [];
-
-    [JsonIgnore]
-    public List<EventCollection> EventCollectons { get; set; } = [];
-
     public int Id { get; set; }
     public string Icon { get; set; } = string.Empty;
     public string Name { get; set; } = string.Empty;
     public string Type { get; set; } = string.Empty;
     public string Subtype { get; set; } = string.Empty;
+
+    [JsonIgnore]
+    public List<WorldEvent> Events { get; set; } = [];
+
+    [JsonIgnore]
+    public List<EventCollection> EventCollections { get; set; } = [];
+
+    [JsonIgnore]
+    public World? World { get; }
 
     public int EventCount => Events.Count;
 

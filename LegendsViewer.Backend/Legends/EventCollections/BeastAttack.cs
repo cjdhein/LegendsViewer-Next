@@ -11,7 +11,6 @@ public class BeastAttack : EventCollection
 {
     public static readonly string Icon = HtmlStyleUtil.GetIconString("chess-knight");
 
-    public string Name { get; set; } = "";
     public int DeathCount => Deaths.Count;
 
     public int Ordinal { get; set; }
