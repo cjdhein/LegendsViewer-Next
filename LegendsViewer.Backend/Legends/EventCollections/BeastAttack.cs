@@ -90,14 +90,14 @@ public class BeastAttack : EventCollection
             linkedString += pov != this
                 ? HtmlStyleUtil.GetAnchorString(Icon, "collection", Id, title, Name)
                 : HtmlStyleUtil.GetAnchorCurrentString(Icon, title, HtmlStyleUtil.CurrentDwarfObject(Name));
-            if (Beast != null && pov != Beast)
+            if (Beast != null)
             {
-                linkedString += $" of {Beast.ToLink(true, this)}";
+                linkedString += $" of {Beast.ToLink(true, pov)}";
             }
 
             if (Site != null && pov != Site)
             {
-                linkedString += $" in {Site.ToLink(true, this)}";
+                linkedString += $" in {Site.ToLink(true, pov)}";
             }
             return linkedString;
         }

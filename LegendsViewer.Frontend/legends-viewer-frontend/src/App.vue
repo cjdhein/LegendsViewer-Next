@@ -48,7 +48,7 @@ const artItems = [
             :disabled="bookmarkStore?.isLoaded == false" />
           <v-list-group value="Factions & Figures">
             <template v-slot:activator="{ props }">
-              <v-list-item v-bind="props" prepend-icon="mdi-account-group" title="Factions & Figures"></v-list-item>
+              <v-list-item v-bind="props" prepend-icon="mdi-account-group" title="Factions & Figures" :disabled="bookmarkStore?.isLoaded == false"></v-list-item>
             </template>
             <template v-for="(item, i) in societyItems" :key="i">
               <v-list-item :value="item.title + i" :title="item.title" :to="item.to"
@@ -57,7 +57,7 @@ const artItems = [
           </v-list-group>
           <v-list-group value="Geography">
             <template v-slot:activator="{ props }">
-              <v-list-item v-bind="props" prepend-icon="mdi-island-variant" title="Geography"></v-list-item>
+              <v-list-item v-bind="props" prepend-icon="mdi-island-variant" title="Geography" :disabled="bookmarkStore?.isLoaded == false"></v-list-item>
             </template>
             <template v-for="(item, i) in geographyItems" :key="i">
               <v-list-item :value="item.title + i" :title="item.title" :to="item.to"
@@ -66,7 +66,7 @@ const artItems = [
           </v-list-group>
           <v-list-group value="Infrastructure">
             <template v-slot:activator="{ props }">
-              <v-list-item v-bind="props" prepend-icon="mdi-home-modern" title="Infrastructure"></v-list-item>
+              <v-list-item v-bind="props" prepend-icon="mdi-home-modern" title="Infrastructure" :disabled="bookmarkStore?.isLoaded == false"></v-list-item>
             </template>
             <template v-for="(item, i) in infrastructureItems" :key="i">
               <v-list-item :value="item.title + i" :title="item.title" :to="item.to"
@@ -75,7 +75,7 @@ const artItems = [
           </v-list-group>
           <v-list-group value="Art and Craft">
             <template v-slot:activator="{ props }">
-              <v-list-item v-bind="props" prepend-icon="mdi-diamond-stone" title="Art and Craft"></v-list-item>
+              <v-list-item v-bind="props" prepend-icon="mdi-diamond-stone" title="Art and Craft" :disabled="bookmarkStore?.isLoaded == false"></v-list-item>
             </template>
             <template v-for="(item, i) in artItems" :key="i">
               <v-list-item :value="item.title + i" :title="item.title" :to="item.to"
