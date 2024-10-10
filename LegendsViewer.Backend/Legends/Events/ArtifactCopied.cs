@@ -6,15 +6,15 @@ namespace LegendsViewer.Backend.Legends.Events;
 
 public class ArtifactCopied : WorldEvent
 {
-    public Artifact Artifact { get; set; }
-    public Site DestSite { get; set; }
+    public Artifact? Artifact { get; set; }
+    public Site? DestSite { get; set; }
     public int DestStructureId { get; set; }
-    public Structure DestStructure { get; set; }
-    public Entity DestEntity { get; set; }
-    public Site SourceSite { get; set; }
+    public Structure? DestStructure { get; set; }
+    public Entity? DestEntity { get; set; }
+    public Site? SourceSite { get; set; }
     public int SourceStructureId { get; set; }
-    public Structure SourceStructure { get; set; }
-    public Entity SourceEntity { get; set; }
+    public Structure? SourceStructure { get; set; }
+    public Entity? SourceEntity { get; set; }
     public bool FromOriginal { get; set; }
 
     public ArtifactCopied(List<Property> properties, World world)
@@ -48,35 +48,35 @@ public class ArtifactCopied : WorldEvent
             SourceStructure = SourceSite.Structures.Find(structure => structure.LocalId == SourceStructureId);
         }
 
-        Artifact.AddEvent(this);
-        DestSite.AddEvent(this);
-        DestStructure.AddEvent(this);
-        DestEntity.AddEvent(this);
-        SourceSite.AddEvent(this);
-        SourceStructure.AddEvent(this);
-        SourceEntity.AddEvent(this);
+        Artifact?.AddEvent(this);
+        DestSite?.AddEvent(this);
+        DestStructure?.AddEvent(this);
+        DestEntity?.AddEvent(this);
+        SourceSite?.AddEvent(this);
+        SourceStructure?.AddEvent(this);
+        SourceEntity?.AddEvent(this);
     }
 
-    public override string Print(bool link = true, DwarfObject pov = null)
+    public override string Print(bool link = true, DwarfObject? pov = null)
     {
         string eventString = GetYearTime();
-        eventString += DestEntity.ToLink(link, pov, this);
+        eventString += DestEntity?.ToLink(link, pov, this);
         eventString += " made a copy of ";
         if (FromOriginal)
         {
             eventString += "the original ";
         }
-        eventString += Artifact.ToLink(link, pov, this);
+        eventString += Artifact?.ToLink(link, pov, this);
         eventString += " from ";
-        eventString += SourceStructure.ToLink(link, pov, this);
+        eventString += SourceStructure?.ToLink(link, pov, this);
         eventString += " in ";
-        eventString += SourceSite.ToLink(link, pov, this);
+        eventString += SourceSite?.ToLink(link, pov, this);
         eventString += " of ";
-        eventString += SourceEntity.ToLink(link, pov, this);
+        eventString += SourceEntity?.ToLink(link, pov, this);
         eventString += " keeping it within ";
-        eventString += DestStructure.ToLink(link, pov, this);
+        eventString += DestStructure?.ToLink(link, pov, this);
         eventString += " in ";
-        eventString += DestSite.ToLink(link, pov, this);
+        eventString += DestSite?.ToLink(link, pov, this);
         eventString += PrintParentCollection(link, pov);
         eventString += ".";
         return eventString;

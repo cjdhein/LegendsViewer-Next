@@ -46,7 +46,7 @@ public class HfPreach : WorldEvent
         Entity2.AddEvent(this);
     }
 
-    public override string Print(bool link = true, DwarfObject pov = null)
+    public override string Print(bool link = true, DwarfObject? pov = null)
     {
         string eventString = GetYearTime();
         eventString += SpeakerHf.ToLink(link, pov, this);

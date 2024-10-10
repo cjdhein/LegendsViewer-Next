@@ -57,7 +57,7 @@ public class MasterpieceItemImprovement : WorldEvent
         ImproverEntity.AddEvent(this);
         Site.AddEvent(this);
     }
-    public override string Print(bool link = true, DwarfObject pov = null)
+    public override string Print(bool link = true, DwarfObject? pov = null)
     {
         string eventString = GetYearTime();
         eventString += Improver != null ? Improver.ToLink(link, pov, this) : "UNKNOWN HISTORICAL FIGURE";

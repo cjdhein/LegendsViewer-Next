@@ -8,7 +8,7 @@ namespace LegendsViewer.Backend.Legends.Events;
 public class AgreementFormed : WorldEvent
 {
     public int AgreementId { get; set; }
-    public HistoricalFigure Concluder { get; set; }
+    public HistoricalFigure? Concluder { get; set; }
     private int AgreementSubjectId { get; set; }
     private AgreementReason Reason { get; set; }
 
@@ -17,22 +17,22 @@ public class AgreementFormed : WorldEvent
     public bool FailedJudgmentTest { get; set; }
     public bool Delegated { get; set; }
 
-    public string Action { get; set; }
-    public string Method { get; set; }
+    public string? Action { get; set; }
+    public string? Method { get; set; }
 
-    public string TopFacet { get; set; }
+    public string? TopFacet { get; set; }
     public int TopFacetRating { get; set; }
     public int TopFacetModifier { get; set; }
 
-    public string TopValue { get; set; }
+    public string? TopValue { get; set; }
     public int TopValueRating { get; set; }
     public int TopValueModifier { get; set; }
 
-    public string TopRelationshipFactor { get; set; }
+    public string? TopRelationshipFactor { get; set; }
     public int TopRelationshipRating { get; set; }
     public int TopRelationshipModifier { get; set; }
 
-    public Entity RelevantEntity { get; set; }
+    public Entity? RelevantEntity { get; set; }
     public int RelevantPositionProfileId { get; set; }
     public int RelevantIdForMethod { get; set; }
 
@@ -82,11 +82,11 @@ public class AgreementFormed : WorldEvent
                     break;
             }
         }
-        Concluder.AddEvent(this);
-        RelevantEntity.AddEvent(this);
+        Concluder?.AddEvent(this);
+        RelevantEntity?.AddEvent(this);
     }
 
-    public override string Print(bool link = true, DwarfObject pov = null)
+    public override string Print(bool link = true, DwarfObject? pov = null)
     {
         string eventString = GetYearTime();
         if (Concluder != null)

@@ -104,7 +104,7 @@ public class ItemStolen : WorldEvent
         Artifact?.AddEvent(this);
         ReturnSite?.AddEvent(this);
     }
-    public override string Print(bool link = true, DwarfObject pov = null)
+    public override string Print(bool link = true, DwarfObject? pov = null)
     {
         string eventString = GetYearTime();
         if (Artifact != null)

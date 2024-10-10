@@ -45,7 +45,7 @@ public class SiteTributeForced : WorldEvent
         Site.AddEvent(this);
     }
 
-    public override string Print(bool link = true, DwarfObject pov = null)
+    public override string Print(bool link = true, DwarfObject? pov = null)
     {
         string eventString = GetYearTime() + Attacker.ToLink(link, pov, this) + " secured tribute from " + SiteEntity.ToLink(link, pov, this);
         if (Defender != null)

@@ -37,7 +37,7 @@ public class ChangeHfJob : WorldEvent
         Region.AddEvent(this);
         UndergroundRegion.AddEvent(this);
     }
-    public override string Print(bool link = true, DwarfObject pov = null)
+    public override string Print(bool link = true, DwarfObject? pov = null)
     {
         string eventString = GetYearTime() + HistoricalFigure.ToLink(link, pov, this);
         if (OldJob != "standard" && NewJob != "standard")

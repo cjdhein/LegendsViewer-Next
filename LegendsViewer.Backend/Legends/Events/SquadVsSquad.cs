@@ -77,7 +77,7 @@ public class SquadVsSquad : WorldEvent
         }
     }
 
-    public override string Print(bool link = true, DwarfObject pov = null)
+    public override string Print(bool link = true, DwarfObject? pov = null)
     {
         string eventString = GetYearTime();
         eventString += AttackerHistoricalFigure?.ToLink(link, pov, this) ?? "an unknown creature";

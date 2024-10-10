@@ -34,7 +34,7 @@ public class EntityExpelsHf : WorldEvent
         Site.AddEvent(this);
     }
 
-    public override string Print(bool link = true, DwarfObject pov = null)
+    public override string Print(bool link = true, DwarfObject? pov = null)
     {
         string eventString = GetYearTime();
         eventString += Entity?.ToLink(true, pov) ?? "an unknown entity";

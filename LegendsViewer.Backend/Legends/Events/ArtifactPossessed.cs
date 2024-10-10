@@ -7,20 +7,20 @@ namespace LegendsViewer.Backend.Legends.Events;
 
 public class ArtifactPossessed : WorldEvent
 {
-    public Artifact Artifact { get; set; }
+    public Artifact? Artifact { get; set; }
     public int UnitId { get; set; }
-    public HistoricalFigure HistoricalFigure { get; set; }
-    public Site Site { get; set; }
-    public WorldRegion Region { get; set; }
-    public UndergroundRegion UndergroundRegion { get; set; }
+    public HistoricalFigure? HistoricalFigure { get; set; }
+    public Site? Site { get; set; }
+    public WorldRegion? Region { get; set; }
+    public UndergroundRegion? UndergroundRegion { get; set; }
     public ArtifactReason ArtifactReason { get; set; }
     public int ReasonId { get; set; }
     public Circumstance Circumstance { get; set; }
     public int CircumstanceId { get; set; }
 
-    public HistoricalFigure FamilyFigure { get; set; }
-    public HistoricalFigure FormerHolder { get; set; }
-    public Entity SymbolEntity { get; set; }
+    public HistoricalFigure? FamilyFigure { get; set; }
+    public HistoricalFigure? FormerHolder { get; set; }
+    public Entity? SymbolEntity { get; set; }
 
     public ArtifactPossessed(List<Property> properties, World world)
         : base(properties, world)
@@ -73,11 +73,11 @@ public class ArtifactPossessed : WorldEvent
         {
             case ArtifactReason.ArtifactIsHeirloomOfFamilyHfid:
                 FamilyFigure = world.GetHistoricalFigure(ReasonId);
-                FamilyFigure.AddEvent(this);
+                FamilyFigure?.AddEvent(this);
                 break;
             case ArtifactReason.ArtifactIsSymbolOfEntityPosition:
                 SymbolEntity = world.GetEntity(ReasonId);
-                SymbolEntity.AddEvent(this);
+                SymbolEntity?.AddEvent(this);
                 break;
         }
         switch (Circumstance)
@@ -86,21 +86,21 @@ public class ArtifactPossessed : WorldEvent
                 FormerHolder = world.GetHistoricalFigure(CircumstanceId);
                 if (FormerHolder != FamilyFigure)
                 {
-                    FormerHolder.AddEvent(this);
+                    FormerHolder?.AddEvent(this);
                 }
                 break;
         }
-        Artifact.AddEvent(this);
+        Artifact?.AddEvent(this);
         if (HistoricalFigure != HistoricalFigure.Unknown)
         {
-            HistoricalFigure.AddEvent(this);
+            HistoricalFigure?.AddEvent(this);
         }
-        Site.AddEvent(this);
+        Site?.AddEvent(this);
     }
 
-    public override string Print(bool link = true, DwarfObject pov = null)
+    public override string Print(bool link = true, DwarfObject? pov = null)
     {
-        string eventString = GetYearTime() + Artifact.ToLink(link, pov, this);
+        string eventString = GetYearTime() + Artifact?.ToLink(link, pov, this);
         switch (ArtifactReason)
         {
             case ArtifactReason.ArtifactIsHeirloomOfFamilyHfid:
@@ -127,7 +127,7 @@ public class ArtifactPossessed : WorldEvent
             eventString += UndergroundRegion.ToLink(link, pov, this);
         }
 
-        eventString += " by " + HistoricalFigure.ToLink(link, pov, this);
+        eventString += " by " + HistoricalFigure?.ToLink(link, pov, this);
         switch (ArtifactReason)
         {
             case ArtifactReason.ArtifactIsHeirloomOfFamilyHfid:

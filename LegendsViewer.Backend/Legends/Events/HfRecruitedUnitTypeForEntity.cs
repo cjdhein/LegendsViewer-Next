@@ -45,7 +45,7 @@ public class HfRecruitedUnitTypeForEntity : WorldEvent
         UndergroundRegion.AddEvent(this);
     }
 
-    public override string Print(bool link = true, DwarfObject pov = null)
+    public override string Print(bool link = true, DwarfObject? pov = null)
     {
         string eventString = GetYearTime();
         eventString += HistoricalFigure.ToLink(link, pov, this);

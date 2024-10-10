@@ -25,7 +25,7 @@ public class EntityAllianceFormed : WorldEvent
         JoiningEntity.AddEvent(this);
     }
 
-    public override string Print(bool link = true, DwarfObject pov = null)
+    public override string Print(bool link = true, DwarfObject? pov = null)
     {
         string eventString = GetYearTime();
         eventString += JoiningEntity.ToLink(link, pov, this);

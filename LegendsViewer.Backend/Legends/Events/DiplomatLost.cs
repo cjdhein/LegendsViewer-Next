@@ -28,7 +28,7 @@ public class DiplomatLost : WorldEvent
         Entity.AddEvent(this);
         InvolvedEntity.AddEvent(this);
     }
-    public override string Print(bool link = true, DwarfObject pov = null)
+    public override string Print(bool link = true, DwarfObject? pov = null)
     {
         string eventString = GetYearTime();
         eventString += Entity != null ? Entity.ToLink(link, pov, this) : "UNKNOWN ENTITY";

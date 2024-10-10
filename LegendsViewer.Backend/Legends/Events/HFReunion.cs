@@ -31,7 +31,7 @@ public class HfReunion : WorldEvent
         Region.AddEvent(this);
         UndergroundRegion.AddEvent(this);
     }
-    public override string Print(bool link = true, DwarfObject pov = null)
+    public override string Print(bool link = true, DwarfObject? pov = null)
     {
         string eventString = GetYearTime() + " " + HistoricalFigure1.ToLink(link, pov, this) + " was reunited with " + HistoricalFigure2.ToLink(link, pov, this);
         if (Site != null)

@@ -6,9 +6,9 @@ namespace LegendsViewer.Backend.Legends.Events;
 
 public class ArtifactDestroyed : WorldEvent
 {
-    public Artifact Artifact { get; set; }
-    public Site Site { get; set; }
-    public HistoricalFigure Destroyer { get; set; }
+    public Artifact? Artifact { get; set; }
+    public Site? Site { get; set; }
+    public HistoricalFigure? Destroyer { get; set; }
 
     public ArtifactDestroyed(List<Property> properties, World world)
         : base(properties, world)
@@ -23,23 +23,23 @@ public class ArtifactDestroyed : WorldEvent
             }
         }
 
-        Site.AddEvent(this);
-        Artifact.AddEvent(this);
-        Destroyer.AddEvent(this);
+        Site?.AddEvent(this);
+        Artifact?.AddEvent(this);
+        Destroyer?.AddEvent(this);
     }
 
-    public override string Print(bool link = true, DwarfObject pov = null)
+    public override string Print(bool link = true, DwarfObject? pov = null)
     {
         string eventString = GetYearTime();
-        eventString += Artifact.ToLink(link, pov, this);
+        eventString += Artifact?.ToLink(link, pov, this);
         eventString += " was destroyed";
         if (Destroyer != null)
         {
             eventString += " by ";
-            eventString += Destroyer.ToLink(link, pov, this);
+            eventString += Destroyer?.ToLink(link, pov, this);
         }
         eventString += " in ";
-        eventString += Site.ToLink(link, pov, this);
+        eventString += Site?.ToLink(link, pov, this);
         eventString += ".";
         return eventString;
     }

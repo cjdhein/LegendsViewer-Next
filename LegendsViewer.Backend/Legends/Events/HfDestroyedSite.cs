@@ -61,7 +61,7 @@ public class HfDestroyedSite : WorldEvent
         }
     }
 
-    public override string Print(bool link = true, DwarfObject pov = null)
+    public override string Print(bool link = true, DwarfObject? pov = null)
     {
         string eventString = GetYearTime() + Attacker.ToLink(link, pov, this) + " routed " + SiteCiv.ToLink(link, pov, this);
         if (DefenderCiv != null)

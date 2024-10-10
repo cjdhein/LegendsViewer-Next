@@ -74,7 +74,7 @@ public class FormCreatedEvent : WorldEvent
         }
     }
 
-    public override string Print(bool link = true, DwarfObject pov = null)
+    public override string Print(bool link = true, DwarfObject? pov = null)
     {
         string eventString = GetYearTime();
         switch (FormType)

@@ -47,7 +47,7 @@ public class CreatedSite : WorldEvent
         Civ.AddEvent(this);
         Builder.AddEvent(this);
     }
-    public override string Print(bool link = true, DwarfObject pov = null)
+    public override string Print(bool link = true, DwarfObject? pov = null)
     {
         string eventString = GetYearTime();
         if (Builder != null)

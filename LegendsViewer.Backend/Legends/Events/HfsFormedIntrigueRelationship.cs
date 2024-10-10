@@ -123,7 +123,7 @@ public class HfsFormedIntrigueRelationship : WorldEvent
         RelevantEntity.AddEvent(this);
     }
 
-    public override string Print(bool link = true, DwarfObject pov = null)
+    public override string Print(bool link = true, DwarfObject? pov = null)
     {
         string eventString = GetYearTime();
         eventString += TargetHf.ToLink(link, pov, this);

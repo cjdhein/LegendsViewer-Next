@@ -60,7 +60,7 @@ public class EntityPersecuted : WorldEvent
         }
     }
 
-    public override string Print(bool link = true, DwarfObject pov = null)
+    public override string Print(bool link = true, DwarfObject? pov = null)
     {
         string eventString = GetYearTime();
         eventString += PersecutorHf.ToLink(link, pov, this);

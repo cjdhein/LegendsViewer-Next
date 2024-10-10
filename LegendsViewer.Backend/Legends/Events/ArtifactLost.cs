@@ -7,11 +7,11 @@ namespace LegendsViewer.Backend.Legends.Events;
 
 public class ArtifactLost : WorldEvent
 {
-    public Artifact Artifact { get; set; }
-    public Site Site { get; set; }
-    public WorldRegion Region { get; set; }
-    public UndergroundRegion UndergroundRegion { get; set; }
-    public SiteProperty SiteProperty { get; set; }
+    public Artifact? Artifact { get; set; }
+    public Site? Site { get; set; }
+    public WorldRegion? Region { get; set; }
+    public UndergroundRegion? UndergroundRegion { get; set; }
+    public SiteProperty? SiteProperty { get; set; }
 
     public ArtifactLost(List<Property> properties, World world) : base(properties, world)
     {
@@ -32,13 +32,13 @@ public class ArtifactLost : WorldEvent
         {
             SiteProperty = Site.SiteProperties.Find(sp => sp.Id == sitePropertyId);
         }
-        Artifact.AddEvent(this);
-        Site.AddEvent(this);
-        Region.AddEvent(this);
-        UndergroundRegion.AddEvent(this);
+        Artifact?.AddEvent(this);
+        Site?.AddEvent(this);
+        Region?.AddEvent(this);
+        UndergroundRegion?.AddEvent(this);
     }
 
-    public override string Print(bool link = true, DwarfObject pov = null)
+    public override string Print(bool link = true, DwarfObject? pov = null)
     {
         string eventString = GetYearTime();
         eventString += Artifact != null ? Artifact.ToLink(link, pov, this) : "UNKNOWN ARTIFACT";

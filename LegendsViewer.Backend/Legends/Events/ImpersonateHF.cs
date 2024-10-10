@@ -25,7 +25,7 @@ public class ImpersonateHf : WorldEvent
         Cover.AddEvent(this);
         Target.AddEvent(this);
     }
-    public override string Print(bool link = true, DwarfObject pov = null)
+    public override string Print(bool link = true, DwarfObject? pov = null)
     {
         string eventString = GetYearTime() + Trickster.ToLink(link, pov, this) + " fooled " + Target.ToLink(link, pov, this)
                              + " into believing he/she was a manifestation of the deity " + Cover.ToLink(link, pov, this);

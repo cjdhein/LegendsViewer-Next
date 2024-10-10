@@ -48,7 +48,7 @@ public class EntityPrimaryCriminals : WorldEvent
         Structure.AddEvent(this);
     }
 
-    public override string Print(bool link = true, DwarfObject pov = null)
+    public override string Print(bool link = true, DwarfObject? pov = null)
     {
         string eventString = GetYearTime() + Entity.ToLink(link, pov, this) + " became the primary criminal organization in " + Site.ToLink();
         eventString += PrintParentCollection(link, pov);

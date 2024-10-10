@@ -69,7 +69,7 @@ public class SiteDispute : WorldEvent
         Site2.AddEvent(this);
     }
 
-    public override string Print(bool link = true, DwarfObject pov = null)
+    public override string Print(bool link = true, DwarfObject? pov = null)
     {
         string dispute = _unknownDispute;
         switch (Dispute)

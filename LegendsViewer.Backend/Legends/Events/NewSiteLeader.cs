@@ -63,7 +63,7 @@ public class NewSiteLeader : WorldEvent
         NewLeader.AddEvent(this);
     }
 
-    public override string Print(bool link = true, DwarfObject pov = null)
+    public override string Print(bool link = true, DwarfObject? pov = null)
     {
         string eventString = GetYearTime();
         eventString += Attacker?.ToLink(link, pov, this) ?? "an unknown entity";

@@ -37,7 +37,7 @@ public class MasterpieceFood : WorldEvent
         MakerEntity.AddEvent(this);
         Site.AddEvent(this);
     }
-    public override string Print(bool link = true, DwarfObject pov = null)
+    public override string Print(bool link = true, DwarfObject? pov = null)
     {
         string eventString = GetYearTime();
         eventString += Maker != null ? Maker.ToLink(link, pov, this) : "UNKNOWN HISTORICAL FIGURE";

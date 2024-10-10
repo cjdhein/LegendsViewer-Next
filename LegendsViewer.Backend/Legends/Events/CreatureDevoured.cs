@@ -40,7 +40,7 @@ public class CreatureDevoured : WorldEvent
         Victim?.AddEvent(this);
         Entity?.AddEvent(this);
     }
-    public override string Print(bool link = true, DwarfObject pov = null)
+    public override string Print(bool link = true, DwarfObject? pov = null)
     {
         string eventString = GetYearTime();
         if (Eater != null)

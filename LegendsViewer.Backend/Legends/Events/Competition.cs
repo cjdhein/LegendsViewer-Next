@@ -37,7 +37,7 @@ public class Competition : OccasionEvent
         });
     }
 
-    public override string Print(bool link = true, DwarfObject pov = null)
+    public override string Print(bool link = true, DwarfObject? pov = null)
     {
         string eventString = base.Print(link, pov);
         if (Competitors.Count > 0)

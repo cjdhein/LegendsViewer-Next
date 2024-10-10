@@ -8,12 +8,12 @@ namespace LegendsViewer.Backend.Legends.Events;
 
 public class ArtifactClaimFormed : WorldEvent
 {
-    public Artifact Artifact { get; set; }
-    public HistoricalFigure HistoricalFigure { get; set; }
-    public Entity Entity { get; set; }
+    public Artifact? Artifact { get; set; }
+    public HistoricalFigure? HistoricalFigure { get; set; }
+    public Entity? Entity { get; set; }
     public Claim Claim { get; set; }
     public int PositionProfileId { get; set; }
-    public string Circumstance { get; set; }
+    public string? Circumstance { get; set; }
 
     public ArtifactClaimFormed(List<Property> properties, World world)
         : base(properties, world)
@@ -56,15 +56,15 @@ public class ArtifactClaimFormed : WorldEvent
             }
         }
 
-        Artifact.AddEvent(this);
-        HistoricalFigure.AddEvent(this);
-        Entity.AddEvent(this);
+        Artifact?.AddEvent(this);
+        HistoricalFigure?.AddEvent(this);
+        Entity?.AddEvent(this);
     }
 
-    public override string Print(bool link = true, DwarfObject pov = null)
+    public override string Print(bool link = true, DwarfObject? pov = null)
     {
         string eventString = GetYearTime();
-        eventString += Artifact.ToLink(link, pov, this);
+        eventString += Artifact?.ToLink(link, pov, this);
         if ((Claim == Claim.Symbol ||
             Claim == Claim.Heirloom && HistoricalFigure != null) && Circumstance != "from afar")
         {
@@ -76,8 +76,8 @@ public class ArtifactClaimFormed : WorldEvent
                 bool foundPosition = false;
                 foreach (EntityPositionAssignment assignment in Entity.EntityPositionAssignments)
                 {
-                    EntityPosition position =
-                        Entity.EntityPositions.Find(pos => pos.Id == assignment.PositionId);
+                    EntityPosition? position =
+                        Entity?.EntityPositions.Find(pos => pos.Id == assignment.PositionId);
                     if (position != null && assignment.HistoricalFigure != null)
                     {
                         string positionName = position.GetTitleByCaste(assignment.HistoricalFigure.Caste);

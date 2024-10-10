@@ -9,12 +9,12 @@ namespace LegendsViewer.Backend.Legends.Events;
 
 public class AddHfEntityLink : WorldEvent, IFeatured
 {
-    public Entity Entity { get; set; }
-    public HistoricalFigure HistoricalFigure { get; set; }
-    public HistoricalFigure AppointerHf { get; set; }
-    public HistoricalFigure PromiseToHf { get; set; }
+    public Entity? Entity { get; set; }
+    public HistoricalFigure? HistoricalFigure { get; set; }
+    public HistoricalFigure? AppointerHf { get; set; }
+    public HistoricalFigure? PromiseToHf { get; set; }
     public HfEntityLinkType LinkType { get; set; }
-    public string Position { get; set; }
+    public string? Position { get; set; }
     public int PositionId { get; set; }
 
     public AddHfEntityLink(List<Property> properties, World world)
@@ -71,16 +71,16 @@ public class AddHfEntityLink : WorldEvent, IFeatured
             }
         }
 
-        HistoricalFigure.AddEvent(this);
-        Entity.AddEvent(this);
-        AppointerHf.AddEvent(this);
+        HistoricalFigure?.AddEvent(this);
+        Entity?.AddEvent(this);
+        AppointerHf?.AddEvent(this);
         if (PromiseToHf != HistoricalFigure)
         {
-            PromiseToHf.AddEvent(this);
+            PromiseToHf?.AddEvent(this);
         }
     }
 
-    public override string Print(bool link = true, DwarfObject pov = null)
+    public override string Print(bool link = true, DwarfObject? pov = null)
     {
         string eventString = GetYearTime();
         if (HistoricalFigure != null)
@@ -111,10 +111,10 @@ public class AddHfEntityLink : WorldEvent, IFeatured
                 break;
             case HfEntityLinkType.Squad:
             case HfEntityLinkType.Position:
-                EntityPosition position = Entity.EntityPositions.Find(pos => string.Equals(pos.Name, Position, StringComparison.OrdinalIgnoreCase) || pos.Id == PositionId);
-                if (position != null)
+                EntityPosition? position = Entity?.EntityPositions.Find(pos => string.Equals(pos.Name, Position, StringComparison.OrdinalIgnoreCase) || pos.Id == PositionId);
+                if (position != null && HistoricalFigure?.Caste != null)
                 {
-                    string positionName = position.GetTitleByCaste(HistoricalFigure?.Caste);
+                    string positionName = position.GetTitleByCaste(HistoricalFigure.Caste);
                     eventString += " became the " + positionName + " of ";
                 }
                 else if (!string.IsNullOrWhiteSpace(Position))
@@ -131,7 +131,7 @@ public class AddHfEntityLink : WorldEvent, IFeatured
                 break;
         }
 
-        eventString += Entity.ToLink(link, pov, this);
+        eventString += Entity?.ToLink(link, pov, this);
         eventString += PrintParentCollection(link, pov);
         if (AppointerHf != null)
         {
@@ -147,7 +147,7 @@ public class AddHfEntityLink : WorldEvent, IFeatured
         return eventString;
     }
 
-    public string PrintFeature(bool link = true, DwarfObject pov = null)
+    public string PrintFeature(bool link = true, DwarfObject? pov = null)
     {
         string eventString = "";
         eventString += "the ascension of ";
@@ -163,10 +163,10 @@ public class AddHfEntityLink : WorldEvent, IFeatured
         eventString += " to the position of ";
         if (Position != null)
         {
-            EntityPosition position = Entity.EntityPositions.Find(pos => string.Equals(pos.Name, Position, StringComparison.OrdinalIgnoreCase));
-            if (position != null)
+            EntityPosition? position = Entity?.EntityPositions.Find(pos => string.Equals(pos.Name, Position, StringComparison.OrdinalIgnoreCase));
+            if (position != null && HistoricalFigure?.Caste != null)
             {
-                string positionName = position.GetTitleByCaste(HistoricalFigure?.Caste);
+                string positionName = position.GetTitleByCaste(HistoricalFigure.Caste);
                 eventString += positionName;
             }
             else

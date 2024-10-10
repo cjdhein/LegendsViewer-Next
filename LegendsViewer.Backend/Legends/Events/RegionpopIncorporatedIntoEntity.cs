@@ -51,7 +51,7 @@ public class RegionpopIncorporatedIntoEntity : WorldEvent
         PopSourceRegion.AddEvent(this);
     }
 
-    public override string Print(bool link = true, DwarfObject pov = null)
+    public override string Print(bool link = true, DwarfObject? pov = null)
     {
         string eventString = GetYearTime();
         if (PopNumberMoved > 200)

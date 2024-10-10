@@ -6,12 +6,12 @@ namespace LegendsViewer.Backend.Legends.Events;
 
 public class AttackedSite : WorldEvent
 {
-    public Entity Attacker { get; set; }
-    public Entity Defender { get; set; }
-    public Entity SiteEntity { get; set; }
-    public Entity AttackerMercenaries { get; set; }
-    public Entity DefenderMercenaries { get; set; }
-    public Entity AttackerSupportMercenaries { get; set; }
+    public Entity? Attacker { get; set; }
+    public Entity? Defender { get; set; }
+    public Entity? SiteEntity { get; set; }
+    public Entity? AttackerMercenaries { get; set; }
+    public Entity? DefenderMercenaries { get; set; }
+    public Entity? AttackerSupportMercenaries { get; set; }
     public Entity DefenderSupportMercenaries { get; set; }
     public Site Site { get; set; }
     public HistoricalFigure AttackerGeneral { get; set; }
@@ -66,7 +66,7 @@ public class AttackedSite : WorldEvent
         AttackerSupportMercenaries.AddEvent(this);
         DefenderSupportMercenaries.AddEvent(this);
     }
-    public override string Print(bool link = true, DwarfObject pov = null)
+    public override string Print(bool link = true, DwarfObject? pov = null)
     {
         string eventString = GetYearTime();
         eventString += Attacker?.PrintEntity(true, pov) ?? "an unknown civilization";

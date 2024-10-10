@@ -39,7 +39,7 @@ public class ReplacedStructure : WorldEvent
         Site.AddEvent(this);
     }
 
-    public override string Print(bool link = true, DwarfObject pov = null)
+    public override string Print(bool link = true, DwarfObject? pov = null)
     {
         string eventString = GetYearTime();
         eventString += SiteEntity != null ? SiteEntity.ToLink(link, pov, this) : "UNKNOWN ENTITY";

@@ -39,7 +39,7 @@ public class ChangedCreatureType : WorldEvent
         Changee.AddEvent(this);
         Changer.AddEvent(this);
     }
-    public override string Print(bool link = true, DwarfObject pov = null)
+    public override string Print(bool link = true, DwarfObject? pov = null)
     {
         string eventString = GetYearTime();
         eventString += Changer?.ToLink(link, pov, this) ?? "An unknown creature";

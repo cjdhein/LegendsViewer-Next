@@ -7,16 +7,16 @@ namespace LegendsViewer.Backend.Legends.Events;
 
 public class ArtifactFound : WorldEvent
 {
-    public Artifact Artifact { get; set; }
-    public HistoricalFigure HistoricalFigure { get; set; }
+    public Artifact? Artifact { get; set; }
+    public HistoricalFigure? HistoricalFigure { get; set; }
     public int UnitId { get; set; } // TODO not used in Legends Mode
-    public Site Site { get; set; }
+    public Site? Site { get; set; }
     public int StructureId { get; set; }
-    public Structure Structure { get; set; }
-    public WorldRegion Region { get; set; }
-    public UndergroundRegion UndergroundRegion { get; set; }
+    public Structure? Structure { get; set; }
+    public WorldRegion? Region { get; set; }
+    public UndergroundRegion? UndergroundRegion { get; set; }
     public int SitePropertyId { get; set; }
-    public SiteProperty SiteProperty { get; set; }
+    public SiteProperty? SiteProperty { get; set; }
 
     public ArtifactFound(List<Property> properties, World world)
         : base(properties, world)
@@ -53,18 +53,18 @@ public class ArtifactFound : WorldEvent
             Structure = Site.Structures.Find(structure => structure.LocalId == StructureId);
             SiteProperty = Site.SiteProperties.Find(sp => sp.Id == SitePropertyId);
         }
-        Artifact.AddEvent(this);
-        HistoricalFigure.AddEvent(this);
-        Site.AddEvent(this);
-        Structure.AddEvent(this);
-        Region.AddEvent(this);
-        UndergroundRegion.AddEvent(this);
+        Artifact?.AddEvent(this);
+        HistoricalFigure?.AddEvent(this);
+        Site?.AddEvent(this);
+        Structure?.AddEvent(this);
+        Region?.AddEvent(this);
+        UndergroundRegion?.AddEvent(this);
     }
 
-    public override string Print(bool link = true, DwarfObject pov = null)
+    public override string Print(bool link = true, DwarfObject? pov = null)
     {
         string eventString = GetYearTime();
-        eventString += Artifact.ToLink(link, pov, this);
+        eventString += Artifact?.ToLink(link, pov, this);
         eventString += " was found";
         if (HistoricalFigure != null)
         {

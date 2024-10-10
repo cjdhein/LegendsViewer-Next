@@ -49,7 +49,7 @@ public class SiteDied : WorldEvent
         world.AddPlayerRelatedDwarfObjects(SiteEntity);
         world.AddPlayerRelatedDwarfObjects(Site);
     }
-    public override string Print(bool link = true, DwarfObject pov = null)
+    public override string Print(bool link = true, DwarfObject? pov = null)
     {
         string eventString = GetYearTime() + SiteEntity.PrintEntity(link, pov);
         if (Abandoned)

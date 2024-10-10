@@ -7,9 +7,9 @@ namespace LegendsViewer.Backend.Legends.Events;
 
 public class AgreementConcluded : WorldEvent
 {
-    public Entity Source { get; set; }
-    public Entity Destination { get; set; }
-    public Site Site { get; set; }
+    public Entity? Source { get; set; }
+    public Entity? Destination { get; set; }
+    public Site? Site { get; set; }
     public AgreementTopic Topic { get; set; }
     public int Result { get; set; }
 
@@ -41,12 +41,12 @@ public class AgreementConcluded : WorldEvent
             }
         }
 
-        Site.AddEvent(this);
-        Source.AddEvent(this);
-        Destination.AddEvent(this);
+        Site?.AddEvent(this);
+        Source?.AddEvent(this);
+        Destination?.AddEvent(this);
     }
 
-    public override string Print(bool link = true, DwarfObject pov = null)
+    public override string Print(bool link = true, DwarfObject? pov = null)
     {
         string eventString = GetYearTime();
         switch (Topic)

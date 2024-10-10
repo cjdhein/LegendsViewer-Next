@@ -9,8 +9,8 @@ namespace LegendsViewer.Backend.Legends.Events;
 
 public class AddHfhfLink : WorldEvent
 {
-    public HistoricalFigure HistoricalFigure { get; set; }
-    public HistoricalFigure HistoricalFigureTarget { get; set; }
+    public HistoricalFigure? HistoricalFigure { get; set; }
+    public HistoricalFigure? HistoricalFigureTarget { get; set; }
     public HistoricalFigureLinkType LinkType { get; set; }
 
     public AddHfhfLink(List<Property> properties, World world)
@@ -46,14 +46,16 @@ public class AddHfhfLink : WorldEvent
         //Fill in LinkType by looking at related historical figures.
         if (LinkType == HistoricalFigureLinkType.Unknown && HistoricalFigure != HistoricalFigure.Unknown && HistoricalFigureTarget != HistoricalFigure.Unknown)
         {
-            List<HistoricalFigureLink> historicalFigureToTargetLinks = HistoricalFigure.RelatedHistoricalFigures.Where(link => link.Type != HistoricalFigureLinkType.Child).Where(link => link.HistoricalFigure == HistoricalFigureTarget).ToList();
-            HistoricalFigureLink historicalFigureToTargetLink = null;
-            if (historicalFigureToTargetLinks.Count <= 1)
+            List<HistoricalFigureLink>? historicalFigureToTargetLinks = HistoricalFigure?.RelatedHistoricalFigures
+                .Where(link => link.Type != HistoricalFigureLinkType.Child && link.HistoricalFigure == HistoricalFigureTarget)
+                .ToList();
+            HistoricalFigureLink? historicalFigureToTargetLink = null;
+            if (historicalFigureToTargetLinks?.Count <= 1)
             {
                 historicalFigureToTargetLink = historicalFigureToTargetLinks.FirstOrDefault();
             }
 
-            HfAbducted abduction = HistoricalFigureTarget.Events.OfType<HfAbducted>().FirstOrDefault(a => a.Snatcher == HistoricalFigure);
+            HfAbducted? abduction = HistoricalFigureTarget?.Events.OfType<HfAbducted>().FirstOrDefault(a => a.Snatcher == HistoricalFigure);
             if (historicalFigureToTargetLink != null && abduction == null)
             {
                 LinkType = historicalFigureToTargetLink.Type;
@@ -64,11 +66,11 @@ public class AddHfhfLink : WorldEvent
             }
         }
 
-        HistoricalFigure.AddEvent(this);
-        HistoricalFigureTarget.AddEvent(this);
+        HistoricalFigure?.AddEvent(this);
+        HistoricalFigureTarget?.AddEvent(this);
     }
 
-    public override string Print(bool link = true, DwarfObject pov = null)
+    public override string Print(bool link = true, DwarfObject? pov = null)
     {
         string eventString = GetYearTime();
 
@@ -78,7 +80,7 @@ public class AddHfhfLink : WorldEvent
         }
         else
         {
-            eventString += HistoricalFigure.ToLink(link, pov, this);
+            eventString += HistoricalFigure?.ToLink(link, pov, this) ?? "an unknown creature";
         }
 
         switch (LinkType)
@@ -177,7 +179,7 @@ public class AddHfhfLink : WorldEvent
         }
         else
         {
-            eventString += HistoricalFigureTarget.ToLink(link, pov, this);
+            eventString += HistoricalFigureTarget?.ToLink(link, pov, this) ?? "an unknown creature";
         }
 
         eventString += PrintParentCollection(link, pov);

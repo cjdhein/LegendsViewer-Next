@@ -35,7 +35,7 @@ public class EntityDissolved : WorldEvent
         Entity.AddEvent(this);
     }
 
-    public override string Print(bool link = true, DwarfObject pov = null)
+    public override string Print(bool link = true, DwarfObject? pov = null)
     {
         string eventString = GetYearTime();
         eventString += Entity.ToLink(link, pov, this);

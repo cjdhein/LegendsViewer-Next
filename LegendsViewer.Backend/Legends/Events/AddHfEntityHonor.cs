@@ -7,9 +7,9 @@ namespace LegendsViewer.Backend.Legends.Events;
 
 public class AddHfEntityHonor : WorldEvent
 {
-    public Entity Entity { get; set; }
-    public HistoricalFigure HistoricalFigure { get; set; }
-    public Honor Honor { get; set; }
+    public Entity? Entity { get; set; }
+    public HistoricalFigure? HistoricalFigure { get; set; }
+    public Honor? Honor { get; set; }
     public int HonorId { get; set; }
 
     public AddHfEntityHonor(List<Property> properties, World world) : base(properties, world)
@@ -27,19 +27,19 @@ public class AddHfEntityHonor : WorldEvent
 
         if (HonorId >= 0)
         {
-            Honor = Entity.Honors.Find(h => h.Id == HonorId);
+            Honor = Entity?.Honors.Find(h => h.Id == HonorId);
         }
-        Entity.AddEvent(this);
-        HistoricalFigure.AddEvent(this);
+        Entity?.AddEvent(this);
+        HistoricalFigure?.AddEvent(this);
     }
 
-    public override string Print(bool link = true, DwarfObject pov = null)
+    public override string Print(bool link = true, DwarfObject? pov = null)
     {
         string eventString = GetYearTime();
-        eventString += HistoricalFigure.ToLink(link, pov, this);
-        eventString += $" received the title {Honor.Name} in ";
-        eventString += Entity.ToLink(link, pov, this);
-        string requirementsString = Honor.PrintRequirementsAsString();
+        eventString += HistoricalFigure?.ToLink(link, pov, this);
+        eventString += $" received the title {Honor?.Name} in ";
+        eventString += Entity?.ToLink(link, pov, this);
+        string? requirementsString = Honor?.PrintRequirementsAsString();
         if (!string.IsNullOrWhiteSpace(requirementsString))
         {
             eventString += $" after {requirementsString}";

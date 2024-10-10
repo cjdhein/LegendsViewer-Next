@@ -7,11 +7,11 @@ namespace LegendsViewer.Backend.Legends.Events;
 
 public class ArtifactGiven : WorldEvent
 {
-    public Artifact Artifact { get; set; }
-    public HistoricalFigure HistoricalFigureGiver { get; set; }
-    public HistoricalFigure HistoricalFigureReceiver { get; set; }
-    public Entity EntityGiver { get; set; }
-    public Entity EntityReceiver { get; set; }
+    public Artifact? Artifact { get; set; }
+    public HistoricalFigure? HistoricalFigureGiver { get; set; }
+    public HistoricalFigure? HistoricalFigureReceiver { get; set; }
+    public Entity? EntityGiver { get; set; }
+    public Entity? EntityReceiver { get; set; }
     public ArtifactReason ArtifactReason { get; set; }
 
     // http://www.bay12games.com/dwarves/mantisbt/view.php?id=11350
@@ -45,20 +45,20 @@ public class ArtifactGiven : WorldEvent
             }
         }
 
-        Artifact.AddEvent(this);
-        HistoricalFigureGiver.AddEvent(this);
+        Artifact?.AddEvent(this);
+        HistoricalFigureGiver?.AddEvent(this);
         if (HistoricalFigureGiver != HistoricalFigureReceiver)
         {
-            HistoricalFigureReceiver.AddEvent(this);
+            HistoricalFigureReceiver?.AddEvent(this);
         }
-        EntityGiver.AddEvent(this);
-        EntityReceiver.AddEvent(this);
+        EntityGiver?.AddEvent(this);
+        EntityReceiver?.AddEvent(this);
     }
 
-    public override string Print(bool link = true, DwarfObject pov = null)
+    public override string Print(bool link = true, DwarfObject? pov = null)
     {
         string eventString = GetYearTime();
-        eventString += Artifact.ToLink(link, pov, this);
+        eventString += Artifact?.ToLink(link, pov, this);
         eventString += " was offered to ";
         if (HistoricalFigureReceiver != null)
         {

@@ -74,7 +74,7 @@ public class WrittenContentComposed : WorldEvent
         }
     }
 
-    public override string Print(bool link = true, DwarfObject pov = null)
+    public override string Print(bool link = true, DwarfObject? pov = null)
     {
         string eventString = GetYearTime();
         eventString += WrittenContent != null ? WrittenContent.ToLink(link, pov, this) : "UNKNOWN WRITTEN CONTENT";

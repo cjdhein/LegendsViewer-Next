@@ -41,7 +41,7 @@ public class HfAttackedSite : WorldEvent
         Site.AddEvent(this);
     }
 
-    public override string Print(bool link = true, DwarfObject pov = null)
+    public override string Print(bool link = true, DwarfObject? pov = null)
     {
         string eventString = GetYearTime() + Attacker.ToLink(link, pov, this) + " attacked " + SiteCiv.ToLink(link, pov, this);
         if (DefenderCiv != null && DefenderCiv != SiteCiv)
