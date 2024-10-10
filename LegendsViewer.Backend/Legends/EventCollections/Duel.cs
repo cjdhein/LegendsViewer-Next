@@ -4,6 +4,7 @@ using LegendsViewer.Backend.Legends.Parser;
 using LegendsViewer.Backend.Legends.Various;
 using LegendsViewer.Backend.Legends.WorldObjects;
 using LegendsViewer.Backend.Utilities;
+using System.Text.Json.Serialization;
 
 namespace LegendsViewer.Backend.Legends.EventCollections;
 
@@ -11,7 +12,9 @@ public class Duel : EventCollection
 {
     public int Ordinal { get; set; } = -1;
     public Location? Coordinates;
+    [JsonIgnore]
     public HistoricalFigure? Attacker;
+    [JsonIgnore]
     public HistoricalFigure? Defender;
     public Duel(List<Property> properties, World world)
         : base(properties, world)

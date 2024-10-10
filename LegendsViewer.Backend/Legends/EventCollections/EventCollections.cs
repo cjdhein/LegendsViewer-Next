@@ -3,6 +3,7 @@ using LegendsViewer.Backend.Legends.Extensions;
 using LegendsViewer.Backend.Legends.Parser;
 using LegendsViewer.Backend.Legends.WorldObjects;
 using LegendsViewer.Backend.Utilities;
+using System.Text.Json.Serialization;
 
 namespace LegendsViewer.Backend.Legends.EventCollections;
 
@@ -13,13 +14,19 @@ public abstract class EventCollection : WorldObject
     public int EndYear { get; set; } = -1;
     public int EndSeconds72 { get; set; } = -1;
 
+    [JsonIgnore]
     public WorldRegion? Region { get; set; }
+    [JsonIgnore]
     public UndergroundRegion? UndergroundRegion { get; set; }
+    [JsonIgnore]
     public Site? Site { get; set; }
 
+    [JsonIgnore]
     public EventCollection? ParentCollection { get; set; }
+    [JsonIgnore]
     public List<int> CollectionIDs { get; set; } = [];
     public bool Notable { get; set; } = true;
+    [JsonIgnore]
     public List<WorldEvent> AllEvents => GetSubEvents();
 
     protected EventCollection(List<Property> properties, World world) :base(properties, world)

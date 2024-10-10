@@ -6,6 +6,7 @@ using LegendsViewer.Backend.Legends.Parser;
 using LegendsViewer.Backend.Legends.Various;
 using LegendsViewer.Backend.Legends.WorldObjects;
 using LegendsViewer.Backend.Utilities;
+using System.Text.Json.Serialization;
 
 namespace LegendsViewer.Backend.Legends.EventCollections;
 
@@ -13,7 +14,9 @@ public class War : EventCollection, IHasComplexSubtype
 {
     public int Length { get; set; }
     public int DeathCount { get; set; }
+
     private readonly Dictionary<CreatureInfo, int> _deaths = [];
+    [JsonIgnore]
     public Dictionary<CreatureInfo, int> Deaths
     {
         get
@@ -41,32 +44,46 @@ public class War : EventCollection, IHasComplexSubtype
     }
     public int AttackerDeathCount { get; set; }
     public int DefenderDeathCount { get; set; }
+    [JsonIgnore]
     public Entity? Attacker { get; set; }
+    [JsonIgnore]
     public Entity? Defender { get; set; }
+    [JsonIgnore]
     public List<Battle> Battles => EventCollections.OfType<Battle>().ToList();
+    [JsonIgnore]
     public List<SiteConquered> Conquerings => EventCollections.OfType<SiteConquered>().ToList();
+    [JsonIgnore]
     public List<Site?> SitesLost => Conquerings
         .Where(conquering => conquering.ConquerType == SiteConqueredType.Conquest || conquering.ConquerType == SiteConqueredType.Destruction)
         .Select(conquering => conquering.Site)
         .ToList();
+    [JsonIgnore]
     public List<Site?> AttackerSitesLost => DefenderConquerings
         .Where(conquering => conquering.ConquerType == SiteConqueredType.Conquest || conquering.ConquerType == SiteConqueredType.Destruction)
         .Select(conquering => conquering.Site)
         .ToList();
+    [JsonIgnore]
     public List<Site?> DefenderSitesLost => AttackerConquerings
         .Where(conquering => conquering.ConquerType == SiteConqueredType.Conquest || conquering.ConquerType == SiteConqueredType.Destruction)
         .Select(conquering => conquering.Site)
         .ToList();
+    [JsonIgnore]
     public List<EventCollection> AttackerVictories { get; set; } = [];
+    [JsonIgnore]
     public List<EventCollection> DefenderVictories { get; set; } = [];
+    [JsonIgnore]
     public List<Battle> AttackerBattleVictories => EventCollections.OfType<Battle>().Where(battle => battle.Victor?.EqualsOrParentEquals(Attacker) ?? false).ToList();
+    [JsonIgnore]
     public List<Battle> DefenderBattleVictories => EventCollections.OfType<Battle>().Where(battle => battle.Victor?.EqualsOrParentEquals(Defender) ?? false).ToList();
+    [JsonIgnore]
     public List<Battle> ErrorBattles => EventCollections.OfType<Battle>()
         .Where(battle =>
             (!battle.Attacker?.EqualsOrParentEquals(Attacker) ?? false) && (!battle.Attacker?.EqualsOrParentEquals(Defender) ?? false) ||
             (!battle.Defender?.EqualsOrParentEquals(Defender) ?? false) && (!battle.Defender?.EqualsOrParentEquals(Attacker) ?? false))
         .ToList();
+    [JsonIgnore]
     public List<SiteConquered> AttackerConquerings => EventCollections.OfType<SiteConquered>().Where(conquering => conquering.Attacker?.EqualsOrParentEquals(Attacker) ?? false).ToList();
+    [JsonIgnore]
     public List<SiteConquered> DefenderConquerings => EventCollections.OfType<SiteConquered>().Where(conquering => conquering.Attacker?.EqualsOrParentEquals(Defender) ?? false).ToList();
     public double AttackerToDefenderKills
     {

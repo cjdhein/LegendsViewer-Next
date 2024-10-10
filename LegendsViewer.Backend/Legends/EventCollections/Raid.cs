@@ -4,6 +4,7 @@ using LegendsViewer.Backend.Legends.Parser;
 using LegendsViewer.Backend.Legends.Various;
 using LegendsViewer.Backend.Legends.WorldObjects;
 using LegendsViewer.Backend.Utilities;
+using System.Text.Json.Serialization;
 
 namespace LegendsViewer.Backend.Legends.EventCollections;
 
@@ -11,20 +12,20 @@ public class Raid : EventCollection
 {
     public int Ordinal { get; set; } = -1;
     public Location? Coordinates { get; set; }
+    [JsonIgnore]
     public Entity? Attacker { get; set; }
+    [JsonIgnore]
     public Entity? Defender { get; set; }
     public int ItemsStolenCount => GetSubEvents().OfType<ItemStolen>().Count();
+    [JsonIgnore]
     public List<HistoricalFigure> Deaths => GetSubEvents().OfType<HfDied>().Select(death => death.HistoricalFigure).ToList();
     public int DeathCount => Deaths.Count;
+    [JsonIgnore]
     public EventCollection? ParentEventCol { get; set; }
-
-    private WorldRegion? _region;
 
     public Raid(List<Property> properties, World world)
         : base(properties, world)
     {
-        Initialize();
-
         foreach (Property property in properties)
         {
             switch (property.Name)
@@ -42,11 +43,6 @@ public class Raid : EventCollection
         Name = $"{Formatting.AddOrdinal(Ordinal)} raid";
 
         Icon = HtmlStyleUtil.GetIconString("lightning-bolt");
-    }
-
-    private void Initialize()
-    {
-        Ordinal = 1;
     }
 
     public override string ToLink(bool link = true, DwarfObject? pov = null, WorldEvent? worldEvent = null)

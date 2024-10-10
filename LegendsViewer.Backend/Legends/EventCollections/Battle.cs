@@ -7,6 +7,7 @@ using LegendsViewer.Backend.Legends.Parser;
 using LegendsViewer.Backend.Legends.Various;
 using LegendsViewer.Backend.Legends.WorldObjects;
 using LegendsViewer.Backend.Utilities;
+using System.Text.Json.Serialization;
 
 namespace LegendsViewer.Backend.Legends.EventCollections;
 
@@ -14,23 +15,36 @@ public class Battle : EventCollection, IHasComplexSubtype
 {
     public BattleOutcome Outcome { get; set; }
     public Location? Coordinates { get; set; }
+    [JsonIgnore]
     public SiteConquered? Conquering { get; set; }
+    [JsonIgnore]
     public Entity? Attacker { get; set; }
+    [JsonIgnore]
     public Entity? Defender { get; set; }
+    [JsonIgnore]
     public Entity? Victor { get; set; }
+    [JsonIgnore]
     public List<Squad> Attackers { get; set; } = [];
+    [JsonIgnore]
     public List<Squad> Defenders { get; set; } = [];
+    [JsonIgnore]
     public List<HistoricalFigure> NotableAttackers { get; set; } = [];
+    [JsonIgnore]
     public List<HistoricalFigure> NotableDefenders { get; set; } = [];
+    [JsonIgnore]
     public List<HistoricalFigure> NonCombatants { get; set; } = [];
+    [JsonIgnore]
     public List<Squad> AttackerSquads { get; set; } = [];
+    [JsonIgnore]
     public List<Squad> DefenderSquads { get; set; } = [];
     public int AttackerCount => NotableAttackers.Count + AttackerSquads.Sum(squad => squad.Numbers);
     public int DefenderCount => NotableDefenders.Count + DefenderSquads.Sum(squad => squad.Numbers);
     public int AttackersRemainingCount => Attackers.Sum(squad => squad.Numbers - squad.Deaths);
     public int DefendersRemainingCount => Defenders.Sum(squad => squad.Numbers - squad.Deaths);
     public int DeathCount => AttackerDeathCount + DefenderDeathCount;
+    [JsonIgnore]
     public Dictionary<CreatureInfo, int> Deaths { get; set; } = [];
+    [JsonIgnore]
     public List<HistoricalFigure> NotableDeaths => NotableAttackers
         .Where(attacker => GetSubEvents().OfType<HfDied>()
         .Count(death => death.HistoricalFigure == attacker) > 0)
@@ -69,16 +83,20 @@ public class Battle : EventCollection, IHasComplexSubtype
 
     public bool IndividualMercenaries { get; set; }
     public bool CompanyMercenaries { get; set; }
+    [JsonIgnore]
     public Entity? AttackingMercenaryEntity { get; set; }
+    [JsonIgnore]
     public Entity? DefendingMercenaryEntity { get; set; }
     public bool AttackingSquadAnimated { get; set; }
     public bool DefendingSquadAnimated { get; set; }
+    [JsonIgnore]
     public List<Entity> AttackerSupportMercenaryEntities { get; set; } = [];
+    [JsonIgnore]
     public List<Entity> DefenderSupportMercenaryEntities { get; set; } = [];
+    [JsonIgnore]
     public List<HistoricalFigure> AttackerSupportMercenaryHfs { get; set; } = [];
+    [JsonIgnore]
     public List<HistoricalFigure> DefenderSupportMercenaryHfs { get; set; } = [];
-
-    private WorldRegion? _region;
 
     public Battle(List<Property> properties, World world)
         : base(properties, world)

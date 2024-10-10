@@ -8728,13 +8728,7 @@ export interface components {
             endYear?: number;
             /** Format: int32 */
             endSeconds72?: number;
-            region?: components["schemas"]["WorldRegion"];
-            undergroundRegion?: components["schemas"]["UndergroundRegion"];
-            site?: components["schemas"]["Site"];
-            parentCollection?: components["schemas"]["EventCollection"];
-            collectionIDs?: number[] | null;
             notable?: boolean;
-            readonly allEvents?: components["schemas"]["WorldEvent"][] | null;
             /** Format: int32 */
             ordinal?: number;
             coordinates?: components["schemas"]["Location"];
@@ -8789,26 +8783,9 @@ export interface components {
             endYear?: number;
             /** Format: int32 */
             endSeconds72?: number;
-            region?: components["schemas"]["WorldRegion"];
-            undergroundRegion?: components["schemas"]["UndergroundRegion"];
-            site?: components["schemas"]["Site"];
-            parentCollection?: components["schemas"]["EventCollection"];
-            collectionIDs?: number[] | null;
             notable?: boolean;
-            readonly allEvents?: components["schemas"]["WorldEvent"][] | null;
             outcome?: components["schemas"]["BattleOutcome"];
             coordinates?: components["schemas"]["Location"];
-            conquering?: components["schemas"]["SiteConquered"];
-            attacker?: components["schemas"]["Entity"];
-            defender?: components["schemas"]["Entity"];
-            victor?: components["schemas"]["Entity"];
-            attackers?: components["schemas"]["Squad"][] | null;
-            defenders?: components["schemas"]["Squad"][] | null;
-            notableAttackers?: components["schemas"]["HistoricalFigure"][] | null;
-            notableDefenders?: components["schemas"]["HistoricalFigure"][] | null;
-            nonCombatants?: components["schemas"]["HistoricalFigure"][] | null;
-            attackerSquads?: components["schemas"]["Squad"][] | null;
-            defenderSquads?: components["schemas"]["Squad"][] | null;
             /** Format: int32 */
             readonly attackerCount?: number;
             /** Format: int32 */
@@ -8819,10 +8796,6 @@ export interface components {
             readonly defendersRemainingCount?: number;
             /** Format: int32 */
             readonly deathCount?: number;
-            deaths?: {
-                [key: string]: number;
-            } | null;
-            readonly notableDeaths?: components["schemas"]["HistoricalFigure"][] | null;
             /** Format: int32 */
             attackerDeathCount?: number;
             /** Format: int32 */
@@ -8833,14 +8806,8 @@ export interface components {
             attackersToDefendersRemaining?: number;
             individualMercenaries?: boolean;
             companyMercenaries?: boolean;
-            attackingMercenaryEntity?: components["schemas"]["Entity"];
-            defendingMercenaryEntity?: components["schemas"]["Entity"];
             attackingSquadAnimated?: boolean;
             defendingSquadAnimated?: boolean;
-            attackerSupportMercenaryEntities?: components["schemas"]["Entity"][] | null;
-            defenderSupportMercenaryEntities?: components["schemas"]["Entity"][] | null;
-            attackerSupportMercenaryHfs?: components["schemas"]["HistoricalFigure"][] | null;
-            defenderSupportMercenaryHfs?: components["schemas"]["HistoricalFigure"][] | null;
         };
         /** @enum {string} */
         BattleOutcome: "Unknown" | "AttackerWon" | "DefenderWon";
@@ -8861,13 +8828,7 @@ export interface components {
             endYear?: number;
             /** Format: int32 */
             endSeconds72?: number;
-            region?: components["schemas"]["WorldRegion"];
-            undergroundRegion?: components["schemas"]["UndergroundRegion"];
-            site?: components["schemas"]["Site"];
-            parentCollection?: components["schemas"]["EventCollection"];
-            collectionIDs?: number[] | null;
             notable?: boolean;
-            readonly allEvents?: components["schemas"]["WorldEvent"][] | null;
             /** Format: int32 */
             ordinal?: number;
             coordinates?: components["schemas"]["Location"];
@@ -8966,17 +8927,10 @@ export interface components {
             endYear?: number;
             /** Format: int32 */
             endSeconds72?: number;
-            region?: components["schemas"]["WorldRegion"];
-            undergroundRegion?: components["schemas"]["UndergroundRegion"];
-            site?: components["schemas"]["Site"];
-            parentCollection?: components["schemas"]["EventCollection"];
-            collectionIDs?: number[] | null;
             notable?: boolean;
-            readonly allEvents?: components["schemas"]["WorldEvent"][] | null;
             /** Format: int32 */
             ordinal?: number;
         };
-        DwarfObject: Record<string, never>;
         Entity: {
             /** Format: int32 */
             id?: number;
@@ -9051,13 +9005,7 @@ export interface components {
             endYear?: number;
             /** Format: int32 */
             endSeconds72?: number;
-            region?: components["schemas"]["WorldRegion"];
-            undergroundRegion?: components["schemas"]["UndergroundRegion"];
-            site?: components["schemas"]["Site"];
-            parentCollection?: components["schemas"]["EventCollection"];
-            collectionIDs?: number[] | null;
             notable?: boolean;
-            readonly allEvents?: components["schemas"]["WorldEvent"][] | null;
             /** Format: int32 */
             ordinal?: number;
             coordinates?: components["schemas"]["Location"];
@@ -9181,13 +9129,7 @@ export interface components {
             endYear?: number;
             /** Format: int32 */
             endSeconds72?: number;
-            region?: components["schemas"]["WorldRegion"];
-            undergroundRegion?: components["schemas"]["UndergroundRegion"];
-            site?: components["schemas"]["Site"];
-            parentCollection?: components["schemas"]["EventCollection"];
-            collectionIDs?: number[] | null;
             notable?: boolean;
-            readonly allEvents?: components["schemas"]["WorldEvent"][] | null;
         };
         /** @enum {string} */
         Evilness: "Neutral" | "Good" | "Evil";
@@ -9368,13 +9310,7 @@ export interface components {
             endYear?: number;
             /** Format: int32 */
             endSeconds72?: number;
-            region?: components["schemas"]["WorldRegion"];
-            undergroundRegion?: components["schemas"]["UndergroundRegion"];
-            site?: components["schemas"]["Site"];
-            parentCollection?: components["schemas"]["EventCollection"];
-            collectionIDs?: number[] | null;
             notable?: boolean;
-            readonly allEvents?: components["schemas"]["WorldEvent"][] | null;
             /** Format: int32 */
             ordinal?: number;
             targetEntity?: components["schemas"]["Entity"];
@@ -9502,13 +9438,7 @@ export interface components {
             endYear?: number;
             /** Format: int32 */
             endSeconds72?: number;
-            region?: components["schemas"]["WorldRegion"];
-            undergroundRegion?: components["schemas"]["UndergroundRegion"];
-            site?: components["schemas"]["Site"];
-            parentCollection?: components["schemas"]["EventCollection"];
-            collectionIDs?: number[] | null;
             notable?: boolean;
-            readonly allEvents?: components["schemas"]["WorldEvent"][] | null;
             /** Format: int32 */
             ordinal?: number;
             coordinates?: components["schemas"]["Location"];
@@ -9592,13 +9522,7 @@ export interface components {
             endYear?: number;
             /** Format: int32 */
             endSeconds72?: number;
-            region?: components["schemas"]["WorldRegion"];
-            undergroundRegion?: components["schemas"]["UndergroundRegion"];
-            site?: components["schemas"]["Site"];
-            parentCollection?: components["schemas"]["EventCollection"];
-            collectionIDs?: number[] | null;
             notable?: boolean;
-            readonly allEvents?: components["schemas"]["WorldEvent"][] | null;
             /** Format: int32 */
             ordinal?: number;
             adjective?: string | null;
@@ -9623,24 +9547,14 @@ export interface components {
             endYear?: number;
             /** Format: int32 */
             endSeconds72?: number;
-            region?: components["schemas"]["WorldRegion"];
-            undergroundRegion?: components["schemas"]["UndergroundRegion"];
-            site?: components["schemas"]["Site"];
-            parentCollection?: components["schemas"]["EventCollection"];
-            collectionIDs?: number[] | null;
             notable?: boolean;
-            readonly allEvents?: components["schemas"]["WorldEvent"][] | null;
             /** Format: int32 */
             ordinal?: number;
             coordinates?: components["schemas"]["Location"];
-            attacker?: components["schemas"]["Entity"];
-            defender?: components["schemas"]["Entity"];
             /** Format: int32 */
             readonly itemsStolenCount?: number;
-            readonly deaths?: components["schemas"]["HistoricalFigure"][] | null;
             /** Format: int32 */
             readonly deathCount?: number;
-            parentEventCol?: components["schemas"]["EventCollection"];
         };
         Rectangle: {
             location?: components["schemas"]["Point"];
@@ -9765,20 +9679,10 @@ export interface components {
             endYear?: number;
             /** Format: int32 */
             endSeconds72?: number;
-            region?: components["schemas"]["WorldRegion"];
-            undergroundRegion?: components["schemas"]["UndergroundRegion"];
-            site?: components["schemas"]["Site"];
-            parentCollection?: components["schemas"]["EventCollection"];
-            collectionIDs?: number[] | null;
             notable?: boolean;
-            readonly allEvents?: components["schemas"]["WorldEvent"][] | null;
             /** Format: int32 */
             ordinal?: number;
             conquerType?: components["schemas"]["SiteConqueredType"];
-            attacker?: components["schemas"]["Entity"];
-            defender?: components["schemas"]["Entity"];
-            battle?: components["schemas"]["Battle"];
-            readonly deaths?: components["schemas"]["HistoricalFigure"][] | null;
             /** Format: int32 */
             readonly deathCount?: number;
         };
@@ -9837,17 +9741,6 @@ export interface components {
             /** Format: int32 */
             points?: number;
         };
-        Squad: {
-            race?: components["schemas"]["CreatureInfo"];
-            /** Format: int32 */
-            numbers?: number;
-            /** Format: int32 */
-            deaths?: number;
-            /** Format: int32 */
-            site?: number;
-            /** Format: int32 */
-            population?: number;
-        };
         State: {
             hfState?: components["schemas"]["HfState"];
             /** Format: int32 */
@@ -9899,13 +9792,7 @@ export interface components {
             endYear?: number;
             /** Format: int32 */
             endSeconds72?: number;
-            region?: components["schemas"]["WorldRegion"];
-            undergroundRegion?: components["schemas"]["UndergroundRegion"];
-            site?: components["schemas"]["Site"];
-            parentCollection?: components["schemas"]["EventCollection"];
-            collectionIDs?: number[] | null;
             notable?: boolean;
-            readonly allEvents?: components["schemas"]["WorldEvent"][] | null;
             /** Format: int32 */
             ordinal?: number;
             coordinates?: components["schemas"]["Location"];
@@ -9953,93 +9840,19 @@ export interface components {
             endYear?: number;
             /** Format: int32 */
             endSeconds72?: number;
-            region?: components["schemas"]["WorldRegion"];
-            undergroundRegion?: components["schemas"]["UndergroundRegion"];
-            site?: components["schemas"]["Site"];
-            parentCollection?: components["schemas"]["EventCollection"];
-            collectionIDs?: number[] | null;
             notable?: boolean;
-            readonly allEvents?: components["schemas"]["WorldEvent"][] | null;
             /** Format: int32 */
             length?: number;
             /** Format: int32 */
             deathCount?: number;
-            readonly deaths?: {
-                [key: string]: number;
-            } | null;
             /** Format: int32 */
             attackerDeathCount?: number;
             /** Format: int32 */
             defenderDeathCount?: number;
-            attacker?: components["schemas"]["Entity"];
-            defender?: components["schemas"]["Entity"];
-            readonly battles?: components["schemas"]["Battle"][] | null;
-            readonly conquerings?: components["schemas"]["SiteConquered"][] | null;
-            readonly sitesLost?: components["schemas"]["Site"][] | null;
-            readonly attackerSitesLost?: components["schemas"]["Site"][] | null;
-            readonly defenderSitesLost?: components["schemas"]["Site"][] | null;
-            attackerVictories?: components["schemas"]["EventCollection"][] | null;
-            defenderVictories?: components["schemas"]["EventCollection"][] | null;
-            readonly attackerBattleVictories?: components["schemas"]["Battle"][] | null;
-            readonly defenderBattleVictories?: components["schemas"]["Battle"][] | null;
-            readonly errorBattles?: components["schemas"]["Battle"][] | null;
-            readonly attackerConquerings?: components["schemas"]["SiteConquered"][] | null;
-            readonly defenderConquerings?: components["schemas"]["SiteConquered"][] | null;
             /** Format: double */
             readonly attackerToDefenderKills?: number;
             /** Format: double */
             readonly attackerToDefenderVictories?: number;
-        };
-        World: {
-            name?: string | null;
-            alternativeName?: string | null;
-            readonly regions?: components["schemas"]["WorldRegion"][] | null;
-            readonly undergroundRegions?: components["schemas"]["UndergroundRegion"][] | null;
-            readonly landmasses?: components["schemas"]["Landmass"][] | null;
-            readonly mountainPeaks?: components["schemas"]["MountainPeak"][] | null;
-            readonly identities?: components["schemas"]["Identity"][] | null;
-            readonly rivers?: components["schemas"]["River"][] | null;
-            readonly sites?: components["schemas"]["Site"][] | null;
-            readonly historicalFigures?: components["schemas"]["HistoricalFigure"][] | null;
-            readonly entities?: components["schemas"]["Entity"][] | null;
-            readonly eras?: components["schemas"]["Era"][] | null;
-            readonly artifacts?: components["schemas"]["Artifact"][] | null;
-            readonly worldConstructions?: components["schemas"]["WorldConstruction"][] | null;
-            readonly poeticForms?: components["schemas"]["PoeticForm"][] | null;
-            readonly musicalForms?: components["schemas"]["MusicalForm"][] | null;
-            readonly danceForms?: components["schemas"]["DanceForm"][] | null;
-            readonly writtenContents?: components["schemas"]["WrittenContent"][] | null;
-            readonly structures?: components["schemas"]["Structure"][] | null;
-            readonly eventCollections?: components["schemas"]["EventCollection"][] | null;
-            readonly wars?: components["schemas"]["War"][] | null;
-            readonly battles?: components["schemas"]["Battle"][] | null;
-            readonly duels?: components["schemas"]["Duel"][] | null;
-            readonly insurrections?: components["schemas"]["Insurrection"][] | null;
-            readonly persecutions?: components["schemas"]["Persecution"][] | null;
-            readonly purges?: components["schemas"]["Purge"][] | null;
-            readonly coups?: components["schemas"]["EntityOverthrownCollection"][] | null;
-            readonly raids?: components["schemas"]["Raid"][] | null;
-            readonly siteConquerings?: components["schemas"]["SiteConquered"][] | null;
-            readonly beastAttacks?: components["schemas"]["BeastAttack"][] | null;
-            readonly abductions?: components["schemas"]["Abduction"][] | null;
-            readonly thefts?: components["schemas"]["Theft"][] | null;
-            readonly entityPopulations?: components["schemas"]["EntityPopulation"][] | null;
-            readonly sitePopulations?: components["schemas"]["Population"][] | null;
-            readonly civilizedPopulations?: components["schemas"]["Population"][] | null;
-            readonly outdoorPopulations?: components["schemas"]["Population"][] | null;
-            readonly undergroundPopulations?: components["schemas"]["Population"][] | null;
-            readonly events?: components["schemas"]["WorldEvent"][] | null;
-            /** Format: int32 */
-            width?: number;
-            /** Format: int32 */
-            height?: number;
-            /** Format: int32 */
-            currentYear?: number;
-            /** Format: int32 */
-            currentMonth?: number;
-            /** Format: int32 */
-            currentDay?: number;
-            readonly playerRelatedObjects?: components["schemas"]["DwarfObject"][] | null;
         };
         WorldConstruction: {
             /** Format: int32 */
@@ -10073,23 +9886,6 @@ export interface components {
             /** Format: int32 */
             currentDay?: number;
             siteMarkers?: components["schemas"]["SiteMarkerDto"][] | null;
-        };
-        WorldEvent: {
-            /** Format: int32 */
-            id?: number;
-            /** Format: int32 */
-            year?: number;
-            /** Format: int32 */
-            month?: number;
-            /** Format: int32 */
-            day?: number;
-            readonly monthName?: string | null;
-            readonly date?: string | null;
-            /** Format: int32 */
-            seconds72?: number;
-            type?: string | null;
-            parentCollection?: components["schemas"]["EventCollection"];
-            world?: components["schemas"]["World"];
         };
         WorldEventDto: {
             /** Format: int32 */

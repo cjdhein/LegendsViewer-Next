@@ -4,6 +4,7 @@ using LegendsViewer.Backend.Legends.Extensions;
 using LegendsViewer.Backend.Legends.Parser;
 using LegendsViewer.Backend.Legends.WorldObjects;
 using LegendsViewer.Backend.Utilities;
+using System.Text.Json.Serialization;
 
 namespace LegendsViewer.Backend.Legends.EventCollections;
 
@@ -11,9 +12,13 @@ public class SiteConquered : EventCollection
 {
     public int Ordinal { get; set; } = -1;
     public SiteConqueredType ConquerType { get; set; }
+    [JsonIgnore]
     public Entity? Attacker { get; set; }
+    [JsonIgnore]
     public Entity? Defender { get; set; }
+    [JsonIgnore]
     public Battle? Battle { get; set; }
+    [JsonIgnore]
     public List<HistoricalFigure> Deaths => GetSubEvents().OfType<HfDied>().Select(death => death.HistoricalFigure).ToList();
     public int DeathCount => Deaths.Count;
 

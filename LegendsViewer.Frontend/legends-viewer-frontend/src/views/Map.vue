@@ -120,9 +120,9 @@ export default defineComponent({
       if (currentOverlay.value) {
         leafletMap.value.removeLayer(currentOverlay.value as unknown as Layer);
       }
-      const scale = 10;
-      const width = worldStore.world.width ?? 1;
-      const height = worldStore.world.width ?? 1;
+      const scale = 8;
+      const width = (worldStore.world.width ?? 0) + 1;
+      const height = (worldStore.world.width ?? 0) + 1;
 
       const bounds: L.LatLngBoundsExpression = [[0, 0], [scale * height, scale * width]];
       const imageOverlay = L.imageOverlay(base64Image, bounds);
@@ -135,7 +135,7 @@ export default defineComponent({
           if (siteMarker.coordinates != null) {
             for (const coordinate of siteMarker.coordinates) {
               if (coordinate.x != null && coordinate.y != null) {
-                createMarker(siteMarker.type ?? 'Unknown', [(height - coordinate.y) * scale - 0.5, coordinate.x * scale + 2.5])
+                createMarker(siteMarker.type ?? 'Unknown', [(height - coordinate.y) * scale - 0.5 * scale, coordinate.x * scale + 0.5 * scale])
                  .addTo(leafletMap.value)
                  .bindPopup(`<a href="./site/${siteMarker.id}"><b>${siteMarker.name}</b></a><br>${siteMarker.type}`);;
               }

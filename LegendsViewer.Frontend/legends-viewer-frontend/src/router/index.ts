@@ -35,10 +35,15 @@ const routes = [
   { path: '/writtencontent/:id', name: 'Written Content', component: () => import('../views/WrittenContent.vue') },
 
   { path: '/war', name: 'Wars', component: () => import('../views/Wars.vue') },
+  { path: '/war/:id', name: 'War', component: () => import('../views/War.vue') },
   { path: '/battle', name: 'Battles', component: () => import('../views/Battles.vue') },
+  { path: '/battle/:id', name: 'Battle', component: () => import('../views/Battle.vue') },
   { path: '/duel', name: 'Duels', component: () => import('../views/Duels.vue') },
+  { path: '/duel/:id', name: 'Duel', component: () => import('../views/Duel.vue') },
   { path: '/raid', name: 'Raids', component: () => import('../views/Raids.vue') },
+  { path: '/raid/:id', name: 'Raid', component: () => import('../views/Raid.vue') },
   { path: '/siteconquered', name: 'Site Conquerings', component: () => import('../views/SiteConquerings.vue') },
+  { path: '/siteconquered/:id', name: 'Site Conquering', component: () => import('../views/SiteConquering.vue') },
 
   { path: '/insurrection', name: 'Insurrections', component: () => import('../views/Insurrections.vue') },
   { path: '/persecution', name: 'Persecutions', component: () => import('../views/Persecutions.vue') },
