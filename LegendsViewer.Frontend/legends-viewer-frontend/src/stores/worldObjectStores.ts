@@ -110,7 +110,61 @@ const apiPaths: Record<string, {
         objectEvents: "/api/Artifact/{id}/events" as PathsWithMethod<paths, "get">,
         eventChart: "/api/Artifact/{id}/eventchart" as PathsWithMethod<paths, "get">
     },
-    // Add more mappings for other resources like Artifact, etc.
+    // EventCollections
+    War: {
+        overview: "/api/War" as PathsWithMethod<paths, "get">,
+        object: "/api/War/{id}" as PathsWithMethod<paths, "get">,
+        objectEvents: "/api/War/{id}/events" as PathsWithMethod<paths, "get">,
+        eventChart: "/api/War/{id}/eventchart" as PathsWithMethod<paths, "get">
+    },
+    Battle: {
+        overview: "/api/Battle" as PathsWithMethod<paths, "get">,
+        object: "/api/Battle/{id}" as PathsWithMethod<paths, "get">,
+        objectEvents: "/api/Battle/{id}/events" as PathsWithMethod<paths, "get">,
+        eventChart: "/api/Battle/{id}/eventchart" as PathsWithMethod<paths, "get">
+    },
+    Duel: {
+        overview: "/api/Duel" as PathsWithMethod<paths, "get">,
+        object: "/api/Duel/{id}" as PathsWithMethod<paths, "get">,
+        objectEvents: "/api/Duel/{id}/events" as PathsWithMethod<paths, "get">,
+        eventChart: "/api/Duel/{id}/eventchart" as PathsWithMethod<paths, "get">
+    },
+    Insurrection: {
+        overview: "/api/Insurrection" as PathsWithMethod<paths, "get">,
+        object: "/api/Insurrection/{id}" as PathsWithMethod<paths, "get">,
+        objectEvents: "/api/Insurrection/{id}/events" as PathsWithMethod<paths, "get">,
+        eventChart: "/api/Insurrection/{id}/eventchart" as PathsWithMethod<paths, "get">
+    },
+    Persecution: {
+        overview: "/api/Persecution" as PathsWithMethod<paths, "get">,
+        object: "/api/Persecution/{id}" as PathsWithMethod<paths, "get">,
+        objectEvents: "/api/Persecution/{id}/events" as PathsWithMethod<paths, "get">,
+        eventChart: "/api/Persecution/{id}/eventchart" as PathsWithMethod<paths, "get">
+    },
+    Purge: {
+        overview: "/api/Purge" as PathsWithMethod<paths, "get">,
+        object: "/api/Purge/{id}" as PathsWithMethod<paths, "get">,
+        objectEvents: "/api/Purge/{id}/events" as PathsWithMethod<paths, "get">,
+        eventChart: "/api/Purge/{id}/eventchart" as PathsWithMethod<paths, "get">
+    },
+    Raid: {
+        overview: "/api/Raid" as PathsWithMethod<paths, "get">,
+        object: "/api/Raid/{id}" as PathsWithMethod<paths, "get">,
+        objectEvents: "/api/Raid/{id}/events" as PathsWithMethod<paths, "get">,
+        eventChart: "/api/Raid/{id}/eventchart" as PathsWithMethod<paths, "get">
+    },
+    SiteConquered: {
+        overview: "/api/SiteConquered" as PathsWithMethod<paths, "get">,
+        object: "/api/SiteConquered/{id}" as PathsWithMethod<paths, "get">,
+        objectEvents: "/api/SiteConquered/{id}/events" as PathsWithMethod<paths, "get">,
+        eventChart: "/api/SiteConquered/{id}/eventchart" as PathsWithMethod<paths, "get">
+    },
+    BeastAttack: {
+        overview: "/api/BeastAttack" as PathsWithMethod<paths, "get">,
+        object: "/api/BeastAttack/{id}" as PathsWithMethod<paths, "get">,
+        objectEvents: "/api/BeastAttack/{id}/events" as PathsWithMethod<paths, "get">,
+        eventChart: "/api/BeastAttack/{id}/eventchart" as PathsWithMethod<paths, "get">
+    },
 };
 
 export const useSiteStore = createWorldObjectStore<components['schemas']['Site']>('Site');
@@ -128,6 +182,16 @@ export const useMusicalFormStore = createWorldObjectStore<components['schemas'][
 export const usePoeticFormStore = createWorldObjectStore<components['schemas']['PoeticForm']>('PoeticForm');
 export const useWrittenContentStore = createWorldObjectStore<components['schemas']['WrittenContent']>('WrittenContent');
 export const useArtifactStore = createWorldObjectStore<components['schemas']['Artifact']>('Artifact');
+
+export const useWarStore = createWorldObjectStore<components['schemas']['War']>('War');
+export const useBattleStore = createWorldObjectStore<components['schemas']['Battle']>('Battle');
+export const useDuelStore = createWorldObjectStore<components['schemas']['Duel']>('Duel');
+export const useInsurrectionStore = createWorldObjectStore<components['schemas']['Insurrection']>('Insurrection');
+export const usePersecutionStore = createWorldObjectStore<components['schemas']['Persecution']>('Persecution');
+export const usePurgeStore = createWorldObjectStore<components['schemas']['Purge']>('Purge');
+export const useRaidStore = createWorldObjectStore<components['schemas']['Raid']>('Raid');
+export const useSiteConqueredStore = createWorldObjectStore<components['schemas']['SiteConquered']>('SiteConquered');
+export const useBeastAttackStore = createWorldObjectStore<components['schemas']['BeastAttack']>('BeastAttack');
 
 export function createWorldObjectStore<T>(resourceName: string) {
     const pathsForResource = apiPaths[resourceName];

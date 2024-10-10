@@ -86,7 +86,7 @@ public class Duel : EventCollection
             string title = GetTitle();
 
             string linkedString = pov != this
-                ? HtmlStyleUtil.GetAnchorString(Icon, "collection", Id, title, Name)
+                ? HtmlStyleUtil.GetAnchorString(Icon, "duel", Id, title, Name)
                 : HtmlStyleUtil.GetAnchorCurrentString(Icon, title, HtmlStyleUtil.CurrentDwarfObject(Name));
 
             if (Attacker != null && pov != Attacker)
@@ -101,6 +101,16 @@ public class Duel : EventCollection
             if (Site != null && pov != Site)
             {
                 linkedString += $" in {Site.ToLink(true, this)}";
+            }
+
+            if (Region != null && pov != Region)
+            {
+                linkedString += $" in {Region.ToLink(true, this)}";
+            }
+
+            if (UndergroundRegion != null && pov != UndergroundRegion)
+            {
+                linkedString += $" in {UndergroundRegion.ToLink(true, this)}";
             }
             return linkedString;
         }

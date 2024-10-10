@@ -80,7 +80,7 @@ public class SiteConquered : EventCollection
         Site?.AddEventCollection(this);
 
         Name = $"{Formatting.AddOrdinal(Ordinal)} {ConquerType.GetDescription()}";
-
+        Subtype = ConquerType.GetDescription();
         Icon = HtmlStyleUtil.GetIconString("chess-pawn");
     }
 
@@ -91,7 +91,7 @@ public class SiteConquered : EventCollection
             string title = GetTitle();
 
             string linkedString = pov != this
-                ? HtmlStyleUtil.GetAnchorString(Icon, "collection", Id, title, Name)
+                ? HtmlStyleUtil.GetAnchorString(Icon, "siteconquered", Id, title, Name)
                 : HtmlStyleUtil.GetAnchorCurrentString(Icon, title, HtmlStyleUtil.CurrentDwarfObject(Name));
 
             if (Site != null && pov != Site)

@@ -283,6 +283,564 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/Battle": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query?: {
+                    pageNumber?: number;
+                    pageSize?: number;
+                    sortKey?: string;
+                    sortOrder?: string;
+                    search?: string;
+                };
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description OK */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["WorldObjectDtoPaginatedResponse"];
+                        "application/json": components["schemas"]["WorldObjectDtoPaginatedResponse"];
+                        "text/json": components["schemas"]["WorldObjectDtoPaginatedResponse"];
+                    };
+                };
+                /** @description Bad Request */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["ProblemDetails"];
+                        "application/json": components["schemas"]["ProblemDetails"];
+                        "text/json": components["schemas"]["ProblemDetails"];
+                    };
+                };
+                /** @description Not Found */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["ProblemDetails"];
+                        "application/json": components["schemas"]["ProblemDetails"];
+                        "text/json": components["schemas"]["ProblemDetails"];
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/Battle/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    id: number;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description OK */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["Battle"];
+                        "application/json": components["schemas"]["Battle"];
+                        "text/json": components["schemas"]["Battle"];
+                    };
+                };
+                /** @description Not Found */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["ProblemDetails"];
+                        "application/json": components["schemas"]["ProblemDetails"];
+                        "text/json": components["schemas"]["ProblemDetails"];
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/Battle/count": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description OK */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": number;
+                        "application/json": number;
+                        "text/json": number;
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/Battle/{id}/events": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query?: {
+                    pageNumber?: number;
+                    pageSize?: number;
+                    sortKey?: string;
+                    sortOrder?: string;
+                };
+                header?: never;
+                path: {
+                    id: number;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description OK */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["WorldEventDtoPaginatedResponse"];
+                        "application/json": components["schemas"]["WorldEventDtoPaginatedResponse"];
+                        "text/json": components["schemas"]["WorldEventDtoPaginatedResponse"];
+                    };
+                };
+                /** @description Bad Request */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["ProblemDetails"];
+                        "application/json": components["schemas"]["ProblemDetails"];
+                        "text/json": components["schemas"]["ProblemDetails"];
+                    };
+                };
+                /** @description Not Found */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["ProblemDetails"];
+                        "application/json": components["schemas"]["ProblemDetails"];
+                        "text/json": components["schemas"]["ProblemDetails"];
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/Battle/{id}/eventchart": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    id: number;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description OK */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["ChartDataDto"];
+                        "application/json": components["schemas"]["ChartDataDto"];
+                        "text/json": components["schemas"]["ChartDataDto"];
+                    };
+                };
+                /** @description Bad Request */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["ProblemDetails"];
+                        "application/json": components["schemas"]["ProblemDetails"];
+                        "text/json": components["schemas"]["ProblemDetails"];
+                    };
+                };
+                /** @description Not Found */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["ProblemDetails"];
+                        "application/json": components["schemas"]["ProblemDetails"];
+                        "text/json": components["schemas"]["ProblemDetails"];
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/BeastAttack": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query?: {
+                    pageNumber?: number;
+                    pageSize?: number;
+                    sortKey?: string;
+                    sortOrder?: string;
+                    search?: string;
+                };
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description OK */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["WorldObjectDtoPaginatedResponse"];
+                        "application/json": components["schemas"]["WorldObjectDtoPaginatedResponse"];
+                        "text/json": components["schemas"]["WorldObjectDtoPaginatedResponse"];
+                    };
+                };
+                /** @description Bad Request */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["ProblemDetails"];
+                        "application/json": components["schemas"]["ProblemDetails"];
+                        "text/json": components["schemas"]["ProblemDetails"];
+                    };
+                };
+                /** @description Not Found */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["ProblemDetails"];
+                        "application/json": components["schemas"]["ProblemDetails"];
+                        "text/json": components["schemas"]["ProblemDetails"];
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/BeastAttack/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    id: number;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description OK */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["BeastAttack"];
+                        "application/json": components["schemas"]["BeastAttack"];
+                        "text/json": components["schemas"]["BeastAttack"];
+                    };
+                };
+                /** @description Not Found */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["ProblemDetails"];
+                        "application/json": components["schemas"]["ProblemDetails"];
+                        "text/json": components["schemas"]["ProblemDetails"];
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/BeastAttack/count": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description OK */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": number;
+                        "application/json": number;
+                        "text/json": number;
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/BeastAttack/{id}/events": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query?: {
+                    pageNumber?: number;
+                    pageSize?: number;
+                    sortKey?: string;
+                    sortOrder?: string;
+                };
+                header?: never;
+                path: {
+                    id: number;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description OK */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["WorldEventDtoPaginatedResponse"];
+                        "application/json": components["schemas"]["WorldEventDtoPaginatedResponse"];
+                        "text/json": components["schemas"]["WorldEventDtoPaginatedResponse"];
+                    };
+                };
+                /** @description Bad Request */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["ProblemDetails"];
+                        "application/json": components["schemas"]["ProblemDetails"];
+                        "text/json": components["schemas"]["ProblemDetails"];
+                    };
+                };
+                /** @description Not Found */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["ProblemDetails"];
+                        "application/json": components["schemas"]["ProblemDetails"];
+                        "text/json": components["schemas"]["ProblemDetails"];
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/BeastAttack/{id}/eventchart": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    id: number;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description OK */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["ChartDataDto"];
+                        "application/json": components["schemas"]["ChartDataDto"];
+                        "text/json": components["schemas"]["ChartDataDto"];
+                    };
+                };
+                /** @description Bad Request */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["ProblemDetails"];
+                        "application/json": components["schemas"]["ProblemDetails"];
+                        "text/json": components["schemas"]["ProblemDetails"];
+                    };
+                };
+                /** @description Not Found */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["ProblemDetails"];
+                        "application/json": components["schemas"]["ProblemDetails"];
+                        "text/json": components["schemas"]["ProblemDetails"];
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/Bookmark": {
         parameters: {
             query?: never;
@@ -992,6 +1550,285 @@ export interface paths {
         trace?: never;
     };
     "/api/DanceForm/{id}/eventchart": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    id: number;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description OK */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["ChartDataDto"];
+                        "application/json": components["schemas"]["ChartDataDto"];
+                        "text/json": components["schemas"]["ChartDataDto"];
+                    };
+                };
+                /** @description Bad Request */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["ProblemDetails"];
+                        "application/json": components["schemas"]["ProblemDetails"];
+                        "text/json": components["schemas"]["ProblemDetails"];
+                    };
+                };
+                /** @description Not Found */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["ProblemDetails"];
+                        "application/json": components["schemas"]["ProblemDetails"];
+                        "text/json": components["schemas"]["ProblemDetails"];
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/Duel": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query?: {
+                    pageNumber?: number;
+                    pageSize?: number;
+                    sortKey?: string;
+                    sortOrder?: string;
+                    search?: string;
+                };
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description OK */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["WorldObjectDtoPaginatedResponse"];
+                        "application/json": components["schemas"]["WorldObjectDtoPaginatedResponse"];
+                        "text/json": components["schemas"]["WorldObjectDtoPaginatedResponse"];
+                    };
+                };
+                /** @description Bad Request */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["ProblemDetails"];
+                        "application/json": components["schemas"]["ProblemDetails"];
+                        "text/json": components["schemas"]["ProblemDetails"];
+                    };
+                };
+                /** @description Not Found */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["ProblemDetails"];
+                        "application/json": components["schemas"]["ProblemDetails"];
+                        "text/json": components["schemas"]["ProblemDetails"];
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/Duel/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    id: number;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description OK */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["Duel"];
+                        "application/json": components["schemas"]["Duel"];
+                        "text/json": components["schemas"]["Duel"];
+                    };
+                };
+                /** @description Not Found */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["ProblemDetails"];
+                        "application/json": components["schemas"]["ProblemDetails"];
+                        "text/json": components["schemas"]["ProblemDetails"];
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/Duel/count": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description OK */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": number;
+                        "application/json": number;
+                        "text/json": number;
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/Duel/{id}/events": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query?: {
+                    pageNumber?: number;
+                    pageSize?: number;
+                    sortKey?: string;
+                    sortOrder?: string;
+                };
+                header?: never;
+                path: {
+                    id: number;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description OK */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["WorldEventDtoPaginatedResponse"];
+                        "application/json": components["schemas"]["WorldEventDtoPaginatedResponse"];
+                        "text/json": components["schemas"]["WorldEventDtoPaginatedResponse"];
+                    };
+                };
+                /** @description Bad Request */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["ProblemDetails"];
+                        "application/json": components["schemas"]["ProblemDetails"];
+                        "text/json": components["schemas"]["ProblemDetails"];
+                    };
+                };
+                /** @description Not Found */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["ProblemDetails"];
+                        "application/json": components["schemas"]["ProblemDetails"];
+                        "text/json": components["schemas"]["ProblemDetails"];
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/Duel/{id}/eventchart": {
         parameters: {
             query?: never;
             header?: never;
@@ -2053,6 +2890,285 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/Insurrection": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query?: {
+                    pageNumber?: number;
+                    pageSize?: number;
+                    sortKey?: string;
+                    sortOrder?: string;
+                    search?: string;
+                };
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description OK */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["WorldObjectDtoPaginatedResponse"];
+                        "application/json": components["schemas"]["WorldObjectDtoPaginatedResponse"];
+                        "text/json": components["schemas"]["WorldObjectDtoPaginatedResponse"];
+                    };
+                };
+                /** @description Bad Request */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["ProblemDetails"];
+                        "application/json": components["schemas"]["ProblemDetails"];
+                        "text/json": components["schemas"]["ProblemDetails"];
+                    };
+                };
+                /** @description Not Found */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["ProblemDetails"];
+                        "application/json": components["schemas"]["ProblemDetails"];
+                        "text/json": components["schemas"]["ProblemDetails"];
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/Insurrection/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    id: number;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description OK */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["Insurrection"];
+                        "application/json": components["schemas"]["Insurrection"];
+                        "text/json": components["schemas"]["Insurrection"];
+                    };
+                };
+                /** @description Not Found */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["ProblemDetails"];
+                        "application/json": components["schemas"]["ProblemDetails"];
+                        "text/json": components["schemas"]["ProblemDetails"];
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/Insurrection/count": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description OK */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": number;
+                        "application/json": number;
+                        "text/json": number;
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/Insurrection/{id}/events": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query?: {
+                    pageNumber?: number;
+                    pageSize?: number;
+                    sortKey?: string;
+                    sortOrder?: string;
+                };
+                header?: never;
+                path: {
+                    id: number;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description OK */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["WorldEventDtoPaginatedResponse"];
+                        "application/json": components["schemas"]["WorldEventDtoPaginatedResponse"];
+                        "text/json": components["schemas"]["WorldEventDtoPaginatedResponse"];
+                    };
+                };
+                /** @description Bad Request */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["ProblemDetails"];
+                        "application/json": components["schemas"]["ProblemDetails"];
+                        "text/json": components["schemas"]["ProblemDetails"];
+                    };
+                };
+                /** @description Not Found */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["ProblemDetails"];
+                        "application/json": components["schemas"]["ProblemDetails"];
+                        "text/json": components["schemas"]["ProblemDetails"];
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/Insurrection/{id}/eventchart": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    id: number;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description OK */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["ChartDataDto"];
+                        "application/json": components["schemas"]["ChartDataDto"];
+                        "text/json": components["schemas"]["ChartDataDto"];
+                    };
+                };
+                /** @description Bad Request */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["ProblemDetails"];
+                        "application/json": components["schemas"]["ProblemDetails"];
+                        "text/json": components["schemas"]["ProblemDetails"];
+                    };
+                };
+                /** @description Not Found */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["ProblemDetails"];
+                        "application/json": components["schemas"]["ProblemDetails"];
+                        "text/json": components["schemas"]["ProblemDetails"];
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/Landmass": {
         parameters: {
             query?: never;
@@ -2890,6 +4006,285 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/Persecution": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query?: {
+                    pageNumber?: number;
+                    pageSize?: number;
+                    sortKey?: string;
+                    sortOrder?: string;
+                    search?: string;
+                };
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description OK */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["WorldObjectDtoPaginatedResponse"];
+                        "application/json": components["schemas"]["WorldObjectDtoPaginatedResponse"];
+                        "text/json": components["schemas"]["WorldObjectDtoPaginatedResponse"];
+                    };
+                };
+                /** @description Bad Request */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["ProblemDetails"];
+                        "application/json": components["schemas"]["ProblemDetails"];
+                        "text/json": components["schemas"]["ProblemDetails"];
+                    };
+                };
+                /** @description Not Found */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["ProblemDetails"];
+                        "application/json": components["schemas"]["ProblemDetails"];
+                        "text/json": components["schemas"]["ProblemDetails"];
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/Persecution/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    id: number;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description OK */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["Persecution"];
+                        "application/json": components["schemas"]["Persecution"];
+                        "text/json": components["schemas"]["Persecution"];
+                    };
+                };
+                /** @description Not Found */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["ProblemDetails"];
+                        "application/json": components["schemas"]["ProblemDetails"];
+                        "text/json": components["schemas"]["ProblemDetails"];
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/Persecution/count": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description OK */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": number;
+                        "application/json": number;
+                        "text/json": number;
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/Persecution/{id}/events": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query?: {
+                    pageNumber?: number;
+                    pageSize?: number;
+                    sortKey?: string;
+                    sortOrder?: string;
+                };
+                header?: never;
+                path: {
+                    id: number;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description OK */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["WorldEventDtoPaginatedResponse"];
+                        "application/json": components["schemas"]["WorldEventDtoPaginatedResponse"];
+                        "text/json": components["schemas"]["WorldEventDtoPaginatedResponse"];
+                    };
+                };
+                /** @description Bad Request */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["ProblemDetails"];
+                        "application/json": components["schemas"]["ProblemDetails"];
+                        "text/json": components["schemas"]["ProblemDetails"];
+                    };
+                };
+                /** @description Not Found */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["ProblemDetails"];
+                        "application/json": components["schemas"]["ProblemDetails"];
+                        "text/json": components["schemas"]["ProblemDetails"];
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/Persecution/{id}/eventchart": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    id: number;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description OK */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["ChartDataDto"];
+                        "application/json": components["schemas"]["ChartDataDto"];
+                        "text/json": components["schemas"]["ChartDataDto"];
+                    };
+                };
+                /** @description Bad Request */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["ProblemDetails"];
+                        "application/json": components["schemas"]["ProblemDetails"];
+                        "text/json": components["schemas"]["ProblemDetails"];
+                    };
+                };
+                /** @description Not Found */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["ProblemDetails"];
+                        "application/json": components["schemas"]["ProblemDetails"];
+                        "text/json": components["schemas"]["ProblemDetails"];
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/PoeticForm": {
         parameters: {
             query?: never;
@@ -3109,6 +4504,564 @@ export interface paths {
         trace?: never;
     };
     "/api/PoeticForm/{id}/eventchart": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    id: number;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description OK */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["ChartDataDto"];
+                        "application/json": components["schemas"]["ChartDataDto"];
+                        "text/json": components["schemas"]["ChartDataDto"];
+                    };
+                };
+                /** @description Bad Request */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["ProblemDetails"];
+                        "application/json": components["schemas"]["ProblemDetails"];
+                        "text/json": components["schemas"]["ProblemDetails"];
+                    };
+                };
+                /** @description Not Found */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["ProblemDetails"];
+                        "application/json": components["schemas"]["ProblemDetails"];
+                        "text/json": components["schemas"]["ProblemDetails"];
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/Purge": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query?: {
+                    pageNumber?: number;
+                    pageSize?: number;
+                    sortKey?: string;
+                    sortOrder?: string;
+                    search?: string;
+                };
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description OK */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["WorldObjectDtoPaginatedResponse"];
+                        "application/json": components["schemas"]["WorldObjectDtoPaginatedResponse"];
+                        "text/json": components["schemas"]["WorldObjectDtoPaginatedResponse"];
+                    };
+                };
+                /** @description Bad Request */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["ProblemDetails"];
+                        "application/json": components["schemas"]["ProblemDetails"];
+                        "text/json": components["schemas"]["ProblemDetails"];
+                    };
+                };
+                /** @description Not Found */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["ProblemDetails"];
+                        "application/json": components["schemas"]["ProblemDetails"];
+                        "text/json": components["schemas"]["ProblemDetails"];
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/Purge/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    id: number;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description OK */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["Purge"];
+                        "application/json": components["schemas"]["Purge"];
+                        "text/json": components["schemas"]["Purge"];
+                    };
+                };
+                /** @description Not Found */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["ProblemDetails"];
+                        "application/json": components["schemas"]["ProblemDetails"];
+                        "text/json": components["schemas"]["ProblemDetails"];
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/Purge/count": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description OK */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": number;
+                        "application/json": number;
+                        "text/json": number;
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/Purge/{id}/events": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query?: {
+                    pageNumber?: number;
+                    pageSize?: number;
+                    sortKey?: string;
+                    sortOrder?: string;
+                };
+                header?: never;
+                path: {
+                    id: number;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description OK */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["WorldEventDtoPaginatedResponse"];
+                        "application/json": components["schemas"]["WorldEventDtoPaginatedResponse"];
+                        "text/json": components["schemas"]["WorldEventDtoPaginatedResponse"];
+                    };
+                };
+                /** @description Bad Request */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["ProblemDetails"];
+                        "application/json": components["schemas"]["ProblemDetails"];
+                        "text/json": components["schemas"]["ProblemDetails"];
+                    };
+                };
+                /** @description Not Found */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["ProblemDetails"];
+                        "application/json": components["schemas"]["ProblemDetails"];
+                        "text/json": components["schemas"]["ProblemDetails"];
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/Purge/{id}/eventchart": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    id: number;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description OK */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["ChartDataDto"];
+                        "application/json": components["schemas"]["ChartDataDto"];
+                        "text/json": components["schemas"]["ChartDataDto"];
+                    };
+                };
+                /** @description Bad Request */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["ProblemDetails"];
+                        "application/json": components["schemas"]["ProblemDetails"];
+                        "text/json": components["schemas"]["ProblemDetails"];
+                    };
+                };
+                /** @description Not Found */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["ProblemDetails"];
+                        "application/json": components["schemas"]["ProblemDetails"];
+                        "text/json": components["schemas"]["ProblemDetails"];
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/Raid": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query?: {
+                    pageNumber?: number;
+                    pageSize?: number;
+                    sortKey?: string;
+                    sortOrder?: string;
+                    search?: string;
+                };
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description OK */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["WorldObjectDtoPaginatedResponse"];
+                        "application/json": components["schemas"]["WorldObjectDtoPaginatedResponse"];
+                        "text/json": components["schemas"]["WorldObjectDtoPaginatedResponse"];
+                    };
+                };
+                /** @description Bad Request */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["ProblemDetails"];
+                        "application/json": components["schemas"]["ProblemDetails"];
+                        "text/json": components["schemas"]["ProblemDetails"];
+                    };
+                };
+                /** @description Not Found */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["ProblemDetails"];
+                        "application/json": components["schemas"]["ProblemDetails"];
+                        "text/json": components["schemas"]["ProblemDetails"];
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/Raid/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    id: number;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description OK */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["Raid"];
+                        "application/json": components["schemas"]["Raid"];
+                        "text/json": components["schemas"]["Raid"];
+                    };
+                };
+                /** @description Not Found */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["ProblemDetails"];
+                        "application/json": components["schemas"]["ProblemDetails"];
+                        "text/json": components["schemas"]["ProblemDetails"];
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/Raid/count": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description OK */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": number;
+                        "application/json": number;
+                        "text/json": number;
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/Raid/{id}/events": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query?: {
+                    pageNumber?: number;
+                    pageSize?: number;
+                    sortKey?: string;
+                    sortOrder?: string;
+                };
+                header?: never;
+                path: {
+                    id: number;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description OK */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["WorldEventDtoPaginatedResponse"];
+                        "application/json": components["schemas"]["WorldEventDtoPaginatedResponse"];
+                        "text/json": components["schemas"]["WorldEventDtoPaginatedResponse"];
+                    };
+                };
+                /** @description Bad Request */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["ProblemDetails"];
+                        "application/json": components["schemas"]["ProblemDetails"];
+                        "text/json": components["schemas"]["ProblemDetails"];
+                    };
+                };
+                /** @description Not Found */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["ProblemDetails"];
+                        "application/json": components["schemas"]["ProblemDetails"];
+                        "text/json": components["schemas"]["ProblemDetails"];
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/Raid/{id}/eventchart": {
         parameters: {
             query?: never;
             header?: never;
@@ -4006,6 +5959,285 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/SiteConquered": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query?: {
+                    pageNumber?: number;
+                    pageSize?: number;
+                    sortKey?: string;
+                    sortOrder?: string;
+                    search?: string;
+                };
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description OK */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["WorldObjectDtoPaginatedResponse"];
+                        "application/json": components["schemas"]["WorldObjectDtoPaginatedResponse"];
+                        "text/json": components["schemas"]["WorldObjectDtoPaginatedResponse"];
+                    };
+                };
+                /** @description Bad Request */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["ProblemDetails"];
+                        "application/json": components["schemas"]["ProblemDetails"];
+                        "text/json": components["schemas"]["ProblemDetails"];
+                    };
+                };
+                /** @description Not Found */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["ProblemDetails"];
+                        "application/json": components["schemas"]["ProblemDetails"];
+                        "text/json": components["schemas"]["ProblemDetails"];
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/SiteConquered/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    id: number;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description OK */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["SiteConquered"];
+                        "application/json": components["schemas"]["SiteConquered"];
+                        "text/json": components["schemas"]["SiteConquered"];
+                    };
+                };
+                /** @description Not Found */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["ProblemDetails"];
+                        "application/json": components["schemas"]["ProblemDetails"];
+                        "text/json": components["schemas"]["ProblemDetails"];
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/SiteConquered/count": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description OK */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": number;
+                        "application/json": number;
+                        "text/json": number;
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/SiteConquered/{id}/events": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query?: {
+                    pageNumber?: number;
+                    pageSize?: number;
+                    sortKey?: string;
+                    sortOrder?: string;
+                };
+                header?: never;
+                path: {
+                    id: number;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description OK */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["WorldEventDtoPaginatedResponse"];
+                        "application/json": components["schemas"]["WorldEventDtoPaginatedResponse"];
+                        "text/json": components["schemas"]["WorldEventDtoPaginatedResponse"];
+                    };
+                };
+                /** @description Bad Request */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["ProblemDetails"];
+                        "application/json": components["schemas"]["ProblemDetails"];
+                        "text/json": components["schemas"]["ProblemDetails"];
+                    };
+                };
+                /** @description Not Found */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["ProblemDetails"];
+                        "application/json": components["schemas"]["ProblemDetails"];
+                        "text/json": components["schemas"]["ProblemDetails"];
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/SiteConquered/{id}/eventchart": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    id: number;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description OK */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["ChartDataDto"];
+                        "application/json": components["schemas"]["ChartDataDto"];
+                        "text/json": components["schemas"]["ChartDataDto"];
+                    };
+                };
+                /** @description Bad Request */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["ProblemDetails"];
+                        "application/json": components["schemas"]["ProblemDetails"];
+                        "text/json": components["schemas"]["ProblemDetails"];
+                    };
+                };
+                /** @description Not Found */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["ProblemDetails"];
+                        "application/json": components["schemas"]["ProblemDetails"];
+                        "text/json": components["schemas"]["ProblemDetails"];
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/Structure": {
         parameters: {
             query?: never;
@@ -4504,6 +6736,285 @@ export interface paths {
         trace?: never;
     };
     "/api/UndergroundRegion/{id}/eventchart": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    id: number;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description OK */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["ChartDataDto"];
+                        "application/json": components["schemas"]["ChartDataDto"];
+                        "text/json": components["schemas"]["ChartDataDto"];
+                    };
+                };
+                /** @description Bad Request */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["ProblemDetails"];
+                        "application/json": components["schemas"]["ProblemDetails"];
+                        "text/json": components["schemas"]["ProblemDetails"];
+                    };
+                };
+                /** @description Not Found */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["ProblemDetails"];
+                        "application/json": components["schemas"]["ProblemDetails"];
+                        "text/json": components["schemas"]["ProblemDetails"];
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/War": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query?: {
+                    pageNumber?: number;
+                    pageSize?: number;
+                    sortKey?: string;
+                    sortOrder?: string;
+                    search?: string;
+                };
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description OK */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["WorldObjectDtoPaginatedResponse"];
+                        "application/json": components["schemas"]["WorldObjectDtoPaginatedResponse"];
+                        "text/json": components["schemas"]["WorldObjectDtoPaginatedResponse"];
+                    };
+                };
+                /** @description Bad Request */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["ProblemDetails"];
+                        "application/json": components["schemas"]["ProblemDetails"];
+                        "text/json": components["schemas"]["ProblemDetails"];
+                    };
+                };
+                /** @description Not Found */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["ProblemDetails"];
+                        "application/json": components["schemas"]["ProblemDetails"];
+                        "text/json": components["schemas"]["ProblemDetails"];
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/War/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    id: number;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description OK */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["War"];
+                        "application/json": components["schemas"]["War"];
+                        "text/json": components["schemas"]["War"];
+                    };
+                };
+                /** @description Not Found */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["ProblemDetails"];
+                        "application/json": components["schemas"]["ProblemDetails"];
+                        "text/json": components["schemas"]["ProblemDetails"];
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/War/count": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description OK */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": number;
+                        "application/json": number;
+                        "text/json": number;
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/War/{id}/events": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query?: {
+                    pageNumber?: number;
+                    pageSize?: number;
+                    sortKey?: string;
+                    sortOrder?: string;
+                };
+                header?: never;
+                path: {
+                    id: number;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description OK */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["WorldEventDtoPaginatedResponse"];
+                        "application/json": components["schemas"]["WorldEventDtoPaginatedResponse"];
+                        "text/json": components["schemas"]["WorldEventDtoPaginatedResponse"];
+                    };
+                };
+                /** @description Bad Request */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["ProblemDetails"];
+                        "application/json": components["schemas"]["ProblemDetails"];
+                        "text/json": components["schemas"]["ProblemDetails"];
+                    };
+                };
+                /** @description Not Found */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["ProblemDetails"];
+                        "application/json": components["schemas"]["ProblemDetails"];
+                        "text/json": components["schemas"]["ProblemDetails"];
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/War/{id}/eventchart": {
         parameters: {
             query?: never;
             header?: never;
@@ -5396,6 +7907,12 @@ export interface components {
         Battle: {
             /** Format: int32 */
             id?: number;
+            icon?: string | null;
+            name?: string | null;
+            type?: string | null;
+            subtype?: string | null;
+            /** Format: int32 */
+            readonly eventCount?: number;
             /** Format: int32 */
             startYear?: number;
             /** Format: int32 */
@@ -5404,15 +7921,10 @@ export interface components {
             endYear?: number;
             /** Format: int32 */
             endSeconds72?: number;
-            type?: string | null;
             parentCollection?: components["schemas"]["EventCollection"];
-            collection?: components["schemas"]["WorldEvent"][] | null;
-            collections?: components["schemas"]["EventCollection"][] | null;
             collectionIDs?: number[] | null;
             notable?: boolean;
-            allEvents?: components["schemas"]["WorldEvent"][] | null;
-            world?: components["schemas"]["World"];
-            name?: string | null;
+            readonly allEvents?: components["schemas"]["WorldEvent"][] | null;
             outcome?: components["schemas"]["BattleOutcome"];
             coordinates?: components["schemas"]["Location"];
             site?: components["schemas"]["Site"];
@@ -5467,6 +7979,12 @@ export interface components {
         BeastAttack: {
             /** Format: int32 */
             id?: number;
+            icon?: string | null;
+            name?: string | null;
+            type?: string | null;
+            subtype?: string | null;
+            /** Format: int32 */
+            readonly eventCount?: number;
             /** Format: int32 */
             startYear?: number;
             /** Format: int32 */
@@ -5475,17 +7993,10 @@ export interface components {
             endYear?: number;
             /** Format: int32 */
             endSeconds72?: number;
-            type?: string | null;
             parentCollection?: components["schemas"]["EventCollection"];
-            collection?: components["schemas"]["WorldEvent"][] | null;
-            collections?: components["schemas"]["EventCollection"][] | null;
             collectionIDs?: number[] | null;
             notable?: boolean;
-            allEvents?: components["schemas"]["WorldEvent"][] | null;
-            world?: components["schemas"]["World"];
-            name?: string | null;
-            /** Format: int32 */
-            readonly deathCount?: number;
+            readonly allEvents?: components["schemas"]["WorldEvent"][] | null;
             /** Format: int32 */
             ordinal?: number;
             coordinates?: components["schemas"]["Location"];
@@ -5495,6 +8006,8 @@ export interface components {
             defender?: components["schemas"]["Entity"];
             beast?: components["schemas"]["HistoricalFigure"];
             readonly deaths?: components["schemas"]["HistoricalFigure"][] | null;
+            /** Format: int32 */
+            readonly deathCount?: number;
             parentEventCol?: components["schemas"]["EventCollection"];
         };
         Bookmark: {
@@ -5568,6 +8081,30 @@ export interface components {
         };
         /** @enum {string} */
         DeathCause: "Unknown" | "None" | "Struck" | "OldAge" | "Thirst" | "Suffocated" | "Bled" | "Cold" | "CrushedByABridge" | "Drowned" | "Starved" | "InACage" | "Infection" | "CollidedWithAnObstacle" | "PutToRest" | "StarvedQuit" | "Trap" | "DragonsFire" | "Burned" | "Murdered" | "Shot" | "CaveIn" | "FrozenInWater" | "ExecutedGeneric" | "ExecutedFedToBeasts" | "ExecutedBurnedAlive" | "ExecutedCrucified" | "ExecutedDrowned" | "ExecutedHackedToPieces" | "ExecutedBuriedAlive" | "ExecutedBeheaded" | "DrainedBlood" | "Collapsed" | "ScaredToDeath" | "Scuttled" | "FlyingObject" | "Slaughtered" | "Melted" | "Spikes" | "Heat" | "Vanish" | "CoolingMagma" | "Vehicle" | "SuicideDrowned" | "SuicideLeaping" | "Chasm";
+        Duel: {
+            /** Format: int32 */
+            id?: number;
+            icon?: string | null;
+            name?: string | null;
+            type?: string | null;
+            subtype?: string | null;
+            /** Format: int32 */
+            readonly eventCount?: number;
+            /** Format: int32 */
+            startYear?: number;
+            /** Format: int32 */
+            startSeconds72?: number;
+            /** Format: int32 */
+            endYear?: number;
+            /** Format: int32 */
+            endSeconds72?: number;
+            parentCollection?: components["schemas"]["EventCollection"];
+            collectionIDs?: number[] | null;
+            notable?: boolean;
+            readonly allEvents?: components["schemas"]["WorldEvent"][] | null;
+            /** Format: int32 */
+            ordinal?: number;
+        };
         DwarfObject: Record<string, never>;
         Entity: {
             /** Format: int32 */
@@ -5590,20 +8127,20 @@ export interface components {
             honors?: components["schemas"]["Honor"][] | null;
             entityType?: components["schemas"]["EntityType"];
             isCiv?: boolean;
-            coordinates?: components["schemas"]["Location"][] | null;
+            readonly coordinates?: components["schemas"]["Location"][] | null;
             weapons?: string[] | null;
             profession?: string | null;
             readonly warLinks?: string[] | null;
             readonly warAttackingLinks?: string[] | null;
             readonly warDefendingLinks?: string[] | null;
             /** Format: int32 */
-            warVictories?: number;
+            readonly warVictories?: number;
             /** Format: int32 */
-            warLosses?: number;
+            readonly warLosses?: number;
             /** Format: int32 */
-            warKills?: number;
+            readonly warKills?: number;
             /** Format: int32 */
-            warDeaths?: number;
+            readonly warDeaths?: number;
             readonly allLeaderLinks?: string[] | null;
             readonly populationsAsList?: string[] | null;
             /** Format: double */
@@ -5730,6 +8267,12 @@ export interface components {
         EventCollection: {
             /** Format: int32 */
             id?: number;
+            icon?: string | null;
+            name?: string | null;
+            type?: string | null;
+            subtype?: string | null;
+            /** Format: int32 */
+            readonly eventCount?: number;
             /** Format: int32 */
             startYear?: number;
             /** Format: int32 */
@@ -5738,14 +8281,10 @@ export interface components {
             endYear?: number;
             /** Format: int32 */
             endSeconds72?: number;
-            type?: string | null;
             parentCollection?: components["schemas"]["EventCollection"];
-            collection?: components["schemas"]["WorldEvent"][] | null;
-            collections?: components["schemas"]["EventCollection"][] | null;
             collectionIDs?: number[] | null;
             notable?: boolean;
-            allEvents?: components["schemas"]["WorldEvent"][] | null;
-            world?: components["schemas"]["World"];
+            readonly allEvents?: components["schemas"]["WorldEvent"][] | null;
         };
         /** @enum {string} */
         Evilness: "Neutral" | "Good" | "Evil";
@@ -5909,6 +8448,35 @@ export interface components {
             caste?: string | null;
             profession?: string | null;
         };
+        Insurrection: {
+            /** Format: int32 */
+            id?: number;
+            icon?: string | null;
+            name?: string | null;
+            type?: string | null;
+            subtype?: string | null;
+            /** Format: int32 */
+            readonly eventCount?: number;
+            /** Format: int32 */
+            startYear?: number;
+            /** Format: int32 */
+            startSeconds72?: number;
+            /** Format: int32 */
+            endYear?: number;
+            /** Format: int32 */
+            endSeconds72?: number;
+            parentCollection?: components["schemas"]["EventCollection"];
+            collectionIDs?: number[] | null;
+            notable?: boolean;
+            readonly allEvents?: components["schemas"]["WorldEvent"][] | null;
+            /** Format: int32 */
+            ordinal?: number;
+            site?: components["schemas"]["Site"];
+            targetEntity?: components["schemas"]["Entity"];
+            readonly deaths?: components["schemas"]["HistoricalFigure"][] | null;
+            /** Format: int32 */
+            readonly deathCount?: number;
+        };
         IntrigueActor: {
             /** Format: int32 */
             localId?: number;
@@ -6012,6 +8580,33 @@ export interface components {
             startCause?: string | null;
             endCause?: string | null;
         };
+        Persecution: {
+            /** Format: int32 */
+            id?: number;
+            icon?: string | null;
+            name?: string | null;
+            type?: string | null;
+            subtype?: string | null;
+            /** Format: int32 */
+            readonly eventCount?: number;
+            /** Format: int32 */
+            startYear?: number;
+            /** Format: int32 */
+            startSeconds72?: number;
+            /** Format: int32 */
+            endYear?: number;
+            /** Format: int32 */
+            endSeconds72?: number;
+            parentCollection?: components["schemas"]["EventCollection"];
+            collectionIDs?: number[] | null;
+            notable?: boolean;
+            readonly allEvents?: components["schemas"]["WorldEvent"][] | null;
+            /** Format: int32 */
+            ordinal?: number;
+            readonly deaths?: components["schemas"]["HistoricalFigure"][] | null;
+            /** Format: int32 */
+            readonly deathCount?: number;
+        };
         PlotActor: {
             /** Format: int32 */
             actorId?: number;
@@ -6069,6 +8664,70 @@ export interface components {
             instance?: string | null;
         } & {
             [key: string]: unknown;
+        };
+        Purge: {
+            /** Format: int32 */
+            id?: number;
+            icon?: string | null;
+            name?: string | null;
+            type?: string | null;
+            subtype?: string | null;
+            /** Format: int32 */
+            readonly eventCount?: number;
+            /** Format: int32 */
+            startYear?: number;
+            /** Format: int32 */
+            startSeconds72?: number;
+            /** Format: int32 */
+            endYear?: number;
+            /** Format: int32 */
+            endSeconds72?: number;
+            parentCollection?: components["schemas"]["EventCollection"];
+            collectionIDs?: number[] | null;
+            notable?: boolean;
+            readonly allEvents?: components["schemas"]["WorldEvent"][] | null;
+            /** Format: int32 */
+            ordinal?: number;
+            adjective?: string | null;
+            readonly deaths?: components["schemas"]["HistoricalFigure"][] | null;
+            /** Format: int32 */
+            readonly deathCount?: number;
+        };
+        Raid: {
+            /** Format: int32 */
+            id?: number;
+            icon?: string | null;
+            name?: string | null;
+            type?: string | null;
+            subtype?: string | null;
+            /** Format: int32 */
+            readonly eventCount?: number;
+            /** Format: int32 */
+            startYear?: number;
+            /** Format: int32 */
+            startSeconds72?: number;
+            /** Format: int32 */
+            endYear?: number;
+            /** Format: int32 */
+            endSeconds72?: number;
+            parentCollection?: components["schemas"]["EventCollection"];
+            collectionIDs?: number[] | null;
+            notable?: boolean;
+            readonly allEvents?: components["schemas"]["WorldEvent"][] | null;
+            /** Format: int32 */
+            ordinal?: number;
+            coordinates?: components["schemas"]["Location"];
+            site?: components["schemas"]["Site"];
+            region?: components["schemas"]["WorldRegion"];
+            undergroundRegion?: components["schemas"]["UndergroundRegion"];
+            attacker?: components["schemas"]["Entity"];
+            defender?: components["schemas"]["Entity"];
+            /** Format: int32 */
+            readonly itemsStolenCount?: number;
+            readonly deaths?: components["schemas"]["HistoricalFigure"][] | null;
+            /** Format: int32 */
+            readonly deathCount?: number;
+            parentEventCol?: components["schemas"]["EventCollection"];
         };
         Rectangle: {
             location?: components["schemas"]["Point"];
@@ -6178,6 +8837,12 @@ export interface components {
         SiteConquered: {
             /** Format: int32 */
             id?: number;
+            icon?: string | null;
+            name?: string | null;
+            type?: string | null;
+            subtype?: string | null;
+            /** Format: int32 */
+            readonly eventCount?: number;
             /** Format: int32 */
             startYear?: number;
             /** Format: int32 */
@@ -6186,17 +8851,10 @@ export interface components {
             endYear?: number;
             /** Format: int32 */
             endSeconds72?: number;
-            type?: string | null;
             parentCollection?: components["schemas"]["EventCollection"];
-            collection?: components["schemas"]["WorldEvent"][] | null;
-            collections?: components["schemas"]["EventCollection"][] | null;
             collectionIDs?: number[] | null;
             notable?: boolean;
-            allEvents?: components["schemas"]["WorldEvent"][] | null;
-            world?: components["schemas"]["World"];
-            name?: string | null;
-            /** Format: int32 */
-            deathCount?: number;
+            readonly allEvents?: components["schemas"]["WorldEvent"][] | null;
             /** Format: int32 */
             ordinal?: number;
             conquerType?: components["schemas"]["SiteConqueredType"];
@@ -6205,6 +8863,8 @@ export interface components {
             defender?: components["schemas"]["Entity"];
             battle?: components["schemas"]["Battle"];
             readonly deaths?: components["schemas"]["HistoricalFigure"][] | null;
+            /** Format: int32 */
+            readonly deathCount?: number;
         };
         /** @enum {string} */
         SiteConqueredType: "Unknown" | "Pillaging" | "Destruction" | "Conquest" | "TributeEnforcement" | "Invasion";
@@ -6333,6 +8993,12 @@ export interface components {
         War: {
             /** Format: int32 */
             id?: number;
+            icon?: string | null;
+            name?: string | null;
+            type?: string | null;
+            subtype?: string | null;
+            /** Format: int32 */
+            readonly eventCount?: number;
             /** Format: int32 */
             startYear?: number;
             /** Format: int32 */
@@ -6341,15 +9007,10 @@ export interface components {
             endYear?: number;
             /** Format: int32 */
             endSeconds72?: number;
-            type?: string | null;
             parentCollection?: components["schemas"]["EventCollection"];
-            collection?: components["schemas"]["WorldEvent"][] | null;
-            collections?: components["schemas"]["EventCollection"][] | null;
             collectionIDs?: number[] | null;
             notable?: boolean;
-            allEvents?: components["schemas"]["WorldEvent"][] | null;
-            world?: components["schemas"]["World"];
-            name?: string | null;
+            readonly allEvents?: components["schemas"]["WorldEvent"][] | null;
             /** Format: int32 */
             length?: number;
             /** Format: int32 */
@@ -6392,9 +9053,6 @@ export interface components {
             readonly sites?: components["schemas"]["Site"][] | null;
             readonly historicalFigures?: components["schemas"]["HistoricalFigure"][] | null;
             readonly entities?: components["schemas"]["Entity"][] | null;
-            readonly wars?: components["schemas"]["War"][] | null;
-            readonly battles?: components["schemas"]["Battle"][] | null;
-            readonly beastAttacks?: components["schemas"]["BeastAttack"][] | null;
             readonly eras?: components["schemas"]["Era"][] | null;
             readonly artifacts?: components["schemas"]["Artifact"][] | null;
             readonly worldConstructions?: components["schemas"]["WorldConstruction"][] | null;
@@ -6403,13 +9061,22 @@ export interface components {
             readonly danceForms?: components["schemas"]["DanceForm"][] | null;
             readonly writtenContents?: components["schemas"]["WrittenContent"][] | null;
             readonly structures?: components["schemas"]["Structure"][] | null;
-            readonly events?: components["schemas"]["WorldEvent"][] | null;
             readonly eventCollections?: components["schemas"]["EventCollection"][] | null;
+            readonly wars?: components["schemas"]["War"][] | null;
+            readonly battles?: components["schemas"]["Battle"][] | null;
+            readonly duels?: components["schemas"]["Duel"][] | null;
+            readonly insurrections?: components["schemas"]["Insurrection"][] | null;
+            readonly persecutions?: components["schemas"]["Persecution"][] | null;
+            readonly purges?: components["schemas"]["Purge"][] | null;
+            readonly raids?: components["schemas"]["Raid"][] | null;
+            readonly siteConquerings?: components["schemas"]["SiteConquered"][] | null;
+            readonly beastAttacks?: components["schemas"]["BeastAttack"][] | null;
             readonly entityPopulations?: components["schemas"]["EntityPopulation"][] | null;
             readonly sitePopulations?: components["schemas"]["Population"][] | null;
             readonly civilizedPopulations?: components["schemas"]["Population"][] | null;
             readonly outdoorPopulations?: components["schemas"]["Population"][] | null;
             readonly undergroundPopulations?: components["schemas"]["Population"][] | null;
+            readonly events?: components["schemas"]["WorldEvent"][] | null;
             /** Format: int32 */
             width?: number;
             /** Format: int32 */

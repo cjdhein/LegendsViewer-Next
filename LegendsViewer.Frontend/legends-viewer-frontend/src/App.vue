@@ -26,6 +26,17 @@ const artItems = [
   { title: 'Poetic Forms', to: '/poeticform' },
   { title: 'Written Content', to: '/writtencontent' },
 ];
+const warfareItems = [
+  { title: 'Wars', to: '/war' },
+  { title: 'Battles', to: '/battle' },
+  { title: 'Duels', to: '/duel' },
+  { title: 'Insurrections', to: '/insurrection' },
+  { title: 'Persecutions', to: '/persecution' },
+  { title: 'Purges', to: '/purge' },
+  { title: 'Raids', to: '/raid' },
+  { title: 'Site Conquerings', to: '/siteconquered' },
+  { title: 'Rampages', to: '/beastattack' },
+];
 </script>
 
 <template>
@@ -78,6 +89,15 @@ const artItems = [
               <v-list-item v-bind="props" prepend-icon="mdi-diamond-stone" title="Art and Craft" :disabled="bookmarkStore?.isLoaded == false"></v-list-item>
             </template>
             <template v-for="(item, i) in artItems" :key="i">
+              <v-list-item :value="item.title + i" :title="item.title" :to="item.to"
+                :disabled="bookmarkStore?.isLoaded == false" />
+            </template>
+          </v-list-group>
+          <v-list-group value="Warfare">
+            <template v-slot:activator="{ props }">
+              <v-list-item v-bind="props" prepend-icon="mdi-sword-cross" title="Warfare" :disabled="bookmarkStore?.isLoaded == false"></v-list-item>
+            </template>
+            <template v-for="(item, i) in warfareItems" :key="i">
               <v-list-item :value="item.title + i" :title="item.title" :to="item.to"
                 :disabled="bookmarkStore?.isLoaded == false" />
             </template>

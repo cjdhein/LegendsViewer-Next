@@ -361,6 +361,8 @@ public class Battle : EventCollection
 
         Site?.Warfare.Add(this);
 
+        Subtype = $"{Attacker?.ToLink(true, this)}{(Victor != null && Victor == Attacker ? "(V)" : "")} => {Defender?.ToLink(true, this)}{(Victor != null && Victor == Defender ? "(V)" : "")}";
+
         Icon = HtmlStyleUtil.GetIconString("chess-bishop");
     }
 
@@ -389,7 +391,7 @@ public class Battle : EventCollection
             string title = GetTitle();
 
             string linkedString = pov != this
-                ? HtmlStyleUtil.GetAnchorString(Icon, "collection", Id, title, Name)
+                ? HtmlStyleUtil.GetAnchorString(Icon, "battle", Id, title, Name)
                 : HtmlStyleUtil.GetAnchorCurrentString(Icon, title, HtmlStyleUtil.CurrentDwarfObject(Name));
             return linkedString;
         }

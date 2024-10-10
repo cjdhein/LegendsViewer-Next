@@ -126,6 +126,9 @@ public class War : EventCollection
         {
             Defender?.AddEventCollection(this);
         }
+
+        Subtype = $"{Attacker?.ToLink(true, this)} => {Defender?.ToLink(true, this)}";
+
         Icon = HtmlStyleUtil.GetIconString("sword-cross");
     }
 
@@ -142,7 +145,7 @@ public class War : EventCollection
             title += "Deaths: " + DeathCount + " | (" + StartYear + " - " + (EndYear == -1 ? "Present" : EndYear.ToString()) + ")";
 
             return pov != this
-                ? HtmlStyleUtil.GetAnchorString(Icon, "collection", Id, title, Name)
+                ? HtmlStyleUtil.GetAnchorString(Icon, "war", Id, title, Name)
                 : HtmlStyleUtil.GetAnchorCurrentString(Icon, title, HtmlStyleUtil.CurrentDwarfObject(Name));
         }
         return Name;

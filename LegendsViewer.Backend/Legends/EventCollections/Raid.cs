@@ -80,7 +80,7 @@ public class Raid : EventCollection
             string title = GetTitle();
             string linkedString = "the ";
             linkedString += pov != this
-                ? HtmlStyleUtil.GetAnchorString(Icon, "collection", Id, title, Name)
+                ? HtmlStyleUtil.GetAnchorString(Icon, "raid", Id, title, Name)
                 : HtmlStyleUtil.GetAnchorCurrentString(Icon, title, HtmlStyleUtil.CurrentDwarfObject(Name));
 
             if (Site != null && pov != Site)

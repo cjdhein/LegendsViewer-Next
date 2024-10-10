@@ -33,7 +33,7 @@ public class Purge : EventCollection
 
         Name = $"{Formatting.AddOrdinal(Ordinal)} {(!string.IsNullOrWhiteSpace(Adjective) ? $"{Adjective.ToLower()} " : "")}purge";
 
-        Icon = HtmlStyleUtil.GetIconString("map-marker-alert");
+        Icon = HtmlStyleUtil.GetIconString("skull-crossbones-outline");
     }
 
 
@@ -44,7 +44,7 @@ public class Purge : EventCollection
             string title = GetTitle();
             string linkedString = "the ";
             linkedString += pov != this
-                ? HtmlStyleUtil.GetAnchorString(Icon, "collection", Id, title, Name)
+                ? HtmlStyleUtil.GetAnchorString(Icon, "purge", Id, title, Name)
                 : HtmlStyleUtil.GetAnchorCurrentString(Icon, title, HtmlStyleUtil.CurrentDwarfObject(Name));
 
             if (Site != null && pov != Site)

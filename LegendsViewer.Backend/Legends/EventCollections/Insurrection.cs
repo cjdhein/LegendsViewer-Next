@@ -55,7 +55,7 @@ public class Insurrection : EventCollection
             string title = GetTitle();
             string linkedString = "the ";
             linkedString += pov != this
-                ? HtmlStyleUtil.GetAnchorString(Icon, "collection", Id, title, Name)
+                ? HtmlStyleUtil.GetAnchorString(Icon, "insurrection", Id, title, Name)
                 : HtmlStyleUtil.GetAnchorCurrentString(Icon, title, HtmlStyleUtil.CurrentDwarfObject(Name));
 
             if (TargetEntity != null && pov != TargetEntity)

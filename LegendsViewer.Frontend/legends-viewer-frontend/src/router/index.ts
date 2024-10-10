@@ -33,6 +33,16 @@ const routes = [
   { path: '/poeticform/:id', name: 'Poetic Form', component: () => import('../views/PoeticForm.vue') },
   { path: '/writtencontent', name: 'Written Contents', component: () => import('../views/WrittenContents.vue') },
   { path: '/writtencontent/:id', name: 'Written Content', component: () => import('../views/WrittenContent.vue') },
+
+  { path: '/war', name: 'Wars', component: () => import('../views/Wars.vue') },
+  { path: '/battle', name: 'Battles', component: () => import('../views/Battles.vue') },
+  { path: '/duel', name: 'Duels', component: () => import('../views/Duels.vue') },
+  { path: '/insurrection', name: 'Insurrections', component: () => import('../views/Insurrections.vue') },
+  { path: '/persecution', name: 'Persecutions', component: () => import('../views/Persecutions.vue') },
+  { path: '/purge', name: 'Purges', component: () => import('../views/Purges.vue') },
+  { path: '/raid', name: 'Raids', component: () => import('../views/Raids.vue') },
+  { path: '/siteconquered', name: 'Site Conquerings', component: () => import('../views/SiteConquerings.vue') },
+  { path: '/beastattack', name: 'Rampages', component: () => import('../views/BeastAttacks.vue') },
 ]
 
 const router = createRouter({
