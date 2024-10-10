@@ -20,5 +20,6 @@ public enum StructureType
     Tower,
     [Description("Counting House")]
     CountingHouse,
-    Guildhall
+    Guildhall,
+    Hospital
 }

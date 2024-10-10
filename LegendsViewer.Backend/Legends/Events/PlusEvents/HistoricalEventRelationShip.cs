@@ -9,11 +9,12 @@ namespace LegendsViewer.Backend.Legends.Events.PlusEvents;
 public class HistoricalEventRelationShip : WorldEvent
 {
     private int _occasionType; // TODO unknown field
-    private Site _site;
+    private Site? _site;
     private int _unk1; // TODO unknown field
+    private int _reason; // TODO unknown field
 
-    public HistoricalFigure SourceHf { get; set; }
-    public HistoricalFigure TargetHf { get; set; }
+    public HistoricalFigure? SourceHf { get; set; }
+    public HistoricalFigure? TargetHf { get; set; }
     public VagueRelationshipType RelationshipType { get; set; }
 
     public HistoricalEventRelationShip(List<Property> properties, World world) : base(properties, world)
@@ -42,16 +43,17 @@ public class HistoricalEventRelationShip : WorldEvent
             }
         }
 
-        SourceHf.AddEvent(this);
-        TargetHf.AddEvent(this);
+        SourceHf?.AddEvent(this);
+        TargetHf?.AddEvent(this);
     }
 
     public static void ResolveSupplements(List<Property> properties, World world)
     {
-        HistoricalEventRelationShip historicalEventRelationShip = null;
+        HistoricalEventRelationShip? historicalEventRelationShip = null;
         int occasionType = -1;
-        Site site = null;
+        Site? site = null;
         int unk1 = -1;
+        int reason = -1;
         foreach (Property property in properties)
         {
             switch (property.Name)
@@ -72,20 +74,24 @@ public class HistoricalEventRelationShip : WorldEvent
                 case "unk_1":
                     unk1 = Convert.ToInt32(property.Value);
                     break;
+                case "reason":
+                    reason = Convert.ToInt32(property.Value);
+                    break;
             }
         }
 
-        historicalEventRelationShip?.AddSupplements(occasionType, site, unk1);
+        historicalEventRelationShip?.AddSupplements(occasionType, site, unk1, reason);
     }
 
-    private void AddSupplements(int occasionType, Site site, int unk1)
+    private void AddSupplements(int occasionType, Site site, int unk1, int reason)
     {
         _unk1 = unk1;
         _site = site;
         _occasionType = occasionType;
+        _reason = reason;
     }
 
-    public override string Print(bool link = true, DwarfObject pov = null)
+    public override string Print(bool link = true, DwarfObject? pov = null)
     {
         string eventString = GetYearTime();
         switch (RelationshipType)

@@ -9,16 +9,15 @@ public class HfWounded : WorldEvent
     public int WoundeeRace { get; set; }
     public int WoundeeCaste { get; set; }
 
-    // TODO
-    //public int BodyPart { get; set; } // TODO legends_plus.xml
-    public string InjuryType { get; set; } // TODO legends_plus.xml
+    public int BodyPart { get; set; } // TODO legends_plus.xml
+    public string? InjuryType { get; set; } // TODO legends_plus.xml
     public bool PartLost { get; set; } // legends_plus.xml
 
-    public HistoricalFigure Woundee { get; set; }
-    public HistoricalFigure Wounder { get; set; }
-    public Site Site { get; set; }
-    public WorldRegion Region { get; set; }
-    public UndergroundRegion UndergroundRegion { get; set; }
+    public HistoricalFigure? Woundee { get; set; }
+    public HistoricalFigure? Wounder { get; set; }
+    public Site? Site { get; set; }
+    public WorldRegion? Region { get; set; }
+    public UndergroundRegion? UndergroundRegion { get; set; }
     public bool WasTorture { get; set; }
 
     public HfWounded(List<Property> properties, World world)
@@ -38,7 +37,7 @@ public class HfWounded : WorldEvent
                 case "site": if (Site == null) { Site = world.GetSite(Convert.ToInt32(property.Value)); } else { property.Known = true; } break;
                 case "woundee_race": WoundeeRace = Convert.ToInt32(property.Value); break;
                 case "woundee_caste": WoundeeCaste = Convert.ToInt32(property.Value); break;
-                //case "body_part": BodyPart = Convert.ToInt32(property.Value); break;
+                case "body_part": BodyPart = Convert.ToInt32(property.Value); break;
                 case "injury_type": InjuryType = property.Value; break;
                 case "part_lost":
                     if (int.TryParse(property.Value, out int partLost))
@@ -61,16 +60,16 @@ public class HfWounded : WorldEvent
             }
         }
 
-        Woundee.AddEvent(this);
+        Woundee?.AddEvent(this);
         if (Woundee != Wounder)
         {
-            Wounder.AddEvent(this);
+            Wounder?.AddEvent(this);
         }
-        Site.AddEvent(this);
-        Region.AddEvent(this);
-        UndergroundRegion.AddEvent(this);
+        Site?.AddEvent(this);
+        Region?.AddEvent(this);
+        UndergroundRegion?.AddEvent(this);
     }
-    public override string Print(bool link = true, DwarfObject pov = null)
+    public override string Print(bool link = true, DwarfObject? pov = null)
     {
         string eventString = GetYearTime();
         if (Woundee != null)

@@ -35,9 +35,6 @@ public class Abduction : EventCollection
         }
 
         Abductee?.AddEventCollection(this);
-        Region?.AddEventCollection(this);
-        UndergroundRegion?.AddEventCollection(this);
-        Site?.AddEventCollection(this);
         Attacker?.AddEventCollection(this);
         Defender?.AddEventCollection(this);
 

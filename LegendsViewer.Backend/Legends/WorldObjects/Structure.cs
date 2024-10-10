@@ -139,6 +139,7 @@ public class Structure : WorldObject, IHasCoordinates
                         case "counting house":
                             TypeEnum = StructureType.CountingHouse; break;
                         case "guildhall": TypeEnum = StructureType.Guildhall; break;
+                        case "hospital": TypeEnum = StructureType.Hospital; break;
                         default:
                             property.Known = false;
                             break;
@@ -184,6 +185,9 @@ public class Structure : WorldObject, IHasCoordinates
                 break;
             case StructureType.Guildhall:
                 icon = HtmlStyleUtil.GetIconString("town-hall");
+                break;
+            case StructureType.Hospital:
+                icon = HtmlStyleUtil.GetIconString("medication-outline");
                 break;
             default:
                 icon = HtmlStyleUtil.GetIconString("home-silo");

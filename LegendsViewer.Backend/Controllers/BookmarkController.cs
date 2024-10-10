@@ -7,7 +7,11 @@ namespace LegendsViewer.Backend.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-public class BookmarkController(IWorld worldDataService, IWorldMapImageGenerator worldMapImageGenerator, IBookmarkService bookmarkService) : ControllerBase
+public class BookmarkController(
+    ILogger<BookmarkController> logger,
+    IWorld worldDataService,
+    IWorldMapImageGenerator worldMapImageGenerator,
+    IBookmarkService bookmarkService) : ControllerBase
 {
     public const string FileIdentifierLegendsXml = "-legends.xml";
 
@@ -100,6 +104,8 @@ public class BookmarkController(IWorld worldDataService, IWorldMapImageGenerator
 
             // Start parsing the XML asynchronously
             await _worldDataService.ParseAsync(xmlFileName, xmlPlusFileName, historyFileName, sitesAndPopsFileName, mapFileName);
+
+            logger.LogInformation(_worldDataService.Log.ToString());
 
             var bookmark = AddBookmark(filePath, regionName, timestamp);
 

@@ -85,8 +85,8 @@ public class World : IDisposable, IWorld
 
     public readonly Dictionary<string, List<HistoricalFigure>> Breeds = [];
 
-    public readonly StringBuilder Log;
-    public readonly ParsingErrors ParsingErrors;
+    public StringBuilder Log { get; } = new StringBuilder();
+    public ParsingErrors ParsingErrors { get; } = new ParsingErrors();
 
     public readonly List<Era> TempEras = [];
     public bool FilterBattles = true;
@@ -109,8 +109,8 @@ public class World : IDisposable, IWorld
     public World()
     {
         MainRaces.Clear();
-        ParsingErrors = new ParsingErrors();
-        Log = new StringBuilder();
+        Log.Clear();
+        ParsingErrors.Clear();
     }
 
     public async Task ParseAsync(string xmlFile, string? xmlPlusFile, string? historyFile, string? sitesAndPopulationsFile, string? mapFile)
@@ -872,7 +872,7 @@ public class World : IDisposable, IWorld
         _entityEntityLinks.Clear();
 
         MainRaces.Clear();
-        ParsingErrors.Clear();
         Log.Clear();
+        ParsingErrors.Clear();
     }
 }

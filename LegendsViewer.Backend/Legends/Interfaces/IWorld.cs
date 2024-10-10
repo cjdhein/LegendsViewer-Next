@@ -1,7 +1,9 @@
 ﻿using LegendsViewer.Backend.Legends.EventCollections;
 using LegendsViewer.Backend.Legends.Events;
+using LegendsViewer.Backend.Legends.Parser;
 using LegendsViewer.Backend.Legends.Various;
 using LegendsViewer.Backend.Legends.WorldObjects;
+using System.Text;
 
 namespace LegendsViewer.Backend.Legends.Interfaces;
 
@@ -58,6 +60,8 @@ public interface IWorld
     List<CompetitionCollection> Competitions { get; }
     List<CeremonyCollection> Ceremonies { get; }
     List<Occasion> Occasions { get; }
+    StringBuilder Log { get; }
+    ParsingErrors ParsingErrors { get; }
 
     Task ParseAsync(string xmlFile, string? xmlPlusFile, string? historyFile, string? sitesAndPopulationsFile, string? mapFile);
     CreatureInfo GetCreatureInfo(string id);

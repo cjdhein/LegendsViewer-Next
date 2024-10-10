@@ -21,6 +21,7 @@ public class EntityOccasionSchedule
         {
             switch (property.Name)
             {
+                case "id": Id = Convert.ToInt32(property.Value); break;
                 case "type":
                     switch (property.Value)
                     {

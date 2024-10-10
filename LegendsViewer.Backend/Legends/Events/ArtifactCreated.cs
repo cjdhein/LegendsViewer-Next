@@ -7,14 +7,15 @@ namespace LegendsViewer.Backend.Legends.Events;
 
 public class ArtifactCreated : WorldEvent
 {
-    public Artifact Artifact { get; set; }
+    public Artifact? Artifact { get; set; }
     public bool ReceivedName { get; set; }
-    public HistoricalFigure HistoricalFigure { get; set; }
-    public Site Site { get; set; }
-    public HistoricalFigure SanctifyFigure { get; set; }
+    public HistoricalFigure? HistoricalFigure { get; set; }
+    public Site? Site { get; set; }
+    public HistoricalFigure? SanctifyFigure { get; set; }
     public ArtifactReason Reason { get; set; }
     public Circumstance Circumstance { get; set; }
-    public HistoricalFigure DefeatedFigure { get; set; }
+    public HistoricalFigure? DefeatedFigure { get; set; }
+    public Entity? Entity { get; set; }
 
     public ArtifactCreated(List<Property> properties, World world)
         : base(properties, world)
@@ -28,6 +29,7 @@ public class ArtifactCreated : WorldEvent
                 case "creator_hfid":
                     HistoricalFigure = world.GetHistoricalFigure(Convert.ToInt32(property.Value));
                     break;
+                case "entity_id": Entity = world.GetEntity(Convert.ToInt32(property.Value)); break;
                 case "site_id": Site = world.GetSite(Convert.ToInt32(property.Value)); break;
                 case "name_only": ReceivedName = true; property.Known = true; break;
                 case "hfid": if (HistoricalFigure == null) { HistoricalFigure = world.GetHistoricalFigure(Convert.ToInt32(property.Value)); } else { property.Known = true; } break;
@@ -37,7 +39,7 @@ public class ArtifactCreated : WorldEvent
                 case "anon_3":
                     if (property.Value != "-1")
                     {
-                        property.Known = true;
+                        property.Known = false;
                     }
                     break;
                 case "anon_4":
@@ -53,6 +55,10 @@ public class ArtifactCreated : WorldEvent
                         default:
                             property.Known = false;
                             break;
+                    }
+                    if (!property.Known && property.Value.Contains("unknown"))
+                    {
+                        property.Known = true;
                     }
                     break;
                 case "circumstance":
@@ -85,16 +91,17 @@ public class ArtifactCreated : WorldEvent
         {
             Artifact.Creator = HistoricalFigure;
         }
-        Artifact.AddEvent(this);
-        HistoricalFigure.AddEvent(this);
-        Site.AddEvent(this);
-        SanctifyFigure.AddEvent(this);
-        DefeatedFigure.AddEvent(this);
+        Artifact?.AddEvent(this);
+        HistoricalFigure?.AddEvent(this);
+        Site?.AddEvent(this);
+        SanctifyFigure?.AddEvent(this);
+        DefeatedFigure?.AddEvent(this);
+        Entity?.AddEvent(this);
     }
 
-    public override string Print(bool link = true, DwarfObject pov = null)
+    public override string Print(bool link = true, DwarfObject? pov = null)
     {
-        string eventString = GetYearTime() + Artifact.ToLink(link, pov, this);
+        string eventString = GetYearTime() + Artifact?.ToLink(link, pov, this);
         if (ReceivedName)
         {
             eventString += " received its name";

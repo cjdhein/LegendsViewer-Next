@@ -7,7 +7,7 @@ public class ParsingErrors
     private readonly List<string> _reportedErrorTypes = [];
     private readonly StringBuilder _log = new();
 
-    public void Report(string description, string details = null)
+    public void Report(string description, string? details = null)
     {
         if (_reportedErrorTypes.FindIndex(error => error == description) == -1)
         {
