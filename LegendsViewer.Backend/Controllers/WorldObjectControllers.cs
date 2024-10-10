@@ -1,6 +1,7 @@
 ﻿using LegendsViewer.Backend.Legends.WorldObjects;
 using Microsoft.AspNetCore.Mvc;
 using LegendsViewer.Backend.Legends.Interfaces;
+using LegendsViewer.Backend.Legends.EventCollections;
 
 namespace LegendsViewer.Backend.Controllers;
 
@@ -71,5 +72,41 @@ public class ConstructionController(IWorld worldDataService) : WorldObjectGeneri
 }
 
 public class EraController(IWorld worldDataService) : WorldObjectGenericController<Era>(worldDataService.Eras, worldDataService.GetEra)
+{
+}
+
+public class WarController(IWorld worldDataService) : WorldObjectGenericController<War>(worldDataService.Wars, worldDataService.GetEventCollection<War>)
+{
+}
+
+public class BattleController(IWorld worldDataService) : WorldObjectGenericController<Battle>(worldDataService.Battles, worldDataService.GetEventCollection<Battle>)
+{
+}
+
+public class DuelController(IWorld worldDataService) : WorldObjectGenericController<Duel>(worldDataService.Duels, worldDataService.GetEventCollection<Duel>)
+{
+}
+
+public class InsurrectionController(IWorld worldDataService) : WorldObjectGenericController<Insurrection>(worldDataService.Insurrections, worldDataService.GetEventCollection<Insurrection>)
+{
+}
+
+public class PersecutionController(IWorld worldDataService) : WorldObjectGenericController<Persecution>(worldDataService.Persecutions, worldDataService.GetEventCollection<Persecution>)
+{
+}
+
+public class PurgeController(IWorld worldDataService) : WorldObjectGenericController<Purge>(worldDataService.Purges, worldDataService.GetEventCollection<Purge>)
+{
+}
+
+public class RaidController(IWorld worldDataService) : WorldObjectGenericController<Raid>(worldDataService.Raids, worldDataService.GetEventCollection<Raid>)
+{
+}
+
+public class SiteConqueredController(IWorld worldDataService) : WorldObjectGenericController<SiteConquered>(worldDataService.SiteConquerings, worldDataService.GetEventCollection<SiteConquered>)
+{
+}
+
+public class BeastAttackController(IWorld worldDataService) : WorldObjectGenericController<BeastAttack>(worldDataService.BeastAttacks, worldDataService.GetEventCollection<BeastAttack>)
 {
 }

@@ -9,9 +9,7 @@ namespace LegendsViewer.Backend.Legends.EventCollections;
 
 public class Persecution : EventCollection
 {
-    public static readonly string Icon = HtmlStyleUtil.GetIconString("map-marker-alert");
-
-    public int Ordinal;
+    public int Ordinal { get; set; } = -1;
     public Location? Coordinates;
 
     public WorldRegion? Region;
@@ -47,6 +45,8 @@ public class Persecution : EventCollection
         Site?.Warfare.Add(this);
 
         Name = $"{Formatting.AddOrdinal(Ordinal)} persecution";
+
+        Icon = HtmlStyleUtil.GetIconString("map-marker-alert");
     }
 
     public override string ToLink(bool link = true, DwarfObject? pov = null, WorldEvent? worldEvent = null)

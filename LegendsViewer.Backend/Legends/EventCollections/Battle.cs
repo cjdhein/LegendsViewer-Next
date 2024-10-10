@@ -11,8 +11,6 @@ namespace LegendsViewer.Backend.Legends.EventCollections;
 
 public class Battle : EventCollection
 {
-    public static readonly string Icon = HtmlStyleUtil.GetIconString("chess-bishop");
-
     public BattleOutcome Outcome { get; set; }
     public Location? Coordinates { get; set; }
     public Site? Site { get; set; }
@@ -362,6 +360,8 @@ public class Battle : EventCollection
         Site?.AddEventCollection(this);
 
         Site?.Warfare.Add(this);
+
+        Icon = HtmlStyleUtil.GetIconString("chess-bishop");
     }
 
     public class Squad

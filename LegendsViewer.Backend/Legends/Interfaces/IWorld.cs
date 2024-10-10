@@ -43,6 +43,12 @@ public interface IWorld
     List<Population> CivilizedPopulations { get; }
     List<Population> OutdoorPopulations { get; }
     List<Population> UndergroundPopulations { get; }
+    List<Duel> Duels { get; }
+    List<Insurrection> Insurrections { get; }
+    List<Persecution> Persecutions { get; }
+    List<Purge> Purges { get; }
+    List<Raid> Raids { get; }
+    List<SiteConquered> SiteConquerings { get; }
 
     Task ParseAsync(string xmlFile, string? xmlPlusFile, string? historyFile, string? sitesAndPopulationsFile, string? mapFile);
     CreatureInfo GetCreatureInfo(string id);
@@ -67,4 +73,5 @@ public interface IWorld
     MountainPeak? GetMountainPeak(int id);
 
     void Clear();
+    T? GetEventCollection<T>(int id) where T : EventCollection;
 }

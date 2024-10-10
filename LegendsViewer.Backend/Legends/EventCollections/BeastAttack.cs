@@ -9,11 +9,7 @@ namespace LegendsViewer.Backend.Legends.EventCollections;
 
 public class BeastAttack : EventCollection
 {
-    public static readonly string Icon = HtmlStyleUtil.GetIconString("chess-knight");
-
-    public int DeathCount => Deaths.Count;
-
-    public int Ordinal { get; set; }
+    public int Ordinal { get; set; } = -1;
     public Location? Coordinates { get; set; }
     public WorldRegion? Region { get; set; }
     public UndergroundRegion? UndergroundRegion { get; set; }
@@ -32,6 +28,7 @@ public class BeastAttack : EventCollection
     }
 
     public List<HistoricalFigure> Deaths => GetSubEvents().OfType<HfDied>().Select(death => death.HistoricalFigure).ToList();
+    public int DeathCount => Deaths.Count;
 
     // BUG in XML? 
     // ParentCollection was never set prior to DF 0.42.xx and is now often set to an occasion
@@ -42,8 +39,6 @@ public class BeastAttack : EventCollection
     public BeastAttack(List<Property> properties, World world)
         : base(properties, world)
     {
-        Initialize();
-
         foreach (Property property in properties)
         {
             switch (property.Name)
@@ -73,11 +68,7 @@ public class BeastAttack : EventCollection
         Site?.Warfare.Add(this);
 
         Name = $"{Formatting.AddOrdinal(Ordinal)} rampage";
-    }
-
-    private void Initialize()
-    {
-        Ordinal = 1;
+        Icon = HtmlStyleUtil.GetIconString("chess-knight");
     }
 
     public override string ToLink(bool link = true, DwarfObject? pov = null, WorldEvent? worldEvent = null)

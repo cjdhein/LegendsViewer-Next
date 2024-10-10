@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Xml;
 using LegendsViewer.Backend.Legends.Enums;
 using LegendsViewer.Backend.Legends.EventCollections;
@@ -951,6 +952,12 @@ public class XmlParser : IDisposable
     {
         World.Wars.AddRange(World.EventCollections.OfType<War>());
         World.Battles.AddRange(World.EventCollections.OfType<Battle>());
+        World.Duels.AddRange(World.EventCollections.OfType<Duel>());
+        World.Insurrections.AddRange(World.EventCollections.OfType<Insurrection>());
+        World.Persecutions.AddRange(World.EventCollections.OfType<Persecution>());
+        World.Purges.AddRange(World.EventCollections.OfType<Purge>());
+        World.Raids.AddRange(World.EventCollections.OfType<Raid>()); ;
+        World.SiteConquerings.AddRange(World.EventCollections.OfType<SiteConquered>());
         World.BeastAttacks.AddRange(World.EventCollections.OfType<BeastAttack>());
 
         foreach (EventCollection eventCollection in World.EventCollections)

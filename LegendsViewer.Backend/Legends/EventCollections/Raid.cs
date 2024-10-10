@@ -9,8 +9,7 @@ namespace LegendsViewer.Backend.Legends.EventCollections;
 
 public class Raid : EventCollection
 {
-    public static readonly string Icon = HtmlStyleUtil.GetIconString("lightning-bolt");
-    public int Ordinal { get; set; }
+    public int Ordinal { get; set; } = -1;
     public Location? Coordinates { get; set; }
     public Site? Site { get; set; }
 
@@ -65,6 +64,8 @@ public class Raid : EventCollection
         Site?.Warfare.Add(this);
 
         Name = $"{Formatting.AddOrdinal(Ordinal)} raid";
+
+        Icon = HtmlStyleUtil.GetIconString("lightning-bolt");
     }
 
     private void Initialize()

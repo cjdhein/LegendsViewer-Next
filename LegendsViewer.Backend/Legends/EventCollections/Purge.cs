@@ -8,9 +8,7 @@ namespace LegendsViewer.Backend.Legends.EventCollections;
 
 public class Purge : EventCollection
 {
-    public static readonly string Icon = HtmlStyleUtil.GetIconString("map-marker-alert");
-
-    public int Ordinal;
+    public int Ordinal { get; set; } = -1;
     public string? Adjective { get; set; }
     public Site? Site;
 
@@ -34,6 +32,8 @@ public class Purge : EventCollection
         Site?.Warfare.Add(this);
 
         Name = $"{Formatting.AddOrdinal(Ordinal)} {(!string.IsNullOrWhiteSpace(Adjective) ? $"{Adjective.ToLower()} " : "")}purge";
+
+        Icon = HtmlStyleUtil.GetIconString("map-marker-alert");
     }
 
 

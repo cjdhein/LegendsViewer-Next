@@ -8,11 +8,9 @@ namespace LegendsViewer.Backend.Legends.EventCollections;
 
 public class Insurrection : EventCollection
 {
-    public static readonly string Icon = HtmlStyleUtil.GetIconString("map-marker-alert");
-
+    public int Ordinal { get; set; } = -1;
     public Site? Site { get; set; }
     public Entity? TargetEntity { get; set; }
-    public int Ordinal { get; set; }
 
     public List<HistoricalFigure> Deaths => GetSubEvents().OfType<HfDied>().Select(death => death.HistoricalFigure).ToList();
     public int DeathCount => Deaths.Count;
@@ -47,6 +45,7 @@ public class Insurrection : EventCollection
         Site?.Warfare.Add(this);
 
         Name = $"{Formatting.AddOrdinal(Ordinal)} insurrection";
+        Icon = HtmlStyleUtil.GetIconString("map-marker-alert");
     }
 
     public override string ToLink(bool link = true, DwarfObject? pov = null, WorldEvent? worldEvent = null)

@@ -32,9 +32,6 @@ public class World : IDisposable, IWorld
     public List<Site> Sites { get; } = [];
     public List<HistoricalFigure> HistoricalFigures { get; } = [];
     public List<Entity> Entities { get; } = [];
-    public List<War> Wars { get; } = [];
-    public List<Battle> Battles { get; } = [];
-    public List<BeastAttack> BeastAttacks { get; } = [];
     public List<Era> Eras { get; } = [];
     public List<Artifact> Artifacts { get; } = [];
     public List<WorldConstruction> WorldConstructions { get; } = [];
@@ -43,13 +40,25 @@ public class World : IDisposable, IWorld
     public List<DanceForm> DanceForms { get; } = [];
     public List<WrittenContent> WrittenContents { get; } = [];
     public List<Structure> Structures { get; } = [];
-    public List<WorldEvent> Events { get; } = [];
+
     public List<EventCollection> EventCollections { get; } = [];
+    public List<War> Wars { get; } = [];
+    public List<Battle> Battles { get; } = [];
+    public List<Duel> Duels { get; } = [];
+    public List<Insurrection> Insurrections { get; } = [];
+    public List<Persecution> Persecutions { get; } = [];
+    public List<Purge> Purges { get; } = [];
+    public List<Raid> Raids { get; } = [];
+    public List<SiteConquered> SiteConquerings { get; } = [];
+    public List<BeastAttack> BeastAttacks { get; } = [];
+
     public List<EntityPopulation> EntityPopulations { get; } = [];
     public List<Population> SitePopulations { get; } = [];
     public List<Population> CivilizedPopulations { get; } = [];
     public List<Population> OutdoorPopulations { get; } = [];
     public List<Population> UndergroundPopulations { get; } = [];
+
+    public List<WorldEvent> Events { get; } = [];
 
     public int Width { get; set; }
     public int Height { get; set; }
@@ -352,6 +361,8 @@ public class World : IDisposable, IWorld
 
         return id < EntityPopulations.Count && EntityPopulations[id].Id == id ? EntityPopulations[id] : EntityPopulations.GetWorldObject(id);
     }
+
+    public T? GetEventCollection<T>(int id) where T : EventCollection => GetEventCollection(id) as T;
 
     public EventCollection? GetEventCollection(int id)
     {

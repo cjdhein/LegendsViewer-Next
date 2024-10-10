@@ -9,9 +9,7 @@ namespace LegendsViewer.Backend.Legends.EventCollections;
 
 public class Duel : EventCollection
 {
-    public static readonly string Icon = HtmlStyleUtil.GetIconString("fencing");
-
-    public int Ordinal;
+    public int Ordinal { get; set; } = -1;
     public Location? Coordinates;
     public WorldRegion? Region;
     public UndergroundRegion? UndergroundRegion;
@@ -77,6 +75,8 @@ public class Duel : EventCollection
         Site?.Warfare.Add(this);
 
         Name = $"{Formatting.AddOrdinal(Ordinal)} duel";
+
+        Icon = HtmlStyleUtil.GetIconString("fencing");
     }
 
     public override string ToLink(bool link = true, DwarfObject? pov = null, WorldEvent? worldEvent = null)

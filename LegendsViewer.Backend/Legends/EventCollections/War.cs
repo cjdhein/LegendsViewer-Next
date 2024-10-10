@@ -10,8 +10,6 @@ namespace LegendsViewer.Backend.Legends.EventCollections;
 
 public class War : EventCollection
 {
-    public static readonly string Icon = HtmlStyleUtil.GetIconString("sword-cross");
-
     public int Length { get; set; }
     public int DeathCount { get; set; }
     private readonly Dictionary<CreatureInfo, int> _deaths = [];
@@ -99,7 +97,6 @@ public class War : EventCollection
     public War(List<Property> properties, World world)
         : base(properties, world)
     {
-        Initialize();
         foreach (Property property in properties)
         {
             switch (property.Name)
@@ -129,19 +126,7 @@ public class War : EventCollection
         {
             Defender?.AddEventCollection(this);
         }
-    }
-
-    private void Initialize()
-    {
-        Name = "";
-        Length = 0;
-        DeathCount = 0;
-        AttackerDeathCount = 0;
-        DefenderDeathCount = 0;
-        Attacker = null;
-        Defender = null;
-        AttackerVictories = [];
-        DefenderVictories = [];
+        Icon = HtmlStyleUtil.GetIconString("sword-cross");
     }
 
     public override string ToLink(bool link = true, DwarfObject? pov = null, WorldEvent? worldEvent = null)

@@ -9,17 +9,14 @@ namespace LegendsViewer.Backend.Legends.EventCollections;
 
 public class SiteConquered : EventCollection
 {
-    public static readonly string Icon = HtmlStyleUtil.GetIconString("chess-pawn");
-
-    public int DeathCount { get => Deaths.Count; set { } }
-
-    public int Ordinal { get; set; }
+    public int Ordinal { get; set; } = -1;
     public SiteConqueredType ConquerType { get; set; }
     public Site? Site { get; set; }
     public Entity? Attacker { get; set; }
     public Entity? Defender { get; set; }
     public Battle? Battle { get; set; }
     public List<HistoricalFigure> Deaths => GetSubEvents().OfType<HfDied>().Select(death => death.HistoricalFigure).ToList();
+    public int DeathCount => Deaths.Count;
 
     public SiteConquered(List<Property> properties, World world)
         : base(properties, world)
@@ -83,6 +80,8 @@ public class SiteConquered : EventCollection
         Site?.AddEventCollection(this);
 
         Name = $"{Formatting.AddOrdinal(Ordinal)} {ConquerType.GetDescription()}";
+
+        Icon = HtmlStyleUtil.GetIconString("chess-pawn");
     }
 
     public override string ToLink(bool link = true, DwarfObject? pov = null, WorldEvent? worldEvent = null)
