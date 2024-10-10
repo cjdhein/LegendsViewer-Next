@@ -75,6 +75,8 @@ public class EraController(IWorld worldDataService) : WorldObjectGenericControll
 {
 }
 
+// Warfare
+
 public class WarController(IWorld worldDataService) : WorldObjectGenericController<War>(worldDataService.Wars, worldDataService.GetEventCollection<War>)
 {
 }
@@ -86,6 +88,16 @@ public class BattleController(IWorld worldDataService) : WorldObjectGenericContr
 public class DuelController(IWorld worldDataService) : WorldObjectGenericController<Duel>(worldDataService.Duels, worldDataService.GetEventCollection<Duel>)
 {
 }
+
+public class RaidController(IWorld worldDataService) : WorldObjectGenericController<Raid>(worldDataService.Raids, worldDataService.GetEventCollection<Raid>)
+{
+}
+
+public class SiteConqueredController(IWorld worldDataService) : WorldObjectGenericController<SiteConquered>(worldDataService.SiteConquerings, worldDataService.GetEventCollection<SiteConquered>)
+{
+}
+
+// Politcal Conflicts 
 
 public class InsurrectionController(IWorld worldDataService) : WorldObjectGenericController<Insurrection>(worldDataService.Insurrections, worldDataService.GetEventCollection<Insurrection>)
 {
@@ -99,14 +111,18 @@ public class PurgeController(IWorld worldDataService) : WorldObjectGenericContro
 {
 }
 
-public class RaidController(IWorld worldDataService) : WorldObjectGenericController<Raid>(worldDataService.Raids, worldDataService.GetEventCollection<Raid>)
-{
-}
-
-public class SiteConqueredController(IWorld worldDataService) : WorldObjectGenericController<SiteConquered>(worldDataService.SiteConquerings, worldDataService.GetEventCollection<SiteConquered>)
+public class CoupController(IWorld worldDataService) : WorldObjectGenericController<EntityOverthrownCollection>(worldDataService.Coups, worldDataService.GetEventCollection<EntityOverthrownCollection>)
 {
 }
 
 public class BeastAttackController(IWorld worldDataService) : WorldObjectGenericController<BeastAttack>(worldDataService.BeastAttacks, worldDataService.GetEventCollection<BeastAttack>)
+{
+}
+
+public class AbductionController(IWorld worldDataService) : WorldObjectGenericController<Abduction>(worldDataService.Abductions, worldDataService.GetEventCollection<Abduction>)
+{
+}
+
+public class TheftController(IWorld worldDataService) : WorldObjectGenericController<Theft>(worldDataService.Thefts, worldDataService.GetEventCollection<Theft>)
 {
 }

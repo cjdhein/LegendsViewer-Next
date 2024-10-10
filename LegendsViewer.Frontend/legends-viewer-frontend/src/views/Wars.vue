@@ -6,7 +6,7 @@ import { TableHeader } from '../types/legends'; // Adjust the import path as nee
 const store = useWarStore();
 const icon = "mdi-sword-cross";
 const title = "Wars";
-const subtitle = "";
+const subtitle = "The grand conflicts that shaped the course of history";
 const overviewSubtitle = "Browse and search all wars";
 const overviewTitle = "Overview";
 const tableHeaders: TableHeader[] = [ // Specify the type here

@@ -4,9 +4,9 @@ import WorldObjectsPage from '../components/WorldObjectsPage.vue';
 import { TableHeader } from '../types/legends'; // Adjust the import path as needed
 
 const store = usePersecutionStore();
-const icon = "mdi-map-marker-alert";
+const icon = "mdi-gavel";
 const title = "Persecutions";
-const subtitle = "";
+const subtitle = "The systematic oppression of individuals or groups";
 const overviewSubtitle = "Browse and search all persecutions";
 const overviewTitle = "Overview";
 const tableHeaders: TableHeader[] = [ // Specify the type here

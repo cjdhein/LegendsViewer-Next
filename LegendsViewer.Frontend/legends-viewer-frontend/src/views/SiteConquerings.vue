@@ -4,9 +4,9 @@ import WorldObjectsPage from '../components/WorldObjectsPage.vue';
 import { TableHeader } from '../types/legends'; // Adjust the import path as needed
 
 const store = useSiteConqueredStore();
-const icon = "mdi-chess-pawn";
+const icon = "mdi-flag-variant";
 const title = "Site Conquerings";
-const subtitle = "";
+const subtitle = "The capture and occupation of critical strongholds and cities";
 const overviewSubtitle = "Browse and search all site conquerings";
 const overviewTitle = "Overview";
 const tableHeaders: TableHeader[] = [ // Specify the type here

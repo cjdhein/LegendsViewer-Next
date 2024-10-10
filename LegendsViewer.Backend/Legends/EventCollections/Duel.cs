@@ -11,9 +11,6 @@ public class Duel : EventCollection
 {
     public int Ordinal { get; set; } = -1;
     public Location? Coordinates;
-    public WorldRegion? Region;
-    public UndergroundRegion? UndergroundRegion;
-    public Site? Site;
     public HistoricalFigure? Attacker;
     public HistoricalFigure? Defender;
     public Duel(List<Property> properties, World world)
@@ -26,9 +23,6 @@ public class Duel : EventCollection
                 case "ordinal": Ordinal = Convert.ToInt32(property.Value); break;
                 case "coords": Coordinates = Formatting.ConvertToLocation(property.Value); break;
                 case "parent_eventcol": ParentCollection = world.GetEventCollection(Convert.ToInt32(property.Value)); break;
-                case "subregion_id": Region = world.GetRegion(Convert.ToInt32(property.Value)); break;
-                case "feature_layer_id": UndergroundRegion = world.GetUndergroundRegion(Convert.ToInt32(property.Value)); break;
-                case "site_id": Site = world.GetSite(Convert.ToInt32(property.Value)); break;
                 case "attacking_hfid": Attacker = world.GetHistoricalFigure(Convert.ToInt32(property.Value)); break;
                 case "defending_hfid": Defender = world.GetHistoricalFigure(Convert.ToInt32(property.Value)); break;
             }
@@ -68,11 +62,6 @@ public class Duel : EventCollection
         }
         Attacker?.AddEventCollection(this);
         Defender?.AddEventCollection(this);
-        Region?.AddEventCollection(this);
-        UndergroundRegion?.AddEventCollection(this);
-        Site?.AddEventCollection(this);
-
-        Site?.Warfare.Add(this);
 
         Name = $"{Formatting.AddOrdinal(Ordinal)} duel";
 

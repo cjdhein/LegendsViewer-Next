@@ -30,7 +30,6 @@ public class Entity : WorldObject, IHasCoordinates
     public List<List<HistoricalFigure>> Leaders { get; set; } = [];
     // TODO Leaders API
 
-    [JsonIgnore]
     public EntityPopulation? EntityPopulation { get; set; }
 
     public List<Population> Populations { get; set; } = [];
@@ -75,7 +74,21 @@ public class Entity : WorldObject, IHasCoordinates
     [JsonIgnore]
     public List<EntityPositionAssignment> EntityPositionAssignments { get; set; } = []; // legends_plus.xml
 
-    public List<Location> Coordinates => CurrentSites.SelectMany(s => s.Coordinates).ToList(); // legends_plus.xml
+    [JsonIgnore]
+    public Location? FormedAt { get; set; }
+    public List<Location> Coordinates
+    {
+        get
+        {
+            List<Location> locations = [];
+            locations.AddRange(CurrentSites.SelectMany(s => s.Coordinates));
+            if (FormedAt != null)
+            {
+                locations.Add(FormedAt);
+            }
+            return locations; // legends_plus.xml
+        }
+    }
 
     [JsonIgnore]
     public List<EntityOccasion> Occassions { get; set; } = []; // legends_plus.xml

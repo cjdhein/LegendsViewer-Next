@@ -11,22 +11,6 @@ public class Raid : EventCollection
 {
     public int Ordinal { get; set; } = -1;
     public Location? Coordinates { get; set; }
-    public Site? Site { get; set; }
-
-    public WorldRegion? Region
-    {
-        get
-        {
-            if (_region == null && Site?.Region != null)
-            {
-                _region = Site.Region;
-            }
-            return _region;
-        }
-        set => _region = value;
-    }
-
-    public UndergroundRegion? UndergroundRegion { get; set; }
     public Entity? Attacker { get; set; }
     public Entity? Defender { get; set; }
     public int ItemsStolenCount => GetSubEvents().OfType<ItemStolen>().Count();
@@ -48,20 +32,12 @@ public class Raid : EventCollection
                 case "ordinal": Ordinal = Convert.ToInt32(property.Value); break;
                 case "coords": Coordinates = Formatting.ConvertToLocation(property.Value); break;
                 case "parent_eventcol": ParentEventCol = world.GetEventCollection(Convert.ToInt32(property.Value)); break;
-                case "subregion_id": Region = world.GetRegion(Convert.ToInt32(property.Value)); break;
-                case "feature_layer_id": UndergroundRegion = world.GetUndergroundRegion(Convert.ToInt32(property.Value)); break;
-                case "site_id": Site = world.GetSite(Convert.ToInt32(property.Value)); break;
                 case "attacking_enid": Attacker = world.GetEntity(Convert.ToInt32(property.Value)); break;
                 case "defending_enid": Defender = world.GetEntity(Convert.ToInt32(property.Value)); break;
             }
         }
         Attacker?.AddEventCollection(this);
         Defender?.AddEventCollection(this);
-        Region?.AddEventCollection(this);
-        UndergroundRegion?.AddEventCollection(this);
-        Site?.AddEventCollection(this);
-
-        Site?.Warfare.Add(this);
 
         Name = $"{Formatting.AddOrdinal(Ordinal)} raid";
 

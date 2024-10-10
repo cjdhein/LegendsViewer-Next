@@ -6,11 +6,11 @@ namespace LegendsViewer.Backend.Legends.Events;
 
 public class EntityCreated : WorldEvent
 {
-    public Entity Entity { get; set; }
-    public Site Site { get; set; }
+    public Entity? Entity { get; set; }
+    public Site? Site { get; set; }
     public int StructureId { get; set; }
-    public Structure Structure { get; set; }
-    public HistoricalFigure Creator { get; set; }
+    public Structure? Structure { get; set; }
+    public HistoricalFigure? Creator { get; set; }
 
     public EntityCreated(List<Property> properties, World world)
         : base(properties, world)
@@ -33,22 +33,27 @@ public class EntityCreated : WorldEvent
                 Entity.OriginStructure = Structure;
             }
         }
-        Entity.AddEvent(this);
-        Site.AddEvent(this);
-        Structure.AddEvent(this);
+        Entity?.AddEvent(this);
+        Site?.AddEvent(this);
+        Structure?.AddEvent(this);
+        Creator?.AddEvent(this);
+        if (Entity != null && Site != null)
+        {
+            Entity.FormedAt = Site.Coordinates.FirstOrDefault();
+        }
     }
-    public override string Print(bool link = true, DwarfObject pov = null)
+    public override string Print(bool link = true, DwarfObject? pov = null)
     {
         string eventString = GetYearTime();
         if (Creator != null)
         {
             eventString += Creator.ToLink(link, pov, this);
             eventString += " formed ";
-            eventString += Entity.ToLink(link, pov, this);
+            eventString += Entity?.ToLink(link, pov, this);
         }
         else
         {
-            eventString += Entity.ToLink(link, pov, this);
+            eventString += Entity?.ToLink(link, pov, this);
             eventString += " formed";
         }
         if (Structure != null)

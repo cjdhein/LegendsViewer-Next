@@ -9,17 +9,12 @@ namespace LegendsViewer.Backend.Legends.EventCollections;
 
 public class Abduction : EventCollection
 {
-    public static readonly string Icon = HtmlStyleUtil.GetIconString("map-marker-alert");
+    public int Ordinal { get; set; } = -1;
+    public Location? Coordinates { get; set; }
 
-    public int Ordinal;
-    public Location? Coordinates;
-
-    public HistoricalFigure? Abductee;
-    public WorldRegion? Region;
-    public UndergroundRegion? UndergroundRegion;
-    public Site? Site;
-    public Entity? Attacker;
-    public Entity? Defender;
+    public HistoricalFigure? Abductee { get; set; }
+    public Entity? Attacker { get; set; }
+    public Entity? Defender { get; set; }
 
     public Abduction(List<Property> properties, World world)
         : base(properties, world)
@@ -46,9 +41,8 @@ public class Abduction : EventCollection
         Attacker?.AddEventCollection(this);
         Defender?.AddEventCollection(this);
 
-        Site?.Warfare.Add(this);
-
         Name = $"{Formatting.AddOrdinal(Ordinal)} abduction";
+        Icon = HtmlStyleUtil.GetIconString("map-marker-alert");
     }
     public override string ToLink(bool link = true, DwarfObject? pov = null, WorldEvent? worldEvent = null)
     {
@@ -57,7 +51,7 @@ public class Abduction : EventCollection
             string title = GetTitle();
             string linkedString = "the ";
             linkedString += pov != this
-                ? HtmlStyleUtil.GetAnchorString(Icon, "collection", Id, title, Name)
+                ? HtmlStyleUtil.GetAnchorString(Icon, "abduction", Id, title, Name)
                 : HtmlStyleUtil.GetAnchorCurrentString(Icon, title, HtmlStyleUtil.CurrentDwarfObject(Name));
             if (Abductee == null)
             {

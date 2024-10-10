@@ -37,12 +37,17 @@ const routes = [
   { path: '/war', name: 'Wars', component: () => import('../views/Wars.vue') },
   { path: '/battle', name: 'Battles', component: () => import('../views/Battles.vue') },
   { path: '/duel', name: 'Duels', component: () => import('../views/Duels.vue') },
+  { path: '/raid', name: 'Raids', component: () => import('../views/Raids.vue') },
+  { path: '/siteconquered', name: 'Site Conquerings', component: () => import('../views/SiteConquerings.vue') },
+
   { path: '/insurrection', name: 'Insurrections', component: () => import('../views/Insurrections.vue') },
   { path: '/persecution', name: 'Persecutions', component: () => import('../views/Persecutions.vue') },
   { path: '/purge', name: 'Purges', component: () => import('../views/Purges.vue') },
-  { path: '/raid', name: 'Raids', component: () => import('../views/Raids.vue') },
-  { path: '/siteconquered', name: 'Site Conquerings', component: () => import('../views/SiteConquerings.vue') },
+  { path: '/coup', name: 'Coups', component: () => import('../views/Coups.vue') },
+
   { path: '/beastattack', name: 'Rampages', component: () => import('../views/BeastAttacks.vue') },
+  { path: '/abduction', name: 'Abductions', component: () => import('../views/Abductions.vue') },
+  { path: '/theft', name: 'Thefts', component: () => import('../views/Thefts.vue') },
 ]
 
 const router = createRouter({

@@ -11,9 +11,6 @@ public class BeastAttack : EventCollection
 {
     public int Ordinal { get; set; } = -1;
     public Location? Coordinates { get; set; }
-    public WorldRegion? Region { get; set; }
-    public UndergroundRegion? UndergroundRegion { get; set; }
-    public Site? Site { get; set; }
     public Entity? Defender { get; set; }
 
     private HistoricalFigure? _beast;
@@ -46,9 +43,6 @@ public class BeastAttack : EventCollection
                 case "ordinal": Ordinal = Convert.ToInt32(property.Value); break;
                 case "coords": Coordinates = Formatting.ConvertToLocation(property.Value); break;
                 case "parent_eventcol": ParentEventCol = world.GetEventCollection(Convert.ToInt32(property.Value)); break;
-                case "subregion_id": Region = world.GetRegion(Convert.ToInt32(property.Value)); break;
-                case "feature_layer_id": UndergroundRegion = world.GetUndergroundRegion(Convert.ToInt32(property.Value)); break;
-                case "site_id": Site = world.GetSite(Convert.ToInt32(property.Value)); break;
                 case "defending_enid": Defender = world.GetEntity(Convert.ToInt32(property.Value)); break;
             }
         }
@@ -61,14 +55,9 @@ public class BeastAttack : EventCollection
         //-------Fill in some missing event details with details from collection
         //-------Filled in after parsing event collections in ParseXML()
         Defender?.AddEventCollection(this);
-        Region?.AddEventCollection(this);
-        UndergroundRegion?.AddEventCollection(this);
-        Site?.AddEventCollection(this);
-
-        Site?.Warfare.Add(this);
 
         Name = $"{Formatting.AddOrdinal(Ordinal)} rampage";
-        Icon = HtmlStyleUtil.GetIconString("chess-knight");
+        Icon = HtmlStyleUtil.GetIconString("weather-hurricane");
     }
 
     public override string ToLink(bool link = true, DwarfObject? pov = null, WorldEvent? worldEvent = null)

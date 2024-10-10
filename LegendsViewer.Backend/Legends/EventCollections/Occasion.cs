@@ -8,8 +8,8 @@ namespace LegendsViewer.Backend.Legends.EventCollections;
 
 public class Occasion : EventCollection
 {
+    public int Ordinal { get; set; } = -1;
     public Entity? Civ { get; set; }
-    public int Ordinal { get; set; }
     public int OccasionId { get; set; }
     public EntityOccasion? EntityOccasion { get; set; }
 

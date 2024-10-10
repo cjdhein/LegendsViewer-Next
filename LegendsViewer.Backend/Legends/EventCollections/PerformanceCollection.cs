@@ -5,7 +5,8 @@ namespace LegendsViewer.Backend.Legends.EventCollections;
 
 public class PerformanceCollection : EventCollection
 {
-    public int Ordinal;
+    public int Ordinal { get; set; } = -1;
+
     public PerformanceCollection(List<Property> properties, World world)
         : base(properties, world)
     {

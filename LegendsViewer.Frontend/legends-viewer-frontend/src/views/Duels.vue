@@ -6,7 +6,7 @@ import { TableHeader } from '../types/legends'; // Adjust the import path as nee
 const store = useDuelStore();
 const icon = "mdi-fencing";
 const title = "Duels";
-const subtitle = "";
+const subtitle = "Personal combat between champions, where honor and skill are tested";
 const overviewSubtitle = "Browse and search all duels";
 const overviewTitle = "Overview";
 const tableHeaders: TableHeader[] = [ // Specify the type here

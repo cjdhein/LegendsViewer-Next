@@ -5,7 +5,7 @@ namespace LegendsViewer.Backend.Legends.EventCollections;
 
 public class ProcessionCollection : EventCollection
 {
-    public int Ordinal;
+    public int Ordinal { get; set; } = -1;
 
     public ProcessionCollection(List<Property> properties, World world)
         : base(properties, world)

@@ -4,7 +4,7 @@ const bookmarkStore = useBookmarkStore()
 bookmarkStore.getAll()
 
 const societyItems = [
-  { title: 'Entities', to: '/entity' },
+  { title: 'Factions and Groups', to: '/entity' },
   { title: 'Historical Figures', to: '/hf' },
 ];
 const geographyItems = [
@@ -30,12 +30,19 @@ const warfareItems = [
   { title: 'Wars', to: '/war' },
   { title: 'Battles', to: '/battle' },
   { title: 'Duels', to: '/duel' },
+  { title: 'Raids', to: '/raid' },
+  { title: 'Site Conquerings', to: '/siteconquered' },
+];
+const conflictsItems = [
   { title: 'Insurrections', to: '/insurrection' },
   { title: 'Persecutions', to: '/persecution' },
   { title: 'Purges', to: '/purge' },
-  { title: 'Raids', to: '/raid' },
-  { title: 'Site Conquerings', to: '/siteconquered' },
-  { title: 'Rampages', to: '/beastattack' },
+  { title: 'Coups', to: '/coup' },
+];
+const calamitiesItems = [
+{ title: 'Rampages', to: '/beastattack' },
+{ title: 'Abductions', to: '/abduction' },
+{ title: 'Thefts', to: '/theft' },
 ];
 </script>
 
@@ -57,9 +64,9 @@ const warfareItems = [
             :active-class="'v-list-item--active'" />
           <v-list-item prepend-icon="mdi-map-search-outline" title="Map" to="/map" :active-class="'v-list-item--active'"
             :disabled="bookmarkStore?.isLoaded == false" />
-          <v-list-group value="Factions & Figures">
+          <v-list-group value="Society">
             <template v-slot:activator="{ props }">
-              <v-list-item v-bind="props" prepend-icon="mdi-account-group" title="Factions & Figures" :disabled="bookmarkStore?.isLoaded == false"></v-list-item>
+              <v-list-item v-bind="props" prepend-icon="mdi-account-group-outline" title="Society" :disabled="bookmarkStore?.isLoaded == false"></v-list-item>
             </template>
             <template v-for="(item, i) in societyItems" :key="i">
               <v-list-item :value="item.title + i" :title="item.title" :to="item.to"
@@ -98,6 +105,24 @@ const warfareItems = [
               <v-list-item v-bind="props" prepend-icon="mdi-sword-cross" title="Warfare" :disabled="bookmarkStore?.isLoaded == false"></v-list-item>
             </template>
             <template v-for="(item, i) in warfareItems" :key="i">
+              <v-list-item :value="item.title + i" :title="item.title" :to="item.to"
+                :disabled="bookmarkStore?.isLoaded == false" />
+            </template>
+          </v-list-group>
+          <v-list-group value="Conflicts">
+            <template v-slot:activator="{ props }">
+              <v-list-item v-bind="props" prepend-icon="mdi-shield-alert-outline" title="Conflicts" :disabled="bookmarkStore?.isLoaded == false"></v-list-item>
+            </template>
+            <template v-for="(item, i) in conflictsItems" :key="i">
+              <v-list-item :value="item.title + i" :title="item.title" :to="item.to"
+                :disabled="bookmarkStore?.isLoaded == false" />
+            </template>
+          </v-list-group>
+          <v-list-group value="Calamities">
+            <template v-slot:activator="{ props }">
+              <v-list-item v-bind="props" prepend-icon="mdi-alert-circle-outline" title="Calamities" :disabled="bookmarkStore?.isLoaded == false"></v-list-item>
+            </template>
+            <template v-for="(item, i) in calamitiesItems" :key="i">
               <v-list-item :value="item.title + i" :title="item.title" :to="item.to"
                 :disabled="bookmarkStore?.isLoaded == false" />
             </template>

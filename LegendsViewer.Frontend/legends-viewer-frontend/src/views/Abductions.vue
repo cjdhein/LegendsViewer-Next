@@ -1,13 +1,13 @@
 <script setup lang="ts">
-import { usePurgeStore } from '../stores/worldObjectStores';
+import { useAbductionStore } from '../stores/worldObjectStores';
 import WorldObjectsPage from '../components/WorldObjectsPage.vue';
 import { TableHeader } from '../types/legends'; // Adjust the import path as needed
 
-const store = usePurgeStore();
-const icon = "mdi-skull-crossbones-outline";
-const title = "Purges";
-const subtitle = "The violent removal of political rivals and perceived threats";
-const overviewSubtitle = "Browse and search all purges";
+const store = useAbductionStore();
+const icon = "mdi-map-marker-alert";
+const title = "Abductions";
+const subtitle = "Forcible capture of individuals, often for ransom or political gain";
+const overviewSubtitle = "Browse and search all abductions";
 const overviewTitle = "Overview";
 const tableHeaders: TableHeader[] = [ // Specify the type here
     { title: 'Id', key: 'id', align: 'end' },

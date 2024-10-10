@@ -12,7 +12,6 @@ using LegendsViewer.Backend.Legends.Various;
 using LegendsViewer.Backend.Legends.WorldLinks;
 using LegendsViewer.Backend.Legends.WorldObjects;
 using LegendsViewer.Backend.Utilities;
-using SkiaSharp;
 
 namespace LegendsViewer.Backend.Legends;
 
@@ -48,9 +47,12 @@ public class World : IDisposable, IWorld
     public List<Insurrection> Insurrections { get; } = [];
     public List<Persecution> Persecutions { get; } = [];
     public List<Purge> Purges { get; } = [];
+    public List<EntityOverthrownCollection> Coups { get; } = [];
     public List<Raid> Raids { get; } = [];
     public List<SiteConquered> SiteConquerings { get; } = [];
     public List<BeastAttack> BeastAttacks { get; } = [];
+    public List<Abduction> Abductions { get; } = [];
+    public List<Theft> Thefts { get; } = [];
 
     public List<EntityPopulation> EntityPopulations { get; } = [];
     public List<Population> SitePopulations { get; } = [];
@@ -158,7 +160,7 @@ public class World : IDisposable, IWorld
     {
         foreach (var entity in Entities.Where(e => e.EntityType == EntityType.Civilization))
         {
-            if (!entity.IsCiv && entity.SiteHistory.Count > 0)
+            if (!entity.IsCiv && !string.IsNullOrWhiteSpace(entity.Name))
             {
                 entity.IsCiv = true;
             }
@@ -223,16 +225,20 @@ public class World : IDisposable, IWorld
 
             const int alpha = 176;
 
-            if (!MainRaces.ContainsKey(civ.Race))
-            {
-                MainRaces.Add(civ.Race, raceColor);
-            }
+            MainRaces.TryAdd(civ.Race, raceColor);
+
             civ.LineColor = Color.FromArgb(alpha, raceColor);
 
             foreach (var childGroup in civ.Groups)
             {
                 childGroup.LineColor = civ.LineColor;
             }
+        }
+
+        // generate Subtypes that need color infos
+        foreach (var collection in EventCollections.OfType<IHasComplexSubtype>())
+        {
+            collection.GenerateComplexSubType();
         }
     }
 

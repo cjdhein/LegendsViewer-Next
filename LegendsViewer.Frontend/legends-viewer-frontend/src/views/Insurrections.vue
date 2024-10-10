@@ -6,14 +6,13 @@ import { TableHeader } from '../types/legends'; // Adjust the import path as nee
 const store = useInsurrectionStore();
 const icon = "mdi-map-marker-alert";
 const title = "Insurrections";
-const subtitle = "";
+const subtitle = "Uprisings and rebellions challenging the established order";
 const overviewSubtitle = "Browse and search all insurrections";
 const overviewTitle = "Overview";
 const tableHeaders: TableHeader[] = [ // Specify the type here
     { title: 'Id', key: 'id', align: 'end' },
     { title: 'Name', key: 'name', align: 'start' },
     { title: 'Type', key: 'type', align: 'start' },
-    { title: 'Subtype', key: 'subtype', align: 'start' },
     { title: 'Link', key: 'html', align: 'start' },
     { title: 'Events', key: 'eventCount', align: 'end' },
 ];

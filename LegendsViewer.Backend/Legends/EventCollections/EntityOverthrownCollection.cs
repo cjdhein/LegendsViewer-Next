@@ -9,13 +9,9 @@ namespace LegendsViewer.Backend.Legends.EventCollections;
 
 public class EntityOverthrownCollection : EventCollection
 {
-    public int Ordinal;
-    public Location? Coordinates;
-
-    public WorldRegion? Region;
-    public UndergroundRegion? UndergroundRegion;
-    public Site? Site;
-    public Entity? TargetEntity;
+    public int Ordinal { get; set; } = -1;
+    public Location? Coordinates { get; set; }
+    public Entity? TargetEntity { get; set; }
 
     public EntityOverthrownCollection(List<Property> properties, World world)
         : base(properties, world)
@@ -27,20 +23,56 @@ public class EntityOverthrownCollection : EventCollection
                 case "ordinal": Ordinal = Convert.ToInt32(property.Value); break;
                 case "coords": Coordinates = Formatting.ConvertToLocation(property.Value); break;
                 case "parent_eventcol": ParentCollection = world.GetEventCollection(Convert.ToInt32(property.Value)); break;
-                case "site_id": Site = world.GetSite(Convert.ToInt32(property.Value)); break;
-                case "subregion_id": Region = world.GetRegion(Convert.ToInt32(property.Value)); break;
-                case "feature_layer_id": UndergroundRegion = world.GetUndergroundRegion(Convert.ToInt32(property.Value)); break;
                 case "target_entity_id": TargetEntity = world.GetEntity(Convert.ToInt32(property.Value)); break;
             }
         }
 
-        Region?.AddEventCollection(this);
-        UndergroundRegion?.AddEventCollection(this);
-        Site?.AddEventCollection(this);
         TargetEntity?.AddEventCollection(this);
+
+        Name = $"{Formatting.AddOrdinal(Ordinal)} coup";
+
+        Icon = HtmlStyleUtil.GetIconString("alert-decagram-outline");
     }
     public override string ToLink(bool link = true, DwarfObject? pov = null, WorldEvent? worldEvent = null)
     {
-        return "a coup";
+        if (link)
+        {
+            string title = GetTitle();
+
+            string linkedString = pov != this
+                ? HtmlStyleUtil.GetAnchorString(Icon, "coup", Id, title, Name)
+                : HtmlStyleUtil.GetAnchorCurrentString(Icon, title, HtmlStyleUtil.CurrentDwarfObject(Name));
+
+            if (Site != null && pov != Site)
+            {
+                linkedString += $" in {Site.ToLink(true, this)}";
+            }
+
+            if (Region != null && pov != Region)
+            {
+                linkedString += $" in {Region.ToLink(true, this)}";
+            }
+
+            if (UndergroundRegion != null && pov != UndergroundRegion)
+            {
+                linkedString += $" in {UndergroundRegion.ToLink(true, this)}";
+            }
+            return linkedString;
+        }
+        return Name;
+    }
+
+    private string GetTitle()
+    {
+        string title = Type;
+        title += "&#13";
+        title += "Target: ";
+        title += TargetEntity != null ? TargetEntity.ToLink(false) : "UNKNOWN";
+        return title;
+    }
+
+    public override string ToString()
+    {
+        return $"the {Name} against {TargetEntity?.Name}";
     }
 }

@@ -16,6 +16,7 @@ public class EntityPopulation : WorldObject
 
     [JsonIgnore]
     public List<HistoricalFigure> Members { get; set; } = [];
+    [JsonIgnore]
     public List<string> MemberLinks => Members.ConvertAll(x => x.ToLink(true));
 
     public EntityPopulation(List<Property> properties, World world)

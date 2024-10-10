@@ -2,6 +2,7 @@
 using LegendsViewer.Backend.Legends.Events;
 using LegendsViewer.Backend.Legends.Extensions;
 using LegendsViewer.Backend.Legends.IncidentalEvents;
+using LegendsViewer.Backend.Legends.Interfaces;
 using LegendsViewer.Backend.Legends.Parser;
 using LegendsViewer.Backend.Legends.Various;
 using LegendsViewer.Backend.Legends.WorldObjects;
@@ -9,26 +10,10 @@ using LegendsViewer.Backend.Utilities;
 
 namespace LegendsViewer.Backend.Legends.EventCollections;
 
-public class Battle : EventCollection
+public class Battle : EventCollection, IHasComplexSubtype
 {
     public BattleOutcome Outcome { get; set; }
     public Location? Coordinates { get; set; }
-    public Site? Site { get; set; }
-
-    public WorldRegion? Region
-    {
-        get
-        {
-            if (_region == null && Site?.Region != null)
-            {
-                _region = Site.Region;
-            }
-            return _region;
-        }
-        set => _region = value;
-    }
-
-    public UndergroundRegion? UndergroundRegion { get; set; }
     public SiteConquered? Conquering { get; set; }
     public Entity? Attacker { get; set; }
     public Entity? Defender { get; set; }
@@ -123,9 +108,6 @@ public class Battle : EventCollection
                 case "name": Name = Formatting.InitCaps(property.Value); break;
                 case "coords": Coordinates = Formatting.ConvertToLocation(property.Value); break;
                 case "war_eventcol": ParentCollection = world.GetEventCollection(Convert.ToInt32(property.Value)); break;
-                case "subregion_id": Region = world.GetRegion(Convert.ToInt32(property.Value)); break;
-                case "feature_layer_id": UndergroundRegion = world.GetUndergroundRegion(Convert.ToInt32(property.Value)); break;
-                case "site_id": Site = world.GetSite(Convert.ToInt32(property.Value)); break;
                 case "attacking_hfid":
                     HistoricalFigure? attackingHf = world.GetHistoricalFigure(Convert.ToInt32(property.Value));
                     if (attackingHf != null)
@@ -355,15 +337,16 @@ public class Battle : EventCollection
         {
             Defender?.AddEventCollection(this);
         }
-        Region?.AddEventCollection(this);
-        UndergroundRegion?.AddEventCollection(this);
-        Site?.AddEventCollection(this);
-
-        Site?.Warfare.Add(this);
-
-        Subtype = $"{Attacker?.ToLink(true, this)}{(Victor != null && Victor == Attacker ? "(V)" : "")} => {Defender?.ToLink(true, this)}{(Victor != null && Victor == Defender ? "(V)" : "")}";
 
         Icon = HtmlStyleUtil.GetIconString("chess-bishop");
+    }
+
+    public void GenerateComplexSubType()
+    {
+        if (string.IsNullOrEmpty(Subtype))
+        {
+            Subtype = $"{Attacker?.ToLink(true, this)}{(Victor != null && Victor == Attacker ? "(V)" : "")} => {Defender?.ToLink(true, this)}{(Victor != null && Victor == Defender ? "(V)" : "")}";
+        }
     }
 
     public class Squad

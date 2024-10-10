@@ -6,7 +6,7 @@ import { TableHeader } from '../types/legends'; // Adjust the import path as nee
 const store = useRaidStore();
 const icon = "mdi-lightning-bolt";
 const title = "Raids";
-const subtitle = "";
+const subtitle = "Swift and strategic attacks on settlements and resources";
 const overviewSubtitle = "Browse and search all raids";
 const overviewTitle = "Overview";
 const tableHeaders: TableHeader[] = [ // Specify the type here

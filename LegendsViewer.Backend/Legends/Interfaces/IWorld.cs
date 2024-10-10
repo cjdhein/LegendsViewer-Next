@@ -49,6 +49,9 @@ public interface IWorld
     List<Purge> Purges { get; }
     List<Raid> Raids { get; }
     List<SiteConquered> SiteConquerings { get; }
+    List<EntityOverthrownCollection> Coups { get; }
+    List<Abduction> Abductions { get; }
+    List<Theft> Thefts { get; }
 
     Task ParseAsync(string xmlFile, string? xmlPlusFile, string? historyFile, string? sitesAndPopulationsFile, string? mapFile);
     CreatureInfo GetCreatureInfo(string id);

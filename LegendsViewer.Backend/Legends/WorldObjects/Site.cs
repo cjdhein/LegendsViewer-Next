@@ -29,42 +29,43 @@ public class Site : WorldObject, IHasCoordinates
     public List<string> StructuresLinks => Structures.ConvertAll(x => x.ToLink(true, this));
 
     [JsonIgnore]
-    public List<EventCollection> Warfare { get; set; } = [];
-
-    [JsonIgnore]
-    public List<Battle> Battles => Warfare.OfType<Battle>().ToList();
+    public List<Battle> Battles => EventCollections.OfType<Battle>().ToList();
     public List<string> BattleLinks => Battles.ConvertAll(x => x.ToLink(true, this));
 
     [JsonIgnore]
-    public List<SiteConquered> Conquerings => Warfare.OfType<SiteConquered>().ToList();
+    public List<SiteConquered> Conquerings => EventCollections.OfType<SiteConquered>().ToList();
     public List<string> ConqueringLinks => Conquerings.ConvertAll(x => x.ToLink(true, this));
 
     [JsonIgnore]
-    public List<Raid> Raids => Warfare.OfType<Raid>().ToList();
+    public List<Raid> Raids => EventCollections.OfType<Raid>().ToList();
     public List<string> RaidLinks => Raids.ConvertAll(x => x.ToLink(true, this));
 
     [JsonIgnore]
-    public List<Purge> Purges => Warfare.OfType<Purge>().ToList();
-    public List<string> PurgeLinks => Purges.ConvertAll(x => x.ToLink(true, this));
-
-    [JsonIgnore]
-    public List<Persecution> Persecutions => Warfare.OfType<Persecution>().ToList();
-    public List<string> PersecutionLinks => Persecutions.ConvertAll(x => x.ToLink(true, this));
-
-    [JsonIgnore]
-    public List<Insurrection> Insurrections => Warfare.OfType<Insurrection>().ToList();
-    public List<string> InsurrectionLinks => Insurrections.ConvertAll(x => x.ToLink(true, this));
-
-    [JsonIgnore]
-    public List<Duel> Duels => Warfare.OfType<Duel>().ToList();
+    public List<Duel> Duels => EventCollections.OfType<Duel>().ToList();
     public List<string> DuelLinks => Duels.ConvertAll(x => x.ToLink(true, this));
 
     [JsonIgnore]
-    public List<Abduction> Abductions => Warfare.OfType<Abduction>().ToList();
+    public List<Purge> Purges => EventCollections.OfType<Purge>().ToList();
+    public List<string> PurgeLinks => Purges.ConvertAll(x => x.ToLink(true, this));
+
+    [JsonIgnore]
+    public List<Persecution> Persecutions => EventCollections.OfType<Persecution>().ToList();
+    public List<string> PersecutionLinks => Persecutions.ConvertAll(x => x.ToLink(true, this));
+
+    [JsonIgnore]
+    public List<Insurrection> Insurrections => EventCollections.OfType<Insurrection>().ToList();
+    public List<string> InsurrectionLinks => Insurrections.ConvertAll(x => x.ToLink(true, this));
+
+    [JsonIgnore]
+    public List<EntityOverthrownCollection> Coups => EventCollections.OfType<EntityOverthrownCollection>().ToList();
+    public List<string> CoupLinks => Coups.ConvertAll(x => x.ToLink(true, this));
+
+    [JsonIgnore]
+    public List<Abduction> Abductions => EventCollections.OfType<Abduction>().ToList();
     public List<string> AbductionLinks => Abductions.ConvertAll(x => x.ToLink(true, this));
 
     [JsonIgnore]
-    public List<BeastAttack> BeastAttacks => Warfare.OfType<BeastAttack>().ToList();
+    public List<BeastAttack> BeastAttacks => EventCollections.OfType<BeastAttack>().ToList();
     public List<string> BeastAttackLinks => BeastAttacks.ConvertAll(x => x.ToLink(true, this));
 
     [JsonIgnore]
@@ -128,7 +129,7 @@ public class Site : WorldObject, IHasCoordinates
             {
                 deathsByRace.Labels.Add(death.Key.NamePlural);
                 deathsByRaceDataset.Data.Add(death.Value);
-                if (World.MainRaces.TryGetValue(death.Key, out var raceColor))
+                if (World != null && World.MainRaces.TryGetValue(death.Key, out var raceColor))
                 {
                     deathsByRaceDataset.BorderColor.Add(raceColor.ToRgbaString());
                     deathsByRaceDataset.BackgroundColor.Add(raceColor.ToRgbaString(0.2f));

@@ -1,6 +1,7 @@
 ﻿using LegendsViewer.Backend.Legends.Enums;
 using LegendsViewer.Backend.Legends.Events;
 using LegendsViewer.Backend.Legends.Extensions;
+using LegendsViewer.Backend.Legends.Interfaces;
 using LegendsViewer.Backend.Legends.Parser;
 using LegendsViewer.Backend.Legends.Various;
 using LegendsViewer.Backend.Legends.WorldObjects;
@@ -8,7 +9,7 @@ using LegendsViewer.Backend.Utilities;
 
 namespace LegendsViewer.Backend.Legends.EventCollections;
 
-public class War : EventCollection
+public class War : EventCollection, IHasComplexSubtype
 {
     public int Length { get; set; }
     public int DeathCount { get; set; }
@@ -127,9 +128,15 @@ public class War : EventCollection
             Defender?.AddEventCollection(this);
         }
 
-        Subtype = $"{Attacker?.ToLink(true, this)} => {Defender?.ToLink(true, this)}";
-
         Icon = HtmlStyleUtil.GetIconString("sword-cross");
+    }
+
+    public void GenerateComplexSubType()
+    {
+        if (string.IsNullOrEmpty(Subtype))
+        {
+            Subtype = $"{Attacker?.ToLink(true, this)} => {Defender?.ToLink(true, this)}";
+        }
     }
 
     public override string ToLink(bool link = true, DwarfObject? pov = null, WorldEvent? worldEvent = null)

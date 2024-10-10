@@ -4,9 +4,9 @@ import WorldObjectsPage from '../components/WorldObjectsPage.vue';
 import { TableHeader } from '../types/legends'; // Adjust the import path as needed
 
 const store = useBeastAttackStore();
-const icon = "mdi-chess-knight";
+const icon = "mdi-weather-hurricane";
 const title = "Rampages";
-const subtitle = "";
+const subtitle = "Devastating attacks led by wild beasts or rampaging entities";
 const overviewSubtitle = "Browse and search all rampages";
 const overviewTitle = "Overview";
 const tableHeaders: TableHeader[] = [ // Specify the type here

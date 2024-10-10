@@ -11,7 +11,6 @@ public class SiteConquered : EventCollection
 {
     public int Ordinal { get; set; } = -1;
     public SiteConqueredType ConquerType { get; set; }
-    public Site? Site { get; set; }
     public Entity? Attacker { get; set; }
     public Entity? Defender { get; set; }
     public Battle? Battle { get; set; }
@@ -27,7 +26,6 @@ public class SiteConquered : EventCollection
             {
                 case "ordinal": Ordinal = Convert.ToInt32(property.Value); break;
                 case "war_eventcol": ParentCollection = world.GetEventCollection(Convert.ToInt32(property.Value)); break;
-                case "site_id": Site = world.GetSite(Convert.ToInt32(property.Value)); break;
                 case "attacking_enid": Attacker = world.GetEntity(Convert.ToInt32(property.Value)); break;
                 case "defending_enid": Defender = world.GetEntity(Convert.ToInt32(property.Value)); break;
             }
@@ -56,8 +54,6 @@ public class SiteConquered : EventCollection
         {
             Notable = false;
         }
-
-        Site?.Warfare.Add(this);
         if (ParentCollection is War)
         {
             War? war = ParentCollection as War;
@@ -77,11 +73,10 @@ public class SiteConquered : EventCollection
         }
         Attacker?.AddEventCollection(this);
         Defender?.AddEventCollection(this);
-        Site?.AddEventCollection(this);
 
         Name = $"{Formatting.AddOrdinal(Ordinal)} {ConquerType.GetDescription()}";
         Subtype = ConquerType.GetDescription();
-        Icon = HtmlStyleUtil.GetIconString("chess-pawn");
+        Icon = HtmlStyleUtil.GetIconString("flag-variant");
     }
 
     public override string ToLink(bool link = true, DwarfObject? pov = null, WorldEvent? worldEvent = null)

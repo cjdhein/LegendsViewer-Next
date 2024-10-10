@@ -9,7 +9,6 @@ namespace LegendsViewer.Backend.Legends.EventCollections;
 public class Insurrection : EventCollection
 {
     public int Ordinal { get; set; } = -1;
-    public Site? Site { get; set; }
     public Entity? TargetEntity { get; set; }
 
     public List<HistoricalFigure> Deaths => GetSubEvents().OfType<HfDied>().Select(death => death.HistoricalFigure).ToList();
@@ -22,9 +21,6 @@ public class Insurrection : EventCollection
         {
             switch (property.Name)
             {
-                case "site_id":
-                    Site = world.GetSite(Convert.ToInt32(property.Value));
-                    break;
                 case "target_enid":
                     TargetEntity = world.GetEntity(Convert.ToInt32(property.Value));
                     break;
@@ -40,9 +36,6 @@ public class Insurrection : EventCollection
             insurrectionStart.ActualStart = true;
         }
         TargetEntity?.AddEventCollection(this);
-        Site?.AddEventCollection(this);
-
-        Site?.Warfare.Add(this);
 
         Name = $"{Formatting.AddOrdinal(Ordinal)} insurrection";
         Icon = HtmlStyleUtil.GetIconString("map-marker-alert");
