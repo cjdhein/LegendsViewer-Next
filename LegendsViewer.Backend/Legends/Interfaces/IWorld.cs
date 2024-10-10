@@ -52,6 +52,12 @@ public interface IWorld
     List<EntityOverthrownCollection> Coups { get; }
     List<Abduction> Abductions { get; }
     List<Theft> Thefts { get; }
+    List<ProcessionCollection> Processions { get; }
+    List<PerformanceCollection> Performances { get; }
+    List<Journey> Journeys { get; }
+    List<CompetitionCollection> Competitions { get; }
+    List<CeremonyCollection> Ceremonies { get; }
+    List<Occasion> Occasions { get; }
 
     Task ParseAsync(string xmlFile, string? xmlPlusFile, string? historyFile, string? sitesAndPopulationsFile, string? mapFile);
     CreatureInfo GetCreatureInfo(string id);

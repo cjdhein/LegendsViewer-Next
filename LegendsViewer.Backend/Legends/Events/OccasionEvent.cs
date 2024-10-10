@@ -9,16 +9,16 @@ namespace LegendsViewer.Backend.Legends.Events;
 
 public class OccasionEvent : WorldEvent
 {
-    public Entity Civ { get; set; }
-    public Site Site { get; set; }
-    public WorldRegion Region { get; set; }
-    public UndergroundRegion UndergroundRegion { get; set; }
+    public Entity? Civ { get; set; }
+    public Site? Site { get; set; }
+    public WorldRegion? Region { get; set; }
+    public UndergroundRegion? UndergroundRegion { get; set; }
     public int OccasionId { get; set; }
     public int ScheduleId { get; set; }
     public OccasionType OccasionType { get; set; }
-    public EntityOccasion EntityOccasion { get; set; }
-    public EntityOccasionSchedule Schedule { get; set; }
-    public ArtForm ReferencedArtForm { get; set; }
+    public EntityOccasion? EntityOccasion { get; set; }
+    public EntityOccasionSchedule? Schedule { get; set; }
+    public ArtForm? ReferencedArtForm { get; set; }
 
     public OccasionEvent(List<Property> properties, World world) : base(properties, world)
     {
@@ -67,10 +67,10 @@ public class OccasionEvent : WorldEvent
             }
         }
 
-        Civ.AddEvent(this);
-        Site.AddEvent(this);
-        Region.AddEvent(this);
-        UndergroundRegion.AddEvent(this);
+        Civ?.AddEvent(this);
+        Site?.AddEvent(this);
+        Region?.AddEvent(this);
+        UndergroundRegion?.AddEvent(this);
     }
 
     public void ResolveArtForm()
@@ -98,11 +98,11 @@ public class OccasionEvent : WorldEvent
                     }
                     break;
             }
-            ReferencedArtForm.AddEvent(this);
+            ReferencedArtForm?.AddEvent(this);
         }
     }
 
-    public override string Print(bool link = true, DwarfObject pov = null)
+    public override string Print(bool link = true, DwarfObject? pov = null)
     {
         string eventString = GetYearTime();
         eventString += Civ != null ? Civ.ToLink(link, pov, this) : "UNKNOWN CIV";
@@ -123,7 +123,7 @@ public class OccasionEvent : WorldEvent
         }
         else if (Schedule?.ScheduleType == ScheduleType.Storytelling && Schedule.Reference != -1)
         {
-            WorldEvent worldEvent = World.GetEvent(Schedule.Reference);
+            WorldEvent? worldEvent = World.GetEvent(Schedule.Reference);
             if (worldEvent is IFeatured featured)
             {
                 eventString += " of ";
@@ -140,8 +140,8 @@ public class OccasionEvent : WorldEvent
             switch (Schedule.ScheduleType)
             {
                 case ScheduleType.Procession:
-                    Structure startStructure = Site.Structures.Find(s => s.LocalId == Schedule.Reference);
-                    Structure endStructure = Site.Structures.Find(s => s.LocalId == Schedule.Reference2);
+                    Structure? startStructure = Site?.Structures.Find(s => s.LocalId == Schedule.Reference);
+                    Structure? endStructure = Site?.Structures.Find(s => s.LocalId == Schedule.Reference2);
                     if (startStructure != null || endStructure != null)
                     {
                         eventString += " It started at ";

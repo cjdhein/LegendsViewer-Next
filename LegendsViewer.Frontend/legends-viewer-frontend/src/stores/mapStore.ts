@@ -84,6 +84,7 @@ export function createWorldMapStore(resourceName: string) {
             },
             async loadWorldObjectMap(id: number, size: MapSize) {
                 this.isLoading = true;
+                // @ts-ignore
                 const { data, error } = await client.GET(pathsForResource, {
                     params: {
                         path: {

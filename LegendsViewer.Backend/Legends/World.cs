@@ -41,18 +41,27 @@ public class World : IDisposable, IWorld
     public List<Structure> Structures { get; } = [];
 
     public List<EventCollection> EventCollections { get; } = [];
-    public List<War> Wars { get; } = [];
-    public List<Battle> Battles { get; } = [];
-    public List<Duel> Duels { get; } = [];
-    public List<Insurrection> Insurrections { get; } = [];
-    public List<Persecution> Persecutions { get; } = [];
-    public List<Purge> Purges { get; } = [];
-    public List<EntityOverthrownCollection> Coups { get; } = [];
-    public List<Raid> Raids { get; } = [];
-    public List<SiteConquered> SiteConquerings { get; } = [];
-    public List<BeastAttack> BeastAttacks { get; } = [];
-    public List<Abduction> Abductions { get; } = [];
-    public List<Theft> Thefts { get; } = [];
+    public List<War> Wars => EventCollections.OfType<War>().ToList();
+    public List<Battle> Battles => EventCollections.OfType<Battle>().ToList();
+    public List<Duel> Duels => EventCollections.OfType<Duel>().ToList();
+    public List<Raid> Raids => EventCollections.OfType<Raid>().ToList();
+    public List<SiteConquered> SiteConquerings => EventCollections.OfType<SiteConquered>().ToList();
+
+    public List<Insurrection> Insurrections => EventCollections.OfType<Insurrection>().ToList();
+    public List<Persecution> Persecutions => EventCollections.OfType<Persecution>().ToList();
+    public List<Purge> Purges => EventCollections.OfType<Purge>().ToList();
+    public List<EntityOverthrownCollection> Coups => EventCollections.OfType<EntityOverthrownCollection>().ToList();
+
+    public List<BeastAttack> BeastAttacks => EventCollections.OfType<BeastAttack>().ToList();
+    public List<Abduction> Abductions => EventCollections.OfType<Abduction>().ToList();
+    public List<Theft> Thefts => EventCollections.OfType<Theft>().ToList();
+
+    public List<ProcessionCollection> Processions => EventCollections.OfType<ProcessionCollection>().ToList();
+    public List<PerformanceCollection> Performances => EventCollections.OfType<PerformanceCollection>().ToList();
+    public List<Journey> Journeys => EventCollections.OfType<Journey>().ToList();
+    public List<CompetitionCollection> Competitions => EventCollections.OfType<CompetitionCollection>().ToList();
+    public List<CeremonyCollection> Ceremonies => EventCollections.OfType<CeremonyCollection>().ToList();
+    public List<Occasion> Occasions => EventCollections.OfType<Occasion>().ToList();
 
     public List<EntityPopulation> EntityPopulations { get; } = [];
     public List<Population> SitePopulations { get; } = [];

@@ -9,12 +9,13 @@ namespace LegendsViewer.Backend.Legends.Events;
 
 public class HfTravel : WorldEvent
 {
-    public Location Coordinates;
-    public bool Escaped, Returned;
-    public HistoricalFigure HistoricalFigure;
-    public Site Site;
-    public WorldRegion Region;
-    public UndergroundRegion UndergroundRegion;
+    public Location? Coordinates { get; set; }
+    public bool Escaped { get; set; }
+    public bool Returned { get; set; }
+    public HistoricalFigure? HistoricalFigure { get; set; }
+    public Site? Site { get; set; }
+    public WorldRegion? Region { get; set; }
+    public UndergroundRegion? UndergroundRegion { get; set; }
     public HfTravel(List<Property> properties, World world)
         : base(properties, world)
     {
@@ -32,17 +33,17 @@ public class HfTravel : WorldEvent
             }
         }
 
-        HistoricalFigure.AddEvent(this);
-        Site.AddEvent(this);
-        Region.AddEvent(this);
-        UndergroundRegion.AddEvent(this);
+        HistoricalFigure?.AddEvent(this);
+        Site?.AddEvent(this);
+        Region?.AddEvent(this);
+        UndergroundRegion?.AddEvent(this);
     }
-    public override string Print(bool link = true, DwarfObject pov = null)
+    public override string Print(bool link = true, DwarfObject? pov = null)
     {
-        string eventString = GetYearTime() + HistoricalFigure.ToLink(link, pov, this);
+        string eventString = GetYearTime() + HistoricalFigure?.ToLink(link, pov, this);
         if (Escaped)
         {
-            return GetYearTime() + HistoricalFigure.ToLink(link, pov, this) + " escaped from the " + UndergroundRegion.ToLink(link, pov, this);
+            return GetYearTime() + HistoricalFigure?.ToLink(link, pov, this) + " escaped from the " + UndergroundRegion?.ToLink(link, pov, this);
         }
 
         if (Returned)
@@ -56,7 +57,7 @@ public class HfTravel : WorldEvent
 
         if (UndergroundRegion != null)
         {
-            eventString += UndergroundRegion.ToLink(link, pov, this);
+            eventString += UndergroundRegion?.ToLink(link, pov, this);
         }
         else if (Site != null)
         {

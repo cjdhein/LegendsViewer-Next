@@ -40,9 +40,17 @@ const conflictsItems = [
   { title: 'Coups', to: '/coup' },
 ];
 const calamitiesItems = [
-{ title: 'Rampages', to: '/beastattack' },
-{ title: 'Abductions', to: '/abduction' },
-{ title: 'Thefts', to: '/theft' },
+  { title: 'Rampages', to: '/beastattack' },
+  { title: 'Abductions', to: '/abduction' },
+  { title: 'Thefts', to: '/theft' },
+];
+const ritualItems = [
+  { title: 'Processions', to: '/procession' },
+  { title: 'Performances', to: '/performance' },
+  { title: 'Journeys', to: '/journey' },
+  { title: 'Competitions', to: '/competition' },
+  { title: 'Ceremonies', to: '/ceremony' },
+  { title: 'Occasions', to: '/occasion' },
 ];
 </script>
 
@@ -123,6 +131,15 @@ const calamitiesItems = [
               <v-list-item v-bind="props" prepend-icon="mdi-alert-circle-outline" title="Calamities" :disabled="bookmarkStore?.isLoaded == false"></v-list-item>
             </template>
             <template v-for="(item, i) in calamitiesItems" :key="i">
+              <v-list-item :value="item.title + i" :title="item.title" :to="item.to"
+                :disabled="bookmarkStore?.isLoaded == false" />
+            </template>
+          </v-list-group>
+          <v-list-group value="Rituals">
+            <template v-slot:activator="{ props }">
+              <v-list-item v-bind="props" prepend-icon="mdi-candle" title="Rituals" :disabled="bookmarkStore?.isLoaded == false"></v-list-item>
+            </template>
+            <template v-for="(item, i) in ritualItems" :key="i">
               <v-list-item :value="item.title + i" :title="item.title" :to="item.to"
                 :disabled="bookmarkStore?.isLoaded == false" />
             </template>

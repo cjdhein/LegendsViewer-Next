@@ -6,10 +6,10 @@ namespace LegendsViewer.Backend.Legends.Events;
 
 public class SneakIntoSite : WorldEvent
 {
-    public Entity Attacker { get; set; }
-    public Entity Defender { get; set; }
-    public Entity SiteCiv { get; set; }
-    public Site Site { get; set; }
+    public Entity? Attacker { get; set; }
+    public Entity? Defender { get; set; }
+    public Entity? SiteCiv { get; set; }
+    public Site? Site { get; set; }
 
     public SneakIntoSite(List<Property> properties, World world)
         : base(properties, world)
@@ -25,16 +25,16 @@ public class SneakIntoSite : WorldEvent
             }
         }
 
-        Attacker.AddEvent(this);
-        Defender.AddEvent(this);
-        SiteCiv.AddEvent(this);
-        Site.AddEvent(this);
+        Attacker?.AddEvent(this);
+        Defender?.AddEvent(this);
+        SiteCiv?.AddEvent(this);
+        Site?.AddEvent(this);
     }
 
-    public override string Print(bool link = true, DwarfObject pov = null)
+    public override string Print(bool link = true, DwarfObject? pov = null)
     {
         string eventString = GetYearTime();
-        eventString += Attacker?.ToLink(true, pov) ?? "an unknown civilization";
+        eventString += Attacker?.ToLink(true, pov) ?? "an unknown group";
         eventString += " slipped into ";
         eventString += Site?.ToLink(true, pov) ?? "an unknown site";
         if (SiteCiv != null)
@@ -42,7 +42,7 @@ public class SneakIntoSite : WorldEvent
             eventString += " undetected by ";
             eventString += SiteCiv.ToLink(true, pov);
             eventString += " of ";
-            eventString += Defender?.ToLink(true, pov) ?? "an unknown civilization";
+            eventString += Defender?.ToLink(true, pov) ?? "an unknown group";
         }
         eventString += PrintParentCollection(link, pov);
         eventString += ".";

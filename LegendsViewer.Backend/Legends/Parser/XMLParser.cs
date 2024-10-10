@@ -950,19 +950,6 @@ public class XmlParser : IDisposable
 
     private void ProcessCollections()
     {
-        World.Wars.AddRange(World.EventCollections.OfType<War>());
-        World.Battles.AddRange(World.EventCollections.OfType<Battle>());
-        World.Duels.AddRange(World.EventCollections.OfType<Duel>());
-        World.Insurrections.AddRange(World.EventCollections.OfType<Insurrection>());
-        World.Persecutions.AddRange(World.EventCollections.OfType<Persecution>());
-        World.Purges.AddRange(World.EventCollections.OfType<Purge>());
-        World.Coups.AddRange(World.EventCollections.OfType<EntityOverthrownCollection>());
-        World.Raids.AddRange(World.EventCollections.OfType<Raid>()); ;
-        World.SiteConquerings.AddRange(World.EventCollections.OfType<SiteConquered>());
-        World.BeastAttacks.AddRange(World.EventCollections.OfType<BeastAttack>());
-        World.Abductions.AddRange(World.EventCollections.OfType<Abduction>());
-        World.Thefts.AddRange(World.EventCollections.OfType<Theft>());
-
         foreach (EventCollection eventCollection in World.EventCollections)
         {
             //Sub Event Collections aren't created until after the main collection

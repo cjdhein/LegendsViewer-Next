@@ -14,7 +14,7 @@ type WorldObjectDto = components['schemas']['WorldObjectDto'];
 type WorldEventDto = components['schemas']['WorldEventDto'];
 type ChartDataDto = components['schemas']['ChartDataDto'];
 
-const apiPaths: Record<string, {
+const worldObjectApiPaths: Record<string, {
     overview: PathsWithMethod<paths, "get">;
     object: PathsWithMethod<paths, "get">;
     objectEvents: PathsWithMethod<paths, "get">;
@@ -110,6 +110,14 @@ const apiPaths: Record<string, {
         objectEvents: "/api/Artifact/{id}/events" as PathsWithMethod<paths, "get">,
         eventChart: "/api/Artifact/{id}/eventchart" as PathsWithMethod<paths, "get">
     },
+};
+
+const eventCollectionApiPaths: Record<string, {
+    overview: PathsWithMethod<paths, "get">;
+    object: PathsWithMethod<paths, "get">;
+    objectEvents: PathsWithMethod<paths, "get">;
+    eventChart: PathsWithMethod<paths, "get">;
+}> = {
     // EventCollections
     War: {
         overview: "/api/War" as PathsWithMethod<paths, "get">,
@@ -185,42 +193,90 @@ const apiPaths: Record<string, {
         objectEvents: "/api/Theft/{id}/events" as PathsWithMethod<paths, "get">,
         eventChart: "/api/Theft/{id}/eventchart" as PathsWithMethod<paths, "get">
     },
+
+    Procession: {
+        overview: "/api/Procession" as PathsWithMethod<paths, "get">,
+        object: "/api/Procession/{id}" as PathsWithMethod<paths, "get">,
+        objectEvents: "/api/Procession/{id}/events" as PathsWithMethod<paths, "get">,
+        eventChart: "/api/Procession/{id}/eventchart" as PathsWithMethod<paths, "get">
+    },
+    Performance: {
+        overview: "/api/Performance" as PathsWithMethod<paths, "get">,
+        object: "/api/Performance/{id}" as PathsWithMethod<paths, "get">,
+        objectEvents: "/api/Performance/{id}/events" as PathsWithMethod<paths, "get">,
+        eventChart: "/api/Performance/{id}/eventchart" as PathsWithMethod<paths, "get">
+    },
+    Journey: {
+        overview: "/api/Journey" as PathsWithMethod<paths, "get">,
+        object: "/api/Journey/{id}" as PathsWithMethod<paths, "get">,
+        objectEvents: "/api/Journey/{id}/events" as PathsWithMethod<paths, "get">,
+        eventChart: "/api/Journey/{id}/eventchart" as PathsWithMethod<paths, "get">
+    },
+    Competition: {
+        overview: "/api/Competition" as PathsWithMethod<paths, "get">,
+        object: "/api/Competition/{id}" as PathsWithMethod<paths, "get">,
+        objectEvents: "/api/Competition/{id}/events" as PathsWithMethod<paths, "get">,
+        eventChart: "/api/Competition/{id}/eventchart" as PathsWithMethod<paths, "get">
+    },
+    Ceremony: {
+        overview: "/api/Ceremony" as PathsWithMethod<paths, "get">,
+        object: "/api/Ceremony/{id}" as PathsWithMethod<paths, "get">,
+        objectEvents: "/api/Ceremony/{id}/events" as PathsWithMethod<paths, "get">,
+        eventChart: "/api/Ceremony/{id}/eventchart" as PathsWithMethod<paths, "get">
+    },
+    Occasion: {
+        overview: "/api/Occasion" as PathsWithMethod<paths, "get">,
+        object: "/api/Occasion/{id}" as PathsWithMethod<paths, "get">,
+        objectEvents: "/api/Occasion/{id}/events" as PathsWithMethod<paths, "get">,
+        eventChart: "/api/Occasion/{id}/eventchart" as PathsWithMethod<paths, "get">
+    },
 };
 
-export const useSiteStore = createWorldObjectStore<components['schemas']['Site']>('Site');
-export const useRegionStore = createWorldObjectStore<components['schemas']['WorldRegion']>('Region');
-export const useUndergroundRegionStore = createWorldObjectStore<components['schemas']['UndergroundRegion']>('UndergroundRegion');
-export const useLandmassStore = createWorldObjectStore<components['schemas']['Landmass']>('Landmass');
-export const useRiverStore = createWorldObjectStore<components['schemas']['River']>('River');
-export const useStructureStore = createWorldObjectStore<components['schemas']['Structure']>('Structure');
-export const useConstructionStore = createWorldObjectStore<components['schemas']['WorldConstruction']>('Construction');
-export const useMountainPeakStore = createWorldObjectStore<components['schemas']['MountainPeak']>('MountainPeak');
-export const useHistoricalFigureStore = createWorldObjectStore<components['schemas']['HistoricalFigure']>('HistoricalFigure');
-export const useEntityStore = createWorldObjectStore<components['schemas']['Entity']>('Entity');
-export const useDanceFormStore = createWorldObjectStore<components['schemas']['DanceForm']>('DanceForm');
-export const useMusicalFormStore = createWorldObjectStore<components['schemas']['MusicalForm']>('MusicalForm');
-export const usePoeticFormStore = createWorldObjectStore<components['schemas']['PoeticForm']>('PoeticForm');
-export const useWrittenContentStore = createWorldObjectStore<components['schemas']['WrittenContent']>('WrittenContent');
-export const useArtifactStore = createWorldObjectStore<components['schemas']['Artifact']>('Artifact');
+export const useSiteStore = createWorldObjectStore<components['schemas']['Site']>('Site', 'object');
+export const useRegionStore = createWorldObjectStore<components['schemas']['WorldRegion']>('Region', 'object');
+export const useUndergroundRegionStore = createWorldObjectStore<components['schemas']['UndergroundRegion']>('UndergroundRegion', 'object');
+export const useLandmassStore = createWorldObjectStore<components['schemas']['Landmass']>('Landmass', 'object');
+export const useRiverStore = createWorldObjectStore<components['schemas']['River']>('River', 'object');
+export const useStructureStore = createWorldObjectStore<components['schemas']['Structure']>('Structure', 'object');
+export const useConstructionStore = createWorldObjectStore<components['schemas']['WorldConstruction']>('Construction', 'object');
+export const useMountainPeakStore = createWorldObjectStore<components['schemas']['MountainPeak']>('MountainPeak', 'object');
+export const useHistoricalFigureStore = createWorldObjectStore<components['schemas']['HistoricalFigure']>('HistoricalFigure', 'object');
+export const useEntityStore = createWorldObjectStore<components['schemas']['Entity']>('Entity', 'object');
+export const useDanceFormStore = createWorldObjectStore<components['schemas']['DanceForm']>('DanceForm', 'object');
+export const useMusicalFormStore = createWorldObjectStore<components['schemas']['MusicalForm']>('MusicalForm', 'object');
+export const usePoeticFormStore = createWorldObjectStore<components['schemas']['PoeticForm']>('PoeticForm', 'object');
+export const useWrittenContentStore = createWorldObjectStore<components['schemas']['WrittenContent']>('WrittenContent', 'object');
+export const useArtifactStore = createWorldObjectStore<components['schemas']['Artifact']>('Artifact', 'object');
 
-export const useWarStore = createWorldObjectStore<components['schemas']['War']>('War');
-export const useBattleStore = createWorldObjectStore<components['schemas']['Battle']>('Battle');
-export const useDuelStore = createWorldObjectStore<components['schemas']['Duel']>('Duel');
-export const useRaidStore = createWorldObjectStore<components['schemas']['Raid']>('Raid');
-export const useSiteConqueredStore = createWorldObjectStore<components['schemas']['SiteConquered']>('SiteConquered');
+export const useWarStore = createWorldObjectStore<components['schemas']['War']>('War', 'collection');
+export const useBattleStore = createWorldObjectStore<components['schemas']['Battle']>('Battle', 'collection');
+export const useDuelStore = createWorldObjectStore<components['schemas']['Duel']>('Duel', 'collection');
+export const useRaidStore = createWorldObjectStore<components['schemas']['Raid']>('Raid', 'collection');
+export const useSiteConqueredStore = createWorldObjectStore<components['schemas']['SiteConquered']>('SiteConquered', 'collection');
 
-export const useInsurrectionStore = createWorldObjectStore<components['schemas']['Insurrection']>('Insurrection');
-export const usePersecutionStore = createWorldObjectStore<components['schemas']['Persecution']>('Persecution');
-export const usePurgeStore = createWorldObjectStore<components['schemas']['Purge']>('Purge');
-export const useCoupStore = createWorldObjectStore<components['schemas']['EntityOverthrownCollection']>('Coup');
+export const useInsurrectionStore = createWorldObjectStore<components['schemas']['Insurrection']>('Insurrection', 'collection');
+export const usePersecutionStore = createWorldObjectStore<components['schemas']['Persecution']>('Persecution', 'collection');
+export const usePurgeStore = createWorldObjectStore<components['schemas']['Purge']>('Purge', 'collection');
+export const useCoupStore = createWorldObjectStore<components['schemas']['EntityOverthrownCollection']>('Coup', 'collection');
 
-export const useBeastAttackStore = createWorldObjectStore<components['schemas']['BeastAttack']>('BeastAttack');
-export const useAbductionStore = createWorldObjectStore<components['schemas']['Abduction']>('Abduction');
-export const useTheftStore = createWorldObjectStore<components['schemas']['Theft']>('Theft');
+export const useBeastAttackStore = createWorldObjectStore<components['schemas']['BeastAttack']>('BeastAttack', 'collection');
+export const useAbductionStore = createWorldObjectStore<components['schemas']['Abduction']>('Abduction', 'collection');
+export const useTheftStore = createWorldObjectStore<components['schemas']['Theft']>('Theft', 'collection');
 
+export const useProcessionStore = createWorldObjectStore<components['schemas']['ProcessionCollection']>('Procession', 'collection');
+export const usePerformanceStore = createWorldObjectStore<components['schemas']['PerformanceCollection']>('Performance', 'collection');
+export const useJourneyStore = createWorldObjectStore<components['schemas']['Journey']>('Journey', 'collection');
+export const useCompetitionStore = createWorldObjectStore<components['schemas']['CompetitionCollection']>('Competition', 'collection');
+export const useCeremonyStore = createWorldObjectStore<components['schemas']['CeremonyCollection']>('Ceremony', 'collection');
+export const useOccasionStore = createWorldObjectStore<components['schemas']['Occasion']>('Occasion', 'collection');
 
-export function createWorldObjectStore<T>(resourceName: string) {
-    const pathsForResource = apiPaths[resourceName];
+export function createWorldObjectStore<T>(resourceName: string, type: string) {
+    let pathsForResource;
+    if (type == 'collection') {
+        pathsForResource = eventCollectionApiPaths[resourceName];
+    } else {
+        pathsForResource = worldObjectApiPaths[resourceName];
+    }
     if (!pathsForResource) {
         throw new Error(`Invalid resource name: ${resourceName}`);
     }

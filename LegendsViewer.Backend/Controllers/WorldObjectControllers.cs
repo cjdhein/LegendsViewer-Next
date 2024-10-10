@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using LegendsViewer.Backend.Legends.Interfaces;
 using LegendsViewer.Backend.Legends.EventCollections;
+using LegendsViewer.Backend.Legends.Events;
 
 namespace LegendsViewer.Backend.Controllers;
 
@@ -124,5 +125,31 @@ public class AbductionController(IWorld worldDataService) : WorldObjectGenericCo
 }
 
 public class TheftController(IWorld worldDataService) : WorldObjectGenericController<Theft>(worldDataService.Thefts, worldDataService.GetEventCollection<Theft>)
+{
+}
+
+// Rituals 
+
+public class ProcessionController(IWorld worldDataService) : WorldObjectGenericController<ProcessionCollection>(worldDataService.Processions, worldDataService.GetEventCollection<ProcessionCollection>)
+{
+}
+
+public class PerformanceController(IWorld worldDataService) : WorldObjectGenericController<PerformanceCollection>(worldDataService.Performances, worldDataService.GetEventCollection<PerformanceCollection>)
+{
+}
+
+public class JourneyController(IWorld worldDataService) : WorldObjectGenericController<Journey>(worldDataService.Journeys, worldDataService.GetEventCollection<Journey>)
+{
+}
+
+public class CompetitionController(IWorld worldDataService) : WorldObjectGenericController<CompetitionCollection>(worldDataService.Competitions, worldDataService.GetEventCollection<CompetitionCollection>)
+{
+}
+
+public class CeremonyController(IWorld worldDataService) : WorldObjectGenericController<CeremonyCollection>(worldDataService.Ceremonies, worldDataService.GetEventCollection<CeremonyCollection>)
+{
+}
+
+public class OccasionController(IWorld worldDataService) : WorldObjectGenericController<Occasion>(worldDataService.Occasions, worldDataService.GetEventCollection<Occasion>)
 {
 }

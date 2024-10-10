@@ -1,5 +1,6 @@
 ﻿using LegendsViewer.Backend.Legends.Events;
 using LegendsViewer.Backend.Legends.Extensions;
+using LegendsViewer.Backend.Legends.Interfaces;
 using LegendsViewer.Backend.Legends.Parser;
 using LegendsViewer.Backend.Legends.Various;
 using LegendsViewer.Backend.Legends.WorldObjects;
@@ -8,7 +9,7 @@ using System.Text.Json.Serialization;
 
 namespace LegendsViewer.Backend.Legends.EventCollections;
 
-public class Raid : EventCollection
+public class Raid : EventCollection, IHasComplexSubtype
 {
     public int Ordinal { get; set; } = -1;
     public Location? Coordinates { get; set; }
@@ -43,6 +44,31 @@ public class Raid : EventCollection
         Name = $"{Formatting.AddOrdinal(Ordinal)} raid";
 
         Icon = HtmlStyleUtil.GetIconString("lightning-bolt");
+
+        var sneakIntoSiteEvent = Events.OfType<SneakIntoSite>().FirstOrDefault();
+        if (sneakIntoSiteEvent != null)
+        {
+            if (Attacker == null && sneakIntoSiteEvent.Attacker != null)
+            {
+                Attacker = sneakIntoSiteEvent.Attacker;
+            }
+            if (Defender == null && sneakIntoSiteEvent.SiteCiv != null)
+            {
+                Defender = sneakIntoSiteEvent.SiteCiv;
+            }
+            if (Defender == null && sneakIntoSiteEvent.Defender != null)
+            {
+                Defender = sneakIntoSiteEvent.Defender;
+            }
+        }
+    }
+
+    public void GenerateComplexSubType()
+    {
+        if (string.IsNullOrEmpty(Subtype) && (Attacker != null || Defender != null))
+        {
+            Subtype = $"{Attacker?.ToLink(true, this)} => {Defender?.ToLink(true, this)}";
+        }
     }
 
     public override string ToLink(bool link = true, DwarfObject? pov = null, WorldEvent? worldEvent = null)

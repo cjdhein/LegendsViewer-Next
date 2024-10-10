@@ -46,13 +46,33 @@ const routes = [
   { path: '/siteconquered/:id', name: 'Site Conquering', component: () => import('../views/SiteConquering.vue') },
 
   { path: '/insurrection', name: 'Insurrections', component: () => import('../views/Insurrections.vue') },
+  { path: '/insurrection/:id', name: 'Insurrection', component: () => import('../views/Insurrection.vue') },
   { path: '/persecution', name: 'Persecutions', component: () => import('../views/Persecutions.vue') },
+  { path: '/persecution/:id', name: 'Persecution', component: () => import('../views/Persecution.vue') },
   { path: '/purge', name: 'Purges', component: () => import('../views/Purges.vue') },
+  { path: '/purge/:id', name: 'Purge', component: () => import('../views/Purge.vue') },
   { path: '/coup', name: 'Coups', component: () => import('../views/Coups.vue') },
+  { path: '/coup/:id', name: 'Coup', component: () => import('../views/Coup.vue') },
 
   { path: '/beastattack', name: 'Rampages', component: () => import('../views/BeastAttacks.vue') },
+  { path: '/beastattack/:id', name: 'Rampage', component: () => import('../views/BeastAttack.vue') },
   { path: '/abduction', name: 'Abductions', component: () => import('../views/Abductions.vue') },
+  { path: '/abduction/:id', name: 'Abduction', component: () => import('../views/Abduction.vue') },
   { path: '/theft', name: 'Thefts', component: () => import('../views/Thefts.vue') },
+  { path: '/theft/:id', name: 'Theft', component: () => import('../views/Theft.vue') },
+
+  { path: '/procession', name: 'Processions', component: () => import('../views/Processions.vue') },
+  { path: '/procession/:id', name: 'Procession', component: () => import('../views/Procession.vue') },
+  { path: '/performance', name: 'Performances', component: () => import('../views/Performances.vue') },
+  { path: '/performance/:id', name: 'Performance', component: () => import('../views/Performance.vue') },
+  { path: '/journey', name: 'Journeys', component: () => import('../views/Journeys.vue') },
+  { path: '/journey/:id', name: 'Journey', component: () => import('../views/Journey.vue') },
+  { path: '/competition', name: 'Competitions', component: () => import('../views/Competitions.vue') },
+  { path: '/competition/:id', name: 'Competition', component: () => import('../views/Competition.vue') },
+  { path: '/ceremony', name: 'Ceremonies', component: () => import('../views/Ceremonies.vue') },
+  { path: '/ceremony/:id', name: 'Ceremony', component: () => import('../views/Ceremony.vue') },
+  { path: '/occasion', name: 'Occasions', component: () => import('../views/Occasions.vue') },
+  { path: '/occasion/:id', name: 'Occasion', component: () => import('../views/Occasion.vue') },
 ]
 
 const router = createRouter({

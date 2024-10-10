@@ -44,6 +44,7 @@ public class Abduction : EventCollection
         Name = $"{Formatting.AddOrdinal(Ordinal)} abduction";
         Icon = HtmlStyleUtil.GetIconString("map-marker-alert");
     }
+
     public override string ToLink(bool link = true, DwarfObject? pov = null, WorldEvent? worldEvent = null)
     {
         if (link)
