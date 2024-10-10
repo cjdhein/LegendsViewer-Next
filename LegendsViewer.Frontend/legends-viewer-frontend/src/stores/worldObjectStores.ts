@@ -126,6 +126,13 @@ const worldObjectApiPaths: Record<string, {
         objectEventCollections: "/api/Artifact/{id}/eventcollections" as PathsWithMethod<paths, "get">,
         eventChart: "/api/Artifact/{id}/eventchart" as PathsWithMethod<paths, "get">
     },
+    Era: {
+        overview: "/api/Era" as PathsWithMethod<paths, "get">,
+        object: "/api/Era/{id}" as PathsWithMethod<paths, "get">,
+        objectEvents: "/api/Era/{id}/events" as PathsWithMethod<paths, "get">,
+        objectEventCollections: "/api/Era/{id}/eventcollections" as PathsWithMethod<paths, "get">,
+        eventChart: "/api/Era/{id}/eventchart" as PathsWithMethod<paths, "get">
+    },
 };
 
 const eventCollectionApiPaths: Record<string, {
@@ -282,6 +289,7 @@ export const useMusicalFormStore = createWorldObjectStore<components['schemas'][
 export const usePoeticFormStore = createWorldObjectStore<components['schemas']['PoeticForm']>('PoeticForm', 'object');
 export const useWrittenContentStore = createWorldObjectStore<components['schemas']['WrittenContent']>('WrittenContent', 'object');
 export const useArtifactStore = createWorldObjectStore<components['schemas']['Artifact']>('Artifact', 'object');
+export const useEraStore = createWorldObjectStore<components['schemas']['Era']>('Era', 'object');
 
 export const useWarStore = createWorldObjectStore<components['schemas']['War']>('War', 'collection');
 export const useBattleStore = createWorldObjectStore<components['schemas']['Battle']>('Battle', 'collection');

@@ -33,6 +33,8 @@ const routes = [
   { path: '/poeticform/:id', name: 'Poetic Form', component: () => import('../views/PoeticForm.vue') },
   { path: '/writtencontent', name: 'Written Contents', component: () => import('../views/WrittenContents.vue') },
   { path: '/writtencontent/:id', name: 'Written Content', component: () => import('../views/WrittenContent.vue') },
+  { path: '/era', name: 'Eras', component: () => import('../views/Eras.vue') },
+  { path: '/era/:id', name: 'Era', component: () => import('../views/Era.vue') },
 
   { path: '/war', name: 'Wars', component: () => import('../views/Wars.vue') },
   { path: '/war/:id', name: 'War', component: () => import('../views/War.vue') },

@@ -10,29 +10,28 @@ namespace LegendsViewer.Backend.Legends.Events;
 public class BodyAbused : WorldEvent
 {
     // TODO
-    public string ItemType { get; set; } // legends_plus.xml
-    public string ItemSubType { get; set; } // legends_plus.xml
-    public string Material { get; set; } // legends_plus.xml
+    public string? ItemType { get; set; } // legends_plus.xml
+    public string? ItemSubType { get; set; } // legends_plus.xml
+    public string? Material { get; set; } // legends_plus.xml
     public int PileTypeId { get; set; } // legends_plus.xml
     public PileType PileType { get; set; } // legends_plus.xml
     public int MaterialTypeId { get; set; } // legends_plus.xml
     public int MaterialIndex { get; set; } // legends_plus.xml
 
     public AbuseType AbuseType { get; set; } // legends_plus.xml
-    public Entity Abuser { get; set; } // legends_plus.xml
-    public Entity Victim { get; set; } // legends_plus.xml
-    public List<HistoricalFigure> Bodies { get; set; } // legends_plus.xml
-    public HistoricalFigure HistoricalFigure { get; set; } // legends_plus.xml
-    public Site Site { get; set; }
-    public WorldRegion Region { get; set; }
-    public UndergroundRegion UndergroundRegion { get; set; }
-    public Location Coordinates { get; set; }
-    public Structure Structure { get; set; }
+    public Entity? Abuser { get; set; } // legends_plus.xml
+    public Entity? Victim { get; set; } // legends_plus.xml
+    public List<HistoricalFigure> Bodies { get; set; } = []; // legends_plus.xml
+    public HistoricalFigure? HistoricalFigure { get; set; } // legends_plus.xml
+    public Site? Site { get; set; }
+    public WorldRegion? Region { get; set; }
+    public UndergroundRegion? UndergroundRegion { get; set; }
+    public Location? Coordinates { get; set; }
+    public Structure? Structure { get; set; }
 
     public BodyAbused(List<Property> properties, World world)
         : base(properties, world)
     {
-        Bodies = [];
         int structureId = -1;
         foreach (Property property in properties)
         {
@@ -45,7 +44,13 @@ public class BodyAbused : WorldEvent
                 case "site": if (Site == null) { Site = world.GetSite(Convert.ToInt32(property.Value)); } else { property.Known = true; } break;
                 case "civ": Abuser = world.GetEntity(Convert.ToInt32(property.Value)); break;
                 case "victim_entity": Victim = world.GetEntity(Convert.ToInt32(property.Value)); break;
-                case "bodies": Bodies.Add(world.GetHistoricalFigure(Convert.ToInt32(property.Value))); break;
+                case "bodies":
+                    HistoricalFigure? body = world.GetHistoricalFigure(Convert.ToInt32(property.Value));
+                    if (body != null)
+                    {
+                        Bodies.Add(body);
+                    }
+                    break;
                 case "histfig": HistoricalFigure = world.GetHistoricalFigure(Convert.ToInt32(property.Value)); break;
                 case "props_item_type":
                 case "item_type":
@@ -123,9 +128,9 @@ public class BodyAbused : WorldEvent
             }
         }
 
-        Site.AddEvent(this);
-        Region.AddEvent(this);
-        UndergroundRegion.AddEvent(this);
+        Site?.AddEvent(this);
+        Region?.AddEvent(this);
+        UndergroundRegion?.AddEvent(this);
         Bodies.ForEach(body =>
         {
             if (body != HistoricalFigure.Unknown)
@@ -137,13 +142,13 @@ public class BodyAbused : WorldEvent
                 }
             }
         });
-        HistoricalFigure.AddEvent(this);
-        Abuser.AddEvent(this);
-        Victim.AddEvent(this);
+        HistoricalFigure?.AddEvent(this);
+        Abuser?.AddEvent(this);
+        Victim?.AddEvent(this);
         if (structureId != -1 && Site != null)
         {
             Structure = Site.Structures.Find(structure => structure.LocalId == structureId);
-            Structure.AddEvent(this);
+            Structure?.AddEvent(this);
         }
     }
     public override string Print(bool link = true, DwarfObject? pov = null)

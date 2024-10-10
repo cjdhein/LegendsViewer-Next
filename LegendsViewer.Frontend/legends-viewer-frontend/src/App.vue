@@ -72,9 +72,12 @@ const ritualItems = [
             :active-class="'v-list-item--active'" />
           <v-list-item prepend-icon="mdi-map-search-outline" title="Map" to="/map" :active-class="'v-list-item--active'"
             :disabled="bookmarkStore?.isLoaded == false" />
+          <v-list-item prepend-icon="mdi-timelapse" title="Eras" to="/era" :active-class="'v-list-item--active'"
+            :disabled="bookmarkStore?.isLoaded == false" />
           <v-list-group value="Society">
             <template v-slot:activator="{ props }">
-              <v-list-item v-bind="props" prepend-icon="mdi-account-group-outline" title="Society" :disabled="bookmarkStore?.isLoaded == false"></v-list-item>
+              <v-list-item v-bind="props" prepend-icon="mdi-account-group-outline" title="Society"
+                :disabled="bookmarkStore?.isLoaded == false"></v-list-item>
             </template>
             <template v-for="(item, i) in societyItems" :key="i">
               <v-list-item :value="item.title + i" :title="item.title" :to="item.to"
@@ -83,7 +86,8 @@ const ritualItems = [
           </v-list-group>
           <v-list-group value="Geography">
             <template v-slot:activator="{ props }">
-              <v-list-item v-bind="props" prepend-icon="mdi-island-variant" title="Geography" :disabled="bookmarkStore?.isLoaded == false"></v-list-item>
+              <v-list-item v-bind="props" prepend-icon="mdi-island-variant" title="Geography"
+                :disabled="bookmarkStore?.isLoaded == false"></v-list-item>
             </template>
             <template v-for="(item, i) in geographyItems" :key="i">
               <v-list-item :value="item.title + i" :title="item.title" :to="item.to"
@@ -92,7 +96,8 @@ const ritualItems = [
           </v-list-group>
           <v-list-group value="Infrastructure">
             <template v-slot:activator="{ props }">
-              <v-list-item v-bind="props" prepend-icon="mdi-home-modern" title="Infrastructure" :disabled="bookmarkStore?.isLoaded == false"></v-list-item>
+              <v-list-item v-bind="props" prepend-icon="mdi-home-modern" title="Infrastructure"
+                :disabled="bookmarkStore?.isLoaded == false"></v-list-item>
             </template>
             <template v-for="(item, i) in infrastructureItems" :key="i">
               <v-list-item :value="item.title + i" :title="item.title" :to="item.to"
@@ -101,7 +106,8 @@ const ritualItems = [
           </v-list-group>
           <v-list-group value="Art and Craft">
             <template v-slot:activator="{ props }">
-              <v-list-item v-bind="props" prepend-icon="mdi-diamond-stone" title="Art and Craft" :disabled="bookmarkStore?.isLoaded == false"></v-list-item>
+              <v-list-item v-bind="props" prepend-icon="mdi-diamond-stone" title="Art and Craft"
+                :disabled="bookmarkStore?.isLoaded == false"></v-list-item>
             </template>
             <template v-for="(item, i) in artItems" :key="i">
               <v-list-item :value="item.title + i" :title="item.title" :to="item.to"
@@ -110,7 +116,8 @@ const ritualItems = [
           </v-list-group>
           <v-list-group value="Warfare">
             <template v-slot:activator="{ props }">
-              <v-list-item v-bind="props" prepend-icon="mdi-sword-cross" title="Warfare" :disabled="bookmarkStore?.isLoaded == false"></v-list-item>
+              <v-list-item v-bind="props" prepend-icon="mdi-sword-cross" title="Warfare"
+                :disabled="bookmarkStore?.isLoaded == false"></v-list-item>
             </template>
             <template v-for="(item, i) in warfareItems" :key="i">
               <v-list-item :value="item.title + i" :title="item.title" :to="item.to"
@@ -119,7 +126,8 @@ const ritualItems = [
           </v-list-group>
           <v-list-group value="Conflicts">
             <template v-slot:activator="{ props }">
-              <v-list-item v-bind="props" prepend-icon="mdi-shield-alert-outline" title="Conflicts" :disabled="bookmarkStore?.isLoaded == false"></v-list-item>
+              <v-list-item v-bind="props" prepend-icon="mdi-shield-alert-outline" title="Conflicts"
+                :disabled="bookmarkStore?.isLoaded == false"></v-list-item>
             </template>
             <template v-for="(item, i) in conflictsItems" :key="i">
               <v-list-item :value="item.title + i" :title="item.title" :to="item.to"
@@ -128,7 +136,8 @@ const ritualItems = [
           </v-list-group>
           <v-list-group value="Calamities">
             <template v-slot:activator="{ props }">
-              <v-list-item v-bind="props" prepend-icon="mdi-alert-circle-outline" title="Calamities" :disabled="bookmarkStore?.isLoaded == false"></v-list-item>
+              <v-list-item v-bind="props" prepend-icon="mdi-alert-circle-outline" title="Calamities"
+                :disabled="bookmarkStore?.isLoaded == false"></v-list-item>
             </template>
             <template v-for="(item, i) in calamitiesItems" :key="i">
               <v-list-item :value="item.title + i" :title="item.title" :to="item.to"
@@ -137,7 +146,8 @@ const ritualItems = [
           </v-list-group>
           <v-list-group value="Rituals">
             <template v-slot:activator="{ props }">
-              <v-list-item v-bind="props" prepend-icon="mdi-candle" title="Rituals" :disabled="bookmarkStore?.isLoaded == false"></v-list-item>
+              <v-list-item v-bind="props" prepend-icon="mdi-candle" title="Rituals"
+                :disabled="bookmarkStore?.isLoaded == false"></v-list-item>
             </template>
             <template v-for="(item, i) in ritualItems" :key="i">
               <v-list-item :value="item.title + i" :title="item.title" :to="item.to"

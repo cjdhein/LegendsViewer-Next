@@ -12,10 +12,10 @@ public class AttackedSite : WorldEvent
     public Entity? AttackerMercenaries { get; set; }
     public Entity? DefenderMercenaries { get; set; }
     public Entity? AttackerSupportMercenaries { get; set; }
-    public Entity DefenderSupportMercenaries { get; set; }
-    public Site Site { get; set; }
-    public HistoricalFigure AttackerGeneral { get; set; }
-    public HistoricalFigure DefenderGeneral { get; set; }
+    public Entity? DefenderSupportMercenaries { get; set; }
+    public Site? Site { get; set; }
+    public HistoricalFigure? AttackerGeneral { get; set; }
+    public HistoricalFigure? DefenderGeneral { get; set; }
 
     public AttackedSite(List<Property> properties, World world)
         : base(properties, world)
@@ -37,34 +37,34 @@ public class AttackedSite : WorldEvent
             }
         }
 
-        Attacker.AddEvent(this);
+        Attacker?.AddEvent(this);
         if (Defender != Attacker)
         {
-            Defender.AddEvent(this);
+            Defender?.AddEvent(this);
         }
         if (SiteEntity != Defender)
         {
-            SiteEntity.AddEvent(this);
+            SiteEntity?.AddEvent(this);
         }
-        Site.AddEvent(this);
+        Site?.AddEvent(this);
         if (AttackerGeneral != HistoricalFigure.Unknown)
         {
-            AttackerGeneral.AddEvent(this);
+            AttackerGeneral?.AddEvent(this);
         }
         if (DefenderGeneral != HistoricalFigure.Unknown)
         {
-            DefenderGeneral.AddEvent(this);
+            DefenderGeneral?.AddEvent(this);
         }
         if (AttackerMercenaries != Defender && AttackerMercenaries != Attacker)
         {
-            AttackerMercenaries.AddEvent(this);
+            AttackerMercenaries?.AddEvent(this);
         }
         if (DefenderMercenaries != Defender && DefenderMercenaries != Attacker)
         {
-            DefenderMercenaries.AddEvent(this);
+            DefenderMercenaries?.AddEvent(this);
         }
-        AttackerSupportMercenaries.AddEvent(this);
-        DefenderSupportMercenaries.AddEvent(this);
+        AttackerSupportMercenaries?.AddEvent(this);
+        DefenderSupportMercenaries?.AddEvent(this);
     }
     public override string Print(bool link = true, DwarfObject? pov = null)
     {
@@ -79,7 +79,7 @@ public class AttackedSite : WorldEvent
         {
             eventString += Defender?.PrintEntity(true, pov) ?? "an unknown civilization";
         }
-        eventString += " at " + Site.ToLink(link, pov, this) + ". ";
+        eventString += " at " + Site?.ToLink(link, pov, this) + ". ";
         if (AttackerGeneral != null)
         {
             eventString += "Leader of the attack was ";

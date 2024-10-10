@@ -7,12 +7,12 @@ namespace LegendsViewer.Backend.Legends.Events;
 
 public class BuildingProfileAcquired : WorldEvent
 {
-    public Site Site { get; set; }
+    public Site? Site { get; set; }
     public int BuildingProfileId { get; set; }
-    public SiteProperty SiteProperty { get; set; }
-    public HistoricalFigure AcquirerHf { get; set; }
-    public Entity AcquirerEntity { get; set; }
-    public HistoricalFigure LastOwnerHf { get; set; }
+    public SiteProperty? SiteProperty { get; set; }
+    public HistoricalFigure? AcquirerHf { get; set; }
+    public Entity? AcquirerEntity { get; set; }
+    public HistoricalFigure? LastOwnerHf { get; set; }
     public bool Inherited { get; set; }
     public bool RebuiltRuined { get; set; }
     public bool PurchasedUnowned { get; set; }
@@ -42,10 +42,10 @@ public class BuildingProfileAcquired : WorldEvent
             SiteProperty?.Structure?.AddEvent(this);
         }
 
-        Site.AddEvent(this);
-        AcquirerHf.AddEvent(this);
-        AcquirerEntity.AddEvent(this);
-        LastOwnerHf.AddEvent(this);
+        Site?.AddEvent(this);
+        AcquirerHf?.AddEvent(this);
+        AcquirerEntity?.AddEvent(this);
+        LastOwnerHf?.AddEvent(this);
     }
 
     public override string Print(bool link = true, DwarfObject? pov = null)
@@ -84,7 +84,7 @@ public class BuildingProfileAcquired : WorldEvent
             eventString += " acquired ";
         }
 
-        eventString += SiteProperty.Print(link, pov);
+        eventString += SiteProperty?.Print(link, pov);
         if (Site != null)
         {
             eventString += " in ";
