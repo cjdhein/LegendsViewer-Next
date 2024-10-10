@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useCoupStore } from '../stores/worldObjectStores';
 import WorldObjectsPage from '../components/WorldObjectsPage.vue';
-import { TableHeader } from '../types/legends'; // Adjust the import path as needed
+import { TableHeader } from '../types/legends';
 
 const store = useCoupStore();
 const icon = "mdi-map-marker-alert";
@@ -9,11 +9,12 @@ const title = "Coups";
 const subtitle = "The fall of leaders and political entities in power struggles";
 const overviewSubtitle = "Browse and search all coups";
 const overviewTitle = "Overview";
-const tableHeaders: TableHeader[] = [ // Specify the type here
-    { title: 'Id', key: 'id', align: 'end' },
-    { title: 'Name', key: 'name', align: 'start' },
+const tableHeaders: TableHeader[] = [
+    { title: 'Start', key: 'startDate', align: 'center' },
+    { title: 'End', key: 'endDate', align: 'center' },
+    { title: 'Name', key: 'html', align: 'start' },
     { title: 'Type', key: 'type', align: 'start' },
-    { title: 'Link', key: 'html', align: 'start' },
+    { title: 'Chronicles', key: 'eventCollectionCount', align: 'end' },
     { title: 'Events', key: 'eventCount', align: 'end' },
 ];
 </script>

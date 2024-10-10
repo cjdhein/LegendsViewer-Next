@@ -56,6 +56,27 @@
         </v-col>
     </v-row>
     <v-row>
+        <v-col v-if="store.object?.eventCollectionCount != null && store.object?.eventCollectionCount > 0">
+            <v-card title="Chronicles" :subtitle="'A list of chronicles for ' + store.object?.name" variant="text">
+                <template v-slot:prepend>
+                    <v-icon class="mr-2" icon="mdi-calendar-clock" size="32px"></v-icon>
+                </template>
+                <v-card-text>
+                    <v-data-table-server v-model:items-per-page="store.objectEventCollectionsPerPage" :headers="eventCollectionTableHeaders" :items="store.objectEventCollections"
+                    :items-length="store.objectEventCollectionsTotalItems" :loading="store.isLoading" item-value="name"
+                    @update:options="loadEventCollections">
+                    <template v-slot:item.subtype="{ value }">
+                        <span v-html="value"></span>
+                    </template>
+                    <template v-slot:item.html="{ value }">
+                        <span v-html="value"></span>
+                    </template>
+                </v-data-table-server>
+                </v-card-text>
+            </v-card>
+        </v-col>
+    </v-row>
+    <v-row>
         <slot name="type-specific-after-table"></slot>
     </v-row>
 </template>
@@ -63,7 +84,7 @@
 <script setup lang="ts">
 import { computed, watch } from 'vue';
 import { useRoute } from 'vue-router';
-import { LoadItemsOptions } from '../types/legends';
+import { LoadItemsOptions, TableHeader } from '../types/legends';
 import LineChart from '../components/LineChart.vue';
 
 const route = useRoute()
@@ -78,10 +99,24 @@ const loadEvents = async ({ page, itemsPerPage, sortBy }: LoadItemsOptions) => {
     await props.store.loadEvents(routeId.value, page, itemsPerPage, sortBy)
 }
 
+const loadEventCollections = async ({ page, itemsPerPage, sortBy }: LoadItemsOptions) => {
+    await props.store.loadEventCollections(routeId.value, page, itemsPerPage, sortBy)
+}
+
 const eventTableHeaders = [
     { title: 'Date', key: 'date' },
     { title: 'Type', key: 'type' },
     { title: 'Event', key: 'html' },
+]
+
+const eventCollectionTableHeaders: TableHeader[] = [
+    { title: 'Id', key: 'id', align: 'end' },
+    { title: 'Name', key: 'name', align: 'start' },
+    { title: 'Type', key: 'type', align: 'start' },
+    { title: 'Subtype', key: 'subtype', align: 'start' },
+    { title: 'Link', key: 'html', align: 'start' },
+    { title: 'Chronicles', key: 'eventCollectionCount', align: 'end' },
+    { title: 'Events', key: 'eventCount', align: 'end' },
 ]
 
 const props = defineProps({

@@ -222,6 +222,72 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/Abduction/{id}/eventcollections": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query?: {
+                    pageNumber?: number;
+                    pageSize?: number;
+                    sortKey?: string;
+                    sortOrder?: string;
+                };
+                header?: never;
+                path: {
+                    id: number;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description OK */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["WorldObjectDtoPaginatedResponse"];
+                        "application/json": components["schemas"]["WorldObjectDtoPaginatedResponse"];
+                        "text/json": components["schemas"]["WorldObjectDtoPaginatedResponse"];
+                    };
+                };
+                /** @description Bad Request */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["ProblemDetails"];
+                        "application/json": components["schemas"]["ProblemDetails"];
+                        "text/json": components["schemas"]["ProblemDetails"];
+                    };
+                };
+                /** @description Not Found */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["ProblemDetails"];
+                        "application/json": components["schemas"]["ProblemDetails"];
+                        "text/json": components["schemas"]["ProblemDetails"];
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/Abduction/{id}/eventchart": {
         parameters: {
             query?: never;
@@ -467,6 +533,72 @@ export interface paths {
                         "text/plain": components["schemas"]["WorldEventDtoPaginatedResponse"];
                         "application/json": components["schemas"]["WorldEventDtoPaginatedResponse"];
                         "text/json": components["schemas"]["WorldEventDtoPaginatedResponse"];
+                    };
+                };
+                /** @description Bad Request */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["ProblemDetails"];
+                        "application/json": components["schemas"]["ProblemDetails"];
+                        "text/json": components["schemas"]["ProblemDetails"];
+                    };
+                };
+                /** @description Not Found */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["ProblemDetails"];
+                        "application/json": components["schemas"]["ProblemDetails"];
+                        "text/json": components["schemas"]["ProblemDetails"];
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/Artifact/{id}/eventcollections": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query?: {
+                    pageNumber?: number;
+                    pageSize?: number;
+                    sortKey?: string;
+                    sortOrder?: string;
+                };
+                header?: never;
+                path: {
+                    id: number;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description OK */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["WorldObjectDtoPaginatedResponse"];
+                        "application/json": components["schemas"]["WorldObjectDtoPaginatedResponse"];
+                        "text/json": components["schemas"]["WorldObjectDtoPaginatedResponse"];
                     };
                 };
                 /** @description Bad Request */
@@ -780,6 +912,72 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/Battle/{id}/eventcollections": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query?: {
+                    pageNumber?: number;
+                    pageSize?: number;
+                    sortKey?: string;
+                    sortOrder?: string;
+                };
+                header?: never;
+                path: {
+                    id: number;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description OK */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["WorldObjectDtoPaginatedResponse"];
+                        "application/json": components["schemas"]["WorldObjectDtoPaginatedResponse"];
+                        "text/json": components["schemas"]["WorldObjectDtoPaginatedResponse"];
+                    };
+                };
+                /** @description Bad Request */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["ProblemDetails"];
+                        "application/json": components["schemas"]["ProblemDetails"];
+                        "text/json": components["schemas"]["ProblemDetails"];
+                    };
+                };
+                /** @description Not Found */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["ProblemDetails"];
+                        "application/json": components["schemas"]["ProblemDetails"];
+                        "text/json": components["schemas"]["ProblemDetails"];
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/Battle/{id}/eventchart": {
         parameters: {
             query?: never;
@@ -1025,6 +1223,72 @@ export interface paths {
                         "text/plain": components["schemas"]["WorldEventDtoPaginatedResponse"];
                         "application/json": components["schemas"]["WorldEventDtoPaginatedResponse"];
                         "text/json": components["schemas"]["WorldEventDtoPaginatedResponse"];
+                    };
+                };
+                /** @description Bad Request */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["ProblemDetails"];
+                        "application/json": components["schemas"]["ProblemDetails"];
+                        "text/json": components["schemas"]["ProblemDetails"];
+                    };
+                };
+                /** @description Not Found */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["ProblemDetails"];
+                        "application/json": components["schemas"]["ProblemDetails"];
+                        "text/json": components["schemas"]["ProblemDetails"];
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/BeastAttack/{id}/eventcollections": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query?: {
+                    pageNumber?: number;
+                    pageSize?: number;
+                    sortKey?: string;
+                    sortOrder?: string;
+                };
+                header?: never;
+                path: {
+                    id: number;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description OK */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["WorldObjectDtoPaginatedResponse"];
+                        "application/json": components["schemas"]["WorldObjectDtoPaginatedResponse"];
+                        "text/json": components["schemas"]["WorldObjectDtoPaginatedResponse"];
                     };
                 };
                 /** @description Bad Request */
@@ -1549,6 +1813,72 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/Ceremony/{id}/eventcollections": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query?: {
+                    pageNumber?: number;
+                    pageSize?: number;
+                    sortKey?: string;
+                    sortOrder?: string;
+                };
+                header?: never;
+                path: {
+                    id: number;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description OK */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["WorldObjectDtoPaginatedResponse"];
+                        "application/json": components["schemas"]["WorldObjectDtoPaginatedResponse"];
+                        "text/json": components["schemas"]["WorldObjectDtoPaginatedResponse"];
+                    };
+                };
+                /** @description Bad Request */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["ProblemDetails"];
+                        "application/json": components["schemas"]["ProblemDetails"];
+                        "text/json": components["schemas"]["ProblemDetails"];
+                    };
+                };
+                /** @description Not Found */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["ProblemDetails"];
+                        "application/json": components["schemas"]["ProblemDetails"];
+                        "text/json": components["schemas"]["ProblemDetails"];
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/Ceremony/{id}/eventchart": {
         parameters: {
             query?: never;
@@ -1794,6 +2124,72 @@ export interface paths {
                         "text/plain": components["schemas"]["WorldEventDtoPaginatedResponse"];
                         "application/json": components["schemas"]["WorldEventDtoPaginatedResponse"];
                         "text/json": components["schemas"]["WorldEventDtoPaginatedResponse"];
+                    };
+                };
+                /** @description Bad Request */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["ProblemDetails"];
+                        "application/json": components["schemas"]["ProblemDetails"];
+                        "text/json": components["schemas"]["ProblemDetails"];
+                    };
+                };
+                /** @description Not Found */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["ProblemDetails"];
+                        "application/json": components["schemas"]["ProblemDetails"];
+                        "text/json": components["schemas"]["ProblemDetails"];
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/Competition/{id}/eventcollections": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query?: {
+                    pageNumber?: number;
+                    pageSize?: number;
+                    sortKey?: string;
+                    sortOrder?: string;
+                };
+                header?: never;
+                path: {
+                    id: number;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description OK */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["WorldObjectDtoPaginatedResponse"];
+                        "application/json": components["schemas"]["WorldObjectDtoPaginatedResponse"];
+                        "text/json": components["schemas"]["WorldObjectDtoPaginatedResponse"];
                     };
                 };
                 /** @description Bad Request */
@@ -2107,6 +2503,72 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/Construction/{id}/eventcollections": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query?: {
+                    pageNumber?: number;
+                    pageSize?: number;
+                    sortKey?: string;
+                    sortOrder?: string;
+                };
+                header?: never;
+                path: {
+                    id: number;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description OK */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["WorldObjectDtoPaginatedResponse"];
+                        "application/json": components["schemas"]["WorldObjectDtoPaginatedResponse"];
+                        "text/json": components["schemas"]["WorldObjectDtoPaginatedResponse"];
+                    };
+                };
+                /** @description Bad Request */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["ProblemDetails"];
+                        "application/json": components["schemas"]["ProblemDetails"];
+                        "text/json": components["schemas"]["ProblemDetails"];
+                    };
+                };
+                /** @description Not Found */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["ProblemDetails"];
+                        "application/json": components["schemas"]["ProblemDetails"];
+                        "text/json": components["schemas"]["ProblemDetails"];
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/Construction/{id}/eventchart": {
         parameters: {
             query?: never;
@@ -2352,6 +2814,72 @@ export interface paths {
                         "text/plain": components["schemas"]["WorldEventDtoPaginatedResponse"];
                         "application/json": components["schemas"]["WorldEventDtoPaginatedResponse"];
                         "text/json": components["schemas"]["WorldEventDtoPaginatedResponse"];
+                    };
+                };
+                /** @description Bad Request */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["ProblemDetails"];
+                        "application/json": components["schemas"]["ProblemDetails"];
+                        "text/json": components["schemas"]["ProblemDetails"];
+                    };
+                };
+                /** @description Not Found */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["ProblemDetails"];
+                        "application/json": components["schemas"]["ProblemDetails"];
+                        "text/json": components["schemas"]["ProblemDetails"];
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/Coup/{id}/eventcollections": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query?: {
+                    pageNumber?: number;
+                    pageSize?: number;
+                    sortKey?: string;
+                    sortOrder?: string;
+                };
+                header?: never;
+                path: {
+                    id: number;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description OK */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["WorldObjectDtoPaginatedResponse"];
+                        "application/json": components["schemas"]["WorldObjectDtoPaginatedResponse"];
+                        "text/json": components["schemas"]["WorldObjectDtoPaginatedResponse"];
                     };
                 };
                 /** @description Bad Request */
@@ -2665,6 +3193,72 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/DanceForm/{id}/eventcollections": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query?: {
+                    pageNumber?: number;
+                    pageSize?: number;
+                    sortKey?: string;
+                    sortOrder?: string;
+                };
+                header?: never;
+                path: {
+                    id: number;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description OK */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["WorldObjectDtoPaginatedResponse"];
+                        "application/json": components["schemas"]["WorldObjectDtoPaginatedResponse"];
+                        "text/json": components["schemas"]["WorldObjectDtoPaginatedResponse"];
+                    };
+                };
+                /** @description Bad Request */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["ProblemDetails"];
+                        "application/json": components["schemas"]["ProblemDetails"];
+                        "text/json": components["schemas"]["ProblemDetails"];
+                    };
+                };
+                /** @description Not Found */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["ProblemDetails"];
+                        "application/json": components["schemas"]["ProblemDetails"];
+                        "text/json": components["schemas"]["ProblemDetails"];
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/DanceForm/{id}/eventchart": {
         parameters: {
             query?: never;
@@ -2910,6 +3504,72 @@ export interface paths {
                         "text/plain": components["schemas"]["WorldEventDtoPaginatedResponse"];
                         "application/json": components["schemas"]["WorldEventDtoPaginatedResponse"];
                         "text/json": components["schemas"]["WorldEventDtoPaginatedResponse"];
+                    };
+                };
+                /** @description Bad Request */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["ProblemDetails"];
+                        "application/json": components["schemas"]["ProblemDetails"];
+                        "text/json": components["schemas"]["ProblemDetails"];
+                    };
+                };
+                /** @description Not Found */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["ProblemDetails"];
+                        "application/json": components["schemas"]["ProblemDetails"];
+                        "text/json": components["schemas"]["ProblemDetails"];
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/Duel/{id}/eventcollections": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query?: {
+                    pageNumber?: number;
+                    pageSize?: number;
+                    sortKey?: string;
+                    sortOrder?: string;
+                };
+                header?: never;
+                path: {
+                    id: number;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description OK */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["WorldObjectDtoPaginatedResponse"];
+                        "application/json": components["schemas"]["WorldObjectDtoPaginatedResponse"];
+                        "text/json": components["schemas"]["WorldObjectDtoPaginatedResponse"];
                     };
                 };
                 /** @description Bad Request */
@@ -3260,6 +3920,72 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/Entity/{id}/eventcollections": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query?: {
+                    pageNumber?: number;
+                    pageSize?: number;
+                    sortKey?: string;
+                    sortOrder?: string;
+                };
+                header?: never;
+                path: {
+                    id: number;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description OK */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["WorldObjectDtoPaginatedResponse"];
+                        "application/json": components["schemas"]["WorldObjectDtoPaginatedResponse"];
+                        "text/json": components["schemas"]["WorldObjectDtoPaginatedResponse"];
+                    };
+                };
+                /** @description Bad Request */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["ProblemDetails"];
+                        "application/json": components["schemas"]["ProblemDetails"];
+                        "text/json": components["schemas"]["ProblemDetails"];
+                    };
+                };
+                /** @description Not Found */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["ProblemDetails"];
+                        "application/json": components["schemas"]["ProblemDetails"];
+                        "text/json": components["schemas"]["ProblemDetails"];
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/Entity/{id}/eventchart": {
         parameters: {
             query?: never;
@@ -3505,6 +4231,72 @@ export interface paths {
                         "text/plain": components["schemas"]["WorldEventDtoPaginatedResponse"];
                         "application/json": components["schemas"]["WorldEventDtoPaginatedResponse"];
                         "text/json": components["schemas"]["WorldEventDtoPaginatedResponse"];
+                    };
+                };
+                /** @description Bad Request */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["ProblemDetails"];
+                        "application/json": components["schemas"]["ProblemDetails"];
+                        "text/json": components["schemas"]["ProblemDetails"];
+                    };
+                };
+                /** @description Not Found */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["ProblemDetails"];
+                        "application/json": components["schemas"]["ProblemDetails"];
+                        "text/json": components["schemas"]["ProblemDetails"];
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/Era/{id}/eventcollections": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query?: {
+                    pageNumber?: number;
+                    pageSize?: number;
+                    sortKey?: string;
+                    sortOrder?: string;
+                };
+                header?: never;
+                path: {
+                    id: number;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description OK */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["WorldObjectDtoPaginatedResponse"];
+                        "application/json": components["schemas"]["WorldObjectDtoPaginatedResponse"];
+                        "text/json": components["schemas"]["WorldObjectDtoPaginatedResponse"];
                     };
                 };
                 /** @description Bad Request */
@@ -3945,6 +4737,72 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/HistoricalFigure/{id}/eventcollections": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query?: {
+                    pageNumber?: number;
+                    pageSize?: number;
+                    sortKey?: string;
+                    sortOrder?: string;
+                };
+                header?: never;
+                path: {
+                    id: number;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description OK */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["WorldObjectDtoPaginatedResponse"];
+                        "application/json": components["schemas"]["WorldObjectDtoPaginatedResponse"];
+                        "text/json": components["schemas"]["WorldObjectDtoPaginatedResponse"];
+                    };
+                };
+                /** @description Bad Request */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["ProblemDetails"];
+                        "application/json": components["schemas"]["ProblemDetails"];
+                        "text/json": components["schemas"]["ProblemDetails"];
+                    };
+                };
+                /** @description Not Found */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["ProblemDetails"];
+                        "application/json": components["schemas"]["ProblemDetails"];
+                        "text/json": components["schemas"]["ProblemDetails"];
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/HistoricalFigure/{id}/eventchart": {
         parameters: {
             query?: never;
@@ -4190,6 +5048,72 @@ export interface paths {
                         "text/plain": components["schemas"]["WorldEventDtoPaginatedResponse"];
                         "application/json": components["schemas"]["WorldEventDtoPaginatedResponse"];
                         "text/json": components["schemas"]["WorldEventDtoPaginatedResponse"];
+                    };
+                };
+                /** @description Bad Request */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["ProblemDetails"];
+                        "application/json": components["schemas"]["ProblemDetails"];
+                        "text/json": components["schemas"]["ProblemDetails"];
+                    };
+                };
+                /** @description Not Found */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["ProblemDetails"];
+                        "application/json": components["schemas"]["ProblemDetails"];
+                        "text/json": components["schemas"]["ProblemDetails"];
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/Insurrection/{id}/eventcollections": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query?: {
+                    pageNumber?: number;
+                    pageSize?: number;
+                    sortKey?: string;
+                    sortOrder?: string;
+                };
+                header?: never;
+                path: {
+                    id: number;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description OK */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["WorldObjectDtoPaginatedResponse"];
+                        "application/json": components["schemas"]["WorldObjectDtoPaginatedResponse"];
+                        "text/json": components["schemas"]["WorldObjectDtoPaginatedResponse"];
                     };
                 };
                 /** @description Bad Request */
@@ -4503,6 +5427,72 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/Journey/{id}/eventcollections": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query?: {
+                    pageNumber?: number;
+                    pageSize?: number;
+                    sortKey?: string;
+                    sortOrder?: string;
+                };
+                header?: never;
+                path: {
+                    id: number;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description OK */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["WorldObjectDtoPaginatedResponse"];
+                        "application/json": components["schemas"]["WorldObjectDtoPaginatedResponse"];
+                        "text/json": components["schemas"]["WorldObjectDtoPaginatedResponse"];
+                    };
+                };
+                /** @description Bad Request */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["ProblemDetails"];
+                        "application/json": components["schemas"]["ProblemDetails"];
+                        "text/json": components["schemas"]["ProblemDetails"];
+                    };
+                };
+                /** @description Not Found */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["ProblemDetails"];
+                        "application/json": components["schemas"]["ProblemDetails"];
+                        "text/json": components["schemas"]["ProblemDetails"];
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/Journey/{id}/eventchart": {
         parameters: {
             query?: never;
@@ -4748,6 +5738,72 @@ export interface paths {
                         "text/plain": components["schemas"]["WorldEventDtoPaginatedResponse"];
                         "application/json": components["schemas"]["WorldEventDtoPaginatedResponse"];
                         "text/json": components["schemas"]["WorldEventDtoPaginatedResponse"];
+                    };
+                };
+                /** @description Bad Request */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["ProblemDetails"];
+                        "application/json": components["schemas"]["ProblemDetails"];
+                        "text/json": components["schemas"]["ProblemDetails"];
+                    };
+                };
+                /** @description Not Found */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["ProblemDetails"];
+                        "application/json": components["schemas"]["ProblemDetails"];
+                        "text/json": components["schemas"]["ProblemDetails"];
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/Landmass/{id}/eventcollections": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query?: {
+                    pageNumber?: number;
+                    pageSize?: number;
+                    sortKey?: string;
+                    sortOrder?: string;
+                };
+                header?: never;
+                path: {
+                    id: number;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description OK */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["WorldObjectDtoPaginatedResponse"];
+                        "application/json": components["schemas"]["WorldObjectDtoPaginatedResponse"];
+                        "text/json": components["schemas"]["WorldObjectDtoPaginatedResponse"];
                     };
                 };
                 /** @description Bad Request */
@@ -5061,6 +6117,72 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/MountainPeak/{id}/eventcollections": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query?: {
+                    pageNumber?: number;
+                    pageSize?: number;
+                    sortKey?: string;
+                    sortOrder?: string;
+                };
+                header?: never;
+                path: {
+                    id: number;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description OK */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["WorldObjectDtoPaginatedResponse"];
+                        "application/json": components["schemas"]["WorldObjectDtoPaginatedResponse"];
+                        "text/json": components["schemas"]["WorldObjectDtoPaginatedResponse"];
+                    };
+                };
+                /** @description Bad Request */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["ProblemDetails"];
+                        "application/json": components["schemas"]["ProblemDetails"];
+                        "text/json": components["schemas"]["ProblemDetails"];
+                    };
+                };
+                /** @description Not Found */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["ProblemDetails"];
+                        "application/json": components["schemas"]["ProblemDetails"];
+                        "text/json": components["schemas"]["ProblemDetails"];
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/MountainPeak/{id}/eventchart": {
         parameters: {
             query?: never;
@@ -5306,6 +6428,72 @@ export interface paths {
                         "text/plain": components["schemas"]["WorldEventDtoPaginatedResponse"];
                         "application/json": components["schemas"]["WorldEventDtoPaginatedResponse"];
                         "text/json": components["schemas"]["WorldEventDtoPaginatedResponse"];
+                    };
+                };
+                /** @description Bad Request */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["ProblemDetails"];
+                        "application/json": components["schemas"]["ProblemDetails"];
+                        "text/json": components["schemas"]["ProblemDetails"];
+                    };
+                };
+                /** @description Not Found */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["ProblemDetails"];
+                        "application/json": components["schemas"]["ProblemDetails"];
+                        "text/json": components["schemas"]["ProblemDetails"];
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/MusicalForm/{id}/eventcollections": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query?: {
+                    pageNumber?: number;
+                    pageSize?: number;
+                    sortKey?: string;
+                    sortOrder?: string;
+                };
+                header?: never;
+                path: {
+                    id: number;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description OK */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["WorldObjectDtoPaginatedResponse"];
+                        "application/json": components["schemas"]["WorldObjectDtoPaginatedResponse"];
+                        "text/json": components["schemas"]["WorldObjectDtoPaginatedResponse"];
                     };
                 };
                 /** @description Bad Request */
@@ -5619,6 +6807,72 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/Occasion/{id}/eventcollections": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query?: {
+                    pageNumber?: number;
+                    pageSize?: number;
+                    sortKey?: string;
+                    sortOrder?: string;
+                };
+                header?: never;
+                path: {
+                    id: number;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description OK */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["WorldObjectDtoPaginatedResponse"];
+                        "application/json": components["schemas"]["WorldObjectDtoPaginatedResponse"];
+                        "text/json": components["schemas"]["WorldObjectDtoPaginatedResponse"];
+                    };
+                };
+                /** @description Bad Request */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["ProblemDetails"];
+                        "application/json": components["schemas"]["ProblemDetails"];
+                        "text/json": components["schemas"]["ProblemDetails"];
+                    };
+                };
+                /** @description Not Found */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["ProblemDetails"];
+                        "application/json": components["schemas"]["ProblemDetails"];
+                        "text/json": components["schemas"]["ProblemDetails"];
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/Occasion/{id}/eventchart": {
         parameters: {
             query?: never;
@@ -5864,6 +7118,72 @@ export interface paths {
                         "text/plain": components["schemas"]["WorldEventDtoPaginatedResponse"];
                         "application/json": components["schemas"]["WorldEventDtoPaginatedResponse"];
                         "text/json": components["schemas"]["WorldEventDtoPaginatedResponse"];
+                    };
+                };
+                /** @description Bad Request */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["ProblemDetails"];
+                        "application/json": components["schemas"]["ProblemDetails"];
+                        "text/json": components["schemas"]["ProblemDetails"];
+                    };
+                };
+                /** @description Not Found */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["ProblemDetails"];
+                        "application/json": components["schemas"]["ProblemDetails"];
+                        "text/json": components["schemas"]["ProblemDetails"];
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/Performance/{id}/eventcollections": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query?: {
+                    pageNumber?: number;
+                    pageSize?: number;
+                    sortKey?: string;
+                    sortOrder?: string;
+                };
+                header?: never;
+                path: {
+                    id: number;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description OK */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["WorldObjectDtoPaginatedResponse"];
+                        "application/json": components["schemas"]["WorldObjectDtoPaginatedResponse"];
+                        "text/json": components["schemas"]["WorldObjectDtoPaginatedResponse"];
                     };
                 };
                 /** @description Bad Request */
@@ -6177,6 +7497,72 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/Persecution/{id}/eventcollections": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query?: {
+                    pageNumber?: number;
+                    pageSize?: number;
+                    sortKey?: string;
+                    sortOrder?: string;
+                };
+                header?: never;
+                path: {
+                    id: number;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description OK */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["WorldObjectDtoPaginatedResponse"];
+                        "application/json": components["schemas"]["WorldObjectDtoPaginatedResponse"];
+                        "text/json": components["schemas"]["WorldObjectDtoPaginatedResponse"];
+                    };
+                };
+                /** @description Bad Request */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["ProblemDetails"];
+                        "application/json": components["schemas"]["ProblemDetails"];
+                        "text/json": components["schemas"]["ProblemDetails"];
+                    };
+                };
+                /** @description Not Found */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["ProblemDetails"];
+                        "application/json": components["schemas"]["ProblemDetails"];
+                        "text/json": components["schemas"]["ProblemDetails"];
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/Persecution/{id}/eventchart": {
         parameters: {
             query?: never;
@@ -6422,6 +7808,72 @@ export interface paths {
                         "text/plain": components["schemas"]["WorldEventDtoPaginatedResponse"];
                         "application/json": components["schemas"]["WorldEventDtoPaginatedResponse"];
                         "text/json": components["schemas"]["WorldEventDtoPaginatedResponse"];
+                    };
+                };
+                /** @description Bad Request */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["ProblemDetails"];
+                        "application/json": components["schemas"]["ProblemDetails"];
+                        "text/json": components["schemas"]["ProblemDetails"];
+                    };
+                };
+                /** @description Not Found */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["ProblemDetails"];
+                        "application/json": components["schemas"]["ProblemDetails"];
+                        "text/json": components["schemas"]["ProblemDetails"];
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/PoeticForm/{id}/eventcollections": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query?: {
+                    pageNumber?: number;
+                    pageSize?: number;
+                    sortKey?: string;
+                    sortOrder?: string;
+                };
+                header?: never;
+                path: {
+                    id: number;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description OK */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["WorldObjectDtoPaginatedResponse"];
+                        "application/json": components["schemas"]["WorldObjectDtoPaginatedResponse"];
+                        "text/json": components["schemas"]["WorldObjectDtoPaginatedResponse"];
                     };
                 };
                 /** @description Bad Request */
@@ -6735,6 +8187,72 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/Procession/{id}/eventcollections": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query?: {
+                    pageNumber?: number;
+                    pageSize?: number;
+                    sortKey?: string;
+                    sortOrder?: string;
+                };
+                header?: never;
+                path: {
+                    id: number;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description OK */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["WorldObjectDtoPaginatedResponse"];
+                        "application/json": components["schemas"]["WorldObjectDtoPaginatedResponse"];
+                        "text/json": components["schemas"]["WorldObjectDtoPaginatedResponse"];
+                    };
+                };
+                /** @description Bad Request */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["ProblemDetails"];
+                        "application/json": components["schemas"]["ProblemDetails"];
+                        "text/json": components["schemas"]["ProblemDetails"];
+                    };
+                };
+                /** @description Not Found */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["ProblemDetails"];
+                        "application/json": components["schemas"]["ProblemDetails"];
+                        "text/json": components["schemas"]["ProblemDetails"];
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/Procession/{id}/eventchart": {
         parameters: {
             query?: never;
@@ -6980,6 +8498,72 @@ export interface paths {
                         "text/plain": components["schemas"]["WorldEventDtoPaginatedResponse"];
                         "application/json": components["schemas"]["WorldEventDtoPaginatedResponse"];
                         "text/json": components["schemas"]["WorldEventDtoPaginatedResponse"];
+                    };
+                };
+                /** @description Bad Request */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["ProblemDetails"];
+                        "application/json": components["schemas"]["ProblemDetails"];
+                        "text/json": components["schemas"]["ProblemDetails"];
+                    };
+                };
+                /** @description Not Found */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["ProblemDetails"];
+                        "application/json": components["schemas"]["ProblemDetails"];
+                        "text/json": components["schemas"]["ProblemDetails"];
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/Purge/{id}/eventcollections": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query?: {
+                    pageNumber?: number;
+                    pageSize?: number;
+                    sortKey?: string;
+                    sortOrder?: string;
+                };
+                header?: never;
+                path: {
+                    id: number;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description OK */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["WorldObjectDtoPaginatedResponse"];
+                        "application/json": components["schemas"]["WorldObjectDtoPaginatedResponse"];
+                        "text/json": components["schemas"]["WorldObjectDtoPaginatedResponse"];
                     };
                 };
                 /** @description Bad Request */
@@ -7293,6 +8877,72 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/Raid/{id}/eventcollections": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query?: {
+                    pageNumber?: number;
+                    pageSize?: number;
+                    sortKey?: string;
+                    sortOrder?: string;
+                };
+                header?: never;
+                path: {
+                    id: number;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description OK */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["WorldObjectDtoPaginatedResponse"];
+                        "application/json": components["schemas"]["WorldObjectDtoPaginatedResponse"];
+                        "text/json": components["schemas"]["WorldObjectDtoPaginatedResponse"];
+                    };
+                };
+                /** @description Bad Request */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["ProblemDetails"];
+                        "application/json": components["schemas"]["ProblemDetails"];
+                        "text/json": components["schemas"]["ProblemDetails"];
+                    };
+                };
+                /** @description Not Found */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["ProblemDetails"];
+                        "application/json": components["schemas"]["ProblemDetails"];
+                        "text/json": components["schemas"]["ProblemDetails"];
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/Raid/{id}/eventchart": {
         parameters: {
             query?: never;
@@ -7538,6 +9188,72 @@ export interface paths {
                         "text/plain": components["schemas"]["WorldEventDtoPaginatedResponse"];
                         "application/json": components["schemas"]["WorldEventDtoPaginatedResponse"];
                         "text/json": components["schemas"]["WorldEventDtoPaginatedResponse"];
+                    };
+                };
+                /** @description Bad Request */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["ProblemDetails"];
+                        "application/json": components["schemas"]["ProblemDetails"];
+                        "text/json": components["schemas"]["ProblemDetails"];
+                    };
+                };
+                /** @description Not Found */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["ProblemDetails"];
+                        "application/json": components["schemas"]["ProblemDetails"];
+                        "text/json": components["schemas"]["ProblemDetails"];
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/Region/{id}/eventcollections": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query?: {
+                    pageNumber?: number;
+                    pageSize?: number;
+                    sortKey?: string;
+                    sortOrder?: string;
+                };
+                header?: never;
+                path: {
+                    id: number;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description OK */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["WorldObjectDtoPaginatedResponse"];
+                        "application/json": components["schemas"]["WorldObjectDtoPaginatedResponse"];
+                        "text/json": components["schemas"]["WorldObjectDtoPaginatedResponse"];
                     };
                 };
                 /** @description Bad Request */
@@ -7851,6 +9567,72 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/River/{id}/eventcollections": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query?: {
+                    pageNumber?: number;
+                    pageSize?: number;
+                    sortKey?: string;
+                    sortOrder?: string;
+                };
+                header?: never;
+                path: {
+                    id: number;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description OK */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["WorldObjectDtoPaginatedResponse"];
+                        "application/json": components["schemas"]["WorldObjectDtoPaginatedResponse"];
+                        "text/json": components["schemas"]["WorldObjectDtoPaginatedResponse"];
+                    };
+                };
+                /** @description Bad Request */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["ProblemDetails"];
+                        "application/json": components["schemas"]["ProblemDetails"];
+                        "text/json": components["schemas"]["ProblemDetails"];
+                    };
+                };
+                /** @description Not Found */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["ProblemDetails"];
+                        "application/json": components["schemas"]["ProblemDetails"];
+                        "text/json": components["schemas"]["ProblemDetails"];
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/River/{id}/eventchart": {
         parameters: {
             query?: never;
@@ -8096,6 +9878,72 @@ export interface paths {
                         "text/plain": components["schemas"]["WorldEventDtoPaginatedResponse"];
                         "application/json": components["schemas"]["WorldEventDtoPaginatedResponse"];
                         "text/json": components["schemas"]["WorldEventDtoPaginatedResponse"];
+                    };
+                };
+                /** @description Bad Request */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["ProblemDetails"];
+                        "application/json": components["schemas"]["ProblemDetails"];
+                        "text/json": components["schemas"]["ProblemDetails"];
+                    };
+                };
+                /** @description Not Found */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["ProblemDetails"];
+                        "application/json": components["schemas"]["ProblemDetails"];
+                        "text/json": components["schemas"]["ProblemDetails"];
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/Site/{id}/eventcollections": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query?: {
+                    pageNumber?: number;
+                    pageSize?: number;
+                    sortKey?: string;
+                    sortOrder?: string;
+                };
+                header?: never;
+                path: {
+                    id: number;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description OK */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["WorldObjectDtoPaginatedResponse"];
+                        "application/json": components["schemas"]["WorldObjectDtoPaginatedResponse"];
+                        "text/json": components["schemas"]["WorldObjectDtoPaginatedResponse"];
                     };
                 };
                 /** @description Bad Request */
@@ -8409,6 +10257,72 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/SiteConquered/{id}/eventcollections": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query?: {
+                    pageNumber?: number;
+                    pageSize?: number;
+                    sortKey?: string;
+                    sortOrder?: string;
+                };
+                header?: never;
+                path: {
+                    id: number;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description OK */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["WorldObjectDtoPaginatedResponse"];
+                        "application/json": components["schemas"]["WorldObjectDtoPaginatedResponse"];
+                        "text/json": components["schemas"]["WorldObjectDtoPaginatedResponse"];
+                    };
+                };
+                /** @description Bad Request */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["ProblemDetails"];
+                        "application/json": components["schemas"]["ProblemDetails"];
+                        "text/json": components["schemas"]["ProblemDetails"];
+                    };
+                };
+                /** @description Not Found */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["ProblemDetails"];
+                        "application/json": components["schemas"]["ProblemDetails"];
+                        "text/json": components["schemas"]["ProblemDetails"];
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/SiteConquered/{id}/eventchart": {
         parameters: {
             query?: never;
@@ -8654,6 +10568,72 @@ export interface paths {
                         "text/plain": components["schemas"]["WorldEventDtoPaginatedResponse"];
                         "application/json": components["schemas"]["WorldEventDtoPaginatedResponse"];
                         "text/json": components["schemas"]["WorldEventDtoPaginatedResponse"];
+                    };
+                };
+                /** @description Bad Request */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["ProblemDetails"];
+                        "application/json": components["schemas"]["ProblemDetails"];
+                        "text/json": components["schemas"]["ProblemDetails"];
+                    };
+                };
+                /** @description Not Found */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["ProblemDetails"];
+                        "application/json": components["schemas"]["ProblemDetails"];
+                        "text/json": components["schemas"]["ProblemDetails"];
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/Structure/{id}/eventcollections": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query?: {
+                    pageNumber?: number;
+                    pageSize?: number;
+                    sortKey?: string;
+                    sortOrder?: string;
+                };
+                header?: never;
+                path: {
+                    id: number;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description OK */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["WorldObjectDtoPaginatedResponse"];
+                        "application/json": components["schemas"]["WorldObjectDtoPaginatedResponse"];
+                        "text/json": components["schemas"]["WorldObjectDtoPaginatedResponse"];
                     };
                 };
                 /** @description Bad Request */
@@ -8967,6 +10947,72 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/Theft/{id}/eventcollections": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query?: {
+                    pageNumber?: number;
+                    pageSize?: number;
+                    sortKey?: string;
+                    sortOrder?: string;
+                };
+                header?: never;
+                path: {
+                    id: number;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description OK */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["WorldObjectDtoPaginatedResponse"];
+                        "application/json": components["schemas"]["WorldObjectDtoPaginatedResponse"];
+                        "text/json": components["schemas"]["WorldObjectDtoPaginatedResponse"];
+                    };
+                };
+                /** @description Bad Request */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["ProblemDetails"];
+                        "application/json": components["schemas"]["ProblemDetails"];
+                        "text/json": components["schemas"]["ProblemDetails"];
+                    };
+                };
+                /** @description Not Found */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["ProblemDetails"];
+                        "application/json": components["schemas"]["ProblemDetails"];
+                        "text/json": components["schemas"]["ProblemDetails"];
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/Theft/{id}/eventchart": {
         parameters: {
             query?: never;
@@ -9246,6 +11292,72 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/UndergroundRegion/{id}/eventcollections": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query?: {
+                    pageNumber?: number;
+                    pageSize?: number;
+                    sortKey?: string;
+                    sortOrder?: string;
+                };
+                header?: never;
+                path: {
+                    id: number;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description OK */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["WorldObjectDtoPaginatedResponse"];
+                        "application/json": components["schemas"]["WorldObjectDtoPaginatedResponse"];
+                        "text/json": components["schemas"]["WorldObjectDtoPaginatedResponse"];
+                    };
+                };
+                /** @description Bad Request */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["ProblemDetails"];
+                        "application/json": components["schemas"]["ProblemDetails"];
+                        "text/json": components["schemas"]["ProblemDetails"];
+                    };
+                };
+                /** @description Not Found */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["ProblemDetails"];
+                        "application/json": components["schemas"]["ProblemDetails"];
+                        "text/json": components["schemas"]["ProblemDetails"];
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/UndergroundRegion/{id}/eventchart": {
         parameters: {
             query?: never;
@@ -9491,6 +11603,72 @@ export interface paths {
                         "text/plain": components["schemas"]["WorldEventDtoPaginatedResponse"];
                         "application/json": components["schemas"]["WorldEventDtoPaginatedResponse"];
                         "text/json": components["schemas"]["WorldEventDtoPaginatedResponse"];
+                    };
+                };
+                /** @description Bad Request */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["ProblemDetails"];
+                        "application/json": components["schemas"]["ProblemDetails"];
+                        "text/json": components["schemas"]["ProblemDetails"];
+                    };
+                };
+                /** @description Not Found */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["ProblemDetails"];
+                        "application/json": components["schemas"]["ProblemDetails"];
+                        "text/json": components["schemas"]["ProblemDetails"];
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/War/{id}/eventcollections": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query?: {
+                    pageNumber?: number;
+                    pageSize?: number;
+                    sortKey?: string;
+                    sortOrder?: string;
+                };
+                header?: never;
+                path: {
+                    id: number;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description OK */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["WorldObjectDtoPaginatedResponse"];
+                        "application/json": components["schemas"]["WorldObjectDtoPaginatedResponse"];
+                        "text/json": components["schemas"]["WorldObjectDtoPaginatedResponse"];
                     };
                 };
                 /** @description Bad Request */
@@ -10320,6 +12498,72 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/WrittenContent/{id}/eventcollections": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query?: {
+                    pageNumber?: number;
+                    pageSize?: number;
+                    sortKey?: string;
+                    sortOrder?: string;
+                };
+                header?: never;
+                path: {
+                    id: number;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description OK */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["WorldObjectDtoPaginatedResponse"];
+                        "application/json": components["schemas"]["WorldObjectDtoPaginatedResponse"];
+                        "text/json": components["schemas"]["WorldObjectDtoPaginatedResponse"];
+                    };
+                };
+                /** @description Bad Request */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["ProblemDetails"];
+                        "application/json": components["schemas"]["ProblemDetails"];
+                        "text/json": components["schemas"]["ProblemDetails"];
+                    };
+                };
+                /** @description Not Found */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["ProblemDetails"];
+                        "application/json": components["schemas"]["ProblemDetails"];
+                        "text/json": components["schemas"]["ProblemDetails"];
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/WrittenContent/{id}/eventchart": {
         parameters: {
             query?: never;
@@ -10395,13 +12639,9 @@ export interface components {
             /** Format: int32 */
             readonly eventCount?: number;
             /** Format: int32 */
-            startYear?: number;
-            /** Format: int32 */
-            startSeconds72?: number;
-            /** Format: int32 */
-            endYear?: number;
-            /** Format: int32 */
-            endSeconds72?: number;
+            readonly eventCollectionCount?: number;
+            readonly startDate?: string | null;
+            readonly endDate?: string | null;
             notable?: boolean;
             /** Format: int32 */
             ordinal?: number;
@@ -10419,6 +12659,8 @@ export interface components {
             subtype?: string | null;
             /** Format: int32 */
             readonly eventCount?: number;
+            /** Format: int32 */
+            readonly eventCollectionCount?: number;
             item?: string | null;
             readonly creatorLink?: string | null;
             readonly holderLink?: string | null;
@@ -10450,13 +12692,9 @@ export interface components {
             /** Format: int32 */
             readonly eventCount?: number;
             /** Format: int32 */
-            startYear?: number;
-            /** Format: int32 */
-            startSeconds72?: number;
-            /** Format: int32 */
-            endYear?: number;
-            /** Format: int32 */
-            endSeconds72?: number;
+            readonly eventCollectionCount?: number;
+            readonly startDate?: string | null;
+            readonly endDate?: string | null;
             notable?: boolean;
             outcome?: components["schemas"]["BattleOutcome"];
             coordinates?: components["schemas"]["Location"];
@@ -10495,13 +12733,9 @@ export interface components {
             /** Format: int32 */
             readonly eventCount?: number;
             /** Format: int32 */
-            startYear?: number;
-            /** Format: int32 */
-            startSeconds72?: number;
-            /** Format: int32 */
-            endYear?: number;
-            /** Format: int32 */
-            endSeconds72?: number;
+            readonly eventCollectionCount?: number;
+            readonly startDate?: string | null;
+            readonly endDate?: string | null;
             notable?: boolean;
             /** Format: int32 */
             ordinal?: number;
@@ -10541,13 +12775,9 @@ export interface components {
             /** Format: int32 */
             readonly eventCount?: number;
             /** Format: int32 */
-            startYear?: number;
-            /** Format: int32 */
-            startSeconds72?: number;
-            /** Format: int32 */
-            endYear?: number;
-            /** Format: int32 */
-            endSeconds72?: number;
+            readonly eventCollectionCount?: number;
+            readonly startDate?: string | null;
+            readonly endDate?: string | null;
             notable?: boolean;
             /** Format: int32 */
             ordinal?: number;
@@ -10587,13 +12817,9 @@ export interface components {
             /** Format: int32 */
             readonly eventCount?: number;
             /** Format: int32 */
-            startYear?: number;
-            /** Format: int32 */
-            startSeconds72?: number;
-            /** Format: int32 */
-            endYear?: number;
-            /** Format: int32 */
-            endSeconds72?: number;
+            readonly eventCollectionCount?: number;
+            readonly startDate?: string | null;
+            readonly endDate?: string | null;
             notable?: boolean;
             /** Format: int32 */
             ordinal?: number;
@@ -10621,6 +12847,8 @@ export interface components {
             subtype?: string | null;
             /** Format: int32 */
             readonly eventCount?: number;
+            /** Format: int32 */
+            readonly eventCollectionCount?: number;
             description?: string | null;
             formType?: components["schemas"]["FormType"];
         };
@@ -10636,13 +12864,9 @@ export interface components {
             /** Format: int32 */
             readonly eventCount?: number;
             /** Format: int32 */
-            startYear?: number;
-            /** Format: int32 */
-            startSeconds72?: number;
-            /** Format: int32 */
-            endYear?: number;
-            /** Format: int32 */
-            endSeconds72?: number;
+            readonly eventCollectionCount?: number;
+            readonly startDate?: string | null;
+            readonly endDate?: string | null;
             notable?: boolean;
             /** Format: int32 */
             ordinal?: number;
@@ -10655,6 +12879,8 @@ export interface components {
             subtype?: string | null;
             /** Format: int32 */
             readonly eventCount?: number;
+            /** Format: int32 */
+            readonly eventCollectionCount?: number;
             readonly parentLink?: string | null;
             race?: components["schemas"]["CreatureInfo"];
             readonly worshippedLinks?: string[] | null;
@@ -10714,13 +12940,9 @@ export interface components {
             /** Format: int32 */
             readonly eventCount?: number;
             /** Format: int32 */
-            startYear?: number;
-            /** Format: int32 */
-            startSeconds72?: number;
-            /** Format: int32 */
-            endYear?: number;
-            /** Format: int32 */
-            endSeconds72?: number;
+            readonly eventCollectionCount?: number;
+            readonly startDate?: string | null;
+            readonly endDate?: string | null;
             notable?: boolean;
             /** Format: int32 */
             ordinal?: number;
@@ -10736,6 +12958,8 @@ export interface components {
             subtype?: string | null;
             /** Format: int32 */
             readonly eventCount?: number;
+            /** Format: int32 */
+            readonly eventCollectionCount?: number;
             race?: components["schemas"]["CreatureInfo"];
             /** Format: int32 */
             count?: number;
@@ -10826,6 +13050,8 @@ export interface components {
             subtype?: string | null;
             /** Format: int32 */
             readonly eventCount?: number;
+            /** Format: int32 */
+            readonly eventCollectionCount?: number;
             wars?: components["schemas"]["War"][] | null;
         };
         EventCollection: {
@@ -10838,13 +13064,9 @@ export interface components {
             /** Format: int32 */
             readonly eventCount?: number;
             /** Format: int32 */
-            startYear?: number;
-            /** Format: int32 */
-            startSeconds72?: number;
-            /** Format: int32 */
-            endYear?: number;
-            /** Format: int32 */
-            endSeconds72?: number;
+            readonly eventCollectionCount?: number;
+            readonly startDate?: string | null;
+            readonly endDate?: string | null;
             notable?: boolean;
         };
         /** @enum {string} */
@@ -10889,6 +13111,8 @@ export interface components {
             subtype?: string | null;
             /** Format: int32 */
             readonly eventCount?: number;
+            /** Format: int32 */
+            readonly eventCollectionCount?: number;
             readonly titleRaceString?: string | null;
             race?: components["schemas"]["CreatureInfo"];
             caste?: string | null;
@@ -11019,13 +13243,9 @@ export interface components {
             /** Format: int32 */
             readonly eventCount?: number;
             /** Format: int32 */
-            startYear?: number;
-            /** Format: int32 */
-            startSeconds72?: number;
-            /** Format: int32 */
-            endYear?: number;
-            /** Format: int32 */
-            endSeconds72?: number;
+            readonly eventCollectionCount?: number;
+            readonly startDate?: string | null;
+            readonly endDate?: string | null;
             notable?: boolean;
             /** Format: int32 */
             ordinal?: number;
@@ -11083,16 +13303,13 @@ export interface components {
             /** Format: int32 */
             readonly eventCount?: number;
             /** Format: int32 */
-            startYear?: number;
-            /** Format: int32 */
-            startSeconds72?: number;
-            /** Format: int32 */
-            endYear?: number;
-            /** Format: int32 */
-            endSeconds72?: number;
+            readonly eventCollectionCount?: number;
+            readonly startDate?: string | null;
+            readonly endDate?: string | null;
             notable?: boolean;
             /** Format: int32 */
             ordinal?: number;
+            historicalFigure?: components["schemas"]["HistoricalFigure"];
         };
         Landmass: {
             /** Format: int32 */
@@ -11103,6 +13320,8 @@ export interface components {
             subtype?: string | null;
             /** Format: int32 */
             readonly eventCount?: number;
+            /** Format: int32 */
+            readonly eventCollectionCount?: number;
             coordinates?: components["schemas"]["Location"][] | null;
         };
         Location: {
@@ -11122,6 +13341,8 @@ export interface components {
             subtype?: string | null;
             /** Format: int32 */
             readonly eventCount?: number;
+            /** Format: int32 */
+            readonly eventCollectionCount?: number;
             region?: components["schemas"]["WorldRegion"];
             coordinates?: components["schemas"]["Location"][] | null;
             /** Format: int32 */
@@ -11139,6 +13360,8 @@ export interface components {
             subtype?: string | null;
             /** Format: int32 */
             readonly eventCount?: number;
+            /** Format: int32 */
+            readonly eventCollectionCount?: number;
             description?: string | null;
             formType?: components["schemas"]["FormType"];
         };
@@ -11152,13 +13375,9 @@ export interface components {
             /** Format: int32 */
             readonly eventCount?: number;
             /** Format: int32 */
-            startYear?: number;
-            /** Format: int32 */
-            startSeconds72?: number;
-            /** Format: int32 */
-            endYear?: number;
-            /** Format: int32 */
-            endSeconds72?: number;
+            readonly eventCollectionCount?: number;
+            readonly startDate?: string | null;
+            readonly endDate?: string | null;
             notable?: boolean;
             /** Format: int32 */
             ordinal?: number;
@@ -11189,13 +13408,9 @@ export interface components {
             /** Format: int32 */
             readonly eventCount?: number;
             /** Format: int32 */
-            startYear?: number;
-            /** Format: int32 */
-            startSeconds72?: number;
-            /** Format: int32 */
-            endYear?: number;
-            /** Format: int32 */
-            endSeconds72?: number;
+            readonly eventCollectionCount?: number;
+            readonly startDate?: string | null;
+            readonly endDate?: string | null;
             notable?: boolean;
             /** Format: int32 */
             ordinal?: number;
@@ -11210,13 +13425,9 @@ export interface components {
             /** Format: int32 */
             readonly eventCount?: number;
             /** Format: int32 */
-            startYear?: number;
-            /** Format: int32 */
-            startSeconds72?: number;
-            /** Format: int32 */
-            endYear?: number;
-            /** Format: int32 */
-            endSeconds72?: number;
+            readonly eventCollectionCount?: number;
+            readonly startDate?: string | null;
+            readonly endDate?: string | null;
             notable?: boolean;
             /** Format: int32 */
             ordinal?: number;
@@ -11243,6 +13454,8 @@ export interface components {
             subtype?: string | null;
             /** Format: int32 */
             readonly eventCount?: number;
+            /** Format: int32 */
+            readonly eventCollectionCount?: number;
             description?: string | null;
             formType?: components["schemas"]["FormType"];
         };
@@ -11294,13 +13507,9 @@ export interface components {
             /** Format: int32 */
             readonly eventCount?: number;
             /** Format: int32 */
-            startYear?: number;
-            /** Format: int32 */
-            startSeconds72?: number;
-            /** Format: int32 */
-            endYear?: number;
-            /** Format: int32 */
-            endSeconds72?: number;
+            readonly eventCollectionCount?: number;
+            readonly startDate?: string | null;
+            readonly endDate?: string | null;
             notable?: boolean;
             /** Format: int32 */
             ordinal?: number;
@@ -11315,13 +13524,9 @@ export interface components {
             /** Format: int32 */
             readonly eventCount?: number;
             /** Format: int32 */
-            startYear?: number;
-            /** Format: int32 */
-            startSeconds72?: number;
-            /** Format: int32 */
-            endYear?: number;
-            /** Format: int32 */
-            endSeconds72?: number;
+            readonly eventCollectionCount?: number;
+            readonly startDate?: string | null;
+            readonly endDate?: string | null;
             notable?: boolean;
             /** Format: int32 */
             ordinal?: number;
@@ -11340,13 +13545,9 @@ export interface components {
             /** Format: int32 */
             readonly eventCount?: number;
             /** Format: int32 */
-            startYear?: number;
-            /** Format: int32 */
-            startSeconds72?: number;
-            /** Format: int32 */
-            endYear?: number;
-            /** Format: int32 */
-            endSeconds72?: number;
+            readonly eventCollectionCount?: number;
+            readonly startDate?: string | null;
+            readonly endDate?: string | null;
             notable?: boolean;
             /** Format: int32 */
             ordinal?: number;
@@ -11422,6 +13623,8 @@ export interface components {
             subtype?: string | null;
             /** Format: int32 */
             readonly eventCount?: number;
+            /** Format: int32 */
+            readonly eventCollectionCount?: number;
             endPos?: components["schemas"]["Location"];
             path?: string | null;
             coordinates?: components["schemas"]["Location"][] | null;
@@ -11435,6 +13638,8 @@ export interface components {
             subtype?: string | null;
             /** Format: int32 */
             readonly eventCount?: number;
+            /** Format: int32 */
+            readonly eventCollectionCount?: number;
             readonly regionToLink?: string | null;
             siteType?: components["schemas"]["SiteType"];
             untranslatedName?: string | null;
@@ -11472,13 +13677,9 @@ export interface components {
             /** Format: int32 */
             readonly eventCount?: number;
             /** Format: int32 */
-            startYear?: number;
-            /** Format: int32 */
-            startSeconds72?: number;
-            /** Format: int32 */
-            endYear?: number;
-            /** Format: int32 */
-            endSeconds72?: number;
+            readonly eventCollectionCount?: number;
+            readonly startDate?: string | null;
+            readonly endDate?: string | null;
             notable?: boolean;
             /** Format: int32 */
             ordinal?: number;
@@ -11557,6 +13758,8 @@ export interface components {
             subtype?: string | null;
             /** Format: int32 */
             readonly eventCount?: number;
+            /** Format: int32 */
+            readonly eventCollectionCount?: number;
             altName?: string | null;
             typeEnum?: components["schemas"]["StructureType"];
             coordinates?: components["schemas"]["Location"][] | null;
@@ -11585,13 +13788,9 @@ export interface components {
             /** Format: int32 */
             readonly eventCount?: number;
             /** Format: int32 */
-            startYear?: number;
-            /** Format: int32 */
-            startSeconds72?: number;
-            /** Format: int32 */
-            endYear?: number;
-            /** Format: int32 */
-            endSeconds72?: number;
+            readonly eventCollectionCount?: number;
+            readonly startDate?: string | null;
+            readonly endDate?: string | null;
             notable?: boolean;
             /** Format: int32 */
             ordinal?: number;
@@ -11608,6 +13807,8 @@ export interface components {
             subtype?: string | null;
             /** Format: int32 */
             readonly eventCount?: number;
+            /** Format: int32 */
+            readonly eventCollectionCount?: number;
             /** Format: int32 */
             depth?: number | null;
             regionType?: components["schemas"]["RegionType"];
@@ -11633,13 +13834,9 @@ export interface components {
             /** Format: int32 */
             readonly eventCount?: number;
             /** Format: int32 */
-            startYear?: number;
-            /** Format: int32 */
-            startSeconds72?: number;
-            /** Format: int32 */
-            endYear?: number;
-            /** Format: int32 */
-            endSeconds72?: number;
+            readonly eventCollectionCount?: number;
+            readonly startDate?: string | null;
+            readonly endDate?: string | null;
             notable?: boolean;
             /** Format: int32 */
             length?: number;
@@ -11663,6 +13860,8 @@ export interface components {
             subtype?: string | null;
             /** Format: int32 */
             readonly eventCount?: number;
+            /** Format: int32 */
+            readonly eventCollectionCount?: number;
             worldConstructionType?: components["schemas"]["WorldConstructionType"];
             coordinates?: components["schemas"]["Location"][] | null;
             readonly site1ToLink?: string | null;
@@ -11717,12 +13916,16 @@ export interface components {
         WorldObjectDto: {
             /** Format: int32 */
             id?: number;
+            startDate?: string | null;
+            endDate?: string | null;
             name?: string | null;
             type?: string | null;
             subtype?: string | null;
             html?: string | null;
             /** Format: int32 */
             eventCount?: number;
+            /** Format: int32 */
+            eventCollectionCount?: number;
         };
         WorldObjectDtoPaginatedResponse: {
             items?: components["schemas"]["WorldObjectDto"][] | null;
@@ -11747,6 +13950,8 @@ export interface components {
             /** Format: int32 */
             readonly eventCount?: number;
             /** Format: int32 */
+            readonly eventCollectionCount?: number;
+            /** Format: int32 */
             depth?: number | null;
             regionType?: components["schemas"]["RegionType"];
             deaths?: string[] | null;
@@ -11769,6 +13974,8 @@ export interface components {
             subtype?: string | null;
             /** Format: int32 */
             readonly eventCount?: number;
+            /** Format: int32 */
+            readonly eventCollectionCount?: number;
             /** Format: int32 */
             pageStart?: number;
             /** Format: int32 */

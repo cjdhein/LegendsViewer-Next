@@ -23,6 +23,7 @@ public abstract class WorldObject : DwarfObject
     public World? World { get; }
 
     public int EventCount => Events.Count;
+    public int EventCollectionCount => EventCollections.Count;
 
     protected WorldObject()
     {

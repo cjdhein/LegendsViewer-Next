@@ -9,10 +9,60 @@ namespace LegendsViewer.Backend.Legends.EventCollections;
 
 public abstract class EventCollection : WorldObject
 {
+    private int _startSeconds72 = -1;
+    private int _endSeconds72 = -1;
+
+    [JsonIgnore]
     public int StartYear { get; set; } = -1;
-    public int StartSeconds72 { get; set; } = -1;
+    [JsonIgnore]
+    public int StartMonth { get; set; } = -1;
+    [JsonIgnore]
+    public int StartDay { get; set; } = -1;
+    [JsonIgnore]
+    public int StartSeconds72
+    {
+        get => _startSeconds72;
+        set
+        {
+            _startSeconds72 = value;
+            StartMonth = 1 + _startSeconds72 / (28 * 1200);
+            StartDay = 1 + _startSeconds72 % (28 * 1200) / 1200;
+        }
+    }
+
+    [JsonIgnore]
     public int EndYear { get; set; } = -1;
-    public int EndSeconds72 { get; set; } = -1;
+    [JsonIgnore]
+    public int EndMonth { get; set; } = -1;
+    [JsonIgnore]
+    public int EndDay { get; set; } = -1;
+    [JsonIgnore]
+    public int EndSeconds72
+    {
+        get => _endSeconds72;
+        set
+        {
+            _endSeconds72 = value;
+            EndMonth = 1 + _endSeconds72 / (28 * 1200);
+            EndDay = 1 + _endSeconds72 % (28 * 1200) / 1200;
+        }
+    }
+
+    public string StartDate
+    {
+        get
+        {
+            return StartYear < 0 ? "-" : $"{StartYear:0000}-{StartMonth:00}-{StartDay:00}";
+        }
+    }
+
+    public string EndDate
+    {
+        get
+        {
+            return EndYear < 0 ? "-" : $"{EndYear:0000}-{EndMonth:00}-{EndDay:00}";
+        }
+    }
 
     [JsonIgnore]
     public WorldRegion? Region { get; set; }

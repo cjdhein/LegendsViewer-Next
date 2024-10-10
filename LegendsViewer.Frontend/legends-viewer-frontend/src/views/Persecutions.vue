@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { usePersecutionStore } from '../stores/worldObjectStores';
 import WorldObjectsPage from '../components/WorldObjectsPage.vue';
-import { TableHeader } from '../types/legends'; // Adjust the import path as needed
+import { TableHeader } from '../types/legends';
 
 const store = usePersecutionStore();
 const icon = "mdi-gavel";
@@ -9,11 +9,12 @@ const title = "Persecutions";
 const subtitle = "The systematic oppression of individuals or groups";
 const overviewSubtitle = "Browse and search all persecutions";
 const overviewTitle = "Overview";
-const tableHeaders: TableHeader[] = [ // Specify the type here
-    { title: 'Id', key: 'id', align: 'end' },
-    { title: 'Name', key: 'name', align: 'start' },
+const tableHeaders: TableHeader[] = [
+    { title: 'Start', key: 'startDate', align: 'center' },
+    { title: 'End', key: 'endDate', align: 'center' },
+    { title: 'Name', key: 'html', align: 'start' },
     { title: 'Type', key: 'type', align: 'start' },
-    { title: 'Link', key: 'html', align: 'start' },
+    { title: 'Chronicles', key: 'eventCollectionCount', align: 'end' },
     { title: 'Events', key: 'eventCount', align: 'end' },
 ];
 </script>
