@@ -24,9 +24,14 @@ public static class HtmlStyleUtil
         return $"<i {colorString} class=\"mdi-{icon} mdi v-icon notranslate v-theme--dark v-icon--size-default\" aria-hidden=\"true\"></i>";
     }
 
-    public static string GetCivIconString(string text, string color)
+    public static string GetCivIconString(string text, string bgColor, string fgColor)
     {
-        return $"<span style=\"background-color:{color}\" class=\"v-chip v-chip--label v-theme--dark v-chip--density-compact v-chip--size-default v-chip--variant-tonal soc\" draggable=\"false\"><span class=\"v-chip__underlay\"></span><div class=\"v-chip__content\" data-no-activator=\"\">{text}</div></span>";
+        return $"<span style=\"background-color:{bgColor};color:{fgColor};\" class=\"v-chip v-chip--label v-theme--dark v-chip--density-compact v-chip--size-default v-chip--variant-tonal soc\" draggable=\"false\"><span class=\"v-chip__underlay\"></span><div class=\"v-chip__content\" data-no-activator=\"\">{text}</div></span>";
+    }
+
+    public static string GetChipString(string text)
+    {
+        return $"<span class=\"v-chip v-chip--label v-theme--dark v-chip--density-compact v-chip--size-default v-chip--variant-tonal soc\" draggable=\"false\"><span class=\"v-chip__underlay\"></span><div class=\"v-chip__content\" data-no-activator=\"\">{text}</div></span>";
     }
 
     public static string GetAnchorString(string iconString, string type, int id, string title, string text)

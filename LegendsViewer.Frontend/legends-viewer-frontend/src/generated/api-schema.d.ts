@@ -12919,8 +12919,7 @@ export interface components {
             readonly eventCollectionCount?: number;
             readonly parentLink?: string | null;
             race?: components["schemas"]["CreatureInfo"];
-            readonly worshippedLinks?: string[] | null;
-            leaderTypes?: string[] | null;
+            readonly worshippedLinks?: components["schemas"]["ListItemDto"][] | null;
             entityPopulation?: components["schemas"]["EntityPopulation"];
             populations?: components["schemas"]["Population"][] | null;
             readonly originStructureLink?: string | null;
@@ -12931,6 +12930,8 @@ export interface components {
             honors?: components["schemas"]["Honor"][] | null;
             entityType?: components["schemas"]["EntityType"];
             isCiv?: boolean;
+            readonly entitySiteLinkList?: components["schemas"]["ListItemDto"][] | null;
+            readonly entityEntityLinkList?: components["schemas"]["ListItemDto"][] | null;
             readonly entityPositionAssignmentsList?: components["schemas"]["ListItemDto"][] | null;
             weapons?: string[] | null;
             profession?: string | null;
@@ -12952,20 +12953,6 @@ export interface components {
             lineColor?: components["schemas"]["Color"];
             icon?: string | null;
         };
-        EntityLink: {
-            readonly entityToLink?: string | null;
-            type?: components["schemas"]["EntityLinkType"];
-            /** Format: int32 */
-            strength?: number;
-            /** Format: int32 */
-            positionId?: number;
-            /** Format: int32 */
-            startYear?: number;
-            /** Format: int32 */
-            endYear?: number;
-        };
-        /** @enum {string} */
-        EntityLinkType: "Unknown" | "Criminal" | "Enemy" | "Member" | "FormerMember" | "Position" | "FormerPosition" | "Prisoner" | "FormerPrisoner" | "FormerSlave" | "Slave" | "Hero";
         EntityOverthrownCollection: {
             /** Format: int32 */
             id?: number;
@@ -13183,13 +13170,14 @@ export interface components {
             creatureTypes?: components["schemas"]["CreatureType"][] | null;
             relatedHistoricalFigures?: components["schemas"]["HistoricalFigureLink"][] | null;
             siteProperties?: components["schemas"]["SiteProperty"][] | null;
-            relatedEntities?: components["schemas"]["EntityLink"][] | null;
             reputations?: components["schemas"]["EntityReputation"][] | null;
             relationshipProfiles?: components["schemas"]["RelationshipProfileHf"][] | null;
-            relatedSites?: components["schemas"]["SiteLink"][] | null;
+            readonly relatedEntityList?: components["schemas"]["ListItemDto"][] | null;
+            readonly relatedSiteList?: components["schemas"]["ListItemDto"][] | null;
             readonly relatedRegionLinks?: string[] | null;
             readonly skillDescriptions?: components["schemas"]["SkillDescription"][] | null;
             vagueRelationships?: components["schemas"]["VagueRelationship"][] | null;
+            readonly vagueRelationshipList?: components["schemas"]["ListItemDto"][] | null;
             readonly dedicatedStructuresLinks?: string[] | null;
             /** Format: int32 */
             age?: number;
@@ -13814,17 +13802,6 @@ export interface components {
         };
         /** @enum {string} */
         SiteConqueredType: "Unknown" | "Pillaging" | "Destruction" | "Conquest" | "TributeEnforcement" | "Invasion";
-        SiteLink: {
-            readonly siteToLink?: string | null;
-            type?: components["schemas"]["SiteLinkType"];
-            /** Format: int32 */
-            subId?: number;
-            /** Format: int32 */
-            occupationId?: number;
-            readonly entityToLink?: string | null;
-        };
-        /** @enum {string} */
-        SiteLinkType: "Unknown" | "Lair" | "Hangout" | "HomeSiteBuilding" | "HomeSiteUnderground" | "HomeStructure" | "SeatOfPower" | "Occupation" | "HomeSiteRealizationBuilding" | "HomeSiteAbstractBuilding" | "PrisonSiteBuildingProfile";
         SiteMarkerDto: {
             /** Format: int32 */
             id?: number;

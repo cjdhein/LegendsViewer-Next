@@ -1,9 +1,11 @@
 ﻿using System.Globalization;
 using System.Text.Json.Serialization;
+using LegendsViewer.Backend.Contracts;
 using LegendsViewer.Backend.Extensions;
 using LegendsViewer.Backend.Legends.Enums;
 using LegendsViewer.Backend.Legends.EventCollections;
 using LegendsViewer.Backend.Legends.Events;
+using LegendsViewer.Backend.Legends.Extensions;
 using LegendsViewer.Backend.Legends.FamilyTree;
 using LegendsViewer.Backend.Legends.Parser;
 using LegendsViewer.Backend.Legends.Various;
@@ -105,14 +107,58 @@ public class HistoricalFigure : WorldObject
     public List<CreatureType> CreatureTypes { get; set; } = [];
     public List<HistoricalFigureLink> RelatedHistoricalFigures { get; set; } = [];
     public List<SiteProperty> SiteProperties { get; set; } = [];
-    public List<EntityLink> RelatedEntities { get; set; } = [];
     public List<EntityReputation> Reputations { get; set; } = [];
     public List<RelationshipProfileHf> RelationshipProfiles { get; set; } = [];
 
     [JsonIgnore]
     public Dictionary<int, RelationshipProfileHf> RelationshipProfilesOfIdentities { get; set; } = []; // TODO not used in Legends Mode
 
+    [JsonIgnore]
+    public List<EntityLink> RelatedEntities { get; set; } = [];
+    public List<ListItemDto> RelatedEntityList
+    {
+        get
+        {
+            var list = new List<ListItemDto>();
+            foreach (EntityLink link in RelatedEntities)
+            {
+                if (link.Entity == null)
+                {
+                    continue;
+                }
+                list.Add(new ListItemDto
+                {
+                    Title = $"{link.Entity.ToLink(true, this)} ({link.Entity?.Type.GetDescription()})",
+                    Subtitle = $" ==> {link.Type.GetDescription()}",
+                    Append = HtmlStyleUtil.GetChipString(link.Strength.ToString())
+                });
+            }
+            return list;
+        }
+    }
+
+    [JsonIgnore]
     public List<SiteLink> RelatedSites { get; set; } = [];
+    public List<ListItemDto> RelatedSiteList
+    {
+        get
+        {
+            var list = new List<ListItemDto>();
+            foreach (SiteLink link in RelatedSites)
+            {
+                if (link.Site == null)
+                {
+                    continue;
+                }
+                list.Add(new ListItemDto
+                {
+                    Title = $"{link.Type.GetDescription()} ({link.Site?.Type.GetDescription()})",
+                    Subtitle = $"{link.Site?.ToLink(true, this)}",
+                });
+            }
+            return list;
+        }
+    }
 
     [JsonIgnore]
     public List<WorldRegion> RelatedRegions { get; set; } = [];
@@ -123,6 +169,27 @@ public class HistoricalFigure : WorldObject
     public List<SkillDescription> SkillDescriptions => [.. Skills.Select(SkillDictionary.LookupSkill).OrderByDescending(d => d.Points)];
 
     public List<VagueRelationship> VagueRelationships { get; set; } = [];
+    public List<ListItemDto> VagueRelationshipList
+    {
+        get
+        {
+            var list = new List<ListItemDto>();
+            foreach (VagueRelationship link in VagueRelationships)
+            {
+                var hf = World?.GetHistoricalFigure(link.HfId);
+                if (hf == null)
+                {
+                    continue;
+                }
+                list.Add(new ListItemDto
+                {
+                    Title = $"{link.Type.GetDescription()}",
+                    Subtitle = $"{hf.ToLink(true, this)}",
+                });
+            }
+            return list;
+        }
+    }
 
     [JsonIgnore]
     public List<Structure> DedicatedStructures { get; set; } = [];

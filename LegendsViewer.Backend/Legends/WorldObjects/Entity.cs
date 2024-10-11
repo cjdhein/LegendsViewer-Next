@@ -1,5 +1,4 @@
 ﻿using System.Drawing;
-using System.Linq;
 using System.Text.Json.Serialization;
 using LegendsViewer.Backend.Contracts;
 using LegendsViewer.Backend.Legends.Enums;
@@ -83,9 +82,51 @@ public class Entity : WorldObject, IHasCoordinates
 
     [JsonIgnore]
     public List<EntitySiteLink> EntitySiteLinks { get; set; } = []; // legends_plus.xml
+    public List<ListItemDto> EntitySiteLinkList
+    {
+        get
+        {
+            var list = new List<ListItemDto>();
+            foreach (EntitySiteLink link in EntitySiteLinks)
+            {
+                if (link.Site == null)
+                {
+                    continue;
+                }
+                list.Add(new ListItemDto
+                {
+                    Title = $"{link.Type.GetDescription()} ({link.Site?.Type.GetDescription()})",
+                    Subtitle = $"{link.Site?.ToLink(true, this)}",
+                    Append = HtmlStyleUtil.GetChipString(link.Strength.ToString())
+                });
+            }
+            return list;
+        }
+    }
 
     [JsonIgnore]
     public List<EntityEntityLink> EntityEntityLinks { get; set; } = []; // legends_plus.xml
+    public List<ListItemDto> EntityEntityLinkList
+    {
+        get
+        {
+            var list = new List<ListItemDto>();
+            foreach (EntityEntityLink link in EntityEntityLinks)
+            {
+                if (link.Target == null)
+                {
+                    continue;
+                }
+                list.Add(new ListItemDto
+                {
+                    Title = $"{link.Type.GetDescription()} ({link.Target?.Type.GetDescription()})",
+                    Subtitle = $"{link.Target?.ToLink(true, this)}",
+                    Append = HtmlStyleUtil.GetChipString(link.Strength.ToString())
+                });
+            }
+            return list;
+        }
+    }
 
     [JsonIgnore]
     public List<EntityPosition> EntityPositions { get; set; } = []; // legends_plus.xml
@@ -226,7 +267,7 @@ public class Entity : WorldObject, IHasCoordinates
                 string coloredIcon;
                 if (IsCiv)
                 {
-                    coloredIcon = HtmlStyleUtil.GetCivIconString(Formatting.GetInitials(Name), ColorTranslator.ToHtml(LineColor));
+                    coloredIcon = HtmlStyleUtil.GetCivIconString(Formatting.GetInitials(Name), ColorTranslator.ToHtml(LineColor), Formatting.GetReadableForegroundColor(LineColor));
                 }
                 else if (World != null && World.MainRaces.ContainsKey(Race))
                 {

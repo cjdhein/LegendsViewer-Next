@@ -283,6 +283,14 @@ public static class Formatting
         }
     }
 
+    public static string GetReadableForegroundColor(Color bgColor)
+    {
+        // Calculate the relative luminance of the background color
+        double luminance = ((0.299 * bgColor.R) + (0.587 * bgColor.G) + (0.114 * bgColor.B)) / 255;
+
+        // If luminance is greater than 0.5, use black as the foreground color; otherwise, use white
+        return luminance > 0.5 ? "#000000" : "#FFFFFF";
+    }
 
     public static string TimeCountToSeason(int count)
     {

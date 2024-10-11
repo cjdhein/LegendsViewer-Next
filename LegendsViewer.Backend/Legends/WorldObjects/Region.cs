@@ -44,7 +44,7 @@ public class WorldRegion : WorldObject, IRegion
 
     [JsonIgnore]
     public List<Site> Sites { get; set; } // legends_plus.xml
-    public List<string> SiteLinks => Sites.ConvertAll(s => s.ToLink(true, this));
+    public List<string> SiteLinks => Sites.ConvertAll(s => $"{s.ToLink(true, this)} ({s.SiteType.GetDescription()})");
 
     [JsonIgnore]
     public List<MountainPeak> MountainPeaks { get; set; } // legends_plus.xml
