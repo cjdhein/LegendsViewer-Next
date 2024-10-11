@@ -1,4 +1,14 @@
-﻿using LegendsViewer.Backend.Legends.Interfaces;
+﻿using LegendsViewer.Backend.Legends.EventCollections;
+using LegendsViewer.Backend.Legends;
+using LegendsViewer.Backend.Legends.Interfaces;
+using LegendsViewer.Backend.Legends.Various;
+using LegendsViewer.Backend.Legends.WorldObjects;
+using System.Drawing;
+using LegendsViewer.Backend.Extensions;
+using LegendsViewer.Backend.Legends.Enums;
+using LegendsViewer.Backend.Legends.Extensions;
+using LegendsViewer.Backend.Legends.Maps;
+using SkiaSharp;
 
 namespace LegendsViewer.Backend.Contracts;
 
@@ -13,4 +23,114 @@ public class WorldDto(IWorld worldDataService)
     public int CurrentDay { get; set; } = worldDataService.CurrentDay;
 
     public List<SiteMarkerDto> SiteMarkers { get; set; } = worldDataService.Sites.ConvertAll(s => new SiteMarkerDto(s));
+    public List<ListItemDto> PlayerRelatedObjects
+    {
+        get
+        {
+            var list = new List<ListItemDto>();
+            foreach (var item in worldDataService.PlayerRelatedObjects)
+            {
+                if (item is HistoricalFigure hf)
+                {
+                    list.Add(new ListItemDto
+                    {
+                        Title = "Adventurer",
+                        Subtitle = hf.ToLink()
+                    });
+                }
+                else if (item is Entity entity)
+                {
+                    list.Add(new ListItemDto
+                    {
+                        Title = entity.Type,
+                        Subtitle = entity.ToLink()
+                    });
+                }
+                else if (item is Site site)
+                {
+                    list.Add(new ListItemDto
+                    {
+                        Title = site.Type,
+                        Subtitle = site.ToLink()
+                    });
+                }
+            }
+            return list;
+        }
+    }
+
+    public ChartDataDto EntityPopulationsByRace
+    {
+        get
+        {
+            Dictionary<CreatureInfo, int> entityPopsByRaceDict = [];
+
+            foreach (var entityPopulation in worldDataService.EntityPopulations)
+            {
+                if (entityPopulation.Entity == null || !entityPopulation.Entity.IsCiv)
+                {
+                    continue;
+                }
+                if (entityPopsByRaceDict.TryGetValue(entityPopulation.Race, out int popCount))
+                {
+                    entityPopsByRaceDict[entityPopulation.Race] = popCount + entityPopulation.Count;
+                }
+                else
+                {
+                    entityPopsByRaceDict[entityPopulation.Race] = entityPopulation.Count;
+                }
+            }
+            ChartDataDto entityPopsByRace = new();
+            ChartDatasetDto entityPopsByRaceDataset = new();
+            foreach (var populationOfRace in entityPopsByRaceDict)
+            {
+                entityPopsByRace.Labels.Add(populationOfRace.Key.NamePlural);
+                entityPopsByRaceDataset.Data.Add(populationOfRace.Value);
+                if (worldDataService != null && worldDataService.MainRaces.TryGetValue(populationOfRace.Key, out var raceColor))
+                {
+                    entityPopsByRaceDataset.BorderColor.Add(raceColor.ToRgbaString());
+                    entityPopsByRaceDataset.BackgroundColor.Add(raceColor.ToRgbaString(0.2f));
+                }
+                else
+                {
+                    entityPopsByRaceDataset.BorderColor.Add(Color.SlateGray.ToRgbaString());
+                    entityPopsByRaceDataset.BackgroundColor.Add(Color.SlateGray.ToRgbaString(0.2f));
+                }
+            }
+            entityPopsByRace.Datasets.Add(entityPopsByRaceDataset);
+            return entityPopsByRace;
+        }
+    }
+
+    public ChartDataDto AreaByOverworldRegions
+    {
+        get
+        {
+            Dictionary<RegionType, int> areaByRegionsDict = [];
+
+            foreach (var region in worldDataService.Regions)
+            {
+                if (areaByRegionsDict.TryGetValue(region.RegionType, out int areaOfType))
+                {
+                    areaByRegionsDict[region.RegionType] = areaOfType + region.Coordinates.Count;
+                }
+                else
+                {
+                    areaByRegionsDict[region.RegionType] = region.Coordinates.Count;
+                }
+            }
+            ChartDataDto areaByRegions = new();
+            ChartDatasetDto areaByRegionsDataset = new();
+            foreach (var populationOfRace in areaByRegionsDict)
+            {
+                areaByRegions.Labels.Add(populationOfRace.Key.GetDescription());
+                areaByRegionsDataset.Data.Add(populationOfRace.Value);
+                SKColor baseColor = WorldMapImageGenerator.GetRegionColor(populationOfRace.Key, null);
+                areaByRegionsDataset.BorderColor.Add(baseColor.ToRgbaString());
+                areaByRegionsDataset.BackgroundColor.Add(baseColor.ToRgbaString(0.2f));
+            }
+            areaByRegions.Datasets.Add(areaByRegionsDataset);
+            return areaByRegions;
+        }
+    }
 }

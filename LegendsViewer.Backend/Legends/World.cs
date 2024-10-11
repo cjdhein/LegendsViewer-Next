@@ -17,7 +17,7 @@ namespace LegendsViewer.Backend.Legends;
 
 public class World : IDisposable, IWorld
 {
-    public readonly Dictionary<CreatureInfo, Color> MainRaces = [];
+    public Dictionary<CreatureInfo, Color> MainRaces { get; } = [];
 
     public string Name { get; set; } = string.Empty;
     public string AlternativeName { get; set; } = string.Empty;
@@ -77,7 +77,7 @@ public class World : IDisposable, IWorld
     public int CurrentMonth { get; set; }
     public int CurrentDay { get; set; }
 
-    public List<DwarfObject> PlayerRelatedObjects { get; } = [];
+    public List<WorldObject> PlayerRelatedObjects { get; } = [];
 
     public readonly Dictionary<int, WorldEvent> SpecialEventsById = [];
     private readonly List<CreatureInfo> _creatureInfos = [];
@@ -177,7 +177,7 @@ public class World : IDisposable, IWorld
         }
     }
 
-    public void AddPlayerRelatedDwarfObjects(DwarfObject dwarfObject)
+    public void AddPlayerRelatedDwarfObjects(WorldObject dwarfObject)
     {
         if (dwarfObject == null)
         {

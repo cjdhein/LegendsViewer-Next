@@ -14007,6 +14007,9 @@ export interface components {
             /** Format: int32 */
             currentDay?: number;
             siteMarkers?: components["schemas"]["SiteMarkerDto"][] | null;
+            readonly playerRelatedObjects?: components["schemas"]["ListItemDto"][] | null;
+            entityPopulationsByRace?: components["schemas"]["ChartDataDto"];
+            areaByOverworldRegions?: components["schemas"]["ChartDataDto"];
         };
         WorldEventDto: {
             /** Format: int32 */
