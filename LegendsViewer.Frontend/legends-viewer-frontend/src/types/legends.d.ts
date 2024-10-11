@@ -1,9 +1,12 @@
+import { components } from '../generated/api-schema'; // Import from the OpenAPI schema
+
+type ListItemDto = components['schemas']['ListItemDto'];
 
 export type LegendLinkListData = {
     title: string,
     subtitle: string,
     icon: string,
-    items: string[]
+    items: string[] | ListItemDto[]
 }
 
 export interface LoadItemsSortOption {

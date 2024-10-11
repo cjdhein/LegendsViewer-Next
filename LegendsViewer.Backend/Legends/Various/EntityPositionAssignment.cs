@@ -7,8 +7,8 @@ public class EntityPositionAssignment
 {
     public int Id { get; set; } = -1;
     public HistoricalFigure? HistoricalFigure { get; set; }
-    public int PositionId { get; set; }
-    public int SquadId { get; set; }
+    public int PositionId { get; set; } = -1;
+    public int SquadId { get; set; } = -1;
 
     public EntityPositionAssignment(List<Property> properties, World world)
     {

@@ -1,5 +1,7 @@
 ﻿using System.Drawing;
+using System.Linq;
 using System.Text.Json.Serialization;
+using LegendsViewer.Backend.Contracts;
 using LegendsViewer.Backend.Legends.Enums;
 using LegendsViewer.Backend.Legends.EventCollections;
 using LegendsViewer.Backend.Legends.Events;
@@ -22,8 +24,25 @@ public class Entity : WorldObject, IHasCoordinates
 
     [JsonIgnore]
     public List<HistoricalFigure> Worshipped { get; set; } = [];
-    public List<string> WorshippedLinks => Worshipped.ConvertAll(x => x.ToLink(true, this));
+    public List<ListItemDto> WorshippedLinks
+    {
+        get
+        {
+            var list = new List<ListItemDto>();
+            foreach (var deity in Worshipped)
+            {
+                string associatedSpheres = string.Join(", ", deity.Spheres);
+                list.Add(new ListItemDto
+                {
+                    Title = deity.ToLink(true, this),
+                    Subtitle = associatedSpheres
+                });
+            }
+            return list;
+        }
+    }
 
+    [JsonIgnore]
     public List<string> LeaderTypes { get; set; } = [];
 
     [JsonIgnore]
@@ -73,9 +92,56 @@ public class Entity : WorldObject, IHasCoordinates
 
     [JsonIgnore]
     public List<EntityPositionAssignment> EntityPositionAssignments { get; set; } = []; // legends_plus.xml
+    public List<ListItemDto> EntityPositionAssignmentsList
+    {
+        get
+        {
+            var list = new List<ListItemDto>();
+            foreach (EntityPositionAssignment assignment in EntityPositionAssignments)
+            {
+                EntityPosition? position = EntityPositions.Find(pos => pos.Id == assignment.PositionId);
+                if (position == null || assignment.HistoricalFigure == null)
+                {
+                    continue;
+                }
+                string positionName = position.GetTitleByCaste(assignment.HistoricalFigure.Caste);
+                string positionHolder = assignment.HistoricalFigure.ToLink(true, this);
+
+                list.Add(new ListItemDto
+                {
+                    Title = positionName,
+                    Subtitle = positionHolder
+                });
+
+                if (string.IsNullOrEmpty(position.Spouse))
+                {
+                    continue;
+                }
+                HistoricalFigureLink? spouseHfLink = assignment.HistoricalFigure.RelatedHistoricalFigures.Find(hfLink => hfLink.Type == HistoricalFigureLinkType.Spouse);
+                if (spouseHfLink == null)
+                {
+                    continue;
+                }
+                HistoricalFigure? spouse = spouseHfLink.HistoricalFigure;
+                if (spouse == null)
+                {
+                    continue;
+                }
+                string spousePositionName = position.GetTitleByCaste(spouse.Caste, true);
+                string spousePositionHolder = spouse.ToLink(true, this);
+                list.Add(new ListItemDto
+                {
+                    Title = spousePositionName,
+                    Subtitle = spousePositionHolder
+                });
+            }
+            return list;
+        }
+    }
 
     [JsonIgnore]
     public Location? FormedAt { get; set; }
+    [JsonIgnore]
     public List<Location> Coordinates
     {
         get

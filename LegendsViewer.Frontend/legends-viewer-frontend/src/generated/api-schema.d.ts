@@ -12931,7 +12931,7 @@ export interface components {
             honors?: components["schemas"]["Honor"][] | null;
             entityType?: components["schemas"]["EntityType"];
             isCiv?: boolean;
-            readonly coordinates?: components["schemas"]["Location"][] | null;
+            readonly entityPositionAssignmentsList?: components["schemas"]["ListItemDto"][] | null;
             weapons?: string[] | null;
             profession?: string | null;
             readonly warLinks?: string[] | null;
@@ -13394,6 +13394,12 @@ export interface components {
             /** Format: int32 */
             readonly eventCollectionCount?: number;
             coordinates?: components["schemas"]["Location"][] | null;
+        };
+        ListItemDto: {
+            append?: string | null;
+            title?: string | null;
+            subtitle?: string | null;
+            prepend?: string | null;
         };
         Location: {
             /** Format: int32 */

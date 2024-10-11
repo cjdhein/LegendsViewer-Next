@@ -10,9 +10,9 @@ const subtitle = "Explore the Influential Factions and Groups Shaping History";
 const overviewSubtitle = "Browse and search all entities";
 const overviewTitle = "Overview";
 const tableHeaders: TableHeader[] = [
-{ title: 'Id', key: 'id', align: 'end' },
-{ title: 'Name', key: 'html', align: 'start' },
-{ title: 'Type', key: 'type', align: 'start' },
+    { title: 'Id', key: 'id', align: 'end' },
+    { title: 'Name', key: 'html', align: 'start' },
+    { title: 'Type', key: 'type', align: 'start' },
     { title: 'Race', key: 'subtype', align: 'start' },
     { title: 'Chronicles', key: 'eventCollectionCount', align: 'end' },
     { title: 'Events', key: 'eventCount', align: 'end' },
