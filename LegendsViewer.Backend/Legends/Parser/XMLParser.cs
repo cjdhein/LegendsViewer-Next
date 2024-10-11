@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Data;
 using System.Xml;
 using LegendsViewer.Backend.Legends.Enums;
 using LegendsViewer.Backend.Legends.EventCollections;
@@ -921,7 +922,8 @@ public class XmlParser : IDisposable
         //Calculate end years for eras and add list of wars during era.
         if (section == Section.Eras)
         {
-            World.Eras.Last().EndYear = World.Events.Last().Year;
+            int lastRecordedYear = World.Events[^1].Year;
+            World.Eras[^1].EndYear = lastRecordedYear;
             for (int i = 0; i < World.Eras.Count - 1; i++)
             {
                 World.Eras[i].EndYear = World.Eras[i + 1].StartYear - 1;
@@ -930,20 +932,33 @@ public class XmlParser : IDisposable
             foreach (Era era in World.Eras)
             {
                 era.Events.AddRange(World.Events
-                        .Where(events => events.Year >= era.StartYear && events.Year <= era.EndYear)
-                        .OrderBy(events => events.Year));
-                era.Wars.AddRange(World.EventCollections.OfType<War>()
-                        .Where(
-                            war =>
-                                war.StartYear >= era.StartYear && war.EndYear <= era.EndYear && war.EndYear != -1
-                                //entire war between
-                                || war.StartYear >= era.StartYear && war.StartYear <= era.EndYear
-                                //war started before & ended
-                                || war.EndYear >= era.StartYear && war.EndYear <= era.EndYear && war.EndYear != -1
-                                //war started during
-                                || war.StartYear <= era.StartYear && war.EndYear >= era.EndYear
-                                //war started before & ended after
-                                || war.StartYear <= era.StartYear && war.EndYear == -1));
+                        .Where(worldEvent => worldEvent.Year >= era.StartYear && worldEvent.Year <= era.EndYear)
+                        .OrderBy(worldEvent => worldEvent.Year));
+                era.EventCollections.AddRange(World.EventCollections
+                        .Where(eventCollection =>
+                                eventCollection.StartYear >= era.StartYear && eventCollection.EndYear <= era.EndYear && eventCollection.EndYear != -1
+                                // collection started between & ended between
+                                || eventCollection.StartYear >= era.StartYear && eventCollection.StartYear <= era.EndYear
+                                // collection started before & ended between
+                                || eventCollection.EndYear >= era.StartYear && eventCollection.EndYear <= era.EndYear && eventCollection.EndYear != -1
+                                // collection started during & ended after
+                                || eventCollection.StartYear <= era.StartYear && eventCollection.EndYear >= era.EndYear
+                                // collection started before & ended after
+                                || eventCollection.StartYear <= era.StartYear && eventCollection.EndYear == -1)
+                        .OrderBy(eventCollection => eventCollection.StartYear));
+
+                string duration;
+                if (era.StartYear == -1 && era.EndYear > 0)
+                {
+                    duration = $"{era.EndYear} years";
+                }
+                else
+                {
+                    duration = $"{era.EndYear - era.StartYear} years";
+                }
+
+                era.Type = duration;
+                era.Subtype = $"{(era.StartYear == -1 ? ".." : era.StartYear.ToString())} - {(era.EndYear == lastRecordedYear ? ".." : era.EndYear.ToString())}";
             }
         }
     }

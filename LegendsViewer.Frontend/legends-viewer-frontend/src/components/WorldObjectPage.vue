@@ -1,7 +1,7 @@
 <template>
-    <v-fab class="me-2" icon="mdi-chevron-right" location="top end" absolute :to="'/' + objectType + '/' + (routeId + 1)">
+    <v-fab class="me-2" icon="mdi-chevron-right" location="top end" absolute :to="'/' + objectType + '/' + (store.object?.nextId ?? routeId + 1)">
     </v-fab>
-    <v-fab class="me-16" icon="mdi-chevron-left" location="top end" absolute :to="'/' + objectType + '/' + (routeId - 1)">
+    <v-fab class="me-16" icon="mdi-chevron-left" location="top end" absolute :to="'/' + objectType + '/' + (store.object?.previousId ?? routeId - 1)">
     </v-fab>
     <v-row>
         <v-col cols="12">
@@ -110,11 +110,11 @@ const eventTableHeaders = [
 ]
 
 const eventCollectionTableHeaders: TableHeader[] = [
-    { title: 'Id', key: 'id', align: 'end' },
-    { title: 'Name', key: 'name', align: 'start' },
+    { title: 'Start', key: 'startDate', align: 'center' },
+    { title: 'End', key: 'endDate', align: 'center' },
+    { title: 'Name', key: 'html', align: 'start' },
     { title: 'Type', key: 'type', align: 'start' },
     { title: 'Subtype', key: 'subtype', align: 'start' },
-    { title: 'Link', key: 'html', align: 'start' },
     { title: 'Chronicles', key: 'eventCollectionCount', align: 'end' },
     { title: 'Events', key: 'eventCount', align: 'end' },
 ]

@@ -11,8 +11,8 @@ const overviewSubtitle = "Browse and search all eras";
 const overviewTitle = "Overview";
 const tableHeaders: TableHeader[] = [
     { title: 'Id', key: 'id', align: 'end' },
-    { title: 'Start', key: 'type', align: 'start' },
-    { title: 'End', key: 'subtype', align: 'end' },
+    { title: 'Duration', key: 'type', align: 'center' },
+    { title: 'From - To', key: 'subtype', align: 'center' },
     { title: 'Name', key: 'html', align: 'start' },
     { title: 'Chronicles', key: 'eventCollectionCount', align: 'end' },
     { title: 'Events', key: 'eventCount', align: 'end' },

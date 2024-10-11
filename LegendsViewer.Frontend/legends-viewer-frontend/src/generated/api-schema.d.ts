@@ -12637,6 +12637,10 @@ export interface components {
             type?: string | null;
             subtype?: string | null;
             /** Format: int32 */
+            previousId?: number;
+            /** Format: int32 */
+            nextId?: number;
+            /** Format: int32 */
             readonly eventCount?: number;
             /** Format: int32 */
             readonly eventCollectionCount?: number;
@@ -12657,6 +12661,10 @@ export interface components {
             name?: string | null;
             type?: string | null;
             subtype?: string | null;
+            /** Format: int32 */
+            previousId?: number;
+            /** Format: int32 */
+            nextId?: number;
             /** Format: int32 */
             readonly eventCount?: number;
             /** Format: int32 */
@@ -12689,6 +12697,10 @@ export interface components {
             name?: string | null;
             type?: string | null;
             subtype?: string | null;
+            /** Format: int32 */
+            previousId?: number;
+            /** Format: int32 */
+            nextId?: number;
             /** Format: int32 */
             readonly eventCount?: number;
             /** Format: int32 */
@@ -12730,6 +12742,10 @@ export interface components {
             name?: string | null;
             type?: string | null;
             subtype?: string | null;
+            /** Format: int32 */
+            previousId?: number;
+            /** Format: int32 */
+            nextId?: number;
             /** Format: int32 */
             readonly eventCount?: number;
             /** Format: int32 */
@@ -12773,6 +12789,10 @@ export interface components {
             type?: string | null;
             subtype?: string | null;
             /** Format: int32 */
+            previousId?: number;
+            /** Format: int32 */
+            nextId?: number;
+            /** Format: int32 */
             readonly eventCount?: number;
             /** Format: int32 */
             readonly eventCollectionCount?: number;
@@ -12815,6 +12835,10 @@ export interface components {
             type?: string | null;
             subtype?: string | null;
             /** Format: int32 */
+            previousId?: number;
+            /** Format: int32 */
+            nextId?: number;
+            /** Format: int32 */
             readonly eventCount?: number;
             /** Format: int32 */
             readonly eventCollectionCount?: number;
@@ -12846,6 +12870,10 @@ export interface components {
             type?: string | null;
             subtype?: string | null;
             /** Format: int32 */
+            previousId?: number;
+            /** Format: int32 */
+            nextId?: number;
+            /** Format: int32 */
             readonly eventCount?: number;
             /** Format: int32 */
             readonly eventCollectionCount?: number;
@@ -12862,6 +12890,10 @@ export interface components {
             type?: string | null;
             subtype?: string | null;
             /** Format: int32 */
+            previousId?: number;
+            /** Format: int32 */
+            nextId?: number;
+            /** Format: int32 */
             readonly eventCount?: number;
             /** Format: int32 */
             readonly eventCollectionCount?: number;
@@ -12877,6 +12909,10 @@ export interface components {
             name?: string | null;
             type?: string | null;
             subtype?: string | null;
+            /** Format: int32 */
+            previousId?: number;
+            /** Format: int32 */
+            nextId?: number;
             /** Format: int32 */
             readonly eventCount?: number;
             /** Format: int32 */
@@ -12938,6 +12974,10 @@ export interface components {
             type?: string | null;
             subtype?: string | null;
             /** Format: int32 */
+            previousId?: number;
+            /** Format: int32 */
+            nextId?: number;
+            /** Format: int32 */
             readonly eventCount?: number;
             /** Format: int32 */
             readonly eventCollectionCount?: number;
@@ -12956,6 +12996,10 @@ export interface components {
             name?: string | null;
             type?: string | null;
             subtype?: string | null;
+            /** Format: int32 */
+            previousId?: number;
+            /** Format: int32 */
+            nextId?: number;
             /** Format: int32 */
             readonly eventCount?: number;
             /** Format: int32 */
@@ -13049,10 +13093,17 @@ export interface components {
             type?: string | null;
             subtype?: string | null;
             /** Format: int32 */
+            previousId?: number;
+            /** Format: int32 */
+            nextId?: number;
+            /** Format: int32 */
             readonly eventCount?: number;
             /** Format: int32 */
             readonly eventCollectionCount?: number;
-            wars?: components["schemas"]["War"][] | null;
+            /** Format: int32 */
+            startYear?: number;
+            /** Format: int32 */
+            endYear?: number;
         };
         EventCollection: {
             /** Format: int32 */
@@ -13061,6 +13112,10 @@ export interface components {
             name?: string | null;
             type?: string | null;
             subtype?: string | null;
+            /** Format: int32 */
+            previousId?: number;
+            /** Format: int32 */
+            nextId?: number;
             /** Format: int32 */
             readonly eventCount?: number;
             /** Format: int32 */
@@ -13109,6 +13164,10 @@ export interface components {
             name?: string | null;
             type?: string | null;
             subtype?: string | null;
+            /** Format: int32 */
+            previousId?: number;
+            /** Format: int32 */
+            nextId?: number;
             /** Format: int32 */
             readonly eventCount?: number;
             /** Format: int32 */
@@ -13241,6 +13300,10 @@ export interface components {
             type?: string | null;
             subtype?: string | null;
             /** Format: int32 */
+            previousId?: number;
+            /** Format: int32 */
+            nextId?: number;
+            /** Format: int32 */
             readonly eventCount?: number;
             /** Format: int32 */
             readonly eventCollectionCount?: number;
@@ -13301,6 +13364,10 @@ export interface components {
             type?: string | null;
             subtype?: string | null;
             /** Format: int32 */
+            previousId?: number;
+            /** Format: int32 */
+            nextId?: number;
+            /** Format: int32 */
             readonly eventCount?: number;
             /** Format: int32 */
             readonly eventCollectionCount?: number;
@@ -13318,6 +13385,10 @@ export interface components {
             name?: string | null;
             type?: string | null;
             subtype?: string | null;
+            /** Format: int32 */
+            previousId?: number;
+            /** Format: int32 */
+            nextId?: number;
             /** Format: int32 */
             readonly eventCount?: number;
             /** Format: int32 */
@@ -13340,6 +13411,10 @@ export interface components {
             type?: string | null;
             subtype?: string | null;
             /** Format: int32 */
+            previousId?: number;
+            /** Format: int32 */
+            nextId?: number;
+            /** Format: int32 */
             readonly eventCount?: number;
             /** Format: int32 */
             readonly eventCollectionCount?: number;
@@ -13359,6 +13434,10 @@ export interface components {
             type?: string | null;
             subtype?: string | null;
             /** Format: int32 */
+            previousId?: number;
+            /** Format: int32 */
+            nextId?: number;
+            /** Format: int32 */
             readonly eventCount?: number;
             /** Format: int32 */
             readonly eventCollectionCount?: number;
@@ -13372,6 +13451,10 @@ export interface components {
             name?: string | null;
             type?: string | null;
             subtype?: string | null;
+            /** Format: int32 */
+            previousId?: number;
+            /** Format: int32 */
+            nextId?: number;
             /** Format: int32 */
             readonly eventCount?: number;
             /** Format: int32 */
@@ -13406,6 +13489,10 @@ export interface components {
             type?: string | null;
             subtype?: string | null;
             /** Format: int32 */
+            previousId?: number;
+            /** Format: int32 */
+            nextId?: number;
+            /** Format: int32 */
             readonly eventCount?: number;
             /** Format: int32 */
             readonly eventCollectionCount?: number;
@@ -13422,6 +13509,10 @@ export interface components {
             name?: string | null;
             type?: string | null;
             subtype?: string | null;
+            /** Format: int32 */
+            previousId?: number;
+            /** Format: int32 */
+            nextId?: number;
             /** Format: int32 */
             readonly eventCount?: number;
             /** Format: int32 */
@@ -13452,6 +13543,10 @@ export interface components {
             name?: string | null;
             type?: string | null;
             subtype?: string | null;
+            /** Format: int32 */
+            previousId?: number;
+            /** Format: int32 */
+            nextId?: number;
             /** Format: int32 */
             readonly eventCount?: number;
             /** Format: int32 */
@@ -13505,6 +13600,10 @@ export interface components {
             type?: string | null;
             subtype?: string | null;
             /** Format: int32 */
+            previousId?: number;
+            /** Format: int32 */
+            nextId?: number;
+            /** Format: int32 */
             readonly eventCount?: number;
             /** Format: int32 */
             readonly eventCollectionCount?: number;
@@ -13521,6 +13620,10 @@ export interface components {
             name?: string | null;
             type?: string | null;
             subtype?: string | null;
+            /** Format: int32 */
+            previousId?: number;
+            /** Format: int32 */
+            nextId?: number;
             /** Format: int32 */
             readonly eventCount?: number;
             /** Format: int32 */
@@ -13542,6 +13645,10 @@ export interface components {
             name?: string | null;
             type?: string | null;
             subtype?: string | null;
+            /** Format: int32 */
+            previousId?: number;
+            /** Format: int32 */
+            nextId?: number;
             /** Format: int32 */
             readonly eventCount?: number;
             /** Format: int32 */
@@ -13622,6 +13729,10 @@ export interface components {
             type?: string | null;
             subtype?: string | null;
             /** Format: int32 */
+            previousId?: number;
+            /** Format: int32 */
+            nextId?: number;
+            /** Format: int32 */
             readonly eventCount?: number;
             /** Format: int32 */
             readonly eventCollectionCount?: number;
@@ -13636,6 +13747,10 @@ export interface components {
             name?: string | null;
             type?: string | null;
             subtype?: string | null;
+            /** Format: int32 */
+            previousId?: number;
+            /** Format: int32 */
+            nextId?: number;
             /** Format: int32 */
             readonly eventCount?: number;
             /** Format: int32 */
@@ -13674,6 +13789,10 @@ export interface components {
             name?: string | null;
             type?: string | null;
             subtype?: string | null;
+            /** Format: int32 */
+            previousId?: number;
+            /** Format: int32 */
+            nextId?: number;
             /** Format: int32 */
             readonly eventCount?: number;
             /** Format: int32 */
@@ -13757,6 +13876,10 @@ export interface components {
             type?: string | null;
             subtype?: string | null;
             /** Format: int32 */
+            previousId?: number;
+            /** Format: int32 */
+            nextId?: number;
+            /** Format: int32 */
             readonly eventCount?: number;
             /** Format: int32 */
             readonly eventCollectionCount?: number;
@@ -13777,7 +13900,7 @@ export interface components {
         /** @enum {string} */
         StructureSubType: "Unknown" | "Dungeon" | "Sewers" | "Catacombs";
         /** @enum {string} */
-        StructureType: "Unknown" | "MeadHall" | "Market" | "Keep" | "Temple" | "Dungeon" | "InnTavern" | "Tomb" | "UnderworldSpire" | "Library" | "Tower" | "CountingHouse" | "Guildhall";
+        StructureType: "Unknown" | "MeadHall" | "Market" | "Keep" | "Temple" | "Dungeon" | "InnTavern" | "Tomb" | "UnderworldSpire" | "Library" | "Tower" | "CountingHouse" | "Guildhall" | "Hospital";
         Theft: {
             /** Format: int32 */
             id?: number;
@@ -13785,6 +13908,10 @@ export interface components {
             name?: string | null;
             type?: string | null;
             subtype?: string | null;
+            /** Format: int32 */
+            previousId?: number;
+            /** Format: int32 */
+            nextId?: number;
             /** Format: int32 */
             readonly eventCount?: number;
             /** Format: int32 */
@@ -13805,6 +13932,10 @@ export interface components {
             name?: string | null;
             type?: string | null;
             subtype?: string | null;
+            /** Format: int32 */
+            previousId?: number;
+            /** Format: int32 */
+            nextId?: number;
             /** Format: int32 */
             readonly eventCount?: number;
             /** Format: int32 */
@@ -13832,6 +13963,10 @@ export interface components {
             type?: string | null;
             subtype?: string | null;
             /** Format: int32 */
+            previousId?: number;
+            /** Format: int32 */
+            nextId?: number;
+            /** Format: int32 */
             readonly eventCount?: number;
             /** Format: int32 */
             readonly eventCollectionCount?: number;
@@ -13858,6 +13993,10 @@ export interface components {
             name?: string | null;
             type?: string | null;
             subtype?: string | null;
+            /** Format: int32 */
+            previousId?: number;
+            /** Format: int32 */
+            nextId?: number;
             /** Format: int32 */
             readonly eventCount?: number;
             /** Format: int32 */
@@ -13948,6 +14087,10 @@ export interface components {
             type?: string | null;
             subtype?: string | null;
             /** Format: int32 */
+            previousId?: number;
+            /** Format: int32 */
+            nextId?: number;
+            /** Format: int32 */
             readonly eventCount?: number;
             /** Format: int32 */
             readonly eventCollectionCount?: number;
@@ -13972,6 +14115,10 @@ export interface components {
             name?: string | null;
             type?: string | null;
             subtype?: string | null;
+            /** Format: int32 */
+            previousId?: number;
+            /** Format: int32 */
+            nextId?: number;
             /** Format: int32 */
             readonly eventCount?: number;
             /** Format: int32 */

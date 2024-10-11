@@ -76,6 +76,11 @@ public abstract class WorldObjectGenericController<T>(List<T> allElements, Func<
         {
             return NotFound();
         }
+        int currentIndex = AllElements.IndexOf(item);
+        int previousIndex = currentIndex == 0 ? AllElements.Count - 1 : currentIndex - 1;
+        int nextIndex = AllElements.Count == currentIndex + 1 ? 0 : currentIndex + 1;
+        item.PreviousId = AllElements[previousIndex].Id;
+        item.NextId = AllElements[nextIndex].Id;
         return Ok(item);
     }
 

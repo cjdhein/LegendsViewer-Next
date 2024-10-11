@@ -13,6 +13,9 @@ public abstract class WorldObject : DwarfObject
     public string Type { get; set; } = string.Empty;
     public string Subtype { get; set; } = string.Empty;
 
+    public int PreviousId { get; set; }
+    public int NextId { get; set; }
+
     [JsonIgnore]
     public List<WorldEvent> Events { get; set; } = [];
 

@@ -1,15 +1,11 @@
-﻿using LegendsViewer.Backend.Legends.EventCollections;
-using LegendsViewer.Backend.Legends.Events;
+﻿using LegendsViewer.Backend.Legends.Events;
 using LegendsViewer.Backend.Legends.Parser;
 using LegendsViewer.Backend.Utilities;
-using System.Text.Json.Serialization;
 
 namespace LegendsViewer.Backend.Legends.WorldObjects;
 
 public class Era : WorldObject
 {
-    [JsonIgnore]
-    public List<War> Wars { get; set; } = [];
     public int StartYear { get; set; }
     public int EndYear { get; set; }
 
@@ -27,8 +23,6 @@ public class Era : WorldObject
             }
         }
         Icon = HtmlStyleUtil.GetIconString("timelapse");
-        Type = StartYear == -1 ? "In a time before time" : StartYear.ToString();
-        Subtype = EndYear <= 0 ? "-" : EndYear.ToString();
     }
 
     public override string ToLink(bool link = true, DwarfObject? pov = null, WorldEvent? worldEvent = null)
@@ -45,5 +39,8 @@ public class Era : WorldObject
         return Name;
     }
 
-    public override string ToString() { return Name != "" ? Name : $"({StartYear} - {EndYear})"; }
+    public override string ToString()
+    {
+        return string.IsNullOrWhiteSpace(Name) ? Subtype : Name;
+    }
 }
