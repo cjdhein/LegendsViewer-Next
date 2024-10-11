@@ -383,6 +383,7 @@ public class Entity : WorldObject, IHasCoordinates
         Type = EntityType.GetDescription();
         Subtype = Race?.NamePlural ?? string.Empty;
     }
+
     public override string ToString() { return Name ?? "UNKNOWN"; }
 
     public bool EqualsOrParentEquals(Entity? entity)
@@ -444,14 +445,13 @@ public class Entity : WorldObject, IHasCoordinates
 
     public override string ToLink(bool link = true, DwarfObject? pov = null, WorldEvent? worldEvent = null)
     {
-        string name = string.IsNullOrWhiteSpace(Name) ? GetTitle() : Name;
         if (link)
         {
             return pov != this
-                ? HtmlStyleUtil.GetAnchorString(Icon, "entity", Id, GetToolTip(), name)
-                : HtmlStyleUtil.GetAnchorCurrentString(Icon, GetToolTip(), HtmlStyleUtil.CurrentDwarfObject(name));
+                ? HtmlStyleUtil.GetAnchorString(Icon, "entity", Id, GetToolTip(), Name)
+                : HtmlStyleUtil.GetAnchorCurrentString(Icon, GetToolTip(), HtmlStyleUtil.CurrentDwarfObject(Name));
         }
-        return name;
+        return Name;
     }
 
     private string GetToolTip()
@@ -469,7 +469,7 @@ public class Entity : WorldObject, IHasCoordinates
 
     public string GetTitle()
     {
-        var title = IsCiv ? "Civilization" : GetTypeAsString();
+        var title = EntityType.GetDescription();
         if (Race != null && Race != CreatureInfo.Unknown)
         {
             title += " of ";
@@ -478,43 +478,11 @@ public class Entity : WorldObject, IHasCoordinates
         return title;
     }
 
-    private string GetTypeAsString()
-    {
-        switch (EntityType)
-        {
-            case EntityType.Civilization:
-                return "Civilization";
-            case EntityType.NomadicGroup:
-                return "Nomadic group";
-            case EntityType.MigratingGroup:
-                return "Migrating group";
-            case EntityType.Outcast:
-                return "Collection of outcasts";
-            case EntityType.Religion:
-                return "Religious group";
-            case EntityType.SiteGovernment:
-                return "Site government";
-            case EntityType.PerformanceTroupe:
-                return "Performance troupe";
-            case EntityType.MercenaryCompany:
-                return "Mercenary company";
-            case EntityType.MilitaryUnit:
-                return "Mercenary order";
-            case EntityType.Guild:
-                return "Guild";
-            case EntityType.MerchantCompany:
-                return "Merchant company";
-            default:
-                return "Group";
-        }
-    }
-
     public string GetSummary(bool link = true, DwarfObject? pov = null)
     {
-        string summary = string.Empty;
-        summary += ToLink(link, pov);
+        string summary = ToLink(link, pov);
         summary += " was a ";
-        summary += GetTypeAsString().ToLower();
+        summary += EntityType.GetDescription().ToLower();
         if (Race != CreatureInfo.Unknown)
         {
             summary += " of " + Race.NamePlural.ToLower();

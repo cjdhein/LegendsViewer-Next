@@ -173,6 +173,7 @@ public class World : IDisposable, IWorld
             {
                 entity.IsCiv = true;
             }
+            entity.Name = string.IsNullOrWhiteSpace(entity.Name) ? entity.GetTitle() : entity.Name;
         }
     }
 
