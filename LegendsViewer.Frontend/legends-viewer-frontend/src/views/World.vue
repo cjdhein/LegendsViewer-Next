@@ -3,6 +3,7 @@ import { useWorldStore } from '../stores/worldStore';
 import { useWorldMapStore } from '../stores/mapStore';
 import DoughnutChart from '../components/DoughnutChart.vue';
 import LegendsCardList from '../components/LegendsCardList.vue';
+import CivilizationsCardList from '../components/CivilizationsCardList.vue';
 import { computed, ComputedRef } from 'vue';
 import { LegendLinkListData } from '../types/legends';
 
@@ -70,8 +71,7 @@ const lists: ComputedRef<LegendLinkListData[]> = computed(() => [
             v-if="store.world?.areaByOverworldRegions?.labels != null && store.world?.areaByOverworldRegions?.labels?.length > 0"
             cols="12" xl="4" lg="6" md="12">
             <v-card title="Area by Overworld Regions"
-                subtitle="A comparative view of the land distribution across the world" height="400"
-                variant="text">
+                subtitle="A comparative view of the land distribution across the world" height="400" variant="text">
                 <template v-slot:prepend>
                     <v-icon class="mr-2" icon="mdi-earth" size="32px"></v-icon>
                 </template>
@@ -79,6 +79,14 @@ const lists: ComputedRef<LegendLinkListData[]> = computed(() => [
                     <DoughnutChart :chart-data="store.world?.areaByOverworldRegions" />
                 </v-card-text>
             </v-card>
+        </v-col>
+    </v-row>
+    <v-row>
+        <v-col v-if="store.world?.mainCivilizations != null && store.world?.mainCivilizations.length > 0" cols="12" xl="6" lg="12">
+            <CivilizationsCardList :icon="'mdi-account-multiple'" :title="'Active Civilizations'" :subtitle="'The thriving societies that continue to shape the world with their influence and power'" :list="store.world?.mainCivilizations ?? []" />
+        </v-col>
+        <v-col v-if="store.world?.mainCivilizationsLost != null && store.world?.mainCivilizationsLost.length > 0" cols="12" xl="6" lg="12">
+            <CivilizationsCardList :icon="'mdi-account-multiple-remove-outline'" :title="'Lost Civilizations'" :subtitle="'The remnants of once-great societies that have faded into history'" :list="store.world?.mainCivilizationsLost ?? []" />
         </v-col>
     </v-row>
     <v-row>

@@ -1,6 +1,4 @@
-﻿using LegendsViewer.Backend.Legends.EventCollections;
-using LegendsViewer.Backend.Legends;
-using LegendsViewer.Backend.Legends.Interfaces;
+﻿using LegendsViewer.Backend.Legends.Interfaces;
 using LegendsViewer.Backend.Legends.Various;
 using LegendsViewer.Backend.Legends.WorldObjects;
 using System.Drawing;
@@ -12,7 +10,7 @@ using SkiaSharp;
 
 namespace LegendsViewer.Backend.Contracts;
 
-public class WorldDto(IWorld worldDataService)
+public class WorldDto(IWorld worldDataService, IWorldMapImageGenerator worldMapImageGenerator)
 {
     public string Name { get; set; } = worldDataService.Name;
     public string AlternativeName { get; set; } = worldDataService.AlternativeName;
@@ -21,6 +19,18 @@ public class WorldDto(IWorld worldDataService)
     public int CurrentYear { get; set; } = worldDataService.CurrentYear;
     public int CurrentMonth { get; set; } = worldDataService.CurrentMonth;
     public int CurrentDay { get; set; } = worldDataService.CurrentDay;
+
+    public List<MainCivilizationDto> MainCivilizations { get; set; } = worldDataService.Entities
+        .Where(e => e.IsCiv && e.CurrentSites?.Count > 0)
+        .OrderBy(e => e.Race.NamePlural)
+        .Select(civ => new MainCivilizationDto(worldMapImageGenerator, civ))
+        .ToList();
+
+    public List<MainCivilizationDto> MainCivilizationsLost { get; set; } = worldDataService.Entities
+        .Where(e => e.IsCiv && e.CurrentSites?.Count == 0)
+        .OrderBy(e => e.Race.NamePlural)
+        .Select(civ => new MainCivilizationDto(worldMapImageGenerator, civ))
+        .ToList();
 
     public List<SiteMarkerDto> SiteMarkers { get; set; } = worldDataService.Sites.ConvertAll(s => new SiteMarkerDto(s));
     public List<ListItemDto> PlayerRelatedObjects

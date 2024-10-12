@@ -7,11 +7,11 @@ namespace LegendsViewer.Backend.Legends.Events;
 
 public class CreatedSite : WorldEvent
 {
-    public Entity Civ { get; set; }
-    public Entity ResidentCiv { get; set; }
-    public Entity SiteEntity { get; set; }
-    public Site Site { get; set; }
-    public HistoricalFigure Builder { get; set; }
+    public Entity? Civ { get; set; }
+    public Entity? ResidentCiv { get; set; }
+    public Entity? SiteEntity { get; set; }
+    public Site? Site { get; set; }
+    public HistoricalFigure? Builder { get; set; }
 
     public CreatedSite(List<Property> properties, World world)
         : base(properties, world)
@@ -30,22 +30,26 @@ public class CreatedSite : WorldEvent
 
         if (ResidentCiv != null)
         {
-            Site.OwnerHistory.Add(new OwnerPeriod(Site, ResidentCiv, Year, "constructed", Builder));
+            Site?.OwnerHistory.Add(new OwnerPeriod(Site, ResidentCiv, Year, "constructed", Builder));
         }
         else if (SiteEntity != null)
         {
-            SiteEntity.SetParent(Civ);
-            Site.OwnerHistory.Add(new OwnerPeriod(Site, SiteEntity, Year, "founded", Builder));
+            if (Civ != null)
+            {
+                SiteEntity.SetParent(Civ);
+            }
+
+            Site?.OwnerHistory.Add(new OwnerPeriod(Site, SiteEntity, Year, "founded", Builder));
         }
         else if (Civ != null)
         {
-            Site.OwnerHistory.Add(new OwnerPeriod(Site, Civ, Year, "founded", Builder));
+            Site?.OwnerHistory.Add(new OwnerPeriod(Site, Civ, Year, "founded", Builder));
         }
-        ResidentCiv.AddEvent(this);
-        Site.AddEvent(this);
-        SiteEntity.AddEvent(this);
-        Civ.AddEvent(this);
-        Builder.AddEvent(this);
+        ResidentCiv?.AddEvent(this);
+        Site?.AddEvent(this);
+        SiteEntity?.AddEvent(this);
+        Civ?.AddEvent(this);
+        Builder?.AddEvent(this);
     }
     public override string Print(bool link = true, DwarfObject? pov = null)
     {
@@ -54,7 +58,7 @@ public class CreatedSite : WorldEvent
         {
             eventString += Builder.ToLink(link, pov, this);
             eventString += " constructed ";
-            eventString += Site.ToLink(link, pov, this);
+            eventString += Site?.ToLink(link, pov, this);
             if (ResidentCiv != null)
             {
                 eventString += " for ";
@@ -68,9 +72,9 @@ public class CreatedSite : WorldEvent
                 eventString += SiteEntity.ToLink(link, pov, this) + " of ";
             }
 
-            eventString += Civ.ToLink(link, pov, this);
+            eventString += Civ?.ToLink(link, pov, this);
             eventString += " founded ";
-            eventString += Site.ToLink(link, pov, this);
+            eventString += Site?.ToLink(link, pov, this);
         }
         eventString += PrintParentCollection(link, pov);
         eventString += ".";

@@ -88,8 +88,6 @@ public class World : IDisposable, IWorld
     public StringBuilder Log { get; } = new StringBuilder();
     public ParsingErrors ParsingErrors { get; } = new ParsingErrors();
 
-    public readonly List<Era> TempEras = [];
-    public bool FilterBattles = true;
 
     private readonly List<HistoricalFigure> _hFtoHfLinkHFs = [];
     private readonly List<Property> _hFtoHfLinks = [];
@@ -853,9 +851,6 @@ public class World : IDisposable, IWorld
         _creatureInfosById.Clear();
 
         Breeds.Clear();
-
-        TempEras.Clear();
-        FilterBattles = true;
 
         _hFtoHfLinkHFs.Clear();
         _hFtoHfLinks.Clear();

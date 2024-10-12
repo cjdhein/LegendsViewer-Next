@@ -6,7 +6,7 @@ import { TableHeader } from '../types/legends';
 const store = useArtifactStore();
 const icon = "mdi-diamond-stone";
 const title = "Artifacts";
-const subtitle = "Sites are diverse inhabited locations, including towns, fortresses, and other settlements, found throughout the world. Explore their history, structures, and inhabitants";
+const subtitle = "The treasured relics of history, each holding tales of power, craftsmanship, and legend";
 const overviewSubtitle = "Browse and search all artifacts";
 const overviewTitle = "Overview";
 const tableHeaders: TableHeader[] = [

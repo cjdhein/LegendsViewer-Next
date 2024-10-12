@@ -6,7 +6,7 @@ import { TableHeader } from '../types/legends'; // Adjust the import path as nee
 const store = useWrittenContentStore();
 const icon = "mdi-bookshelf";
 const title = "Written Content";
-const subtitle = "Sites are diverse inhabited locations, including towns, fortresses, and other settlements, found throughout the world. Explore their history, structures, and inhabitants";
+const subtitle = "The preserved knowledge, stories, and records that document the past and shape the future";
 const overviewSubtitle = "Browse and search all written content";
 const overviewTitle = "Overview";
 const tableHeaders: TableHeader[] = [

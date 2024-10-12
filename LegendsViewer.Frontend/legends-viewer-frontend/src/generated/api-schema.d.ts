@@ -13395,6 +13395,34 @@ export interface components {
             /** Format: int32 */
             y?: number;
         };
+        MainCivilizationDto: {
+            /** Format: int32 */
+            id?: number;
+            startDate?: string | null;
+            endDate?: string | null;
+            name?: string | null;
+            type?: string | null;
+            subtype?: string | null;
+            html?: string | null;
+            /** Format: int32 */
+            eventCount?: number;
+            /** Format: int32 */
+            eventCollectionCount?: number;
+            link?: string | null;
+            /** Format: byte */
+            thumbnail?: string | null;
+            /** Format: int32 */
+            sitesCount?: number;
+            /** Format: int32 */
+            currentSitesCount?: number;
+            /** Format: int32 */
+            lostSitesCount?: number;
+            race?: string | null;
+            /** Format: int32 */
+            entityPopulationCount?: number | null;
+            /** Format: int32 */
+            entityPopulationMemberCount?: number | null;
+        };
         /** @enum {string} */
         MapSize: "Default" | "Small" | "Large";
         MountainPeak: {
@@ -14006,6 +14034,8 @@ export interface components {
             currentMonth?: number;
             /** Format: int32 */
             currentDay?: number;
+            mainCivilizations?: components["schemas"]["MainCivilizationDto"][] | null;
+            mainCivilizationsLost?: components["schemas"]["MainCivilizationDto"][] | null;
             siteMarkers?: components["schemas"]["SiteMarkerDto"][] | null;
             readonly playerRelatedObjects?: components["schemas"]["ListItemDto"][] | null;
             entityPopulationsByRace?: components["schemas"]["ChartDataDto"];

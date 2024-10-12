@@ -6,7 +6,7 @@ import { TableHeader } from '../types/legends';
 const store = usePoeticFormStore();
 const icon = "mdi-account-voice";
 const title = "Poetic Forms";
-const subtitle = "Sites are diverse inhabited locations, including towns, fortresses, and other settlements, found throughout the world. Explore their history, structures, and inhabitants";
+const subtitle = "The art of words, capturing the essence of emotion, story, and tradition in verse";
 const overviewSubtitle = "Browse and search all poetic forms";
 const overviewTitle = "Overview";
 const tableHeaders: TableHeader[] = [

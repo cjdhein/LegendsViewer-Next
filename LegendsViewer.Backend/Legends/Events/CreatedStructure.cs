@@ -1,5 +1,6 @@
 using LegendsViewer.Backend.Legends.Extensions;
 using LegendsViewer.Backend.Legends.Parser;
+using LegendsViewer.Backend.Legends.Various;
 using LegendsViewer.Backend.Legends.WorldObjects;
 
 namespace LegendsViewer.Backend.Legends.Events;
@@ -7,11 +8,11 @@ namespace LegendsViewer.Backend.Legends.Events;
 public class CreatedStructure : WorldEvent
 {
     public int StructureId { get; set; }
-    public Structure Structure { get; set; }
-    public Entity Civ { get; set; }
-    public Entity SiteEntity { get; set; }
-    public Site Site { get; set; }
-    public HistoricalFigure Builder { get; set; }
+    public Structure? Structure { get; set; }
+    public Entity? Civ { get; set; }
+    public Entity? SiteEntity { get; set; }
+    public Site? Site { get; set; }
+    public HistoricalFigure? Builder { get; set; }
     public bool Rebuilt { get; set; }
 
     public CreatedStructure(List<Property> properties, World world) : base(properties, world)
@@ -42,11 +43,25 @@ public class CreatedStructure : WorldEvent
         {
             Structure = Site.Structures.Find(structure => structure.LocalId == StructureId);
         }
-        Civ.AddEvent(this);
-        SiteEntity.AddEvent(this);
-        Site.AddEvent(this);
-        Builder.AddEvent(this);
-        Structure.AddEvent(this);
+
+        if (SiteEntity != null)
+        {
+            if (Civ != null)
+            {
+                SiteEntity.SetParent(Civ);
+            }
+
+            Site?.OwnerHistory.Add(new OwnerPeriod(Site, SiteEntity, 0, "ancestral claim", Builder));
+        }
+        else if (Civ != null)
+        {
+            Site?.OwnerHistory.Add(new OwnerPeriod(Site, Civ, 0, "ancestral claim", Builder));
+        }
+        Civ?.AddEvent(this);
+        SiteEntity?.AddEvent(this);
+        Site?.AddEvent(this);
+        Builder?.AddEvent(this);
+        Structure?.AddEvent(this);
     }
 
     public override string Print(bool link = true, DwarfObject? pov = null)

@@ -6,7 +6,7 @@ import { TableHeader } from '../types/legends';
 const store = useDanceFormStore();
 const icon = "mdi-dance-ballroom";
 const title = "Dance Forms";
-const subtitle = "Sites are diverse inhabited locations, including towns, fortresses, and other settlements, found throughout the world. Explore their history, structures, and inhabitants";
+const subtitle = "Graceful movements and traditions passed through generations, reflecting culture and celebration";
 const overviewSubtitle = "Browse and search all dance forms";
 const overviewTitle = "Overview";
 const tableHeaders: TableHeader[] = [

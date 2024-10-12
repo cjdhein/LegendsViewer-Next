@@ -6,7 +6,7 @@ import { TableHeader } from '../types/legends';
 const store = useMusicalFormStore();
 const icon = "mdi-music-clef-treble";
 const title = "Musical Forms";
-const subtitle = "Sites are diverse inhabited locations, including towns, fortresses, and other settlements, found throughout the world. Explore their history, structures, and inhabitants";
+const subtitle = "The rhythmic and melodic expressions that resonate through time, shaping culture and emotion";
 const overviewSubtitle = "Browse and search all musical forms";
 const overviewTitle = "Overview";
 const tableHeaders: TableHeader[] = [
