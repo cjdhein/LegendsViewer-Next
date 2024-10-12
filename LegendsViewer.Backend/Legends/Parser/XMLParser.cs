@@ -900,11 +900,6 @@ public class XmlParser : IDisposable
             }
         }
 
-        if (section == Section.EventCollections)
-        {
-            ProcessCollections();
-        }
-
         //Create sorted Historical Figures so they can be binary searched by name, needed for parsing History file
         if (section == Section.HistoricalFigures)
         {
@@ -960,6 +955,11 @@ public class XmlParser : IDisposable
                 era.Type = duration;
                 era.Subtype = $"{(era.StartYear == -1 ? ".." : era.StartYear.ToString())} - {(era.EndYear == lastRecordedYear ? ".." : era.EndYear.ToString())}";
             }
+        }
+
+        if (section == Section.EventCollections)
+        {
+            ProcessCollections();
         }
     }
 
@@ -1114,6 +1114,20 @@ public class XmlParser : IDisposable
                     beastAttack.Beast.BeastAttacks = [];
                 }
                 beastAttack.Beast.BeastAttacks.Add(beastAttack);
+            }
+
+            if (beastAttack.Defender != null && beastAttack.Site?.OwnerHistory.Count == 0)
+            {
+                beastAttack.Site?.OwnerHistory.Add(new OwnerPeriod(beastAttack.Site, beastAttack.Defender, -1, "ancestral claim"));
+                var parent = beastAttack.Defender.Parent;
+                while (parent != null)
+                {
+                    if (beastAttack.Site?.OwnerHistory.Count == 0)
+                    {
+                        beastAttack.Site?.OwnerHistory.Add(new OwnerPeriod(beastAttack.Site, parent, -1, "ancestral claim"));
+                    }
+                    parent = parent.Parent;
+                }
             }
         }
 

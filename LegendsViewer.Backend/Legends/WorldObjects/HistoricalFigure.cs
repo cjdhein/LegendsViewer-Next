@@ -128,8 +128,8 @@ public class HistoricalFigure : WorldObject
                 }
                 list.Add(new ListItemDto
                 {
-                    Title = $"{link.Entity.ToLink(true, this)} ({link.Entity?.Type.GetDescription()})",
-                    Subtitle = $" ==> {link.Type.GetDescription()}",
+                    Title = $"{link.Type.GetDescription()} ({link.Entity?.Type.GetDescription()})",
+                    Subtitle = $"{link.Entity?.ToLink(true, this)}",
                     Append = HtmlStyleUtil.GetChipString(link.Strength.ToString())
                 });
             }

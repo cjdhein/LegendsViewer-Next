@@ -9,11 +9,15 @@ import { LegendLinkListData } from '../types/legends';
 const store = useEntityStore()
 const mapStore = useEntityMapStore()
 
-const lists: ComputedRef<LegendLinkListData[]> = computed(() => [
+const beforeLists: ComputedRef<LegendLinkListData[]> = computed(() => [
     { title: 'Noble Positions', items: store.object?.entityPositionAssignmentsList ?? [], icon: "mdi-seal", subtitle: "The ruling elite, guiding the fate of realms and people" },
     { title: 'Related Factions and Groups', items: store.object?.entityEntityLinkList ?? [], icon: "mdi-account-group", subtitle: "The organizations and groups connected to this entity" },
     { title: 'Related Sites', items: store.object?.entitySiteLinkList ?? [], icon: "mdi-home-switch-outline", subtitle: "The locations tied to this entity, from settlements to strongholds of power" },
     { title: 'Worshipped Deities', items: store.object?.worshippedLinks ?? [], icon: "mdi-weather-sunset", subtitle: "The divine beings revered across the lands" },
+]);
+
+const afterLists: ComputedRef<LegendLinkListData[]> = computed(() => [
+    { title: 'Current Sites', items: store.object?.currentSiteLinks ?? [], icon: "mdi-home-outline", subtitle: "The sites held by this entity, from settlements to strongholds of power" },
 ]);
 
 </script>
@@ -21,7 +25,14 @@ const lists: ComputedRef<LegendLinkListData[]> = computed(() => [
 <template>
     <WorldObjectPage :store="store" :mapStore="mapStore" :object-type="'entity'">
         <template v-slot:type-specific-before-table>
-            <template v-for="(list, i) in lists" :key="i">
+            <template v-for="(list, i) in beforeLists" :key="i">
+                <v-col v-if="list?.items.length" cols="12" xl="4" lg="6" md="12">
+                    <LegendsCardList :list="list" />
+                </v-col>
+            </template>
+        </template>
+        <template v-slot:type-specific-after-table>
+            <template v-for="(list, i) in afterLists" :key="i">
                 <v-col v-if="list?.items.length" cols="12" xl="4" lg="6" md="12">
                     <LegendsCardList :list="list" />
                 </v-col>

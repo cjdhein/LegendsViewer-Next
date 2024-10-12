@@ -50,12 +50,14 @@ public class CreatedStructure : WorldEvent
             {
                 SiteEntity.SetParent(Civ);
             }
-
-            Site?.OwnerHistory.Add(new OwnerPeriod(Site, SiteEntity, 0, "ancestral claim", Builder));
+            if (Site?.OwnerHistory.Count == null)
+            {
+                Site?.OwnerHistory.Add(new OwnerPeriod(Site, SiteEntity, -1, "ancestral claim", Builder));
+            }
         }
-        else if (Civ != null)
+        else if (Civ != null && Site?.OwnerHistory.Count == null)
         {
-            Site?.OwnerHistory.Add(new OwnerPeriod(Site, Civ, 0, "ancestral claim", Builder));
+            Site?.OwnerHistory.Add(new OwnerPeriod(Site, Civ, -1, "ancestral claim", Builder));
         }
         Civ?.AddEvent(this);
         SiteEntity?.AddEvent(this);

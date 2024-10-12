@@ -624,6 +624,10 @@ public class World : IDisposable, IWorld
             Property entityLink = _entityEntityLinks[i];
             entityLink.Known = true;
             var entityEntityLink = new EntityEntityLink(entityLink.SubProperties, this);
+            if (entityEntityLink.Type == EntityEntityLinkType.Parent)
+            {
+                entity.Parent = entityEntityLink.Target;
+            }
             entity.EntityEntityLinks.Add(entityEntityLink);
         }
     }
@@ -674,7 +678,7 @@ public class World : IDisposable, IWorld
     {
         foreach (var historicalFigure in HistoricalFigures.Where(hf => hf.HonorEntity != null))
         {
-            historicalFigure.HonorEntity.Resolve(this, historicalFigure);
+            historicalFigure.HonorEntity?.Resolve(this, historicalFigure);
         }
     }
 
