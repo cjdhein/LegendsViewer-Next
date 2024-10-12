@@ -11,18 +11,14 @@ public static class Misc
         {
             return;
         }
-#if DEBUG
         if (!worldObject.Events.Contains(worldEvent))
         {
-#endif
             worldObject.Events.Add(worldEvent);
-#if DEBUG
         }
         else
         {
             worldEvent.World.ParsingErrors.Report($"Already added event {worldEvent.Id} '{worldEvent.Type}' to object {worldObject.Id} '{worldObject.GetType()}'");
         }
-#endif
     }
 
     public static void AddEventCollection(this WorldObject worldObject, EventCollection eventCollection)
@@ -31,18 +27,14 @@ public static class Misc
         {
             return;
         }
-#if DEBUG
         if (!worldObject.EventCollections.Contains(eventCollection))
         {
-#endif
             worldObject.EventCollections.Add(eventCollection);
-#if DEBUG
         }
         else
         {
-            eventCollection.World.ParsingErrors.Report($"Already added eventCollection {eventCollection.Id} '{eventCollection.Type}' to object {worldObject.Id} '{worldObject.GetType()}'");
+            eventCollection.World?.ParsingErrors.Report($"Already added eventCollection {eventCollection.Id} '{eventCollection.Type}' to object {worldObject.Id} '{worldObject.GetType()}'");
         }
-#endif
     }
 
     public static T? GetWorldObject<T>(this List<T> list, int id) where T : WorldObject

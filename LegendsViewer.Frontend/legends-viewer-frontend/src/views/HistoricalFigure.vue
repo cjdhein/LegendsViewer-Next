@@ -107,7 +107,7 @@ const afterLists: ComputedRef<LegendLinkListData[]> = computed(() => [
                             <v-icon class="mr-2" icon="mdi-account-star-outline" size="32px"></v-icon>
                         </template>
                         <v-card-text height="360">
-                            <v-list class="pb-10" height="360" scrollable
+                            <v-list class="ml-8 pb-10" height="360" scrollable
                                 style="background-color: rgb(var(--v-theme-background));">
                                 <v-list-item v-for="(skillDescription, i) in store.object?.skillDescriptions" :key="i">
                                     <template v-slot:prepend>

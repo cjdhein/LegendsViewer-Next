@@ -426,7 +426,7 @@ export function createWorldObjectStore<T>(resourceName: string, type: string) {
                     this.isLoading = false;
                     console.error(error);
                 } else if (data) {
-                    this.objectEventCollections = (data as any).items as WorldEventDto[] ?? [];
+                    this.objectEventCollections = (data as any).items as WorldObjectDto[] ?? [];
                     this.objectEventCollectionsTotalItems = (data as any).totalCount as number ?? 0;
                     this.isLoading = false;
                 }
