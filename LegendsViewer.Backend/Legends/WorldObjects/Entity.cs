@@ -131,6 +131,34 @@ public class Entity : WorldObject, IHasCoordinates
     [JsonIgnore]
     public List<EntityPosition> EntityPositions { get; set; } = []; // legends_plus.xml
 
+    public ListItemDto? CurrentLeader
+    {
+        get
+        {
+            if (EntityPositionAssignments.Count == 0)
+            {
+                return null;
+            }
+            EntityPositionAssignment? assignment = EntityPositionAssignments.OrderBy(a => a.PositionId).FirstOrDefault(a => a.PositionId >= 0);
+            if (assignment == null)
+            {
+                return null;
+            }
+            EntityPosition? position = EntityPositions.Find(pos => pos.Id == assignment.PositionId);
+            if (position == null || assignment.HistoricalFigure == null)
+            {
+                return null;
+            }
+            string positionName = position.GetTitleByCaste(assignment.HistoricalFigure.Caste);
+            string positionHolder = assignment.HistoricalFigure.ToLink(true, this);
+            return new ListItemDto
+            {
+                Title = positionName,
+                Subtitle = positionHolder
+            };
+        }
+    }
+
     [JsonIgnore]
     public List<EntityPositionAssignment> EntityPositionAssignments { get; set; } = []; // legends_plus.xml
     public List<ListItemDto> EntityPositionAssignmentsList
@@ -138,7 +166,7 @@ public class Entity : WorldObject, IHasCoordinates
         get
         {
             var list = new List<ListItemDto>();
-            foreach (EntityPositionAssignment assignment in EntityPositionAssignments)
+            foreach (EntityPositionAssignment assignment in EntityPositionAssignments.OrderBy(a => a.PositionId))
             {
                 EntityPosition? position = EntityPositions.Find(pos => pos.Id == assignment.PositionId);
                 if (position == null || assignment.HistoricalFigure == null)

@@ -15,6 +15,7 @@ public class MainCivilizationDto : WorldObjectDto
     public string Race { get; set; }
     public int? EntityPopulationCount { get; set; }
     public int? EntityPopulationMemberCount { get; set; }
+    public ListItemDto? CurrentLeader { get; set; }
 
     public MainCivilizationDto(IWorldMapImageGenerator worldMapImageGenerator, Entity mainCivilization) : base(mainCivilization)
     {
@@ -29,5 +30,6 @@ public class MainCivilizationDto : WorldObjectDto
             Formatting.GetReadableForegroundColor(mainCivilization.LineColor));
         EntityPopulationCount = mainCivilization.EntityPopulation?.Count;
         EntityPopulationMemberCount = mainCivilization.EntityPopulation?.Members?.Count;
+        CurrentLeader = mainCivilization.CurrentLeader;
     }
 }

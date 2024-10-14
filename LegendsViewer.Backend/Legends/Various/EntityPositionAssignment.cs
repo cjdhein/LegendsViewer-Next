@@ -23,4 +23,9 @@ public class EntityPositionAssignment
             }
         }
     }
+
+    public override string ToString()
+    {
+        return $"{Id} {HistoricalFigure?.Name} {PositionId}/{SquadId}";
+    }
 }

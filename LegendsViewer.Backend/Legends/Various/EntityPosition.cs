@@ -65,4 +65,9 @@ public class EntityPosition
         }
         return positionName ?? "Unknown Title";
     }
+
+    public override string ToString()
+    {
+        return $"{Id} {Name}";
+    }
 }

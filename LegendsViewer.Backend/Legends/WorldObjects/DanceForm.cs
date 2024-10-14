@@ -8,7 +8,6 @@ namespace LegendsViewer.Backend.Legends.WorldObjects;
 
 public class DanceForm : ArtForm
 {
-
     public DanceForm(List<Property> properties, World world)
         : base(properties, world)
     {

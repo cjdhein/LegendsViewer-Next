@@ -12932,6 +12932,7 @@ export interface components {
             isCiv?: boolean;
             readonly entitySiteLinkList?: components["schemas"]["ListItemDto"][] | null;
             readonly entityEntityLinkList?: components["schemas"]["ListItemDto"][] | null;
+            currentLeader?: components["schemas"]["ListItemDto"];
             readonly entityPositionAssignmentsList?: components["schemas"]["ListItemDto"][] | null;
             weapons?: string[] | null;
             profession?: string | null;
@@ -13422,6 +13423,7 @@ export interface components {
             entityPopulationCount?: number | null;
             /** Format: int32 */
             entityPopulationMemberCount?: number | null;
+            currentLeader?: components["schemas"]["ListItemDto"];
         };
         /** @enum {string} */
         MapSize: "Default" | "Small" | "Large";

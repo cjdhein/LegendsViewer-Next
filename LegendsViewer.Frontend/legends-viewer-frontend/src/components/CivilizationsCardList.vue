@@ -9,10 +9,10 @@
                     <v-list-item>
                         <template v-if="item?.thumbnail" v-slot:prepend>
                             <v-img v-if="item.thumbnail && item.currentSitesCount != null && item.currentSitesCount > 0"
-                                width="80" height="80" class="mr-4" :src="`data:image/png;base64,${item.thumbnail}`"
+                                width="92" height="92" class="mr-4 mt-n2" :src="`data:image/png;base64,${item.thumbnail}`"
                                 :cover="false" />
                             <v-img v-if="item.thumbnail && item.currentSitesCount != null && item.currentSitesCount == 0"
-                                width="80" height="80" class="mr-4"
+                                width="92" height="92" class="mr-4 mt-n2"
                                 :src="`data:image/png;base64,${item.thumbnail}`" :cover="false"
                                 gradient="to top right, rgba(25,32,72,.75), rgba(25,32,72,.80)" />
                         </template>
@@ -21,6 +21,9 @@
                         </template>
                         <template v-if="item?.race" v-slot:subtitle>
                             <div>
+                                <template v-if="item?.currentLeader">
+                                    <div class="ml-3" v-html="'<b>' + item.currentLeader.title + ':</b> ' + item.currentLeader.subtitle"></div>
+                                </template>
                                 <v-chip v-if="item.currentSitesCount" class="ma-2" color="primary" label>
                                     <v-icon icon="mdi-home" start></v-icon>
                                     {{ item.currentSitesCount }}

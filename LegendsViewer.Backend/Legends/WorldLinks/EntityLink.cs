@@ -14,15 +14,12 @@ public class EntityLink
 
     public EntityLinkType Type { get; set; }
     public int Strength { get; set; }
-    public int PositionId { get; set; }
-    public int StartYear { get; set; }
-    public int EndYear { get; set; }
+    public int PositionId { get; set; } = -1;
+    public int StartYear { get; set; } = -1;
+    public int EndYear { get; set; } = -1;
 
     public EntityLink(List<Property> properties, World world)
     {
-        Strength = 0;
-        StartYear = -1;
-        EndYear = -1;
         foreach (Property property in properties)
         {
             switch (property.Name)

@@ -11,6 +11,7 @@ using LegendsViewer.Backend.Legends.Parser;
 using LegendsViewer.Backend.Legends.Various;
 using LegendsViewer.Backend.Legends.WorldLinks;
 using LegendsViewer.Backend.Utilities;
+using static LegendsViewer.Backend.Legends.WorldObjects.HistoricalFigure;
 
 namespace LegendsViewer.Backend.Legends.WorldObjects;
 
@@ -126,9 +127,31 @@ public class HistoricalFigure : WorldObject
                 {
                     continue;
                 }
+                string subtitle = $"{link.Type.GetDescription()} of the {link.Entity?.Type.GetDescription()}";
+                if (link.PositionId >= 0)
+                {
+                    var assignment = link.Entity?.EntityPositionAssignments.ElementAtOrDefault(link.PositionId);
+                    if (assignment != null)
+                    {
+                        EntityPosition? position = link.Entity?.EntityPositions.Find(pos => pos.Id == assignment.PositionId);
+                        if (position != null)
+                        {
+                            string positionTitle = position.GetTitleByCaste(Caste);
+                            if (link.EndYear > -1)
+                            {
+                                subtitle = $"Former {positionTitle} of the {link.Entity?.Type.GetDescription()}";
+                            }
+                            else
+                            {
+                                subtitle = $"{positionTitle} of the {link.Entity?.Type.GetDescription()}";
+                            }
+                        }
+                    }
+                }
+
                 list.Add(new ListItemDto
                 {
-                    Title = $"{link.Type.GetDescription()} ({link.Entity?.Type.GetDescription()})",
+                    Title = subtitle,
                     Subtitle = $"{link.Entity?.ToLink(true, this)}",
                     Append = HtmlStyleUtil.GetChipString(link.Strength.ToString())
                 });
