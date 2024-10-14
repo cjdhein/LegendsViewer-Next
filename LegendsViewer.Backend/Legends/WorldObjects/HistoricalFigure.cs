@@ -11,7 +11,6 @@ using LegendsViewer.Backend.Legends.Parser;
 using LegendsViewer.Backend.Legends.Various;
 using LegendsViewer.Backend.Legends.WorldLinks;
 using LegendsViewer.Backend.Utilities;
-using static LegendsViewer.Backend.Legends.WorldObjects.HistoricalFigure;
 
 namespace LegendsViewer.Backend.Legends.WorldObjects;
 
@@ -106,6 +105,8 @@ public class HistoricalFigure : WorldObject
     public List<State> States { get; set; } = [];
 
     public List<CreatureType> CreatureTypes { get; set; } = [];
+
+    [JsonIgnore]
     public List<HistoricalFigureLink> RelatedHistoricalFigures { get; set; } = [];
     public List<ListItemDto> RelatedHistoricalFigureList
     {
