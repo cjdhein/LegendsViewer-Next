@@ -13170,6 +13170,8 @@ export interface components {
             states?: components["schemas"]["State"][] | null;
             creatureTypes?: components["schemas"]["CreatureType"][] | null;
             relatedHistoricalFigures?: components["schemas"]["HistoricalFigureLink"][] | null;
+            readonly relatedHistoricalFigureList?: components["schemas"]["ListItemDto"][] | null;
+            readonly worshippedDeities?: components["schemas"]["ListItemDto"][] | null;
             siteProperties?: components["schemas"]["SiteProperty"][] | null;
             reputations?: components["schemas"]["EntityReputation"][] | null;
             relationshipProfiles?: components["schemas"]["RelationshipProfileHf"][] | null;

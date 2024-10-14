@@ -46,7 +46,9 @@ const getByRank = (subrank: string) => {
 const beforeLists: ComputedRef<LegendLinkListData[]> = computed(() => [
     { title: 'Related Factions and Groups', items: store.object?.relatedEntityList ?? [], icon: "mdi-account-group", subtitle: "The organizations and groups connected to this figure" },
     { title: 'Related Sites', items: store.object?.relatedSiteList ?? [], icon: "mdi-home-switch-outline", subtitle: "The locations tied to this figure, from settlements to strongholds of power" },
-    { title: 'Relationships', items: store.object?.vagueRelationshipList ?? [], icon: "mdi-link-variant", subtitle: "The intricate web of alliances, rivalries, and family ties that shaped their legacy" },
+    { title: 'Close Relationships', items: store.object?.relatedHistoricalFigureList ?? [], icon: "mdi-heart-outline", subtitle: "The personal and familial bonds that define the life of the historical figure" },
+    { title: 'Vague Relationships', items: store.object?.vagueRelationshipList ?? [], icon: "mdi-account-question-outline", subtitle: "The uncertain and loosely documented associations in the figure’s life, from distant friends to comrades-in-arms" },
+    { title: 'Worshipped Deities', items: store.object?.worshippedDeities ?? [], icon: "mdi-hand-heart-outline", subtitle: "The divine beings revered by the historical figure, shaping their beliefs and actions" },
 ]);
 
 const afterLists: ComputedRef<LegendLinkListData[]> = computed(() => [

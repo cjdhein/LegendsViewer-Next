@@ -107,6 +107,50 @@ public class HistoricalFigure : WorldObject
 
     public List<CreatureType> CreatureTypes { get; set; } = [];
     public List<HistoricalFigureLink> RelatedHistoricalFigures { get; set; } = [];
+    public List<ListItemDto> RelatedHistoricalFigureList
+    {
+        get
+        {
+            var list = new List<ListItemDto>();
+            foreach (HistoricalFigureLink link in RelatedHistoricalFigures.Where(f => f.Type != HistoricalFigureLinkType.Deity))
+            {
+                if (link.HistoricalFigure == null)
+                {
+                    continue;
+                }
+
+                list.Add(new ListItemDto
+                {
+                    Title = $"{link.Type.GetDescription()}",
+                    Subtitle = $"{link.HistoricalFigure?.ToLink(true, this)}",
+                    Append = HtmlStyleUtil.GetChipString(link.Strength.ToString())
+                });
+            }
+            return list;
+        }
+    }
+    public List<ListItemDto> WorshippedDeities
+    {
+        get
+        {
+            var list = new List<ListItemDto>();
+            foreach (HistoricalFigureLink link in RelatedHistoricalFigures.Where(f => f.Type == HistoricalFigureLinkType.Deity).OrderByDescending(f => f.Strength))
+            {
+                if (link.HistoricalFigure == null)
+                {
+                    continue;
+                }
+
+                list.Add(new ListItemDto
+                {
+                    Title = $"{link.Type.GetDescription()} for {string.Join(", ", link.HistoricalFigure.Spheres)}",
+                    Subtitle = $"{link.HistoricalFigure?.ToLink(true, this)}",
+                    Append = HtmlStyleUtil.GetChipString(link.Strength.ToString())
+                });
+            }
+            return list;
+        }
+    }
     public List<SiteProperty> SiteProperties { get; set; } = [];
     public List<EntityReputation> Reputations { get; set; } = [];
     public List<RelationshipProfileHf> RelationshipProfiles { get; set; } = [];
