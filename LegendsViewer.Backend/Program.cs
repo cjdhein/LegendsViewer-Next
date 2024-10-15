@@ -4,6 +4,7 @@ using LegendsViewer.Backend.Legends.Bookmarks;
 using LegendsViewer.Backend.Legends.Interfaces;
 using LegendsViewer.Backend.Legends.Maps;
 using LegendsViewer.Backend.Logging;
+using LegendsViewer.Frontend;
 using Microsoft.Extensions.Logging.Console;
 using System.Text;
 using System.Text.Json.Serialization;
@@ -75,8 +76,11 @@ public class Program
         // Log at application start
         logger.LogInformation("LegendsViewer is starting...");
 
-        //_ = WebAppStaticServer.RunAsync();
-        //_ = WebAppStaticServer.OpenPageInBrowserAsync();
+        if (!app.Environment.IsDevelopment())
+        {
+            _ = WebAppStaticServer.RunAsync();
+            _ = WebAppStaticServer.OpenPageInBrowserAsync();
+        }
 
         app.Run();
     }
