@@ -33,7 +33,8 @@ public class Program
         {
             serverOptions.Limits.KeepAliveTimeout = TimeSpan.FromMinutes(5);
             serverOptions.Limits.RequestHeadersTimeout = TimeSpan.FromMinutes(5);
-        });
+        })
+        .UseUrls("http://localhost:5054");
 
         // Add services to the container.
         builder.Services.AddSingleton<IWorld, World>();
