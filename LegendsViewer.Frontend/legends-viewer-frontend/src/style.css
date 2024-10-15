@@ -18,8 +18,12 @@
     font-size: 32px;
 }
 
+.pixelated-image {
+    image-rendering: pixelated;
+    image-rendering: crisp-edges;
+}
 
- /* SKILLS */
+/* SKILLS */
 
 .v-chip.stn,
 .v-chip.pmp {

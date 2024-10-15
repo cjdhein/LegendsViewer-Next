@@ -60,7 +60,7 @@ const readFromClipboard = async () => {
     <v-col v-for="(bookmark, i) in bookmarkStore.bookmarks" :key="i" cols="12" md="3">
       <v-card class="mx-auto" max-width="320">
         <v-container>
-          <v-img height="300px" width="300px" :src="getImageData(bookmark)" cover>
+          <v-img height="300px" width="300px" class="pixelated-image" :src="getImageData(bookmark)" cover>
           </v-img>
         </v-container>
 

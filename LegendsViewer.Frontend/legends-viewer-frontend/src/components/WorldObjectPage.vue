@@ -29,7 +29,7 @@
                     <v-icon class="mr-2" icon="mdi-map-search-outline" size="32px"></v-icon>
                 </template>
                 <v-card-text>
-                    <v-img width="320" height="320" class="position-relative ml-12" :src="mapStore.currentWorldObjectMap"
+                    <v-img width="320" height="320" class="position-relative ml-12 pixelated-image" :src="mapStore.currentWorldObjectMap"
                         :cover="false" />
                 </v-card-text>
             </v-card>
