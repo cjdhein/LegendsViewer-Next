@@ -43,17 +43,22 @@ const getByRank = (subrank: string) => {
     }
 }
 
+const preBeforeLists: ComputedRef<LegendLinkListData[]> = computed(() => [
+    { title: 'Profile Overview', items: store.object?.miscList ?? [], icon: "mdi-account-details-outline", subtitle: "A summary of significant details and personal traits" },
+]);
+
 const beforeLists: ComputedRef<LegendLinkListData[]> = computed(() => [
     { title: 'Related Factions and Groups', items: store.object?.relatedEntityList ?? [], icon: "mdi-account-group", subtitle: "The organizations and groups connected to this figure" },
     { title: 'Related Sites', items: store.object?.relatedSiteList ?? [], icon: "mdi-home-switch-outline", subtitle: "The locations tied to this figure, from settlements to strongholds of power" },
     { title: 'Close Relationships', items: store.object?.relatedHistoricalFigureList ?? [], icon: "mdi-heart-outline", subtitle: "The personal and familial bonds that define the life of the historical figure" },
     { title: 'Vague Relationships', items: store.object?.vagueRelationshipList ?? [], icon: "mdi-account-question-outline", subtitle: "The uncertain and loosely documented associations in the figure’s life, from distant friends to comrades-in-arms" },
     { title: 'Worshipped Deities', items: store.object?.worshippedDeities ?? [], icon: "mdi-hand-heart-outline", subtitle: "The divine beings revered by the historical figure, shaping their beliefs and actions" },
+    { title: 'Journey Pets', items: store.object?.journeyPets ?? [], icon: "mdi-paw", subtitle: "Trusted animal companions that accompanied this figure on their travels" },
 ]);
 
 const afterLists: ComputedRef<LegendLinkListData[]> = computed(() => [
+    { title: 'Notable Kills', items: store.object?.notableKillList ?? [], icon: "mdi-skull-crossbones-outline", subtitle: "A record of the most significant and renowned kills achieved by this figure" },
     { title: 'Artifacts', items: store.object?.holdingArtifactLinks ?? [], icon: "mdi-diamond", subtitle: "Currently held artifacts" },
-    // { title: 'Worshipped By', items: [store.object?.worshippedByToLink ?? ''], icon: "mdi-hands-pray", subtitle: "Worshipped " +  store.object?.name },
     { title: 'Dedicated Structures', items: store.object?.dedicatedStructuresLinks ?? [], icon: "mdi-home-silo", subtitle: "Structures dedicated to " + store.object?.name },
     { title: 'Snatcher Of', items: store.object?.snatchedHfLinks ?? [], icon: "mdi-chess-bishop", subtitle: "Victims snatched by " + store.object?.name },
     { title: 'Battles', items: store.object?.battleLinks ?? [], icon: "mdi-chess-bishop", subtitle: "Battles fought by " + store.object?.name },
@@ -65,7 +70,12 @@ const afterLists: ComputedRef<LegendLinkListData[]> = computed(() => [
 <template>
     <WorldObjectPage :store="store" :object-type="'hf'">
         <template v-slot:type-specific-before-table>
-            <template v-if="store.object?.familyTreeData">
+            <template v-for="(list, i) in preBeforeLists" :key="i">
+                <v-col v-if="list?.items.length" cols="12" xl="4" lg="6" md="12">
+                    <LegendsCardList :list="list" />
+                </v-col>
+            </template>
+           <template v-if="store.object?.familyTreeData">
                 <v-col cols="12" xl="4" lg="6" md="12">
                     <v-card title="Family Tree" subtitle="Ancestry and Descendants" height="400" variant="text">
                         <template v-slot:prepend>

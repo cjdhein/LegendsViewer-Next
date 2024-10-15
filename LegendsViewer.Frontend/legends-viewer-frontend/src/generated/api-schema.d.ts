@@ -12924,8 +12924,8 @@ export interface components {
             populations?: components["schemas"]["Population"][] | null;
             readonly originStructureLink?: string | null;
             readonly groupLinks?: string[] | null;
-            readonly currentSiteLinks?: string[] | null;
-            readonly lostSiteLinks?: string[] | null;
+            readonly currentSiteList?: components["schemas"]["ListItemDto"][] | null;
+            readonly lostSiteList?: components["schemas"]["ListItemDto"][] | null;
             readonly siteLinks?: string[] | null;
             honors?: components["schemas"]["Honor"][] | null;
             entityType?: components["schemas"]["EntityType"];
@@ -13150,7 +13150,6 @@ export interface components {
             id?: number;
             icon?: string | null;
             name?: string | null;
-            type?: string | null;
             subtype?: string | null;
             /** Format: int32 */
             previousId?: number;
@@ -13160,6 +13159,7 @@ export interface components {
             readonly eventCount?: number;
             /** Format: int32 */
             readonly eventCollectionCount?: number;
+            type?: string | null;
             readonly titleRaceString?: string | null;
             race?: components["schemas"]["CreatureInfo"];
             caste?: string | null;
@@ -13169,7 +13169,6 @@ export interface components {
             readonly holdingArtifactLinks?: string[] | null;
             states?: components["schemas"]["State"][] | null;
             creatureTypes?: components["schemas"]["CreatureType"][] | null;
-            relatedHistoricalFigures?: components["schemas"]["HistoricalFigureLink"][] | null;
             readonly relatedHistoricalFigureList?: components["schemas"]["ListItemDto"][] | null;
             readonly worshippedDeities?: components["schemas"]["ListItemDto"][] | null;
             siteProperties?: components["schemas"]["SiteProperty"][] | null;
@@ -13177,7 +13176,6 @@ export interface components {
             relationshipProfiles?: components["schemas"]["RelationshipProfileHf"][] | null;
             readonly relatedEntityList?: components["schemas"]["ListItemDto"][] | null;
             readonly relatedSiteList?: components["schemas"]["ListItemDto"][] | null;
-            readonly relatedRegionLinks?: string[] | null;
             readonly skillDescriptions?: components["schemas"]["SkillDescription"][] | null;
             vagueRelationships?: components["schemas"]["VagueRelationship"][] | null;
             readonly vagueRelationshipList?: components["schemas"]["ListItemDto"][] | null;
@@ -13199,23 +13197,19 @@ export interface components {
             interactionKnowledge?: string[] | null;
             goal?: string | null;
             interaction?: string | null;
+            readonly miscList?: components["schemas"]["ListItemDto"][] | null;
             readonly lineageCurseParentToLink?: string | null;
             readonly lineageCurseChildLinks?: string[] | null;
-            journeyPets?: string[] | null;
-            readonly hfKillLinks?: string[] | null;
-            readonly snatchedHfLinks?: string[] | null;
             spheres?: string[] | null;
+            journeyPets?: components["schemas"]["ListItemDto"][] | null;
+            readonly notableKillList?: components["schemas"]["ListItemDto"][] | null;
+            readonly snatchedHfLinks?: string[] | null;
             readonly battleLinks?: string[] | null;
             readonly battlesAttackingLinks?: string[] | null;
             readonly battlesDefendingLinks?: string[] | null;
             readonly battlesNonCombatantLinks?: string[] | null;
             positions?: components["schemas"]["Position"][] | null;
-            readonly worshippedByToLink?: string | null;
             readonly beastAttackLinks?: string[] | null;
-            honorEntity?: components["schemas"]["HonorEntity"];
-            intrigueActors?: components["schemas"]["IntrigueActor"][] | null;
-            intriguePlots?: components["schemas"]["IntriguePlot"][] | null;
-            identities?: components["schemas"]["Identity"][] | null;
             familyTreeData?: components["schemas"]["FamilyTreeData"];
             alive?: boolean;
             deity?: boolean;
@@ -13228,14 +13222,6 @@ export interface components {
             adventurer?: boolean;
             breedId?: string | null;
         };
-        HistoricalFigureLink: {
-            readonly hfLink?: string | null;
-            type?: components["schemas"]["HistoricalFigureLinkType"];
-            /** Format: int32 */
-            strength?: number;
-        };
-        /** @enum {string} */
-        HistoricalFigureLinkType: "Unknown" | "Apprentice" | "Master" | "FormerApprentice" | "FormerMaster" | "Child" | "Deity" | "Father" | "Lover" | "Mother" | "Spouse" | "Imprisoner" | "Prisoner" | "ExSpouse" | "Companion" | "PetOwner" | "FormerSpouse" | "DeceasedSpouse";
         Honor: {
             readonly entityToLink?: string | null;
             /** Format: int32 */
@@ -13261,28 +13247,6 @@ export interface components {
             requiredSkill?: components["schemas"]["Skill"];
             readonly honoredHfLinks?: string[] | null;
         };
-        HonorEntity: {
-            readonly entityToLink?: string | null;
-            honors?: components["schemas"]["Honor"][] | null;
-            /** Format: int32 */
-            battles?: number;
-            /** Format: int32 */
-            kills?: number;
-        };
-        Identity: {
-            /** Format: int32 */
-            id?: number;
-            name?: string | null;
-            readonly historicalFigureToLink?: string | null;
-            /** Format: int32 */
-            birthYear?: number;
-            /** Format: int32 */
-            birthSeconds72?: number;
-            readonly entityToLink?: string | null;
-            race?: components["schemas"]["CreatureInfo"];
-            caste?: string | null;
-            profession?: string | null;
-        };
         Insurrection: {
             /** Format: int32 */
             id?: number;
@@ -13307,45 +13271,6 @@ export interface components {
             readonly deaths?: components["schemas"]["HistoricalFigure"][] | null;
             /** Format: int32 */
             readonly deathCount?: number;
-        };
-        IntrigueActor: {
-            /** Format: int32 */
-            localId?: number;
-            role?: string | null;
-            strategy?: string | null;
-            /** Format: int32 */
-            readonly entityId?: number;
-            /** Format: int32 */
-            hfId?: number;
-            /** Format: int32 */
-            handleActorId?: number;
-            /** Format: int32 */
-            strategyEnId?: number;
-            /** Format: int32 */
-            strategyEppId?: number;
-            promisedActorImmortality?: boolean;
-            promisedMeImmortality?: boolean;
-        };
-        IntriguePlot: {
-            /** Format: int32 */
-            localId?: number;
-            type?: string | null;
-            /** Format: int32 */
-            readonly entityId?: number;
-            onHold?: boolean;
-            /** Format: int32 */
-            artifactId?: number;
-            /** Format: int32 */
-            actorId?: number;
-            /** Format: int32 */
-            parentPlotId?: number;
-            /** Format: int32 */
-            parentPlotHfId?: number;
-            /** Format: int32 */
-            delegatedPlotId?: number;
-            /** Format: int32 */
-            delegatedPlotHfId?: number;
-            plotActors?: components["schemas"]["PlotActor"][] | null;
         };
         Journey: {
             /** Format: int32 */
@@ -13495,11 +13420,6 @@ export interface components {
             readonly historicalFigureToLink?: string | null;
         };
         OwnerPeriod: {
-            readonly siteToLink?: string | null;
-            readonly founderToLink?: string | null;
-            readonly ownerToLink?: string | null;
-            readonly enderToLink?: string | null;
-            readonly destroyerToLink?: string | null;
             /** Format: int32 */
             startYear?: number;
             /** Format: int32 */
@@ -13553,14 +13473,6 @@ export interface components {
             readonly deaths?: components["schemas"]["HistoricalFigure"][] | null;
             /** Format: int32 */
             readonly deathCount?: number;
-        };
-        PlotActor: {
-            /** Format: int32 */
-            actorId?: number;
-            plotRole?: string | null;
-            /** Format: int32 */
-            agreementId?: number;
-            agreementHasMessenger?: boolean;
         };
         PoeticForm: {
             /** Format: int32 */
@@ -14054,7 +13966,6 @@ export interface components {
             month?: number;
             /** Format: int32 */
             day?: number;
-            monthName?: string | null;
             date?: string | null;
             type?: string | null;
             html?: string | null;

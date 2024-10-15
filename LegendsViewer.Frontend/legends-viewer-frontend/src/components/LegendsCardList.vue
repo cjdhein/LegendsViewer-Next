@@ -4,7 +4,7 @@
       <v-icon class="mr-2" :icon="list.icon" size="32px"></v-icon>
     </template>
     <v-card-text>
-      <v-list v-if="list?.items?.length > 0" class="ml-12" height="300" scrollable>
+      <v-list v-if="list?.items?.length > 0" class="ml-12" height="320" lines="two" scrollable>
         <template v-for="(link, i) in list.items" :key="i">
           <template v-if="isString(link)">
             <v-list-item>

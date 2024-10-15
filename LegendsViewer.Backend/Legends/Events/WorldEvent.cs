@@ -1,18 +1,17 @@
 using LegendsViewer.Backend.Legends.EventCollections;
 using LegendsViewer.Backend.Legends.Parser;
+using LegendsViewer.Backend.Utilities;
 
 namespace LegendsViewer.Backend.Legends.Events;
 
 public class WorldEvent : IComparable<WorldEvent>
 {
-    private static readonly string[] MonthNames = { "Granite", "Slate", "Felsite", "Hematite", "Malachite", "Galena", "Limestone", "Sandstone", "Timber", "Moonstone", "Opal", "Obsidian" };
     private int _seconds72;
 
     public int Id { get; set; }
     public int Year { get; set; }
     public int Month { get; set; }
     public int Day { get; set; }
-    public string MonthName => MonthNames[Month - 1];
 
     public string Date
     {
@@ -33,8 +32,8 @@ public class WorldEvent : IComparable<WorldEvent>
         }
     }
 
-    public string Type { get; set; }
-    public EventCollection ParentCollection { get; set; }
+    public string Type { get; set; } = string.Empty;
+    public EventCollection? ParentCollection { get; set; }
     public World World { get; set; }
 
     public WorldEvent(List<Property> properties, World world)
@@ -62,86 +61,7 @@ public class WorldEvent : IComparable<WorldEvent>
 
     public virtual string GetYearTime()
     {
-        var year = Year;
-        int seconds72 = Seconds72;
-        if (year == -1)
-        {
-            return "In a time before time, ";
-        }
-
-        string yearTime = $"In {year}, ";
-        if (seconds72 == -1)
-        {
-            return yearTime;
-        }
-
-        int partOfMonth = seconds72 % 100800;
-        string partOfMonthString = "";
-        if (partOfMonth <= 33600)
-        {
-            partOfMonthString = "early ";
-        }
-        else if (partOfMonth <= 67200)
-        {
-            partOfMonthString = "mid";
-        }
-        else if (partOfMonth <= 100800)
-        {
-            partOfMonthString = "late ";
-        }
-
-        int season = seconds72 % 403200;
-        string seasonString = "";
-        if (season < 100800)
-        {
-            seasonString = "spring, ";
-        }
-        else if (season < 201600)
-        {
-            seasonString = "summer, ";
-        }
-        else if (season < 302400)
-        {
-            seasonString = "autumn, ";
-        }
-        else if (season < 403200)
-        {
-            seasonString = "winter, ";
-        }
-
-        string ordinal = "";
-        int num = Day;
-        if (num > 0)
-        {
-            switch (num % 100)
-            {
-                case 11:
-                case 12:
-                case 13:
-                    ordinal = "th";
-                    break;
-            }
-            if (ordinal?.Length == 0)
-            {
-                switch (num % 10)
-                {
-                    case 1:
-                        ordinal = "st";
-                        break;
-                    case 2:
-                        ordinal = "nd";
-                        break;
-                    case 3:
-                        ordinal = "rd";
-                        break;
-                    default:
-                        ordinal = "th";
-                        break;
-                }
-            }
-        }
-
-        return $"{yearTime}{partOfMonthString}{seasonString} ({Day}{ordinal} of {MonthName}) ";
+        return Formatting.YearPlusSeconds72ToProsa(Year, Seconds72);
     }
 
     public string PrintParentCollection(bool link = true, DwarfObject? pov = null)
@@ -150,7 +70,7 @@ public class WorldEvent : IComparable<WorldEvent>
         {
             return "";
         }
-        EventCollection parent = ParentCollection;
+        EventCollection? parent = ParentCollection;
         string collectionString = "";
         while (parent != null)
         {
@@ -174,8 +94,8 @@ public class WorldEvent : IComparable<WorldEvent>
         return Id.CompareTo(obj);
     }
 
-    public int CompareTo(WorldEvent other)
+    public int CompareTo(WorldEvent? other)
     {
-        return Id.CompareTo(other.Id);
+        return Id.CompareTo(other?.Id);
     }
 }

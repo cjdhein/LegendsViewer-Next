@@ -4,34 +4,35 @@ using LegendsViewer.Backend.Legends.Interfaces;
 using LegendsViewer.Backend.Legends.Parser;
 using LegendsViewer.Backend.Legends.WorldObjects;
 using LegendsViewer.Backend.Utilities;
+using Microsoft.AspNetCore.Http;
 
 namespace LegendsViewer.Backend.Legends.Events;
 
 public class HfDied : WorldEvent, IFeatured
 {
-    public HistoricalFigure Slayer { get; set; }
-    public HistoricalFigure HistoricalFigure { get; set; }
+    public HistoricalFigure? Slayer { get; set; }
+    public HistoricalFigure? HistoricalFigure { get; set; }
     public DeathCause Cause { get; set; }
-    private string UnknownCause { get; set; }
-    public Site Site { get; set; }
-    public WorldRegion Region { get; set; }
-    public UndergroundRegion UndergroundRegion { get; set; }
+    private string UnknownCause { get; set; } = string.Empty;
+    public Site? Site { get; set; }
+    public WorldRegion? Region { get; set; }
+    public UndergroundRegion? UndergroundRegion { get; set; }
     public int SlayerItemId { get; set; }
     public int SlayerShooterItemId { get; set; }
-    public string SlayerRace { get; set; }
-    public string SlayerCaste { get; set; }
+    public string SlayerRace { get; set; } = string.Empty;
+    public string SlayerCaste { get; set; } = string.Empty;
 
     public int ItemId { get; set; }
-    public string ItemType { get; set; }
-    public string ItemSubType { get; set; }
-    public string ItemMaterial { get; set; }
-    public Artifact Artifact { get; set; }
+    public string ItemType { get; set; } = string.Empty;
+    public string ItemSubType { get; set; } = string.Empty;
+    public string ItemMaterial { get; set; } = string.Empty;
+    public Artifact? Artifact { get; set; }
 
     public int ShooterItemId { get; set; }
-    public string ShooterItemType { get; set; }
-    public string ShooterItemSubType { get; set; }
-    public string ShooterItemMaterial { get; set; }
-    public Artifact ShooterArtifact { get; set; }
+    public string ShooterItemType { get; set; } = string.Empty;
+    public string ShooterItemSubType { get; set; } = string.Empty;
+    public string ShooterItemMaterial { get; set; } = string.Empty;
+    public Artifact? ShooterArtifact { get; set; }
 
     public HfDied(List<Property> properties, World world)
         : base(properties, world)
@@ -123,9 +124,10 @@ public class HfDied : WorldEvent, IFeatured
             }
         }
 
-        HistoricalFigure.AddEvent(this);
-        if (HistoricalFigure.DeathCause == DeathCause.None)
+        HistoricalFigure?.AddEvent(this);
+        if (HistoricalFigure?.DeathCause == DeathCause.None)
         {
+            HistoricalFigure.DeathEvent = this;
             HistoricalFigure.DeathCause = Cause;
         }
 
@@ -137,34 +139,54 @@ public class HfDied : WorldEvent, IFeatured
             }
             Slayer.NotableKills.Add(this);
         }
-        Site.AddEvent(this);
-        Region.AddEvent(this);
-        UndergroundRegion.AddEvent(this);
-        Artifact.AddEvent(this);
+        Site?.AddEvent(this);
+        Region?.AddEvent(this);
+        UndergroundRegion?.AddEvent(this);
+        Artifact?.AddEvent(this);
     }
 
     public override string Print(bool link = true, DwarfObject? pov = null)
     {
         string eventString = GetYearTime();
+        eventString += HistoricalFigure?.ToLink(link, pov, this) + " ";
         eventString += GetDeathString(link, pov);
+        eventString += GetLocationString(link, pov);
         eventString += PrintParentCollection(link, pov);
         eventString += ".";
         return eventString;
     }
 
-    public string PrintFeature(bool link = true, DwarfObject pov = null)
+    public string PrintFeature(bool link = true, DwarfObject? pov = null)
     {
         string eventString = "";
+        eventString += HistoricalFigure?.ToLink(link, pov, this) + " ";
         eventString += GetDeathString(link, pov);
+        eventString += GetLocationString(link, pov);
         eventString += " in ";
         eventString += Year;
         return eventString;
     }
 
-    private string GetDeathString(bool link = true, DwarfObject pov = null)
+    public string GetLocationString(bool link = true, DwarfObject? pov = null)
     {
         string eventString = "";
-        eventString += HistoricalFigure.ToLink(link, pov, this) + " ";
+        if (Site != null)
+        {
+            eventString += " in " + Site.ToLink(link, pov, this);
+        }
+        else if (Region != null)
+        {
+            eventString += " in " + Region.ToLink(link, pov, this);
+        }
+        else if (UndergroundRegion != null)
+        {
+            eventString += " in " + UndergroundRegion.ToLink(link, pov, this);
+        }
+        return eventString;
+    }
+
+    public string GetDeathString(bool link = true, DwarfObject? pov = null)
+    {
         string deathString = "";
 
         if (Slayer != null || SlayerRace != "UNKNOWN" && SlayerRace != "-1")
@@ -361,56 +383,41 @@ public class HfDied : WorldEvent, IFeatured
             }
         }
 
-        eventString += deathString;
-
         if (ItemId >= 0)
         {
             if (Artifact != null)
             {
-                eventString += " with " + Artifact.ToLink(link, pov, this);
+                deathString += " with " + Artifact.ToLink(link, pov, this);
             }
             else if (!string.IsNullOrWhiteSpace(ItemType) || !string.IsNullOrWhiteSpace(ItemSubType))
             {
-                eventString += " with a ";
-                eventString += !string.IsNullOrWhiteSpace(ItemMaterial) ? ItemMaterial + " " : " ";
-                eventString += !string.IsNullOrWhiteSpace(ItemSubType) ? ItemSubType : ItemType;
+                deathString += " with a ";
+                deathString += !string.IsNullOrWhiteSpace(ItemMaterial) ? ItemMaterial + " " : " ";
+                deathString += !string.IsNullOrWhiteSpace(ItemSubType) ? ItemSubType : ItemType;
             }
         }
         else if (ShooterItemId >= 0)
         {
             if (ShooterArtifact != null)
             {
-                eventString += " (shot) with " + ShooterArtifact.ToLink(link, pov, this);
+                deathString += " (shot) with " + ShooterArtifact.ToLink(link, pov, this);
             }
             else if (!string.IsNullOrWhiteSpace(ShooterItemType) || !string.IsNullOrWhiteSpace(ShooterItemSubType))
             {
-                eventString += " (shot) with a ";
-                eventString += !string.IsNullOrWhiteSpace(ShooterItemMaterial) ? ShooterItemMaterial + " " : " ";
-                eventString += !string.IsNullOrWhiteSpace(ShooterItemSubType) ? ShooterItemSubType : ShooterItemType;
+                deathString += " (shot) with a ";
+                deathString += !string.IsNullOrWhiteSpace(ShooterItemMaterial) ? ShooterItemMaterial + " " : " ";
+                deathString += !string.IsNullOrWhiteSpace(ShooterItemSubType) ? ShooterItemSubType : ShooterItemType;
             }
         }
         else if (SlayerItemId >= 0)
         {
-            eventString += " with a (" + SlayerItemId + ")";
+            deathString += " with a (" + SlayerItemId + ")";
         }
         else if (SlayerShooterItemId >= 0)
         {
-            eventString += " (shot) with a (" + SlayerShooterItemId + ")";
+            deathString += " (shot) with a (" + SlayerShooterItemId + ")";
         }
 
-        if (Site != null)
-        {
-            eventString += " in " + Site.ToLink(link, pov, this);
-        }
-        else if (Region != null)
-        {
-            eventString += " in " + Region.ToLink(link, pov, this);
-        }
-        else if (UndergroundRegion != null)
-        {
-            eventString += " in " + UndergroundRegion.ToLink(link, pov, this);
-        }
-
-        return eventString;
+        return deathString;
     }
 }

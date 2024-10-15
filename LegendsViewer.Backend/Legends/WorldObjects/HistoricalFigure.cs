@@ -28,6 +28,8 @@ public class HistoricalFigure : WorldObject
 
     public static readonly HistoricalFigure Unknown = new();
 
+    public override string Type { get => Formatting.InitCaps(GetRaceString()); set => base.Type = value; }
+
     private string ShortName
     {
         get
@@ -124,7 +126,6 @@ public class HistoricalFigure : WorldObject
                 {
                     Title = $"{link.Type.GetDescription()}",
                     Subtitle = $"{link.HistoricalFigure?.ToLink(true, this)}",
-                    Append = HtmlStyleUtil.GetChipString(link.Strength.ToString())
                 });
             }
             return list;
@@ -142,9 +143,11 @@ public class HistoricalFigure : WorldObject
                     continue;
                 }
 
+                string raceString = link.HistoricalFigure.GetRaceString();
+                string typeString = Formatting.InitCaps(raceString ?? link.Type.GetDescription());
                 list.Add(new ListItemDto
                 {
-                    Title = $"{link.Type.GetDescription()} for {string.Join(", ", link.HistoricalFigure.Spheres)}",
+                    Title = $"{typeString} for {string.Join(", ", link.HistoricalFigure.Spheres)}",
                     Subtitle = $"{link.HistoricalFigure?.ToLink(true, this)}",
                     Append = HtmlStyleUtil.GetChipString(link.Strength.ToString())
                 });
@@ -229,8 +232,8 @@ public class HistoricalFigure : WorldObject
     }
 
     [JsonIgnore]
+    // Forces can have related regions
     public List<WorldRegion> RelatedRegions { get; set; } = [];
-    public List<string> RelatedRegionLinks => RelatedRegions.ConvertAll(x => x.ToLink(true, this));
 
     [JsonIgnore]
     public List<Skill> Skills { get; set; } = [];
@@ -270,11 +273,75 @@ public class HistoricalFigure : WorldObject
     public int DeathYear { get; set; } = -1;
     public int DeathSeconds72 { get; set; } = -1;
 
+    [JsonIgnore]
+    public HfDied? DeathEvent { get; set; }
     public DeathCause DeathCause { get; set; } = DeathCause.None;
     public List<string> ActiveInteractions { get; set; } = [];
     public List<string> InteractionKnowledge { get; set; } = [];
     public string Goal { get; set; } = string.Empty;
     public string Interaction { get; set; } = string.Empty;
+
+    public List<ListItemDto> MiscList
+    {
+        get
+        {
+            var list = new List<ListItemDto>();
+            if (!string.IsNullOrEmpty(Goal))
+            {
+                list.Add(new ListItemDto
+                {
+                    Title = "Goal",
+                    Subtitle = Goal
+                });
+            }
+            if (Age > -1)
+            {
+                list.Add(new ListItemDto
+                {
+                    Title = "Age",
+                    Subtitle = Age.ToString() + (DeathYear > -1 ? " ✝" : "")
+                });
+            }
+            list.Add(new ListItemDto
+            {
+                Title = "Born",
+                Subtitle = Formatting.YearPlusSeconds72ToProsa(BirthYear, BirthSeconds72)
+            });
+            if (DeathYear > -1)
+            {
+                list.Add(new ListItemDto
+                {
+                    Title = "Death",
+                    Subtitle = $"{Formatting.YearPlusSeconds72ToProsa(DeathYear, DeathSeconds72)} {(DeathEvent != null ? DeathEvent.GetDeathString(true, this) : "")}"
+                });
+            }
+            if (Spheres.Count > 0)
+            {
+                list.Add(new ListItemDto
+                {
+                    Title = "Spheres",
+                    Subtitle = string.Join(", ", Spheres)
+                });
+            }
+            if (RelatedRegions.Count > 0)
+            {
+                list.Add(new ListItemDto
+                {
+                    Title = "Related Regions",
+                    Subtitle = string.Join(", ", RelatedRegions.ConvertAll(region => region.ToLink()))
+                });
+            }
+            if (WorshippedBy != null)
+            {
+                list.Add(new ListItemDto
+                {
+                    Title = "Worshipped By",
+                    Subtitle = WorshippedBy.ToLink(true, this)
+                });
+            }
+            return list;
+        }
+    }
 
     [JsonIgnore]
     public HistoricalFigure? LineageCurseParent { get; set; }
@@ -284,14 +351,28 @@ public class HistoricalFigure : WorldObject
     public List<HistoricalFigure> LineageCurseChilds { get; set; } = [];
     public List<string> LineageCurseChildLinks => LineageCurseChilds.ConvertAll(x => x.ToLink(true, this));
 
-    public List<string> JourneyPets { get; set; } = [];
+    public List<string> Spheres { get; set; } = [];
+
+    public List<ListItemDto> JourneyPets { get; set; } = [];
 
     [JsonIgnore]
     public List<HfDied> NotableKills { get; set; } = [];
-
-    [JsonIgnore]
-    public List<HistoricalFigure> HFKills => NotableKills.ConvertAll(kill => kill.HistoricalFigure);
-    public List<string> HFKillLinks => HFKills.ConvertAll(x => x.ToLink(true, this));
+    public List<ListItemDto> NotableKillList
+    {
+        get
+        {
+            var list = new List<ListItemDto>();
+            foreach (var killEvent in NotableKills)
+            {
+                list.Add(new ListItemDto
+                {
+                    Title = $"{killEvent.HistoricalFigure?.ToLink(true, this)}",
+                    Subtitle = $"{killEvent.GetDeathString(true, this)}",
+                });
+            }
+            return list;
+        }
+    }
 
     [JsonIgnore]
     public List<HistoricalFigure> SnatchedHfs => Events
@@ -300,8 +381,6 @@ public class HistoricalFigure : WorldObject
             .Select(abduction => abduction.Target!)
             .ToList();
     public List<string> SnatchedHfLinks => SnatchedHfs.ConvertAll(x => x.ToLink(true, this));
-
-    public List<string> Spheres { get; set; } = [];
 
     [JsonIgnore]
     public List<Battle> Battles { get; set; } = [];
@@ -323,15 +402,18 @@ public class HistoricalFigure : WorldObject
 
     [JsonIgnore]
     public Entity? WorshippedBy { get; set; }
-    public string? WorshippedByToLink => WorshippedBy?.ToLink(true);
 
     [JsonIgnore]
     public List<BeastAttack> BeastAttacks { get; set; } = [];
     public List<string> BeastAttackLinks => BeastAttacks.ConvertAll(x => x.ToLink(true, this));
 
+    [JsonIgnore]
     public HonorEntity? HonorEntity { get; set; }
+    [JsonIgnore]
     public List<IntrigueActor> IntrigueActors { get; set; } = [];
+    [JsonIgnore]
     public List<IntriguePlot> IntriguePlots { get; set; } = [];
+    [JsonIgnore]
     public List<Identity> Identities { get; set; } = [];
 
     private FamilyTreeData? _familyTreeData;
@@ -539,14 +621,10 @@ public class HistoricalFigure : WorldObject
                 case "animated_string": if (AnimatedType != "") { throw new Exception("Animated Type already exists."); } AnimatedType = Formatting.InitCaps(property.Value); break;
                 case "journey_pet":
                     var creatureInfo = world.GetCreatureInfo(property.Value);
-                    if (creatureInfo != CreatureInfo.Unknown)
+                    JourneyPets.Add(new ListItemDto
                     {
-                        JourneyPets.Add(creatureInfo.NameSingular);
-                    }
-                    else
-                    {
-                        JourneyPets.Add(Formatting.FormatRace(property.Value));
-                    }
+                        Title = creatureInfo != CreatureInfo.Unknown ? creatureInfo.NameSingular : Formatting.FormatRace(property.Value)
+                    });
                     break;
                 case "goal": Goal = Formatting.InitCaps(property.Value); break;
                 case "sphere": Spheres.Add(property.Value); break;
@@ -639,7 +717,6 @@ public class HistoricalFigure : WorldObject
         {
             Name = !string.IsNullOrWhiteSpace(AnimatedType) ? Formatting.InitCaps(AnimatedType) : "(Unnamed)";
         }
-        Type = Race?.NameSingular ?? string.Empty;
         Subtype = Caste ?? string.Empty;
         if (Adventurer)
         {
@@ -778,7 +855,7 @@ public class HistoricalFigure : WorldObject
                 }
                 else if (relevantEvent is AddHfEntityLink addHfEntityLinkEvent && (addHfEntityLinkEvent.LinkType == HfEntityLinkType.Squad || addHfEntityLinkEvent.LinkType == HfEntityLinkType.Position))
                 {
-                    EntityPosition? position = addHfEntityLinkEvent.Entity.EntityPositions.Find(pos => string.Equals(pos.Name, addHfEntityLinkEvent.Position, StringComparison.OrdinalIgnoreCase) || pos.Id == addHfEntityLinkEvent.PositionId);
+                    EntityPosition? position = addHfEntityLinkEvent.Entity?.EntityPositions.Find(pos => string.Equals(pos.Name, addHfEntityLinkEvent.Position, StringComparison.OrdinalIgnoreCase) || pos.Id == addHfEntityLinkEvent.PositionId);
                     if (position != null)
                     {
                         if (lastAssignment != null)

@@ -24,7 +24,7 @@ public class ArtForm : WorldObject
                     var index = property.Value.IndexOf(" is a ", StringComparison.Ordinal);
                     if (index != -1 && string.IsNullOrEmpty(Name))
                     {
-                        Name = property.Value.Substring(0, index);
+                        Name = property.Value[..index];
                     }
                     Description = property.Value;
                     break;

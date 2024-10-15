@@ -1,3 +1,4 @@
+using LegendsViewer.Backend.Contracts;
 using LegendsViewer.Backend.Legends.EventCollections;
 using LegendsViewer.Backend.Legends.Extensions;
 using LegendsViewer.Backend.Legends.Parser;
@@ -9,12 +10,13 @@ namespace LegendsViewer.Backend.Legends.Events;
 
 public class HfNewPet : WorldEvent
 {
-    public string Pet { get; set; }
-    public HistoricalFigure HistoricalFigure;
-    public Site Site;
-    public WorldRegion Region;
-    public UndergroundRegion UndergroundRegion;
-    public Location Coordinates;
+    public string Pet { get; set; } = string.Empty;
+    public HistoricalFigure? HistoricalFigure { get; set; }
+    public Site? Site { get; set; }
+    public WorldRegion? Region { get; set; }
+    public UndergroundRegion? UndergroundRegion { get; set; }
+    public Location? Coordinates { get; set; }
+
     public HfNewPet(List<Property> properties, World world)
         : base(properties, world)
     {
@@ -29,18 +31,46 @@ public class HfNewPet : WorldEvent
                 case "feature_layer_id": UndergroundRegion = world.GetUndergroundRegion(Convert.ToInt32(property.Value)); break;
                 case "site": if (Site == null) { Site = world.GetSite(Convert.ToInt32(property.Value)); } else { property.Known = true; } break;
                 case "group": if (HistoricalFigure == null) { HistoricalFigure = world.GetHistoricalFigure(Convert.ToInt32(property.Value)); } else { property.Known = true; } break;
-                case "pets": Pet = property.Value.Replace("_", " ").Replace("2", "two"); break;
+                case "pets":
+                    var creatureInfo = world.GetCreatureInfo(property.Value);
+                    if (creatureInfo != CreatureInfo.Unknown)
+                    {
+                        Pet = creatureInfo.NameSingular;
+                    }
+                    else
+                    {
+                        Pet = Formatting.FormatRace(property.Value.Replace("_", " ").Replace("2", "two"));
+                    }
+                    break;
             }
         }
 
-        HistoricalFigure.AddEvent(this);
-        Site.AddEvent(this);
-        Region.AddEvent(this);
-        UndergroundRegion.AddEvent(this);
+        HistoricalFigure?.AddEvent(this);
+        Site?.AddEvent(this);
+        Region?.AddEvent(this);
+        UndergroundRegion?.AddEvent(this);
+
+        if (!string.IsNullOrWhiteSpace(Pet) && HistoricalFigure != null)
+        {
+            var journeyPet = HistoricalFigure.JourneyPets.Find(pet => pet.Title == Pet);
+            var tameLocation = Site?.ToLink() ?? Region?.ToLink() ?? UndergroundRegion?.ToLink();
+            if (journeyPet != null && tameLocation != null)
+            {
+                journeyPet.Subtitle = $"tamed in {tameLocation}";
+            }
+            else
+            {
+                HistoricalFigure.JourneyPets.Add(new ListItemDto
+                {
+                    Title = Pet,
+                    Subtitle = tameLocation != null ? $"tamed in {tameLocation}" : null
+                });
+            }
+        }
     }
     public override string Print(bool link = true, DwarfObject? pov = null)
     {
-        string eventString = GetYearTime() + HistoricalFigure.ToLink(link, pov, this) + " tamed the creatures named ";
+        string eventString = GetYearTime() + HistoricalFigure?.ToLink(link, pov, this) + " tamed the creatures named ";
         if (!string.IsNullOrWhiteSpace(Pet))
         {
             eventString += Pet;

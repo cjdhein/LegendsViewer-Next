@@ -12,12 +12,13 @@ const mapStore = useEntityMapStore()
 const beforeLists: ComputedRef<LegendLinkListData[]> = computed(() => [
     { title: 'Noble Positions', items: store.object?.entityPositionAssignmentsList ?? [], icon: "mdi-seal", subtitle: "The ruling elite, guiding the fate of realms and people" },
     { title: 'Related Factions and Groups', items: store.object?.entityEntityLinkList ?? [], icon: "mdi-account-group", subtitle: "The organizations and groups connected to this entity" },
-    { title: 'Related Sites', items: store.object?.entitySiteLinkList ?? [], icon: "mdi-home-switch-outline", subtitle: "The locations tied to this entity, from settlements to strongholds of power" },
-    { title: 'Worshipped Deities', items: store.object?.worshippedLinks ?? [], icon: "mdi-weather-sunset", subtitle: "The divine beings revered across the lands" },
+    { title: 'Current Sites', items: store.object?.currentSiteList ?? [], icon: "mdi-home-outline", subtitle: "The sites held by this entity, from settlements to strongholds of power" },
+    { title: 'Lost Sites', items: store.object?.lostSiteList ?? [], icon: "mdi-home-off-outline", subtitle: "Former strongholds and settlements once under the control of this entity" },
 ]);
 
 const afterLists: ComputedRef<LegendLinkListData[]> = computed(() => [
-    { title: 'Current Sites', items: store.object?.currentSiteLinks ?? [], icon: "mdi-home-outline", subtitle: "The sites held by this entity, from settlements to strongholds of power" },
+    { title: 'Related Sites', items: store.object?.entitySiteLinkList ?? [], icon: "mdi-home-switch-outline", subtitle: "The locations tied to this entity, from settlements to strongholds of power" },
+    { title: 'Worshipped Deities', items: store.object?.worshippedLinks ?? [], icon: "mdi-weather-sunset", subtitle: "The divine beings revered across the lands" },
 ]);
 
 </script>

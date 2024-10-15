@@ -65,11 +65,79 @@ public class Entity : WorldObject, IHasCoordinates
 
     [JsonIgnore]
     public List<Site> CurrentSites => SiteHistory.Where(site => site.EndYear == -1).Select(site => site.Site).ToList();
-    public List<string> CurrentSiteLinks => CurrentSites.ConvertAll(x => x.ToLink(true, this));
+    public List<ListItemDto> CurrentSiteList
+    {
+        get
+        {
+            var list = new List<ListItemDto>();
+            foreach (OwnerPeriod link in SiteHistory.Where(site => site.EndYear == -1))
+            {
+                if (link.Site == null)
+                {
+                    continue;
+                }
+                var subtitle = $"{Formatting.InitCaps(link.StartCause ?? "founded")} in " + (link.StartYear >= 0 ? link.StartYear.ToString() : "a time before time");
+                if (link.Founder != null)
+                {
+                    subtitle += $" by {link.Founder.ToLink(true, this)}";
+                }
+                else if (link.Owner != null)
+                {
+                    subtitle += $" by {link.Owner.ToLink(true, this)}";
+                }
+                list.Add(new ListItemDto
+                {
+                    Title = link.Site.ToLink(true, this),
+                    Subtitle = subtitle
+                });
+            }
+            return list;
+        }
+    }
 
     [JsonIgnore]
     public List<Site> LostSites => SiteHistory.Where(site => site.EndYear >= 0).Select(site => site.Site).ToList();
-    public List<string> LostSiteLinks => LostSites.ConvertAll(x => x.ToLink(true, this));
+    public List<ListItemDto> LostSiteList
+    {
+        get
+        {
+            var list = new List<ListItemDto>();
+            foreach (OwnerPeriod link in SiteHistory.Where(site => site.EndYear >= 0))
+            {
+                if (link.Site == null)
+                {
+                    continue;
+                }
+                var subtitle = $"{Formatting.InitCaps(link.StartCause ?? "founded")} in " + (link.StartYear >= 0 ? link.StartYear.ToString() : "a time before time");
+                if (link.Founder != null)
+                {
+                    subtitle += $" by {link.Founder.ToLink(true, this)}";
+                }
+                else if (link.Owner != null)
+                {
+                    subtitle += $" by {link.Owner.ToLink(true, this)}";
+                }
+                if (!string.IsNullOrWhiteSpace(link.EndCause))
+                {
+                    subtitle += $" and {link.EndCause} in {link.EndYear}";
+                    if (link.Destroyer != null)
+                    {
+                        subtitle += $" by {link.Destroyer.ToLink(true, this)}";
+                    }
+                    else if (link.Ender != null)
+                    {
+                        subtitle += $" by {link.Ender.ToLink(true, this)}";
+                    }
+                }
+                list.Add(new ListItemDto
+                {
+                    Title = link.Site.ToLink(true, this),
+                    Subtitle = subtitle
+                });
+            }
+            return list;
+        }
+    }
 
     [JsonIgnore]
     public List<Site> Sites => SiteHistory.ConvertAll(site => site.Site);

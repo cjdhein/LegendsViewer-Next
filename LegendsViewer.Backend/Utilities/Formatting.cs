@@ -55,9 +55,9 @@ public static class Formatting
         char[] newText = new char[text.Length];
         for (int i = 0; i < text.Length; i++)
         {
-            if (i == 0 || newText[i - 1] == ' ' &&
-                !(text[i] == 't' && i + 2 < text.Length && (text[i + 1] == 'h' || text[i + 1] == 'H') && (text[i + 2] == 'e' || text[i + 2] == 'E')) &&
-                !(text[i] == 'o' && i + 1 < text.Length && (text[i + 1] == 'f' || text[i + 1] == 'f')))
+            if (i == 0 || ((newText[i - 1] == ' ' || newText[i - 1] == '-') &&
+                !(text[i] == 't' && i + 2 < text.Length && (text[i + 1] == 'h' || text[i + 1] == 'H') && (text[i + 2] == 'e' || text[i + 2] == 'E') && (text[i + 3] == ' ' || text[i + 3] == '-')) &&
+                !(text[i] == 'o' && i + 1 < text.Length && (text[i + 1] == 'f' || text[i + 1] == 'f') && (text[i + 2] == ' ' || text[i + 2] == '-'))))
             {
                 newText[i] = char.ToUpper(text[i]);
             }
@@ -290,6 +290,98 @@ public static class Formatting
 
         // If luminance is greater than 0.5, use black as the foreground color; otherwise, use white
         return luminance > 0.5 ? "#000000" : "#FFFFFF";
+    }
+
+    public static string YearPlusSeconds72ToTimestamp(int year, int seconds72)
+    {
+        var month = 1 + seconds72 / (28 * 1200);
+        var day = 1 + seconds72 % (28 * 1200) / 1200;
+        return year < 0 ? "In a time before time" : $"{year:0000}-{month:00}-{day:00}";
+    }
+
+    private static readonly string[] MonthNames = { "Granite", "Slate", "Felsite", "Hematite", "Malachite", "Galena", "Limestone", "Sandstone", "Timber", "Moonstone", "Opal", "Obsidian" };
+    public static string YearPlusSeconds72ToProsa(int year, int seconds72)
+    {
+        var month = 1 + seconds72 / (28 * 1200);
+        var day = 1 + seconds72 % (28 * 1200) / 1200;
+        if (year == -1)
+        {
+            return "In a time before time, ";
+        }
+
+        string yearTime = $"In {year}, ";
+        if (seconds72 == -1)
+        {
+            return yearTime;
+        }
+
+        int partOfMonth = seconds72 % 100800;
+        string partOfMonthString = "";
+        if (partOfMonth <= 33600)
+        {
+            partOfMonthString = "early ";
+        }
+        else if (partOfMonth <= 67200)
+        {
+            partOfMonthString = "mid";
+        }
+        else if (partOfMonth <= 100800)
+        {
+            partOfMonthString = "late ";
+        }
+
+        int season = seconds72 % 403200;
+        string seasonString = "";
+        if (season < 100800)
+        {
+            seasonString = "spring, ";
+        }
+        else if (season < 201600)
+        {
+            seasonString = "summer, ";
+        }
+        else if (season < 302400)
+        {
+            seasonString = "autumn, ";
+        }
+        else if (season < 403200)
+        {
+            seasonString = "winter, ";
+        }
+
+        string ordinal = "";
+        int num = day;
+        if (num > 0)
+        {
+            switch (num % 100)
+            {
+                case 11:
+                case 12:
+                case 13:
+                    ordinal = "th";
+                    break;
+            }
+            if (ordinal?.Length == 0)
+            {
+                switch (num % 10)
+                {
+                    case 1:
+                        ordinal = "st";
+                        break;
+                    case 2:
+                        ordinal = "nd";
+                        break;
+                    case 3:
+                        ordinal = "rd";
+                        break;
+                    default:
+                        ordinal = "th";
+                        break;
+                }
+            }
+        }
+        var monthName = MonthNames[month - 1];
+        return $"{yearTime}{partOfMonthString}{seasonString} ({day}{ordinal} of {monthName}) ";
     }
 
     public static string TimeCountToSeason(int count)
