@@ -27,7 +27,7 @@ public static class WebAppStaticServer
     public static async Task OpenPageInBrowserAsync()
     {
         await Task.Delay(200);
-        var url = $"http://{Environment.MachineName}:{WebAppPort}";
+        var url = $"http://localhost:{WebAppPort}";
         try
         {
             Process.Start(new ProcessStartInfo(url) { UseShellExecute = true });
