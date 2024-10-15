@@ -6,9 +6,9 @@ namespace LegendsViewer.Backend.Legends.Events;
 
 public class EntityExpelsHf : WorldEvent
 {
-    public Entity Entity { get; set; }
-    public HistoricalFigure HistoricalFigure { get; set; }
-    public Site Site { get; set; }
+    public Entity? Entity { get; set; }
+    public HistoricalFigure? HistoricalFigure { get; set; }
+    public Site? Site { get; set; }
 
     public EntityExpelsHf(List<Property> properties, World world)
         : base(properties, world)
@@ -29,9 +29,9 @@ public class EntityExpelsHf : WorldEvent
             }
         }
 
-        Entity.AddEvent(this);
-        HistoricalFigure.AddEvent(this);
-        Site.AddEvent(this);
+        Entity?.AddEvent(this);
+        HistoricalFigure?.AddEvent(this);
+        Site?.AddEvent(this);
     }
 
     public override string Print(bool link = true, DwarfObject? pov = null)

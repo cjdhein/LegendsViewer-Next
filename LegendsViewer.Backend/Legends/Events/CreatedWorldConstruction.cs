@@ -6,9 +6,12 @@ namespace LegendsViewer.Backend.Legends.Events;
 
 public class CreatedWorldConstruction : WorldEvent
 {
-    public Entity Civ, SiteEntity;
-    public Site Site1, Site2;
-    public WorldConstruction WorldConstruction, MasterWorldConstruction;
+    public Entity? Civ { get; set; }
+    public Entity? SiteEntity { get; set; }
+    public Site? Site1 { get; set; }
+    public Site? Site2 { get; set; }
+    public WorldConstruction? WorldConstruction { get; set; }
+    public WorldConstruction? MasterWorldConstruction { get; set; }
     public CreatedWorldConstruction(List<Property> properties, World world)
         : base(properties, world)
     {
@@ -25,17 +28,23 @@ public class CreatedWorldConstruction : WorldEvent
             }
         }
 
-        Civ.AddEvent(this);
-        SiteEntity.AddEvent(this);
+        Civ?.AddEvent(this);
+        SiteEntity?.AddEvent(this);
 
-        WorldConstruction.AddEvent(this);
-        MasterWorldConstruction.AddEvent(this);
+        WorldConstruction?.AddEvent(this);
+        MasterWorldConstruction?.AddEvent(this);
 
-        Site1.AddEvent(this);
-        Site2.AddEvent(this);
+        Site1?.AddEvent(this);
+        Site2?.AddEvent(this);
 
-        Site1.AddConnection(Site2);
-        Site2.AddConnection(Site1);
+        if (Site2 != null)
+        {
+            Site1?.AddConnection(Site2);
+        }
+        if (Site1 != null)
+        {
+            Site2?.AddConnection(Site1);
+        }
 
         if (WorldConstruction != null)
         {

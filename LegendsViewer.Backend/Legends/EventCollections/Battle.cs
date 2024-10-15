@@ -268,7 +268,7 @@ public class Battle : EventCollection, IHasComplexSubtype
 
         foreach (var attacker in NotableAttackers.Where(hf => Attackers.Count(squad => squad.Race == hf.Race) == 0).GroupBy(hf => hf.Race).Select(race => new { Race = race.Key, Count = race.Count() }))
         {
-            var attackerDeath = Events.OfType<HfDied>().Count(death => NotableAttackers.Contains(death.HistoricalFigure) && death.HistoricalFigure?.Race == attacker.Race);
+            var attackerDeath = Events.OfType<HfDied>().Count(death => death.HistoricalFigure != null && NotableAttackers.Contains(death.HistoricalFigure) && death.HistoricalFigure.Race == attacker.Race);
             Attackers.Add(new Squad(attacker.Race, attacker.Count, attackerDeath, -1, -1));
         }
 
@@ -284,7 +284,7 @@ public class Battle : EventCollection, IHasComplexSubtype
 
         foreach (var defender in NotableDefenders.Where(hf => Defenders.Count(squad => squad.Race == hf.Race) == 0).GroupBy(hf => hf.Race).Select(race => new { Race = race.Key, Count = race.Count() }))
         {
-            int defenderDeath = Events.OfType<HfDied>().Count(death => NotableDefenders.Contains(death.HistoricalFigure) && death.HistoricalFigure.Race == defender.Race);
+            int defenderDeath = Events.OfType<HfDied>().Count(death => death.HistoricalFigure != null &&  NotableDefenders.Contains(death.HistoricalFigure) && death.HistoricalFigure.Race == defender.Race);
             Defenders.Add(new Squad(defender.Race, defender.Count, defenderDeath, -1, -1));
         }
 

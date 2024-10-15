@@ -6,8 +6,8 @@ namespace LegendsViewer.Backend.Legends.Events;
 
 public class EntityEquipmentPurchase : WorldEvent
 {
-    public Entity Entity { get; set; }
-    public HistoricalFigure HistoricalFigure { get; set; }
+    public Entity? Entity { get; set; }
+    public HistoricalFigure? HistoricalFigure { get; set; }
     public int Quality { get; set; }
 
     public EntityEquipmentPurchase(List<Property> properties, World world) : base(properties, world)
@@ -22,14 +22,14 @@ public class EntityEquipmentPurchase : WorldEvent
             }
         }
 
-        Entity.AddEvent(this);
-        HistoricalFigure.AddEvent(this);
+        Entity?.AddEvent(this);
+        HistoricalFigure?.AddEvent(this);
     }
 
     public override string Print(bool link = true, DwarfObject? pov = null)
     {
         string eventString = GetYearTime();
-        eventString += Entity.ToLink(link, pov, this);
+        eventString += Entity?.ToLink(link, pov, this);
         eventString += " purchased ";
         if (Quality == 1)
         {

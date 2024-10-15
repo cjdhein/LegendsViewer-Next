@@ -7,9 +7,9 @@ namespace LegendsViewer.Backend.Legends.Events;
 
 public class EntityDissolved : WorldEvent
 {
-    public Entity Entity { get; set; }
+    public Entity? Entity { get; set; }
     public DissolveReason Reason { get; set; }
-    public string ReasonString { get; set; }
+    public string? ReasonString { get; set; }
 
     public EntityDissolved(List<Property> properties, World world) : base(properties, world)
     {
@@ -32,13 +32,13 @@ public class EntityDissolved : WorldEvent
             }
         }
 
-        Entity.AddEvent(this);
+        Entity?.AddEvent(this);
     }
 
     public override string Print(bool link = true, DwarfObject? pov = null)
     {
         string eventString = GetYearTime();
-        eventString += Entity.ToLink(link, pov, this);
+        eventString += Entity?.ToLink(link, pov, this);
         eventString += " dissolved";
         switch (Reason)
         {

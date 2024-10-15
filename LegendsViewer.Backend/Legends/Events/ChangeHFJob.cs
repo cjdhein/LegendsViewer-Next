@@ -7,17 +7,15 @@ namespace LegendsViewer.Backend.Legends.Events;
 
 public class ChangeHfJob : WorldEvent
 {
-    public HistoricalFigure HistoricalFigure;
-    public Site Site;
-    public WorldRegion Region;
-    public UndergroundRegion UndergroundRegion;
-    public string NewJob { get; set; }
-    public string OldJob { get; set; }
+    public HistoricalFigure? HistoricalFigure;
+    public Site? Site;
+    public WorldRegion? Region;
+    public UndergroundRegion? UndergroundRegion;
+    public string NewJob { get; set; } = "UNKNOWN JOB";
+    public string OldJob { get; set; } = "UNKNOWN JOB";
     public ChangeHfJob(List<Property> properties, World world)
         : base(properties, world)
     {
-        NewJob = "UNKNOWN JOB";
-        OldJob = "UNKNOWN JOB";
         foreach (Property property in properties)
         {
             switch (property.Name)
@@ -32,14 +30,14 @@ public class ChangeHfJob : WorldEvent
             }
         }
 
-        HistoricalFigure.AddEvent(this);
-        Site.AddEvent(this);
-        Region.AddEvent(this);
-        UndergroundRegion.AddEvent(this);
+        HistoricalFigure?.AddEvent(this);
+        Site?.AddEvent(this);
+        Region?.AddEvent(this);
+        UndergroundRegion?.AddEvent(this);
     }
     public override string Print(bool link = true, DwarfObject? pov = null)
     {
-        string eventString = GetYearTime() + HistoricalFigure.ToLink(link, pov, this);
+        string eventString = GetYearTime() + HistoricalFigure?.ToLink(link, pov, this);
         if (OldJob != "standard" && NewJob != "standard")
         {
             eventString += " gave up being " + Formatting.AddArticle(OldJob) + " to become " + Formatting.AddArticle(NewJob);

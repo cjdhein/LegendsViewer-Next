@@ -2,6 +2,7 @@
 using LegendsViewer.Backend.Legends.Parser;
 using LegendsViewer.Backend.Legends.WorldObjects;
 using LegendsViewer.Backend.Utilities;
+using System.Text.Json.Serialization;
 
 namespace LegendsViewer.Backend.Legends.EventCollections;
 
@@ -10,7 +11,8 @@ public class Purge : EventCollection
     public int Ordinal { get; set; } = -1;
     public string? Adjective { get; set; }
 
-    public List<HistoricalFigure> Deaths => GetSubEvents().OfType<HfDied>().Select(death => death.HistoricalFigure).ToList();
+    [JsonIgnore]
+    public List<HistoricalFigure> Deaths => GetSubEvents().OfType<HfDied>().Where(death => death.HistoricalFigure != null).Select(death => death.HistoricalFigure!).ToList();
     public int DeathCount => Deaths.Count;
 
     public Purge(List<Property> properties, World world)

@@ -6,8 +6,8 @@ namespace LegendsViewer.Backend.Legends.Events;
 
 public class EntityAllianceFormed : WorldEvent
 {
-    public Entity InitiatingEntity { get; set; }
-    public Entity JoiningEntity { get; set; }
+    public Entity? InitiatingEntity { get; set; }
+    public Entity? JoiningEntity { get; set; }
 
     public EntityAllianceFormed(List<Property> properties, World world) : base(properties, world)
     {
@@ -21,16 +21,16 @@ public class EntityAllianceFormed : WorldEvent
         }
 
 
-        InitiatingEntity.AddEvent(this);
-        JoiningEntity.AddEvent(this);
+        InitiatingEntity?.AddEvent(this);
+        JoiningEntity?.AddEvent(this);
     }
 
     public override string Print(bool link = true, DwarfObject? pov = null)
     {
         string eventString = GetYearTime();
-        eventString += JoiningEntity.ToLink(link, pov, this);
+        eventString += JoiningEntity?.ToLink(link, pov, this);
         eventString += " swore to support ";
-        eventString += InitiatingEntity.ToLink(link, pov, this);
+        eventString += InitiatingEntity?.ToLink(link, pov, this);
         eventString += " in war if the latter did likewise";
 
         eventString += PrintParentCollection(link, pov);

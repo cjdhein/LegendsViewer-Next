@@ -7,13 +7,13 @@ namespace LegendsViewer.Backend.Legends.Events;
 
 public class Competition : OccasionEvent
 {
-    private HistoricalFigure Winner { get; set; }
-    private List<HistoricalFigure> Competitors { get; set; }
+    private HistoricalFigure? Winner { get; set; }
+    private List<HistoricalFigure> Competitors { get; set; } = [];
 
     public Competition(List<Property> properties, World world) : base(properties, world)
     {
         OccasionType = OccasionType.Competition;
-        Competitors = [];
+
         foreach (Property property in properties)
         {
             switch (property.Name)
@@ -22,12 +22,16 @@ public class Competition : OccasionEvent
                     Winner = world.GetHistoricalFigure(Convert.ToInt32(property.Value));
                     break;
                 case "competitor_hfid":
-                    Competitors.Add(world.GetHistoricalFigure(Convert.ToInt32(property.Value)));
+                    HistoricalFigure? competitor = world.GetHistoricalFigure(Convert.ToInt32(property.Value));
+                    if (competitor != null)
+                    {
+                        Competitors.Add(competitor);
+                    }
                     break;
             }
         }
 
-        Winner.AddEvent(this);
+        Winner?.AddEvent(this);
         Competitors.ForEach(competitor =>
         {
             if (competitor != Winner && competitor != HistoricalFigure.Unknown)

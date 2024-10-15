@@ -19,7 +19,7 @@ public class Raid : EventCollection, IHasComplexSubtype
     public Entity? Defender { get; set; }
     public int ItemsStolenCount => GetSubEvents().OfType<ItemStolen>().Count();
     [JsonIgnore]
-    public List<HistoricalFigure> Deaths => GetSubEvents().OfType<HfDied>().Select(death => death.HistoricalFigure).ToList();
+    public List<HistoricalFigure> Deaths => GetSubEvents().OfType<HfDied>().Where(death => death.HistoricalFigure != null).Select(death => death.HistoricalFigure!).ToList();
     public int DeathCount => Deaths.Count;
     [JsonIgnore]
     public EventCollection? ParentEventCol { get; set; }

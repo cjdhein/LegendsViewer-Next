@@ -9,15 +9,15 @@ namespace LegendsViewer.Backend.Legends.Events;
 
 public class ChangeHfBodyState : WorldEvent
 {
-    public HistoricalFigure HistoricalFigure { get; set; }
+    public HistoricalFigure? HistoricalFigure { get; set; }
     public BodyState BodyState { get; set; }
-    public Site Site { get; set; }
+    public Site? Site { get; set; }
     public int StructureId { get; set; }
-    public Structure Structure { get; set; }
-    public WorldRegion Region { get; set; }
-    public UndergroundRegion UndergroundRegion { get; set; }
-    public Location Coordinates { get; set; }
-    private readonly string _unknownBodyState;
+    public Structure? Structure { get; set; }
+    public WorldRegion? Region { get; set; }
+    public UndergroundRegion? UndergroundRegion { get; set; }
+    public Location? Coordinates { get; set; }
+    private readonly string? _unknownBodyState;
 
     public ChangeHfBodyState(List<Property> properties, World world)
         : base(properties, world)
@@ -52,16 +52,16 @@ public class ChangeHfBodyState : WorldEvent
         {
             Structure = Site.Structures.Find(structure => structure.LocalId == StructureId);
         }
-        Structure.AddEvent(this);
-        HistoricalFigure.AddEvent(this);
-        Site.AddEvent(this);
-        Region.AddEvent(this);
-        UndergroundRegion.AddEvent(this);
+        Structure?.AddEvent(this);
+        HistoricalFigure?.AddEvent(this);
+        Site?.AddEvent(this);
+        Region?.AddEvent(this);
+        UndergroundRegion?.AddEvent(this);
     }
 
     public override string Print(bool link = true, DwarfObject? pov = null)
     {
-        string eventString = GetYearTime() + HistoricalFigure.ToLink(link, pov, this) + " ";
+        string eventString = GetYearTime() + HistoricalFigure?.ToLink(link, pov, this) + " ";
         string stateString = "";
         switch (BodyState)
         {

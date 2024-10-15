@@ -19,7 +19,7 @@ public class SiteConquered : EventCollection
     [JsonIgnore]
     public Battle? Battle { get; set; }
     [JsonIgnore]
-    public List<HistoricalFigure> Deaths => GetSubEvents().OfType<HfDied>().Select(death => death.HistoricalFigure).ToList();
+    public List<HistoricalFigure> Deaths => GetSubEvents().OfType<HfDied>().Where(death => death.HistoricalFigure != null).Select(death => death.HistoricalFigure!).ToList();
     public int DeathCount => Deaths.Count;
 
     public SiteConquered(List<Property> properties, World world)

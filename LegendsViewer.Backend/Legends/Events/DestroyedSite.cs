@@ -7,10 +7,10 @@ namespace LegendsViewer.Backend.Legends.Events;
 
 public class DestroyedSite : WorldEvent
 {
-    public Site Site { get; set; }
-    public Entity SiteEntity { get; set; }
-    public Entity Attacker { get; set; }
-    public Entity Defender { get; set; }
+    public Site? Site { get; set; }
+    public Entity? SiteEntity { get; set; }
+    public Entity? Attacker { get; set; }
+    public Entity? Defender { get; set; }
     public bool NoDefeatMention { get; set; }
 
     public DestroyedSite(List<Property> properties, World world)
@@ -31,27 +31,30 @@ public class DestroyedSite : WorldEvent
             }
         }
 
-        if (Site.OwnerHistory.Count == 0)
+        if (Site?.OwnerHistory.Count == 0)
         {
-            if (SiteEntity != null)
+            if (Defender != null && SiteEntity != null)
             {
                 SiteEntity.SetParent(Defender);
-                Site.OwnerHistory.Add(new OwnerPeriod(Site, SiteEntity, -1, "founded"));
             }
+            Site.OwnerHistory.Add(new OwnerPeriod(Site, SiteEntity, -1, "founded"));
         }
 
-        Site.OwnerHistory.Last().EndCause = "destroyed";
-        Site.OwnerHistory.Last().EndYear = Year;
-        Site.OwnerHistory.Last().Ender = Attacker;
+        if(Site != null)
+        {
+            Site.OwnerHistory.Last().EndCause = "destroyed";
+            Site.OwnerHistory.Last().EndYear = Year;
+            Site.OwnerHistory.Last().Ender = Attacker;
 
-        Site.AddEvent(this);
+            Site?.AddEvent(this);
+        }
         if (SiteEntity != Defender)
         {
-            SiteEntity.AddEvent(this);
+            SiteEntity?.AddEvent(this);
         }
 
-        Attacker.AddEvent(this);
-        Defender.AddEvent(this);
+        Attacker?.AddEvent(this);
+        Defender?.AddEvent(this);
     }
 
     public override string Print(bool link = true, DwarfObject? pov = null)

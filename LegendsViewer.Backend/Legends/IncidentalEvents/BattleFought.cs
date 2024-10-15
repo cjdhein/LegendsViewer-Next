@@ -6,15 +6,15 @@ namespace LegendsViewer.Backend.Legends.IncidentalEvents;
 
 public class BattleFought : WorldEvent
 {
-    public Site Site { get; set; }
-    public WorldRegion Region { get; set; }
-    public UndergroundRegion UndergroundRegion { get; set; }
-    public HistoricalFigure HistoricalFigure { get; set; }
-    public Battle Battle { get; }
+    public Site? Site { get; set; }
+    public WorldRegion? Region { get; set; }
+    public UndergroundRegion? UndergroundRegion { get; set; }
+    public HistoricalFigure? HistoricalFigure { get; set; }
+    public Battle? Battle { get; }
     public bool WasHired { get; }
     public bool AsScout { get; }
 
-    public BattleFought(HistoricalFigure hf, Battle battle, World world, bool wasHired = false, bool asScout = false) : base([], world)
+    public BattleFought(HistoricalFigure hf, Battle battle, World? world, bool wasHired = false, bool asScout = false) : base([], world)
     {
         Id = -1;
         Type = "battle fought";
@@ -33,7 +33,7 @@ public class BattleFought : WorldEvent
     public override string Print(bool link = true, DwarfObject? pov = null)
     {
         string eventString = GetYearTime();
-        eventString += HistoricalFigure.ToLink(link, pov, this);
+        eventString += HistoricalFigure?.ToLink(link, pov, this);
         if (WasHired)
         {
             eventString += " was hired";
@@ -47,7 +47,7 @@ public class BattleFought : WorldEvent
         {
             eventString += " fought in ";
         }
-        eventString += Battle.ToLink(link, pov, this);
+        eventString += Battle?.ToLink(link, pov, this);
         if (Site != null)
         {
             eventString += " an assault on ";

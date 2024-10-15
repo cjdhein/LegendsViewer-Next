@@ -7,10 +7,10 @@ namespace LegendsViewer.Backend.Legends.Events;
 
 public class CreateEntityPosition : WorldEvent
 {
-    public HistoricalFigure HistoricalFigure { get; set; }
-    public Entity Civ { get; set; }
-    public Entity SiteCiv { get; set; }
-    public string Position { get; set; }
+    public HistoricalFigure? HistoricalFigure { get; set; }
+    public Entity? Civ { get; set; }
+    public Entity? SiteCiv { get; set; }
+    public string? Position { get; set; }
     public ReasonForCreatingEntity Reason { get; set; }
 
     public CreateEntityPosition(List<Property> properties, World world)
@@ -51,11 +51,11 @@ public class CreateEntityPosition : WorldEvent
                     break;
             }
         }
-        HistoricalFigure.AddEvent(this);
-        Civ.AddEvent(this);
+        HistoricalFigure?.AddEvent(this);
+        Civ?.AddEvent(this);
         if (SiteCiv != Civ)
         {
-            SiteCiv.AddEvent(this);
+            SiteCiv?.AddEvent(this);
         }
     }
 

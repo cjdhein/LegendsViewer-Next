@@ -7,14 +7,14 @@ namespace LegendsViewer.Backend.Legends.Events;
 
 public class ChangedCreatureType : WorldEvent
 {
-    public HistoricalFigure Changee { get; set; }
-    public HistoricalFigure Changer { get; set; }
-    public string OldRace { get; set; }
-    public string NewRace { get; set; }
+    public HistoricalFigure? Changee { get; set; }
+    public HistoricalFigure? Changer { get; set; }
+    public string? OldRace { get; set; }
+    public string? NewRace { get; set; }
 
     // TODO Handle caste changes
-    public string OldCaste { get; set; }
-    public string NewCaste { get; set; }
+    public string? OldCaste { get; set; }
+    public string? NewCaste { get; set; }
 
     public ChangedCreatureType(List<Property> properties, World world)
         : base(properties, world)
@@ -33,11 +33,14 @@ public class ChangedCreatureType : WorldEvent
                 case "changer": if (Changer == null) { Changer = world.GetHistoricalFigure(Convert.ToInt32(property.Value)); } else { property.Known = true; } break;
             }
         }
+        if (Changee != null && !string.IsNullOrEmpty(NewRace))
+        {
+            Changee.PreviousRace = OldRace ?? string.Empty;
+            Changee.CreatureTypes.Add(new HistoricalFigure.CreatureType(NewRace, this));
+            Changee.AddEvent(this);
+        }
 
-        Changee.PreviousRace = OldRace;
-        Changee.CreatureTypes.Add(new HistoricalFigure.CreatureType(NewRace, this));
-        Changee.AddEvent(this);
-        Changer.AddEvent(this);
+        Changer?.AddEvent(this);
     }
     public override string Print(bool link = true, DwarfObject? pov = null)
     {
@@ -46,9 +49,9 @@ public class ChangedCreatureType : WorldEvent
         eventString += " changed ";
         eventString += Changee?.ToLink(link, pov, this) ?? "an unknown creature";
         eventString += " from ";
-        eventString += Formatting.AddArticle(OldRace).ToLower();
+        eventString += Formatting.AddArticle(OldRace ?? "unknown race").ToLower();
         eventString += " into ";
-        eventString += Formatting.AddArticle(NewRace).ToLower();
+        eventString += Formatting.AddArticle(NewRace ?? "unknown race").ToLower();
         eventString += PrintParentCollection(link, pov);
         eventString += ".";
         return eventString;

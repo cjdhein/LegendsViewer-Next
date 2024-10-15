@@ -4,6 +4,7 @@ using LegendsViewer.Backend.Legends.Parser;
 using LegendsViewer.Backend.Legends.Various;
 using LegendsViewer.Backend.Legends.WorldObjects;
 using LegendsViewer.Backend.Utilities;
+using System.Text.Json.Serialization;
 
 namespace LegendsViewer.Backend.Legends.EventCollections;
 
@@ -14,7 +15,8 @@ public class Persecution : EventCollection
 
     public Entity? TargetEntity { get; set; }
 
-    public List<HistoricalFigure> Deaths => GetSubEvents().OfType<HfDied>().Select(death => death.HistoricalFigure).ToList();
+    [JsonIgnore]
+    public List<HistoricalFigure> Deaths => GetSubEvents().OfType<HfDied>().Where(death => death.HistoricalFigure != null).Select(death => death.HistoricalFigure!).ToList();
     public int DeathCount => Deaths.Count;
 
     public Persecution(List<Property> properties, World world)

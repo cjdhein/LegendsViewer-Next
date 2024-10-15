@@ -6,9 +6,9 @@ namespace LegendsViewer.Backend.Legends.Events;
 
 public class DiplomatLost : WorldEvent
 {
-    public Entity Entity { get; set; }
-    public Entity InvolvedEntity { get; set; }
-    public Site Site { get; set; }
+    public Entity? Entity { get; set; }
+    public Entity? InvolvedEntity { get; set; }
+    public Site? Site { get; set; }
 
     public DiplomatLost(List<Property> properties, World world)
         : base(properties, world)
@@ -24,9 +24,9 @@ public class DiplomatLost : WorldEvent
             }
         }
 
-        Site.AddEvent(this);
-        Entity.AddEvent(this);
-        InvolvedEntity.AddEvent(this);
+        Site?.AddEvent(this);
+        Entity?.AddEvent(this);
+        InvolvedEntity?.AddEvent(this);
     }
     public override string Print(bool link = true, DwarfObject? pov = null)
     {

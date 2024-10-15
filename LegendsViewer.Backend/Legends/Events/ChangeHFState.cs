@@ -9,11 +9,11 @@ namespace LegendsViewer.Backend.Legends.Events;
 
 public class ChangeHfState : WorldEvent
 {
-    public HistoricalFigure HistoricalFigure { get; set; }
-    public Site Site { get; set; }
-    public WorldRegion Region { get; set; }
-    public UndergroundRegion UndergroundRegion { get; set; }
-    public Location Coordinates { get; set; }
+    public HistoricalFigure? HistoricalFigure { get; set; }
+    public Site? Site { get; set; }
+    public WorldRegion? Region { get; set; }
+    public UndergroundRegion? UndergroundRegion { get; set; }
+    public Location? Coordinates { get; set; }
     public HfState State { get; set; }
     public int SubState { get; set; }
     public Mood Mood { get; set; }
@@ -127,7 +127,7 @@ public class ChangeHfState : WorldEvent
         {
             HistoricalFigure.AddEvent(this);
             HistoricalFigure.States.Add(new HistoricalFigure.State(State, Year));
-            HistoricalFigure.State lastState = HistoricalFigure.States.LastOrDefault();
+            HistoricalFigure.State? lastState = HistoricalFigure.States.LastOrDefault();
             if (lastState != null)
             {
                 lastState.EndYear = Year;
@@ -135,14 +135,14 @@ public class ChangeHfState : WorldEvent
 
             HistoricalFigure.CurrentState = State;
         }
-        Site.AddEvent(this);
-        Region.AddEvent(this);
-        UndergroundRegion.AddEvent(this);
+        Site?.AddEvent(this);
+        Region?.AddEvent(this);
+        UndergroundRegion?.AddEvent(this);
     }
 
     public override string Print(bool link = true, DwarfObject? pov = null)
     {
-        string eventString = GetYearTime() + HistoricalFigure.ToLink(link, pov, this);
+        string eventString = GetYearTime() + HistoricalFigure?.ToLink(link, pov, this);
         if (State == HfState.Visiting)
         {
             eventString += " visited ";
@@ -219,15 +219,15 @@ public class ChangeHfState : WorldEvent
 
         if (Site != null)
         {
-            eventString += Site.ToLink(link, pov, this);
+            eventString += Site?.ToLink(link, pov, this);
         }
         else if (Region != null)
         {
-            eventString += Region.ToLink(link, pov, this);
+            eventString += Region?.ToLink(link, pov, this);
         }
         else if (UndergroundRegion != null)
         {
-            eventString += UndergroundRegion.ToLink(link, pov, this);
+            eventString += UndergroundRegion?.ToLink(link, pov, this);
         }
         else
         {

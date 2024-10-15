@@ -34,9 +34,9 @@ public class WorldEvent : IComparable<WorldEvent>
 
     public string Type { get; set; } = string.Empty;
     public EventCollection? ParentCollection { get; set; }
-    public World World { get; set; }
+    public World? World { get; set; }
 
-    public WorldEvent(List<Property> properties, World world)
+    public WorldEvent(List<Property> properties, World? world)
     {
         World = world;
         foreach (Property property in properties)

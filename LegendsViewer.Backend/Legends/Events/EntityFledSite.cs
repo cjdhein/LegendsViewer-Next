@@ -6,8 +6,8 @@ namespace LegendsViewer.Backend.Legends.Events;
 
 public class EntityFledSite : WorldEvent
 {
-    public Entity FledCiv { get; set; }
-    public Site Site { get; set; }
+    public Entity? FledCiv { get; set; }
+    public Site? Site { get; set; }
 
     public EntityFledSite(List<Property> properties, World world)
         : base(properties, world)
@@ -21,8 +21,8 @@ public class EntityFledSite : WorldEvent
             }
         }
 
-        FledCiv.AddEvent(this);
-        Site.AddEvent(this);
+        FledCiv?.AddEvent(this);
+        Site?.AddEvent(this);
     }
 
     public override string Print(bool link = true, DwarfObject? pov = null)

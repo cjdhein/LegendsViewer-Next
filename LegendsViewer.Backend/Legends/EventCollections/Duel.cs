@@ -35,6 +35,10 @@ public class Duel : EventCollection
         {
             foreach (HfDied death in Events.OfType<HfDied>())
             {
+                if (death.HistoricalFigure == null)
+                {
+                    continue;
+                }
                 Battle? battle = ParentCollection as Battle;
                 War? parentWar = battle?.ParentCollection as War;
                 if (battle != null && battle.NotableAttackers.Contains(death.HistoricalFigure))

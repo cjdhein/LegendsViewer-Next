@@ -6,14 +6,15 @@ namespace LegendsViewer.Backend.Legends.Events;
 
 public class CreatureDevoured : WorldEvent
 {
-    public string Race { get; set; }
-    public string Caste { get; set; }
+    public string? Race { get; set; }
+    public string? Caste { get; set; }
 
     public HistoricalFigure? Eater, Victim;
     public Entity? Entity { get; set; }
-    public Site? Site;
-    public WorldRegion? Region;
-    public UndergroundRegion? UndergroundRegion;
+    public Site? Site { get; set; }
+    public WorldRegion? Region { get; set; }
+    public UndergroundRegion? UndergroundRegion { get; set; }
+
     public CreatureDevoured(List<Property> properties, World world)
         : base(properties, world)
     {

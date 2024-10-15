@@ -26,7 +26,7 @@ public class Identity
     public string? Caste { get; set; }
     public string? Profession { get; set; }
 
-    public Identity(string name, CreatureInfo race, string caste)
+    public Identity(string name, CreatureInfo race, string? caste)
     {
         Name = name;
         Race = race;
