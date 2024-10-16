@@ -12758,7 +12758,6 @@ export interface components {
             coordinates?: components["schemas"]["Location"];
             defender?: components["schemas"]["Entity"];
             beast?: components["schemas"]["HistoricalFigure"];
-            readonly deaths?: components["schemas"]["HistoricalFigure"][] | null;
             /** Format: int32 */
             readonly deathCount?: number;
             parentEventCol?: components["schemas"]["EventCollection"];
@@ -13268,7 +13267,6 @@ export interface components {
             /** Format: int32 */
             ordinal?: number;
             targetEntity?: components["schemas"]["Entity"];
-            readonly deaths?: components["schemas"]["HistoricalFigure"][] | null;
             /** Format: int32 */
             readonly deathCount?: number;
         };
@@ -13470,7 +13468,6 @@ export interface components {
             ordinal?: number;
             coordinates?: components["schemas"]["Location"];
             targetEntity?: components["schemas"]["Entity"];
-            readonly deaths?: components["schemas"]["HistoricalFigure"][] | null;
             /** Format: int32 */
             readonly deathCount?: number;
         };
@@ -13572,7 +13569,6 @@ export interface components {
             /** Format: int32 */
             ordinal?: number;
             adjective?: string | null;
-            readonly deaths?: components["schemas"]["HistoricalFigure"][] | null;
             /** Format: int32 */
             readonly deathCount?: number;
         };
@@ -13750,6 +13746,7 @@ export interface components {
             /** Format: int32 */
             id?: number;
             name?: string | null;
+            color?: string | null;
             type?: components["schemas"]["SiteType"];
             coordinates?: components["schemas"]["Location"][] | null;
         };

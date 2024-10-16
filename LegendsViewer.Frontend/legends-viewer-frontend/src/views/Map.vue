@@ -15,53 +15,77 @@ import { components } from '../generated/api-schema'; // Import from the OpenAPI
 export type SiteType = components['schemas']['SiteType'];
 
 interface MarkerConfig {
-  color: string;
   shape: 'circle' | 'triangle' | 'square' | 'pentagon' | 'hexagon' | 'star';
   size?: number;
 }
 
 const siteTypeMarkers: Record<SiteType, MarkerConfig> = {
-  Unknown: { color: '#808080', shape: 'circle' },
-  Cave: { color: '#8B4513', shape: 'circle' },
-  Fortress: { color: '#808080', shape: 'square' },
-  ForestRetreat: { color: '#228B22', shape: 'triangle' },
-  DarkFortress: { color: '#4B0082', shape: 'square' },
-  Town: { color: '#FFD700', shape: 'pentagon' },
-  Hamlet: { color: '#98FB98', shape: 'circle' },
-  Vault: { color: '#C0C0C0', shape: 'hexagon' },
-  DarkPits: { color: '#800080', shape: 'circle' },
-  Hillocks: { color: '#9ACD32', shape: 'triangle' },
-  Tomb: { color: '#696969', shape: 'square' },
-  Tower: { color: '#4682B4', shape: 'triangle' },
-  MountainHalls: { color: '#B8860B', shape: 'pentagon', size: 4 },
-  Camp: { color: '#8FBC8F', shape: 'triangle' },
-  Lair: { color: '#8B0000', shape: 'circle', size: 2 },
-  Labyrinth: { color: '#9932CC', shape: 'pentagon' },
-  Shrine: { color: '#FFB6C1', shape: 'star' },
-  ImportantLocation: { color: '#FF4500', shape: 'star' },
-  Fort: { color: '#A9A9A9', shape: 'square' },
-  Monastery: { color: '#F4A460', shape: 'pentagon' },
-  Castle: { color: '#4169E1', shape: 'hexagon' }
+  Unknown: { shape: 'circle' },
+
+  // Dwarves
+  Hillocks: { shape: 'square', size: 2 },
+  Fortress: { shape: 'pentagon' },
+  MountainHalls: { shape: 'hexagon', size: 4 },
+
+  // Elves
+  ForestRetreat: { shape: 'pentagon' },
+
+  // Human
+  Hamlet: { shape: 'square', size: 2 },
+  Town: { shape: 'pentagon' },
+  Castle: { shape: 'hexagon', size: 4 },
+
+  // Goblins
+  DarkPits: { shape: 'pentagon' },
+  DarkFortress: { shape: 'hexagon' },
+
+  // Main Civilizations
+  Monastery: { shape: 'triangle' },
+  Fort: { shape: 'triangle' },
+  Tomb: { shape: 'triangle' },
+
+  // Nature (Kobolds often start there)
+  Cave: { shape: 'circle' },
+
+  // Monsters
+  Lair: { shape: 'circle', size: 2 },
+
+  // Demons
+  Vault: { shape: 'star' },
+
+  // Minotaur
+  Labyrinth: { shape: 'star' },
+
+  // Titan and Colossus
+  Shrine: { shape: 'star' },
+
+  // Necromancer
+  Tower: { shape: 'star', size: 4 },
+
+  // Others
+  Camp: { shape: 'circle' },
+  ImportantLocation: { shape: 'star' },
 };
 
-function createMarker(siteType: SiteType, latlng: L.LatLngExpression): L.Layer {
+function createMarker(siteType: SiteType, siteColor: string | null | undefined, latlng: L.LatLngExpression): L.Layer {
   const config = siteTypeMarkers[siteType];
+  const color = siteColor || "#888888"
   const size = config.size || 3;
   switch (config.shape) {
     case 'circle':
-      return L.circle(latlng, { color: config.color, radius: size });
+      return L.circle(latlng, { color: color, radius: size });
     case 'triangle':
-      return createPolygon(latlng, 3, size, config.color);
+      return createPolygon(latlng, 3, size, color);
     case 'square':
-      return createPolygon(latlng, 4, size, config.color);
+      return createPolygon(latlng, 4, size, color);
     case 'pentagon':
-      return createPolygon(latlng, 5, size, config.color);
+      return createPolygon(latlng, 5, size, color);
     case 'hexagon':
-      return createPolygon(latlng, 6, size, config.color);
+      return createPolygon(latlng, 6, size, color);
     case 'star':
-      return createStar(latlng, 5, size, size / 2, config.color);
+      return createStar(latlng, 5, size, size / 2, color);
     default:
-      return L.circle(latlng, { color: config.color, radius: size / 2 });
+      return L.circle(latlng, { color: color, radius: size / 2 });
   }
 }
 
@@ -136,7 +160,7 @@ export default defineComponent({
           if (siteMarker.coordinates != null) {
             for (const coordinate of siteMarker.coordinates) {
               if (coordinate.x != null && coordinate.y != null) {
-                createMarker(siteMarker.type ?? 'Unknown', [(height - coordinate.y) * scale - 0.5 * scale, coordinate.x * scale + 0.5 * scale])
+                createMarker(siteMarker.type ?? 'Unknown', siteMarker.color, [(height - coordinate.y) * scale - 0.5 * scale, coordinate.x * scale + 0.5 * scale])
                  .addTo(leafletMap.value)
                  .bindPopup(`<a href="./site/${siteMarker.id}"><b>${siteMarker.name}</b></a><br>${siteMarker.type}`);;
               }
