@@ -181,7 +181,7 @@ public static class HistoricalFigureExtensions
             classes.Add("dead");
         }
 
-        FamilyTreeNodeData nodaData = new FamilyTreeNodeData
+        FamilyTreeNodeData nodaData = new()
         {
             Id = current.Id.ToString(),
             Label = WebUtility.HtmlEncode(title),

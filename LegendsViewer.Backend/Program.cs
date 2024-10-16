@@ -1,4 +1,4 @@
-
+﻿
 using LegendsViewer.Backend.Legends;
 using LegendsViewer.Backend.Legends.Bookmarks;
 using LegendsViewer.Backend.Legends.Interfaces;
@@ -17,7 +17,6 @@ public class Program
 
     public static void Main(string[] args)
     {
-        // Register the encoding provider
         Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
 
         var builder = WebApplication.CreateBuilder(args);
@@ -28,7 +27,6 @@ public class Program
                    .AllowAnyHeader();
         }));
 
-        // Increase Kestrel's request timeout
         builder.WebHost.ConfigureKestrel(serverOptions =>
         {
             serverOptions.Limits.KeepAliveTimeout = TimeSpan.FromMinutes(5);
@@ -36,7 +34,6 @@ public class Program
         })
         .UseUrls("http://localhost:5054");
 
-        // Add services to the container.
         builder.Services.AddSingleton<IWorld, World>();
         builder.Services.AddSingleton<IWorldMapImageGenerator, WorldMapImageGenerator>();
         builder.Services.AddSingleton<IBookmarkService, BookmarkService>();
@@ -48,18 +45,15 @@ public class Program
                 options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
             });
 
-        // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
 
-        // Add logging
         builder.Logging.ClearProviders();
         builder.Logging.AddConsole(options => options.FormatterName = nameof(SimpleLogFormatter));
         builder.Logging.AddConsoleFormatter<SimpleLogFormatter, ConsoleFormatterOptions>();
 
         var app = builder.Build();
 
-        // Configure the HTTP request pipeline.
         if (app.Environment.IsDevelopment())
         {
             app.UseSwagger();
@@ -71,11 +65,9 @@ public class Program
         app.UseAuthorization();
         app.MapControllers();
 
-        // Create a logger instance
         var logger = app.Services.GetRequiredService<ILogger<Program>>();
 
-        // Log at application start
-        logger.LogInformation("LegendsViewer is starting...");
+        logger.LogInformation(AsciiArt.LegendsViewerLogo);
 
         if (!app.Environment.IsDevelopment())
         {

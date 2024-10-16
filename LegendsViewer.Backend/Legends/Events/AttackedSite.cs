@@ -42,7 +42,7 @@ public class AttackedSite : WorldEvent
         {
             Defender?.AddEvent(this);
         }
-        if (SiteEntity != Defender)
+        if (SiteEntity != Defender && SiteEntity != Attacker)
         {
             SiteEntity?.AddEvent(this);
         }

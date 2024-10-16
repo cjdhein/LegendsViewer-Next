@@ -98,7 +98,7 @@ public static class Formatting
             return population + ending;
         }
 
-        if (population.EndsWith("s") && !population.EndsWith("ss"))
+        if (population.EndsWith('s') && !population.EndsWith("ss"))
         {
             return population + ending;
         }
