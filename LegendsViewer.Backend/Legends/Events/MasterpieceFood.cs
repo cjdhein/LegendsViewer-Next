@@ -6,13 +6,13 @@ namespace LegendsViewer.Backend.Legends.Events;
 
 public class MasterpieceFood : WorldEvent
 {
-    private string SkillAtTime { get; set; }
-    public HistoricalFigure Maker { get; set; }
-    public Entity MakerEntity { get; set; }
-    public Site Site { get; set; }
+    private string? SkillAtTime { get; set; }
+    public HistoricalFigure? Maker { get; set; }
+    public Entity? MakerEntity { get; set; }
+    public Site? Site { get; set; }
     public int ItemId { get; set; }
-    public string ItemType { get; set; }
-    public string ItemSubType { get; set; }
+    public string? ItemType { get; set; }
+    public string? ItemSubType { get; set; }
 
     public MasterpieceFood(List<Property> properties, World world)
         : base(properties, world)

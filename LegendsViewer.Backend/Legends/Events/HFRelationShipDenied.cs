@@ -6,14 +6,14 @@ namespace LegendsViewer.Backend.Legends.Events;
 
 public class HfRelationShipDenied : WorldEvent
 {
-    public Site Site { get; set; }
-    public WorldRegion Region { get; set; }
-    public UndergroundRegion UndergroundRegion { get; set; }
-    public HistoricalFigure Seeker { get; set; }
-    public HistoricalFigure Target { get; set; }
-    public string Relationship { get; set; }
-    public string Reason { get; set; }
-    public HistoricalFigure ReasonHf { get; set; }
+    public Site? Site { get; set; }
+    public WorldRegion? Region { get; set; }
+    public UndergroundRegion? UndergroundRegion { get; set; }
+    public HistoricalFigure? Seeker { get; set; }
+    public HistoricalFigure? Target { get; set; }
+    public string? Relationship { get; set; }
+    public string? Reason { get; set; }
+    public HistoricalFigure? ReasonHf { get; set; }
 
     public HfRelationShipDenied(List<Property> properties, World world) : base(properties, world)
     {
@@ -62,7 +62,7 @@ public class HfRelationShipDenied : WorldEvent
     public override string Print(bool link = true, DwarfObject? pov = null)
     {
         string eventString = GetYearTime();
-        eventString += Seeker.ToLink(link, pov, this);
+        eventString += Seeker?.ToLink(link, pov, this);
         eventString += " was denied ";
         switch (Relationship)
         {
@@ -72,7 +72,7 @@ public class HfRelationShipDenied : WorldEvent
             default:
                 break;
         }
-        eventString += Target.ToLink(link, pov, this);
+        eventString += Target?.ToLink(link, pov, this);
         if (Site != null)
         {
             eventString += " in ";
@@ -87,8 +87,6 @@ public class HfRelationShipDenied : WorldEvent
                     break;
                 case "prefers working alone":
                     eventString += " as " + ReasonHf.ToLink(link, pov, this) + " prefers to work alone";
-                    break;
-                default:
                     break;
             }
         }

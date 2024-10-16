@@ -6,12 +6,12 @@ namespace LegendsViewer.Backend.Legends.Events;
 
 public class HfCarouse : WorldEvent
 {
-    public HistoricalFigure GroupHf { get; set; }
-    public Site Site { get; set; }
+    public HistoricalFigure? GroupHf { get; set; }
+    public Site? Site { get; set; }
     public int StructureId { get; set; }
-    public Structure Structure { get; set; }
-    public WorldRegion Region { get; set; }
-    public UndergroundRegion UndergroundRegion { get; set; }
+    public Structure? Structure { get; set; }
+    public WorldRegion? Region { get; set; }
+    public UndergroundRegion? UndergroundRegion { get; set; }
 
     public HfCarouse(List<Property> properties, World world)
         : base(properties, world)
@@ -48,7 +48,7 @@ public class HfCarouse : WorldEvent
     public override string Print(bool link = true, DwarfObject? pov = null)
     {
         string eventString = GetYearTime();
-        eventString += GroupHf.ToLink(link, pov, this);
+        eventString += GroupHf?.ToLink(link, pov, this);
         eventString += " caroused";
         if (Structure != null)
         {

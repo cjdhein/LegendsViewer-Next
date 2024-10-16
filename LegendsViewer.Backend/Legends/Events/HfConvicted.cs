@@ -6,30 +6,30 @@ namespace LegendsViewer.Backend.Legends.Events;
 
 public class HfConvicted : WorldEvent
 {
-    public HistoricalFigure TargetHf { get; set; }
-    public HistoricalFigure ConvictedHf { get; set; }
-    public Entity ConvicterEntity { get; set; }
-    public string Crime { get; set; }
-    public HistoricalFigure FooledHf { get; set; }
-    public HistoricalFigure FramerHf { get; set; }
+    public HistoricalFigure? TargetHf { get; set; }
+    public HistoricalFigure? ConvictedHf { get; set; }
+    public Entity? ConvicterEntity { get; set; }
+    public string? Crime { get; set; }
+    public HistoricalFigure? FooledHf { get; set; }
+    public HistoricalFigure? FramerHf { get; set; }
     public int PrisonMonth { get; set; }
     public bool DeathPenalty { get; set; }
     public bool Beating { get; set; }
     public int Hammerstrokes { get; set; }
     public bool WrongfulConviction { get; set; }
-    public HistoricalFigure CorruptConvictorHf { get; set; }
-    public HistoricalFigure PlotterHf { get; set; }
+    public HistoricalFigure? CorruptConvictorHf { get; set; }
+    public HistoricalFigure? PlotterHf { get; set; }
     public bool Exiled { get; set; }
 
     public bool SurveiledConvicted { get; set; }
     public bool HeldFirmInInterrogation { get; set; }
-    public HistoricalFigure CoConspiratorHf { get; set; }
+    public HistoricalFigure? CoConspiratorHf { get; set; }
     public bool SurveiledCoConspirator { get; set; }
     public bool ConvictIsContact { get; set; }
-    public HistoricalFigure ImplicatedHf { get; set; }
-    public Entity ConfessedAfterApbArrestEntity { get; set; }
-    public HistoricalFigure InterrogatorHf { get; set; }
-    public HistoricalFigure ContactHf { get; set; }
+    public HistoricalFigure? ImplicatedHf { get; set; }
+    public Entity? ConfessedAfterApbArrestEntity { get; set; }
+    public HistoricalFigure? InterrogatorHf { get; set; }
+    public HistoricalFigure? ContactHf { get; set; }
     public bool SurveiledContact { get; set; }
     public bool SurveiledTarget { get; set; }
 
@@ -103,21 +103,21 @@ public class HfConvicted : WorldEvent
             if (SurveiledContact & ContactHf != null)
             {
                 eventString += " on the contact ";
-                eventString += ContactHf.ToLink(link, pov, this);
+                eventString += ContactHf?.ToLink(link, pov, this);
             }
             if (SurveiledCoConspirator & CoConspiratorHf != null)
             {
                 eventString += " on a coconspirator ";
-                eventString += CoConspiratorHf.ToLink(link, pov, this);
+                eventString += CoConspiratorHf?.ToLink(link, pov, this);
             }
             if (SurveiledTarget & TargetHf != null)
             {
                 eventString += " on a target ";
-                eventString += TargetHf.ToLink(link, pov, this);
+                eventString += TargetHf?.ToLink(link, pov, this);
             }
             eventString += " as the plot unfolded, ";
         }
-        eventString += ConvictedHf.ToLink(link, pov, this);
+        eventString += ConvictedHf?.ToLink(link, pov, this);
         eventString += $" was {(WrongfulConviction ? "wrongfully " : "")}convicted ";
         if (ConvictIsContact)
         {
@@ -130,25 +130,25 @@ public class HfConvicted : WorldEvent
         if (ConvicterEntity != null)
         {
             eventString += "by ";
-            eventString += ConvicterEntity.ToLink(link, pov, this);
+            eventString += ConvicterEntity?.ToLink(link, pov, this);
         }
 
         if (CorruptConvictorHf != null)
         {
             eventString += " and ";
-            eventString += CorruptConvictorHf.ToLink(link, pov, this);
+            eventString += CorruptConvictorHf?.ToLink(link, pov, this);
         }
         if (PlotterHf != null && PlotterHf != CorruptConvictorHf)
         {
             eventString += " plotted by ";
-            eventString += PlotterHf.ToLink(link, pov, this);
+            eventString += PlotterHf?.ToLink(link, pov, this);
         }
         if (FooledHf != null && FramerHf != null)
         {
             eventString += " after ";
-            eventString += FramerHf.ToLink(link, pov, this);
+            eventString += FramerHf?.ToLink(link, pov, this);
             eventString += " fooled ";
-            eventString += FooledHf.ToLink(link, pov, this);
+            eventString += FooledHf?.ToLink(link, pov, this);
             eventString += " with fabricated evidence";
         }
 
@@ -176,7 +176,7 @@ public class HfConvicted : WorldEvent
         eventString += ". ";
         if (ImplicatedHf != null)
         {
-            eventString += ConvictedHf.ToLink(link, pov, this);
+            eventString += ConvictedHf?.ToLink(link, pov, this);
             eventString += " implicated ";
             eventString += ImplicatedHf.ToLink(link, pov, this);
             eventString += " during interrogation. ";

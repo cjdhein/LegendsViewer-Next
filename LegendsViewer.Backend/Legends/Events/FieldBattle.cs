@@ -8,17 +8,17 @@ namespace LegendsViewer.Backend.Legends.Events;
 
 public class FieldBattle : WorldEvent
 {
-    public Entity Attacker { get; set; }
-    public Entity Defender { get; set; }
-    public Entity AttackerMercenaries { get; set; }
-    public Entity DefenderMercenaries { get; set; }
-    public Entity AttackerSupportMercenaries { get; set; }
-    public Entity DefenderSupportMercenaries { get; set; }
-    public WorldRegion Region { get; set; }
-    public HistoricalFigure AttackerGeneral { get; set; }
-    public HistoricalFigure DefenderGeneral { get; set; }
-    public UndergroundRegion UndergroundRegion { get; set; }
-    public Location Coordinates { get; set; }
+    public Entity? Attacker { get; set; }
+    public Entity? Defender { get; set; }
+    public Entity? AttackerMercenaries { get; set; }
+    public Entity? DefenderMercenaries { get; set; }
+    public Entity? AttackerSupportMercenaries { get; set; }
+    public Entity? DefenderSupportMercenaries { get; set; }
+    public WorldRegion? Region { get; set; }
+    public HistoricalFigure? AttackerGeneral { get; set; }
+    public HistoricalFigure? DefenderGeneral { get; set; }
+    public UndergroundRegion? UndergroundRegion { get; set; }
+    public Location? Coordinates { get; set; }
 
     public FieldBattle(List<Property> properties, World world)
         : base(properties, world)
@@ -61,10 +61,10 @@ public class FieldBattle : WorldEvent
     public override string Print(bool link = true, DwarfObject? pov = null)
     {
         string eventString = GetYearTime();
-        eventString += Attacker.ToLink(true, pov);
+        eventString += Attacker?.ToLink(true, pov);
         eventString += " attacked ";
-        eventString += Defender.ToLink(true, pov);
-        eventString += " in " + Region.ToLink(link, pov, this) + ". ";
+        eventString += Defender?.ToLink(true, pov);
+        eventString += " in " + Region?.ToLink(link, pov, this) + ". ";
         if (AttackerGeneral != null)
         {
             eventString += "Leader of the attack was ";

@@ -6,11 +6,11 @@ namespace LegendsViewer.Backend.Legends.Events;
 
 public class HfViewedArtifact : WorldEvent
 {
-    public Artifact Artifact { get; set; }
-    public HistoricalFigure HistoricalFigure { get; set; }
-    public Site Site { get; set; }
+    public Artifact? Artifact { get; set; }
+    public HistoricalFigure? HistoricalFigure { get; set; }
+    public Site? Site { get; set; }
     public int StructureId { get; set; }
-    public Structure Structure { get; set; }
+    public Structure? Structure { get; set; }
 
     public HfViewedArtifact(List<Property> properties, World world)
         : base(properties, world)
@@ -47,9 +47,9 @@ public class HfViewedArtifact : WorldEvent
     public override string Print(bool link = true, DwarfObject? pov = null)
     {
         string eventString = GetYearTime();
-        eventString += HistoricalFigure.ToLink(link, pov, this);
+        eventString += HistoricalFigure?.ToLink(link, pov, this);
         eventString += " viewed ";
-        eventString += Artifact.ToLink(link, pov, this);
+        eventString += Artifact?.ToLink(link, pov, this);
         if (Structure != null)
         {
             eventString += " in ";

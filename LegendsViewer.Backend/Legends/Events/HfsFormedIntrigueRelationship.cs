@@ -8,11 +8,11 @@ namespace LegendsViewer.Backend.Legends.Events;
 
 public class HfsFormedIntrigueRelationship : WorldEvent
 {
-    public HistoricalFigure CorruptorHf { get; set; }
-    public HistoricalFigure TargetHf { get; set; }
-    public Site Site { get; set; }
-    public WorldRegion Region { get; set; }
-    public UndergroundRegion UndergroundRegion { get; set; }
+    public HistoricalFigure? CorruptorHf { get; set; }
+    public HistoricalFigure? TargetHf { get; set; }
+    public Site? Site { get; set; }
+    public WorldRegion? Region { get; set; }
+    public UndergroundRegion? UndergroundRegion { get; set; }
 
     public bool FailedJudgmentTest { get; set; }
     public bool Successful { get; set; }
@@ -20,31 +20,31 @@ public class HfsFormedIntrigueRelationship : WorldEvent
     public IntrigueAction Action { get; set; }
     public IntrigueMethod Method { get; set; }
 
-    public string TopFacet { get; set; }
+    public string? TopFacet { get; set; }
     public int TopFacetRating { get; set; }
     public int TopFacetModifier { get; set; }
 
-    public string TopValue { get; set; }
+    public string? TopValue { get; set; }
     public int TopValueRating { get; set; }
     public int TopValueModifier { get; set; }
 
-    public string TopRelationshipFactor { get; set; }
+    public string? TopRelationshipFactor { get; set; }
     public int TopRelationshipRating { get; set; }
     public int TopRelationshipModifier { get; set; }
 
     public int AllyDefenseBonus { get; set; }
     public int CoConspiratorBonus { get; set; }
 
-    public HistoricalFigure LureHf { get; set; }
+    public HistoricalFigure? LureHf { get; set; }
     public int CorruptorIdentityId { get; set; }
     public int TargetIdentityId { get; set; }
 
-    public string CorruptorSeenAs { get; set; }
-    public string TargetSeenAs { get; set; }
-    public string Circumstance { get; set; }
+    public string? CorruptorSeenAs { get; set; }
+    public string? TargetSeenAs { get; set; }
+    public string? Circumstance { get; set; }
     public int CircumstanceId { get; set; }
 
-    public Entity RelevantEntity { get; set; }
+    public Entity? RelevantEntity { get; set; }
     public int RelevantPositionProfileId { get; set; }
     public int RelevantIdForMethod { get; set; }
 
@@ -126,7 +126,7 @@ public class HfsFormedIntrigueRelationship : WorldEvent
     public override string Print(bool link = true, DwarfObject? pov = null)
     {
         string eventString = GetYearTime();
-        eventString += TargetHf.ToLink(link, pov, this);
+        eventString += TargetHf?.ToLink(link, pov, this);
         switch (Action)
         {
             case IntrigueAction.BribeOfficial:
@@ -162,21 +162,21 @@ public class HfsFormedIntrigueRelationship : WorldEvent
             eventString += " in the wilds";
         }
         eventString += " under the influence of ";
-        eventString += CorruptorHf.ToLink(link, pov, this);
+        eventString += CorruptorHf?.ToLink(link, pov, this);
         eventString += PrintParentCollection(link, pov);
         eventString += ". ";
         if (LureHf != null)
         {
             eventString += LureHf.ToLink(link, pov, this).ToUpperFirstLetter();
             eventString += " lured ";
-            eventString += TargetHf.ToLink(link, pov, this);
+            eventString += TargetHf?.ToLink(link, pov, this);
             eventString += " into a meeting";
         }
         else
         {
-            eventString += CorruptorHf.ToLink(link, pov, this).ToUpperFirstLetter();
+            eventString += CorruptorHf?.ToLink(link, pov, this).ToUpperFirstLetter();
             eventString += " met with ";
-            eventString += TargetHf.ToLink(link, pov, this);
+            eventString += TargetHf?.ToLink(link, pov, this);
         }
         eventString += " and ";
         switch (Method)
@@ -192,21 +192,21 @@ public class HfsFormedIntrigueRelationship : WorldEvent
                 break;
             case IntrigueMethod.Precedence:
                 eventString += "pulled ranks. ";
-                eventString += TargetHf.ToLink(link, pov, this).ToUpperFirstLetter();
+                eventString += TargetHf?.ToLink(link, pov, this).ToUpperFirstLetter();
                 eventString += " accepted in admiration of power.";
                 break;
             case IntrigueMethod.OfferImmortality:
                 eventString += "offered immortality. ";
                 break;
             case IntrigueMethod.ReligiousSympathy:
-                eventString += $"played on sympathy by appealing to a shared worship of {World.GetHistoricalFigure(RelevantIdForMethod)?.ToLink(link, pov, this)}. ";
+                eventString += $"played on sympathy by appealing to a shared worship of {World?.GetHistoricalFigure(RelevantIdForMethod)?.ToLink(link, pov, this)}. ";
                 break;
             case IntrigueMethod.BlackmailOverEmbezzlement:
                 var position = RelevantEntity?.EntityPositions.Find(p => p.Id == RelevantPositionProfileId);
                 eventString += $"made a blackmail threat, due to embezzlement using the position {position?.Name} of {RelevantEntity?.ToLink(link, pov, this)}. ";
                 break;
             case IntrigueMethod.RevengeOnGrudge:
-                eventString += $"offered revenge upon  {World.GetHistoricalFigure(RelevantIdForMethod)?.ToLink(link, pov, this)}. ";
+                eventString += $"offered revenge upon  {World?.GetHistoricalFigure(RelevantIdForMethod)?.ToLink(link, pov, this)}. ";
                 break;
         }
         eventString += "The plan worked.";

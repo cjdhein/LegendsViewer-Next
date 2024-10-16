@@ -6,9 +6,9 @@ namespace LegendsViewer.Backend.Legends.Events;
 
 public class FirstContact : WorldEvent
 {
-    public Site Site;
-    public Entity Contactor;
-    public Entity Contacted;
+    public Site? Site;
+    public Entity? Contactor;
+    public Entity? Contacted;
     public FirstContact(List<Property> properties, World world)
         : base(properties, world)
     {

@@ -6,8 +6,8 @@ namespace LegendsViewer.Backend.Legends.Events;
 
 public class HolyCityDeclaration : WorldEvent
 {
-    public Site Site { get; set; }
-    public Entity ReligionEntity { get; set; }
+    public Site? Site { get; set; }
+    public Entity? ReligionEntity { get; set; }
 
     public HolyCityDeclaration(List<Property> properties, World world)
         : base(properties, world)
@@ -22,14 +22,18 @@ public class HolyCityDeclaration : WorldEvent
         }
         Site.AddEvent(this);
         ReligionEntity.AddEvent(this);
+        if (Site != null)
+        {
+            Site.ReligionEntity = ReligionEntity;
+        }
     }
 
     public override string Print(bool link = true, DwarfObject? pov = null)
     {
         string eventString = GetYearTime();
-        eventString += ReligionEntity.ToLink(link, pov, this);
+        eventString += ReligionEntity?.ToLink(link, pov, this);
         eventString += " declared ";
-        eventString += Site.ToLink(link, pov, this);
+        eventString += Site?.ToLink(link, pov, this);
         eventString += " to be a holy city";
 
         eventString += PrintParentCollection(link, pov);

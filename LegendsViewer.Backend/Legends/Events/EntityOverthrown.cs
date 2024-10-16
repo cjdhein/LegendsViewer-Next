@@ -6,17 +6,16 @@ namespace LegendsViewer.Backend.Legends.Events;
 
 public class EntityOverthrown : WorldEvent
 {
-    public Entity Entity { get; set; }
+    public Entity? Entity { get; set; }
     public int PositionProfileId { get; set; }
-    public HistoricalFigure OverthrownHistoricalFigure { get; set; }
-    public Site Site { get; set; }
-    public HistoricalFigure PositionTaker { get; set; }
-    public HistoricalFigure Instigator { get; set; }
-    public List<HistoricalFigure> Conspirators { get; set; }
+    public HistoricalFigure? OverthrownHistoricalFigure { get; set; }
+    public Site? Site { get; set; }
+    public HistoricalFigure? PositionTaker { get; set; }
+    public HistoricalFigure? Instigator { get; set; }
+    public List<HistoricalFigure> Conspirators { get; set; } = [];
 
     public EntityOverthrown(List<Property> properties, World world) : base(properties, world)
     {
-        Conspirators = [];
         foreach (Property property in properties)
         {
             switch (property.Name)
@@ -27,17 +26,23 @@ public class EntityOverthrown : WorldEvent
                 case "site_id": Site = world.GetSite(Convert.ToInt32(property.Value)); break;
                 case "pos_taker_hfid": PositionTaker = world.GetHistoricalFigure(Convert.ToInt32(property.Value)); break;
                 case "instigator_hfid": Instigator = world.GetHistoricalFigure(Convert.ToInt32(property.Value)); break;
-                case "conspirator_hfid": Conspirators.Add(world.GetHistoricalFigure(Convert.ToInt32(property.Value))); break;
+                case "conspirator_hfid":
+                    HistoricalFigure? conspirator = world.GetHistoricalFigure(Convert.ToInt32(property.Value));
+                    if (conspirator != null)
+                    {
+                        Conspirators.Add(conspirator);
+                    }
+                    break;
             }
         }
 
-        Entity.AddEvent(this);
-        OverthrownHistoricalFigure.AddEvent(this);
-        Site.AddEvent(this);
-        PositionTaker.AddEvent(this);
+        Entity?.AddEvent(this);
+        OverthrownHistoricalFigure?.AddEvent(this);
+        Site?.AddEvent(this);
+        PositionTaker?.AddEvent(this);
         if (Instigator != PositionTaker)
         {
-            Instigator.AddEvent(this);
+            Instigator?.AddEvent(this);
         }
         foreach (HistoricalFigure conspirator in Conspirators)
         {
@@ -51,15 +56,15 @@ public class EntityOverthrown : WorldEvent
     public override string Print(bool link = true, DwarfObject? pov = null)
     {
         string eventString = GetYearTime();
-        eventString += Instigator.ToLink(link, pov, this);
+        eventString += Instigator?.ToLink(link, pov, this);
         eventString += " toppled the government of ";
-        eventString += OverthrownHistoricalFigure.ToLink(link, pov, this);
+        eventString += OverthrownHistoricalFigure?.ToLink(link, pov, this);
         eventString += " of ";
-        eventString += Entity.ToLink(link, pov, this);
+        eventString += Entity?.ToLink(link, pov, this);
         if (PositionTaker != Instigator)
         {
             eventString += " placed ";
-            eventString += PositionTaker.ToLink(link, pov, this);
+            eventString += PositionTaker?.ToLink(link, pov, this);
             eventString += " in power";
         }
         else

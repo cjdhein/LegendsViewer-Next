@@ -8,37 +8,37 @@ namespace LegendsViewer.Backend.Legends.Events;
 
 public class FailedIntrigueCorruption : WorldEvent
 {
-    public HistoricalFigure CorruptorHf { get; set; }
-    public HistoricalFigure TargetHf { get; set; }
-    public Site Site { get; set; }
-    public WorldRegion Region { get; set; }
-    public UndergroundRegion UndergroundRegion { get; set; }
+    public HistoricalFigure? CorruptorHf { get; set; }
+    public HistoricalFigure? TargetHf { get; set; }
+    public Site? Site { get; set; }
+    public WorldRegion? Region { get; set; }
+    public UndergroundRegion? UndergroundRegion { get; set; }
 
     public bool FailedJudgmentTest { get; set; }
 
-    public IntrigueAction Action { get; set; }
-    public IntrigueMethod Method { get; set; }
+    public IntrigueAction? Action { get; set; }
+    public IntrigueMethod? Method { get; set; }
 
-    public string TopFacet { get; set; }
+    public string? TopFacet { get; set; }
     public int TopFacetRating { get; set; }
     public int TopFacetModifier { get; set; }
 
-    public string TopValue { get; set; }
+    public string? TopValue { get; set; }
     public int TopValueRating { get; set; }
     public int TopValueModifier { get; set; }
 
-    public string TopRelationshipFactor { get; set; }
+    public string? TopRelationshipFactor { get; set; }
     public int TopRelationshipRating { get; set; }
     public int TopRelationshipModifier { get; set; }
 
     public int AllyDefenseBonus { get; set; }
     public int CoConspiratorBonus { get; set; }
 
-    public HistoricalFigure LureHf { get; set; }
+    public HistoricalFigure? LureHf { get; set; }
     public int CorruptorIdentityId { get; set; }
     public int TargetIdentityId { get; set; }
 
-    public Entity RelevantEntity { get; set; }
+    public Entity? RelevantEntity { get; set; }
     public int RelevantPositionProfileId { get; set; }
     public int RelevantIdForMethod { get; set; }
 
@@ -114,9 +114,9 @@ public class FailedIntrigueCorruption : WorldEvent
     public override string Print(bool link = true, DwarfObject? pov = null)
     {
         string eventString = GetYearTime();
-        eventString += CorruptorHf.ToLink(link, pov, this);
+        eventString += CorruptorHf?.ToLink(link, pov, this);
         eventString += " attempted to corrupt ";
-        eventString += TargetHf.ToLink(link, pov, this);
+        eventString += TargetHf?.ToLink(link, pov, this);
         switch (Action)
         {
             case IntrigueAction.BribeOfficial:
@@ -135,17 +135,17 @@ public class FailedIntrigueCorruption : WorldEvent
         if (Site != null)
         {
             eventString += " in ";
-            eventString += Site.ToLink(link, pov, this);
+            eventString += Site?.ToLink(link, pov, this);
         }
         else if (Region != null)
         {
             eventString += " in ";
-            eventString += Region.ToLink(link, pov, this);
+            eventString += Region?.ToLink(link, pov, this);
         }
         else if (UndergroundRegion != null)
         {
             eventString += " in ";
-            eventString += UndergroundRegion.ToLink(link, pov, this);
+            eventString += UndergroundRegion?.ToLink(link, pov, this);
         }
         else
         {
@@ -157,14 +157,14 @@ public class FailedIntrigueCorruption : WorldEvent
         {
             eventString += LureHf.ToLink(link, pov, this).ToUpperFirstLetter();
             eventString += " lured ";
-            eventString += TargetHf.ToLink(link, pov, this);
+            eventString += TargetHf?.ToLink(link, pov, this);
             eventString += " into a meeting";
         }
         else
         {
-            eventString += CorruptorHf.ToLink(link, pov, this).ToUpperFirstLetter();
+            eventString += CorruptorHf?.ToLink(link, pov, this).ToUpperFirstLetter();
             eventString += " met with ";
-            eventString += TargetHf.ToLink(link, pov, this);
+            eventString += TargetHf?.ToLink(link, pov, this);
         }
         eventString += " and, while completely misreading the situation, ";
         switch (Method)
@@ -191,14 +191,14 @@ public class FailedIntrigueCorruption : WorldEvent
                 eventString += "offered immortality. ";
                 break;
             case IntrigueMethod.ReligiousSympathy:
-                eventString += $"played on sympathy by appealing to a shared worship of {World.GetHistoricalFigure(RelevantIdForMethod)?.ToLink(link, pov, this)}. ";
+                eventString += $"played on sympathy by appealing to a shared worship of {World?.GetHistoricalFigure(RelevantIdForMethod)?.ToLink(link, pov, this)}. ";
                 break;
             case IntrigueMethod.BlackmailOverEmbezzlement:
                 var position = RelevantEntity?.EntityPositions.Find(p => p.Id == RelevantPositionProfileId);
                 eventString += $"made a blackmail threat, due to embezzlement using the position {position?.Name} of {RelevantEntity?.ToLink(link, pov, this)}. ";
                 break;
             case IntrigueMethod.RevengeOnGrudge:
-                eventString += $"offered revenge upon  {World.GetHistoricalFigure(RelevantIdForMethod)?.ToLink(link, pov, this)}. ";
+                eventString += $"offered revenge upon  {World?.GetHistoricalFigure(RelevantIdForMethod)?.ToLink(link, pov, this)}. ";
                 break;
         }
         eventString += "The plan failed.";

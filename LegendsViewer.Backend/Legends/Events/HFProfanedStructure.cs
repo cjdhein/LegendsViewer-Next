@@ -8,10 +8,10 @@ namespace LegendsViewer.Backend.Legends.Events;
 public class HfProfanedStructure : WorldEvent
 {
     public ActionsForHistoricalFigures Action { get; set; } // legends_plus.xml
-    public HistoricalFigure HistoricalFigure { get; set; }
-    public Site Site { get; set; }
+    public HistoricalFigure? HistoricalFigure { get; set; }
+    public Site? Site { get; set; }
     public int StructureId { get; set; }
-    public Structure Structure { get; set; }
+    public Structure? Structure { get; set; }
 
     public HfProfanedStructure(List<Property> properties, World world)
         : base(properties, world)
@@ -50,9 +50,9 @@ public class HfProfanedStructure : WorldEvent
 
     public override string Print(bool link = true, DwarfObject? pov = null)
     {
-        string eventString = GetYearTime() + HistoricalFigure.ToLink(link, pov, this) + " profaned ";
-        eventString += Structure != null ? Structure.ToLink(link, pov, this) : "UNKNOWN STRUCTURE";
-        eventString += " in " + Site.ToLink(link, pov, this);
+        string eventString = GetYearTime() + HistoricalFigure?.ToLink(link, pov, this) + " profaned ";
+        eventString += Structure != null ? Structure?.ToLink(link, pov, this) : "UNKNOWN STRUCTURE";
+        eventString += " in " + Site?.ToLink(link, pov, this);
         eventString += PrintParentCollection(link, pov);
         eventString += ".";
         return eventString;

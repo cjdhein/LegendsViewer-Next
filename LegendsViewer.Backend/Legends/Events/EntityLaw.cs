@@ -7,11 +7,11 @@ namespace LegendsViewer.Backend.Legends.Events;
 
 public class EntityLaw : WorldEvent
 {
-    public Entity Entity { get; set; }
-    public HistoricalFigure HistoricalFigure { get; set; }
+    public Entity? Entity { get; set; }
+    public HistoricalFigure? HistoricalFigure { get; set; }
     public EntityLawType Law { get; set; }
     public bool LawLaid { get; set; }
-    private readonly string _unknownLawType;
+    private readonly string? _unknownLawType;
 
     public EntityLaw(List<Property> properties, World world)
         : base(properties, world)
@@ -38,13 +38,13 @@ public class EntityLaw : WorldEvent
             }
         }
 
-        Entity.AddEvent(this);
-        HistoricalFigure.AddEvent(this);
+        Entity?.AddEvent(this);
+        HistoricalFigure?.AddEvent(this);
     }
 
     public override string Print(bool link = true, DwarfObject? pov = null)
     {
-        string eventString = GetYearTime() + HistoricalFigure.ToLink(link, pov, this);
+        string eventString = GetYearTime() + HistoricalFigure?.ToLink(link, pov, this);
         if (LawLaid)
         {
             eventString += " laid a series of ";
@@ -68,7 +68,7 @@ public class EntityLaw : WorldEvent
             eventString += " laws from ";
         }
 
-        eventString += Entity.ToLink(link, pov, this);
+        eventString += Entity?.ToLink(link, pov, this);
         eventString += PrintParentCollection(link, pov);
         eventString += ".";
         return eventString;

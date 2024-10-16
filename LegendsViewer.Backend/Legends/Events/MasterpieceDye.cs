@@ -6,16 +6,16 @@ namespace LegendsViewer.Backend.Legends.Events;
 
 public class MasterpieceDye : WorldEvent
 {
-    private string SkillAtTime { get; set; }
-    public HistoricalFigure Maker { get; set; }
-    public Entity MakerEntity { get; set; }
-    public Site Site { get; set; }
-    public string ItemType { get; set; }
-    public string ItemSubType { get; set; }
-    public string Material { get; set; }
+    private string? SkillAtTime { get; set; }
+    public HistoricalFigure? Maker { get; set; }
+    public Entity? MakerEntity { get; set; }
+    public Site? Site { get; set; }
+    public string? ItemType { get; set; }
+    public string? ItemSubType { get; set; }
+    public string? Material { get; set; }
     public int MaterialType { get; set; }
     public int MaterialIndex { get; set; }
-    public string DyeMaterial { get; set; }
+    public string? DyeMaterial { get; set; }
     public int DyeMaterialType { get; set; }
     public int DyeMaterialIndex { get; set; }
 

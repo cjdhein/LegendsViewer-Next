@@ -6,14 +6,14 @@ namespace LegendsViewer.Backend.Legends.Events;
 
 public class MasterpieceItem : WorldEvent
 {
-    private string SkillAtTime { get; set; }
-    public HistoricalFigure Maker { get; set; }
-    public Entity MakerEntity { get; set; }
-    public Site Site { get; set; }
+    private string? SkillAtTime { get; set; }
+    public HistoricalFigure? Maker { get; set; }
+    public Entity? MakerEntity { get; set; }
+    public Site? Site { get; set; }
     public int ItemId { get; set; }
-    public string ItemType { get; set; }
-    public string ItemSubType { get; set; }
-    public string Material { get; set; }
+    public string? ItemType { get; set; }
+    public string? ItemSubType { get; set; }
+    public string? Material { get; set; }
     public int MaterialType { get; set; }
     public int MaterialIndex { get; set; }
 

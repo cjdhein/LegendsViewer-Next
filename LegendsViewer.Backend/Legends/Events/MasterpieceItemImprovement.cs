@@ -6,19 +6,19 @@ namespace LegendsViewer.Backend.Legends.Events;
 
 public class MasterpieceItemImprovement : WorldEvent
 {
-    private string SkillAtTime { get; set; }
-    public HistoricalFigure Improver { get; set; }
-    public Entity ImproverEntity { get; set; }
-    public Site Site { get; set; }
+    private string? SkillAtTime { get; set; }
+    public HistoricalFigure? Improver { get; set; }
+    public Entity? ImproverEntity { get; set; }
+    public Site? Site { get; set; }
     public int ItemId { get; set; }
-    public string ItemType { get; set; }
-    public string ItemSubType { get; set; }
-    public string Material { get; set; }
+    public string? ItemType { get; set; }
+    public string? ItemSubType { get; set; }
+    public string? Material { get; set; }
     public int MaterialType { get; set; }
     public int MaterialIndex { get; set; }
-    public string ImprovementType { get; set; }
-    public string ImprovementSubType { get; set; }
-    public string ImprovementMaterial { get; set; }
+    public string? ImprovementType { get; set; }
+    public string? ImprovementSubType { get; set; }
+    public string? ImprovementMaterial { get; set; }
     public int ImprovementMaterialType { get; set; }
     public int ImprovementMaterialIndex { get; set; }
     public int ArtId { get; set; }

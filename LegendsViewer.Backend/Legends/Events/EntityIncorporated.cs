@@ -6,12 +6,12 @@ namespace LegendsViewer.Backend.Legends.Events;
 
 public class EntityIncorporated : WorldEvent
 {
-    public Site Site { get; set; }
-    public WorldRegion Region { get; set; }
-    public UndergroundRegion UndergroundRegion { get; set; }
-    public Entity JoinerEntity { get; set; }
-    public Entity JoinedEntity { get; set; }
-    public HistoricalFigure Leader { get; set; }
+    public Site? Site { get; set; }
+    public WorldRegion? Region { get; set; }
+    public UndergroundRegion? UndergroundRegion { get; set; }
+    public Entity? JoinerEntity { get; set; }
+    public Entity? JoinedEntity { get; set; }
+    public HistoricalFigure? Leader { get; set; }
     public bool PartialIncorporation { get; set; }
 
     public EntityIncorporated(List<Property> properties, World world) : base(properties, world)
@@ -33,18 +33,18 @@ public class EntityIncorporated : WorldEvent
             }
         }
 
-        Site.AddEvent(this);
-        Region.AddEvent(this);
-        UndergroundRegion.AddEvent(this);
-        Leader.AddEvent(this);
-        JoinerEntity.AddEvent(this);
-        JoinedEntity.AddEvent(this);
+        Site?.AddEvent(this);
+        Region?.AddEvent(this);
+        UndergroundRegion?.AddEvent(this);
+        Leader?.AddEvent(this);
+        JoinerEntity?.AddEvent(this);
+        JoinedEntity?.AddEvent(this);
     }
 
     public override string Print(bool link = true, DwarfObject? pov = null)
     {
         string eventString = GetYearTime();
-        eventString += JoinerEntity.ToLink(link, pov, this);
+        eventString += JoinerEntity?.ToLink(link, pov, this);
         if (PartialIncorporation)
         {
             eventString += " began operating at the direction of ";
@@ -53,7 +53,7 @@ public class EntityIncorporated : WorldEvent
         {
             eventString += " fully incorporated into ";
         }
-        eventString += JoinedEntity.ToLink(link, pov, this);
+        eventString += JoinedEntity?.ToLink(link, pov, this);
         if (Leader != null)
         {
             eventString += " under the leadership of ";

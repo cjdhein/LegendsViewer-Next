@@ -8,10 +8,10 @@ namespace LegendsViewer.Backend.Legends.Events;
 public class EntityPrimaryCriminals : WorldEvent
 {
     public ActionsForEntities Action { get; set; } // legends_plus.xml
-    public Entity Entity { get; set; }
-    public Site Site { get; set; }
+    public Entity? Entity { get; set; }
+    public Site? Site { get; set; }
     public int StructureId { get; set; }
-    public Structure Structure { get; set; }
+    public Structure? Structure { get; set; }
 
     public EntityPrimaryCriminals(List<Property> properties, World world)
         : base(properties, world)
@@ -50,7 +50,7 @@ public class EntityPrimaryCriminals : WorldEvent
 
     public override string Print(bool link = true, DwarfObject? pov = null)
     {
-        string eventString = GetYearTime() + Entity.ToLink(link, pov, this) + " became the primary criminal organization in " + Site.ToLink();
+        string eventString = GetYearTime() + Entity?.ToLink(link, pov, this) + " became the primary criminal organization in " + Site?.ToLink();
         eventString += PrintParentCollection(link, pov);
         eventString += ".";
         return eventString;

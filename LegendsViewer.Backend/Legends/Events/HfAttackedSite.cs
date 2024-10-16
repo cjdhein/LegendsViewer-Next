@@ -6,10 +6,10 @@ namespace LegendsViewer.Backend.Legends.Events;
 
 public class HfAttackedSite : WorldEvent
 {
-    public HistoricalFigure Attacker { get; set; }
-    public Entity DefenderCiv { get; set; }
-    public Entity SiteCiv { get; set; }
-    public Site Site { get; set; }
+    public HistoricalFigure? Attacker { get; set; }
+    public Entity? DefenderCiv { get; set; }
+    public Entity? SiteCiv { get; set; }
+    public Site? Site { get; set; }
 
     public HfAttackedSite(List<Property> properties, World world) : base(properties, world)
     {
@@ -43,12 +43,12 @@ public class HfAttackedSite : WorldEvent
 
     public override string Print(bool link = true, DwarfObject? pov = null)
     {
-        string eventString = GetYearTime() + Attacker.ToLink(link, pov, this) + " attacked " + SiteCiv.ToLink(link, pov, this);
+        string eventString = GetYearTime() + Attacker?.ToLink(link, pov, this) + " attacked " + SiteCiv?.ToLink(link, pov, this);
         if (DefenderCiv != null && DefenderCiv != SiteCiv)
         {
             eventString += " of " + DefenderCiv.ToLink(link, pov, this);
         }
-        eventString += " at " + Site.ToLink(link, pov, this);
+        eventString += " at " + Site?.ToLink(link, pov, this);
         eventString += PrintParentCollection(link, pov);
         eventString += ".";
         return eventString;

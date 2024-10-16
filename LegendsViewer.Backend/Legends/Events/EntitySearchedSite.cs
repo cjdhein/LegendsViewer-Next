@@ -6,9 +6,9 @@ namespace LegendsViewer.Backend.Legends.Events;
 
 public class EntitySearchedSite : WorldEvent
 {
-    public Entity SearcherCiv { get; set; }
-    public Site Site { get; set; }
-    public string Result { get; set; }
+    public Entity? SearcherCiv { get; set; }
+    public Site? Site { get; set; }
+    public string? Result { get; set; }
 
     public EntitySearchedSite(List<Property> properties, World world)
         : base(properties, world)

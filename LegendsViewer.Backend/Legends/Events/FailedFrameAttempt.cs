@@ -6,12 +6,12 @@ namespace LegendsViewer.Backend.Legends.Events;
 
 public class FailedFrameAttempt : WorldEvent
 {
-    public HistoricalFigure TargetHf { get; set; }
-    public Entity ConvicterEntity { get; set; }
-    public HistoricalFigure FooledHf { get; set; }
-    public HistoricalFigure FramerHf { get; set; }
-    public HistoricalFigure PlotterHf { get; set; }
-    public string Crime { get; set; }
+    public HistoricalFigure? TargetHf { get; set; }
+    public Entity? ConvicterEntity { get; set; }
+    public HistoricalFigure? FooledHf { get; set; }
+    public HistoricalFigure? FramerHf { get; set; }
+    public HistoricalFigure? PlotterHf { get; set; }
+    public string? Crime { get; set; }
 
     public FailedFrameAttempt(List<Property> properties, World world) : base(properties, world)
     {
@@ -44,9 +44,9 @@ public class FailedFrameAttempt : WorldEvent
     public override string Print(bool link = true, DwarfObject? pov = null)
     {
         string eventString = GetYearTime();
-        eventString += FramerHf.ToLink(link, pov, this);
+        eventString += FramerHf?.ToLink(link, pov, this);
         eventString += " attempted to frame ";
-        eventString += TargetHf.ToLink(link, pov, this);
+        eventString += TargetHf?.ToLink(link, pov, this);
         eventString += $" for {Crime}";
         if (PlotterHf != null)
         {
@@ -54,11 +54,11 @@ public class FailedFrameAttempt : WorldEvent
             eventString += PlotterHf.ToLink(link, pov, this);
         }
         eventString += " by fooling ";
-        eventString += FooledHf.ToLink(link, pov, this);
+        eventString += FooledHf?.ToLink(link, pov, this);
         if (ConvicterEntity != null)
         {
             eventString += " and ";
-            eventString += ConvicterEntity.ToLink(link, pov, this);
+            eventString += ConvicterEntity?.ToLink(link, pov, this);
         }
         eventString += " with fabricated evidence, but nothing came from it";
         eventString += PrintParentCollection(link, pov);

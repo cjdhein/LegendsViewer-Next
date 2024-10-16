@@ -6,8 +6,10 @@ namespace LegendsViewer.Backend.Legends.Events;
 
 public class ImpersonateHf : WorldEvent
 {
-    public HistoricalFigure Trickster, Cover;
-    public Entity Target;
+    public HistoricalFigure? Trickster { get; set; }
+    public HistoricalFigure? Cover { get; set; }
+    public Entity? Target { get; set; }
+
     public ImpersonateHf(List<Property> properties, World world)
         : base(properties, world)
     {
@@ -27,8 +29,8 @@ public class ImpersonateHf : WorldEvent
     }
     public override string Print(bool link = true, DwarfObject? pov = null)
     {
-        string eventString = GetYearTime() + Trickster.ToLink(link, pov, this) + " fooled " + Target.ToLink(link, pov, this)
-                             + " into believing he/she was a manifestation of the deity " + Cover.ToLink(link, pov, this);
+        string eventString = GetYearTime() + Trickster?.ToLink(link, pov, this) + " fooled " + Target?.ToLink(link, pov, this)
+                             + " into believing he/she was a manifestation of the deity " + Cover?.ToLink(link, pov, this);
         eventString += PrintParentCollection(link, pov);
         eventString += ".";
         return eventString;

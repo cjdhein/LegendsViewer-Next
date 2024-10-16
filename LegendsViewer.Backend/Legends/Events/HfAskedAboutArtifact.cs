@@ -6,13 +6,13 @@ namespace LegendsViewer.Backend.Legends.Events;
 
 public class HfAskedAboutArtifact : WorldEvent
 {
-    public Artifact Artifact { get; set; }
-    public HistoricalFigure HistoricalFigure { get; set; }
-    public Site Site { get; set; }
+    public Artifact? Artifact { get; set; }
+    public HistoricalFigure? HistoricalFigure { get; set; }
+    public Site? Site { get; set; }
     public int StructureId { get; set; }
-    public Structure Structure { get; set; }
-    public WorldRegion Region { get; set; }
-    public UndergroundRegion UndergroundRegion { get; set; }
+    public Structure? Structure { get; set; }
+    public WorldRegion? Region { get; set; }
+    public UndergroundRegion? UndergroundRegion { get; set; }
 
     public HfAskedAboutArtifact(List<Property> properties, World world)
         : base(properties, world)
@@ -53,9 +53,9 @@ public class HfAskedAboutArtifact : WorldEvent
     public override string Print(bool link = true, DwarfObject? pov = null)
     {
         string eventString = GetYearTime();
-        eventString += HistoricalFigure.ToLink(link, pov, this);
+        eventString += HistoricalFigure?.ToLink(link, pov, this);
         eventString += " asked about ";
-        eventString += Artifact.ToLink(link, pov, this);
+        eventString += Artifact?.ToLink(link, pov, this);
         if (Structure != null)
         {
             eventString += " inside ";

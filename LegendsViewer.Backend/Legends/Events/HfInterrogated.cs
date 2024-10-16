@@ -6,11 +6,11 @@ namespace LegendsViewer.Backend.Legends.Events;
 
 public class HfInterrogated : WorldEvent
 {
-    public HistoricalFigure TargetHf { get; set; }
+    public HistoricalFigure? TargetHf { get; set; }
     public bool WantedAndRecognized { get; set; }
     public bool HeldFirmInInterrogation { get; set; }
-    public HistoricalFigure InterrogatorHf { get; set; }
-    public Entity ArrestingEntity { get; set; }
+    public HistoricalFigure? InterrogatorHf { get; set; }
+    public Entity? ArrestingEntity { get; set; }
 
     public HfInterrogated(List<Property> properties, World world) : base(properties, world)
     {
@@ -39,18 +39,18 @@ public class HfInterrogated : WorldEvent
         string eventString = GetYearTime();
         if (WantedAndRecognized && HeldFirmInInterrogation)
         {
-            eventString += TargetHf.ToLink(link, pov, this);
+            eventString += TargetHf?.ToLink(link, pov, this);
             eventString += " was recognized and arrested by ";
-            eventString += ArrestingEntity.ToLink(link, pov, this);
+            eventString += ArrestingEntity?.ToLink(link, pov, this);
             eventString += ". Despite the interrogation by ";
-            eventString += InterrogatorHf.ToLink(link, pov, this);
+            eventString += InterrogatorHf?.ToLink(link, pov, this);
             eventString += ", ";
-            eventString += TargetHf.ToLink(link, pov, this);
+            eventString += TargetHf?.ToLink(link, pov, this);
             eventString += " refused to reveal anything and was released";
         }
         else
         {
-            eventString += TargetHf.ToLink(link, pov, this);
+            eventString += TargetHf?.ToLink(link, pov, this);
             eventString += " was interrogated";
         }
         eventString += PrintParentCollection(link, pov);

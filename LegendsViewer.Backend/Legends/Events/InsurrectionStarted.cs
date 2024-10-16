@@ -7,11 +7,11 @@ namespace LegendsViewer.Backend.Legends.Events;
 
 public class InsurrectionStarted : WorldEvent
 {
-    public Entity Civ { get; set; }
-    public Site Site { get; set; }
+    public Entity? Civ { get; set; }
+    public Site? Site { get; set; }
     public InsurrectionOutcome Outcome { get; set; }
     public bool ActualStart { get; set; }
-    private readonly string _unknownOutcome;
+    private readonly string? _unknownOutcome;
 
     public InsurrectionStarted(List<Property> properties, World world) : base(properties, world)
     {
@@ -55,21 +55,21 @@ public class InsurrectionStarted : WorldEvent
         string eventString = GetYearTime();
         if (ActualStart)
         {
-            eventString += "an insurrection against " + Civ.ToLink(link, pov, this) + " began in " + Site.ToLink(link, pov, this);
+            eventString += "an insurrection against " + Civ?.ToLink(link, pov, this) + " began in " + Site?.ToLink(link, pov, this);
         }
         else
         {
-            eventString += "the insurrection in " + Site.ToLink(link, pov, this);
+            eventString += "the insurrection in " + Site?.ToLink(link, pov, this);
             switch (Outcome)
             {
                 case InsurrectionOutcome.LeadershipOverthrown:
-                    eventString += " concluded with " + Civ.ToLink(link, pov, this) + " overthrown";
+                    eventString += " concluded with " + Civ?.ToLink(link, pov, this) + " overthrown";
                     break;
                 case InsurrectionOutcome.PopulationGone:
                     eventString += " ended with the disappearance of the rebelling population";
                     break;
                 default:
-                    eventString += " against " + Civ.ToLink(link, pov, this) + " concluded with (" + _unknownOutcome + ")";
+                    eventString += " against " + Civ?.ToLink(link, pov, this) + " concluded with (" + _unknownOutcome + ")";
                     break;
             }
         }

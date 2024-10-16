@@ -358,7 +358,7 @@ public class HfDied : WorldEvent, IFeatured
                     break;
                 case DeathCause.SuicideDrowned:
                     deathString = "drowned ";
-                    switch (HistoricalFigure.Caste)
+                    switch (HistoricalFigure?.Caste)
                     {
                         case "Female":
                             deathString += "herself ";

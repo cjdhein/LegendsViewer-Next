@@ -7,12 +7,12 @@ namespace LegendsViewer.Backend.Legends.Events;
 
 public class HfRecruitedUnitTypeForEntity : WorldEvent
 {
-    public HistoricalFigure HistoricalFigure { get; set; }
-    public Entity Entity { get; set; }
+    public HistoricalFigure? HistoricalFigure { get; set; }
+    public Entity? Entity { get; set; }
     public UnitType UnitType { get; set; }
-    public Site Site { get; set; }
-    public WorldRegion Region { get; set; }
-    public UndergroundRegion UndergroundRegion { get; set; }
+    public Site? Site { get; set; }
+    public WorldRegion? Region { get; set; }
+    public UndergroundRegion? UndergroundRegion { get; set; }
 
     public HfRecruitedUnitTypeForEntity(List<Property> properties, World world)
         : base(properties, world)
@@ -48,7 +48,7 @@ public class HfRecruitedUnitTypeForEntity : WorldEvent
     public override string Print(bool link = true, DwarfObject? pov = null)
     {
         string eventString = GetYearTime();
-        eventString += HistoricalFigure.ToLink(link, pov, this);
+        eventString += HistoricalFigure?.ToLink(link, pov, this);
         eventString += " recruited ";
         switch (UnitType)
         {

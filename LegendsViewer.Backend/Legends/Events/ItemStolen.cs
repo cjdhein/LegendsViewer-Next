@@ -11,9 +11,9 @@ public class ItemStolen : WorldEvent
     public int StructureId { get; set; }
     public Structure? Structure { get; set; }
     public Artifact? Artifact { get; set; }
-    public string ItemType { get; set; }
-    public string ItemSubType { get; set; }
-    public string Material { get; set; }
+    public string? ItemType { get; set; }
+    public string? ItemSubType { get; set; }
+    public string? Material { get; set; }
     public int MaterialType { get; set; }
     public int MaterialIndex { get; set; }
     public HistoricalFigure? Thief { get; set; }
@@ -22,7 +22,7 @@ public class ItemStolen : WorldEvent
     public Site? ReturnSite { get; set; }
     public Circumstance Circumstance { get; set; }
     public int CircumstanceId { get; set; }
-    public string TheftMethod { get; set; }
+    public string? TheftMethod { get; set; }
 
     public ItemStolen(List<Property> properties, World world)
         : base(properties, world)

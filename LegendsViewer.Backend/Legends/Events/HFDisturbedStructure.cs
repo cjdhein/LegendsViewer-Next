@@ -6,11 +6,11 @@ namespace LegendsViewer.Backend.Legends.Events;
 
 public class HfDisturbedStructure : WorldEvent
 {
-    public string Action { get; set; } // legends_plus.xml TODO not used in Legends Mode
-    public HistoricalFigure HistoricalFigure { get; set; }
-    public Site Site { get; set; }
+    public string? Action { get; set; } // legends_plus.xml TODO not used in Legends Mode
+    public HistoricalFigure? HistoricalFigure { get; set; }
+    public Site? Site { get; set; }
     public int StructureId { get; set; }
-    public Structure Structure { get; set; }
+    public Structure? Structure { get; set; }
 
     public HfDisturbedStructure(List<Property> properties, World world)
         : base(properties, world)
@@ -41,9 +41,9 @@ public class HfDisturbedStructure : WorldEvent
 
     public override string Print(bool link = true, DwarfObject? pov = null)
     {
-        string eventString = GetYearTime() + HistoricalFigure.ToLink(link, pov, this) + " disturbed ";
+        string eventString = GetYearTime() + HistoricalFigure?.ToLink(link, pov, this) + " disturbed ";
         eventString += Structure != null ? Structure.ToLink(link, pov, this) : "UNKNOWN STRUCTURE";
-        eventString += " in " + Site.ToLink(link, pov, this);
+        eventString += " in " + Site?.ToLink(link, pov, this);
         eventString += PrintParentCollection(link, pov);
         eventString += ".";
         return eventString;

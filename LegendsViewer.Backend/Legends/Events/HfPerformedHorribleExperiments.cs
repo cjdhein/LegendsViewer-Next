@@ -6,12 +6,12 @@ namespace LegendsViewer.Backend.Legends.Events;
 
 public class HfPerformedHorribleExperiments : WorldEvent
 {
-    public HistoricalFigure GroupHistoricalFigure { get; set; }
-    public Site Site { get; set; }
-    public WorldRegion Region { get; set; }
-    public UndergroundRegion UndergroundRegion { get; set; }
+    public HistoricalFigure? GroupHistoricalFigure { get; set; }
+    public Site? Site { get; set; }
+    public WorldRegion? Region { get; set; }
+    public UndergroundRegion? UndergroundRegion { get; set; }
     public int StructureId { get; }
-    public Structure Structure { get; set; }
+    public Structure? Structure { get; set; }
 
     public HfPerformedHorribleExperiments(List<Property> properties, World world)
         : base(properties, world)
@@ -40,11 +40,11 @@ public class HfPerformedHorribleExperiments : WorldEvent
     public override string Print(bool link = true, DwarfObject? pov = null)
     {
         string eventString = GetYearTime();
-        eventString += GroupHistoricalFigure.ToLink(link, pov, this);
+        eventString += GroupHistoricalFigure?.ToLink(link, pov, this);
         eventString += " performed horrible experiments";
         if (Structure != null)
         {
-            eventString += " in ";
+            eventString += " inside ";
             eventString += Structure.ToLink(link, pov, this);
         }
         if (Site != null)

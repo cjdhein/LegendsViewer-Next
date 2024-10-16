@@ -6,12 +6,12 @@ namespace LegendsViewer.Backend.Legends.Events;
 
 public class HfEquipmentPurchase : WorldEvent
 {
-    public HistoricalFigure GroupHistoricalFigure { get; set; }
-    public Site Site { get; set; }
+    public HistoricalFigure? GroupHistoricalFigure { get; set; }
+    public Site? Site { get; set; }
     public int StructureId { get; set; }
-    public Structure Structure { get; set; }
-    public WorldRegion Region { get; set; }
-    public UndergroundRegion UndergroundRegion { get; set; }
+    public Structure? Structure { get; set; }
+    public WorldRegion? Region { get; set; }
+    public UndergroundRegion? UndergroundRegion { get; set; }
     public int Quality { get; set; }
 
     public HfEquipmentPurchase(List<Property> properties, World world) : base(properties, world)
@@ -44,7 +44,7 @@ public class HfEquipmentPurchase : WorldEvent
     public override string Print(bool link = true, DwarfObject? pov = null)
     {
         string eventString = GetYearTime();
-        eventString += GroupHistoricalFigure.ToLink(link, pov, this);
+        eventString += GroupHistoricalFigure?.ToLink(link, pov, this);
         eventString += " purchased ";
         if (Quality == 1)
         {

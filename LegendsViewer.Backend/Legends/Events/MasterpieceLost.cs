@@ -6,10 +6,10 @@ namespace LegendsViewer.Backend.Legends.Events;
 
 public class MasterpieceLost : WorldEvent
 {
-    public HistoricalFigure HistoricalFigure { get; set; }
-    public Site Site { get; set; }
-    public string Method { get; set; } // TODO destroy method
-    public MasterpieceItem CreationEvent { get; set; }
+    public HistoricalFigure? HistoricalFigure { get; set; }
+    public Site? Site { get; set; }
+    public string? Method { get; set; } // TODO destroy method
+    public MasterpieceItem? CreationEvent { get; set; }
 
     public MasterpieceLost(List<Property> properties, World world)
         : base(properties, world)

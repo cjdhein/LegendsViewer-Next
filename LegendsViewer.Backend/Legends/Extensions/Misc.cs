@@ -5,7 +5,7 @@ namespace LegendsViewer.Backend.Legends.Extensions;
 
 public static class Misc
 {
-    public static void AddEvent(this WorldObject worldObject, WorldEvent worldEvent)
+    public static void AddEvent(this WorldObject? worldObject, WorldEvent? worldEvent)
     {
         if (worldObject == null || worldEvent == null)
         {
@@ -17,11 +17,11 @@ public static class Misc
         }
         else
         {
-            worldEvent.World.ParsingErrors.Report($"Already added event {worldEvent.Id} '{worldEvent.Type}' to object {worldObject.Id} '{worldObject.GetType()}'");
+            worldEvent.World?.ParsingErrors.Report($"Already added event {worldEvent.Id} '{worldEvent.Type}' to object {worldObject.Id} '{worldObject.GetType()}'");
         }
     }
 
-    public static void AddEventCollection(this WorldObject worldObject, EventCollection eventCollection)
+    public static void AddEventCollection(this WorldObject? worldObject, EventCollection? eventCollection)
     {
         if (worldObject == null || eventCollection == null)
         {

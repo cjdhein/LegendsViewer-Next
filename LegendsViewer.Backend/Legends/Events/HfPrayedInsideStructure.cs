@@ -6,11 +6,11 @@ namespace LegendsViewer.Backend.Legends.Events;
 
 public class HfPrayedInsideStructure : WorldEvent
 {
-    public HistoricalFigure HistoricalFigure { get; set; }
-    public Site Site { get; set; }
+    public HistoricalFigure? HistoricalFigure { get; set; }
+    public Site? Site { get; set; }
     public int StructureId { get; set; }
-    public Structure Structure { get; set; }
-    public string Action { get; set; }
+    public Structure? Structure { get; set; }
+    public string? Action { get; set; }
 
     public HfPrayedInsideStructure(List<Property> properties, World world)
         : base(properties, world)
@@ -46,7 +46,14 @@ public class HfPrayedInsideStructure : WorldEvent
                     StructureId = Convert.ToInt32(property.Value);
                     break;
                 case "action":
-                    Action = property.Value;
+                    if (property.Value == "prayedinside")
+                    {
+                        Action = property.Value;
+                    }
+                    else
+                    {
+                        property.Known = false;
+                    }
                     break;
             }
         }
@@ -63,7 +70,7 @@ public class HfPrayedInsideStructure : WorldEvent
     public override string Print(bool link = true, DwarfObject? pov = null)
     {
         string eventString = GetYearTime();
-        eventString += HistoricalFigure.ToLink(link, pov, this);
+        eventString += HistoricalFigure?.ToLink(link, pov, this);
         eventString += " prayed";
         if (Structure != null)
         {

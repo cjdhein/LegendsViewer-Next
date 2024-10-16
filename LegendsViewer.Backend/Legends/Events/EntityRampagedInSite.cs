@@ -6,8 +6,8 @@ namespace LegendsViewer.Backend.Legends.Events;
 
 public class EntityRampagedInSite : WorldEvent
 {
-    public Entity RampageCiv { get; set; }
-    public Site Site { get; set; }
+    public Entity? RampageCiv { get; set; }
+    public Site? Site { get; set; }
 
     public EntityRampagedInSite(List<Property> properties, World world)
         : base(properties, world)

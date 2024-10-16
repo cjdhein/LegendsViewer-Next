@@ -7,27 +7,21 @@ namespace LegendsViewer.Backend.Legends.Events;
 
 public class EntityPersecuted : WorldEvent
 {
-    public HistoricalFigure PersecutorHf { get; set; }
-    public Entity PersecutorEntity { get; set; }
-    public Entity TargetEntity { get; set; }
-    public Site Site { get; set; }
+    public HistoricalFigure? PersecutorHf { get; set; }
+    public Entity? PersecutorEntity { get; set; }
+    public Entity? TargetEntity { get; set; }
+    public Site? Site { get; set; }
     public int DestroyedStructureId { get; set; }
-    public Structure DestroyedStructure { get; set; }
+    public Structure? DestroyedStructure { get; set; }
     public int ShrineAmountDestroyed { get; set; }
-    public List<HistoricalFigure> ExpelledHfs { get; set; }
-    public List<HistoricalFigure> PropertyConfiscatedFromHfs { get; set; }
-    public List<int> ExpelledCreatures { get; set; }
-    public List<int> ExpelledPopIds { get; set; }
-    public List<int> ExpelledNumbers { get; set; }
+    public List<HistoricalFigure> ExpelledHfs { get; set; } = [];
+    public List<HistoricalFigure> PropertyConfiscatedFromHfs { get; set; } = [];
+    public List<int> ExpelledCreatures { get; set; } = [];
+    public List<int> ExpelledPopIds { get; set; } = [];
+    public List<int> ExpelledNumbers { get; set; } = [];
 
     public EntityPersecuted(List<Property> properties, World world) : base(properties, world)
     {
-        ExpelledHfs = [];
-        ExpelledCreatures = [];
-        ExpelledPopIds = [];
-        ExpelledNumbers = [];
-        PropertyConfiscatedFromHfs = [];
-
         foreach (Property property in properties)
         {
             switch (property.Name)
@@ -38,8 +32,21 @@ public class EntityPersecuted : WorldEvent
                 case "site_id": Site = world.GetSite(Convert.ToInt32(property.Value)); break;
                 case "shrine_amount_destroyed": ShrineAmountDestroyed = Convert.ToInt32(property.Value); break;
                 case "destroyed_structure_id": DestroyedStructureId = Convert.ToInt32(property.Value); break;
-                case "property_confiscated_from_hfid": PropertyConfiscatedFromHfs.Add(world.GetHistoricalFigure(Convert.ToInt32(property.Value))); break;
-                case "expelled_hfid": ExpelledHfs.Add(world.GetHistoricalFigure(Convert.ToInt32(property.Value))); break;
+                case "property_confiscated_from_hfid":
+                    HistoricalFigure? propertyConfiscatedFromHf = world.GetHistoricalFigure(Convert.ToInt32(property.Value));
+                    if (propertyConfiscatedFromHf != null)
+                    {
+                        PropertyConfiscatedFromHfs.Add(propertyConfiscatedFromHf);
+                    }
+                    break;
+                case "expelled_hfid":
+                    HistoricalFigure? expelledHf = world.GetHistoricalFigure(Convert.ToInt32(property.Value));
+                    if (expelledHf != null)
+                    {
+                        ExpelledHfs.Add(expelledHf);
+                    }
+
+                    break;
                 case "expelled_creature": ExpelledCreatures.Add(Convert.ToInt32(property.Value)); break;
                 case "expelled_pop_id": ExpelledPopIds.Add(Convert.ToInt32(property.Value)); break;
                 case "expelled_number": ExpelledNumbers.Add(Convert.ToInt32(property.Value)); break;
@@ -48,12 +55,12 @@ public class EntityPersecuted : WorldEvent
         if (Site != null)
         {
             DestroyedStructure = Site.Structures.Find(structure => structure.LocalId == DestroyedStructureId);
-            DestroyedStructure.AddEvent(this);
+            DestroyedStructure?.AddEvent(this);
         }
-        PersecutorHf.AddEvent(this);
-        PersecutorEntity.AddEvent(this);
-        TargetEntity.AddEvent(this);
-        Site.AddEvent(this);
+        PersecutorHf?.AddEvent(this);
+        PersecutorEntity?.AddEvent(this);
+        TargetEntity?.AddEvent(this);
+        Site?.AddEvent(this);
         foreach (HistoricalFigure expelledHf in ExpelledHfs.Where(eHf => eHf != HistoricalFigure.Unknown))
         {
             expelledHf.AddEvent(this);
@@ -63,13 +70,13 @@ public class EntityPersecuted : WorldEvent
     public override string Print(bool link = true, DwarfObject? pov = null)
     {
         string eventString = GetYearTime();
-        eventString += PersecutorHf.ToLink(link, pov, this);
+        eventString += PersecutorHf?.ToLink(link, pov, this);
         eventString += " of ";
-        eventString += PersecutorEntity.ToLink(link, pov, this);
+        eventString += PersecutorEntity?.ToLink(link, pov, this);
         eventString += " persecuted ";
-        eventString += TargetEntity.ToLink(link, pov, this);
+        eventString += TargetEntity?.ToLink(link, pov, this);
         eventString += " in ";
-        eventString += Site.ToLink(link, pov, this);
+        eventString += Site?.ToLink(link, pov, this);
         if (ExpelledHfs.Count > 0)
         {
             eventString += ". ";

@@ -8,15 +8,15 @@ namespace LegendsViewer.Backend.Legends.Events;
 
 public class HfsFormedReputationRelationship : WorldEvent
 {
-    public HistoricalFigure HistoricalFigure1 { get; set; }
-    public HistoricalFigure HistoricalFigure2 { get; set; }
+    public HistoricalFigure? HistoricalFigure1 { get; set; }
+    public HistoricalFigure? HistoricalFigure2 { get; set; }
     public int IdentityId1 { get; set; }
     public int IdentityId2 { get; set; }
     public ReputationType HfRep1Of2 { get; set; }
     public ReputationType HfRep2Of1 { get; set; }
-    public Site Site { get; set; }
-    public WorldRegion Region { get; set; }
-    public UndergroundRegion UndergroundRegion { get; set; }
+    public Site? Site { get; set; }
+    public WorldRegion? Region { get; set; }
+    public UndergroundRegion? UndergroundRegion { get; set; }
 
     // http://www.bay12games.com/dwarves/mantisbt/view.php?id=11343
     // 0011343: "hfs formed reputation relationship" event sometimes has the same <hfid1> and <hfid2>
@@ -78,15 +78,15 @@ public class HfsFormedReputationRelationship : WorldEvent
     public override string Print(bool link = true, DwarfObject? pov = null)
     {
         string eventString = GetYearTime();
-        eventString += HistoricalFigure1.ToLink(link, pov, this);
-        Identity identity1 = HistoricalFigure1?.Identities.Find(i => i.Id == IdentityId1);
+        eventString += HistoricalFigure1?.ToLink(link, pov, this);
+        Identity? identity1 = HistoricalFigure1?.Identities.Find(i => i.Id == IdentityId1);
         if (identity1 != null)
         {
             eventString += " as '" + identity1.Print(link, pov, this) + "'";
         }
         eventString += ", formed a false friendship with ";
-        eventString += HistoricalFigure2.ToLink(link, pov, this);
-        Identity identity2 = HistoricalFigure2?.Identities.Find(i => i.Id == IdentityId2);
+        eventString += HistoricalFigure2?.ToLink(link, pov, this);
+        Identity? identity2 = HistoricalFigure2?.Identities.Find(i => i.Id == IdentityId2);
         if (identity2 != null)
         {
             eventString += " as '" + identity2.Print(link, pov, this) + "'";

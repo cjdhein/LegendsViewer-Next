@@ -7,11 +7,11 @@ namespace LegendsViewer.Backend.Legends.Events;
 
 public class HfEnslaved : WorldEvent
 {
-    public HistoricalFigure EnslavedHf { get; set; }
-    public HistoricalFigure SellerHf { get; set; }
-    public HistoricalFigure PayerHf { get; set; }
-    public Entity PayerEntity { get; set; }
-    public Site MovedToSite { get; set; }
+    public HistoricalFigure? EnslavedHf { get; set; }
+    public HistoricalFigure? SellerHf { get; set; }
+    public HistoricalFigure? PayerHf { get; set; }
+    public Entity? PayerEntity { get; set; }
+    public Site? MovedToSite { get; set; }
 
     public HfEnslaved(List<Property> properties, World world) : base(properties, world)
     {
@@ -37,9 +37,9 @@ public class HfEnslaved : WorldEvent
     public override string Print(bool link = true, DwarfObject? pov = null)
     {
         string eventString = GetYearTime();
-        eventString += SellerHf.ToLink(link, pov, this);
+        eventString += SellerHf?.ToLink(link, pov, this);
         eventString += " sold ";
-        eventString += EnslavedHf.ToLink(link, pov, this);
+        eventString += EnslavedHf?.ToLink(link, pov, this);
         if (PayerHf != null)
         {
             eventString += " to ";
@@ -59,7 +59,7 @@ public class HfEnslaved : WorldEvent
         eventString += ". ";
         if (MovedToSite != null)
         {
-            eventString += EnslavedHf.ToLink(link, pov, this).ToUpperFirstLetter();
+            eventString += EnslavedHf?.ToLink(link, pov, this).ToUpperFirstLetter();
             eventString += " was sent to ";
             eventString += MovedToSite.ToLink(link, pov, this);
         }

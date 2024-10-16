@@ -6,11 +6,10 @@ namespace LegendsViewer.Backend.Legends.Events;
 
 public class HfRazedStructure : WorldEvent
 {
-    //public int Action { get; set; } // legends_plus.xml
-    public HistoricalFigure HistoricalFigure { get; set; }
-    public Site Site { get; set; }
+    public HistoricalFigure? HistoricalFigure { get; set; }
+    public Site? Site { get; set; }
     public int StructureId { get; set; }
-    public Structure Structure { get; set; }
+    public Structure? Structure { get; set; }
 
     public HfRazedStructure(List<Property> properties, World world)
         : base(properties, world)
@@ -25,7 +24,6 @@ public class HfRazedStructure : WorldEvent
                 case "structure": StructureId = Convert.ToInt32(property.Value); break;
                 case "histfig": if (HistoricalFigure == null) { HistoricalFigure = world.GetHistoricalFigure(Convert.ToInt32(property.Value)); } else { property.Known = true; } break;
                 case "site": if (Site == null) { Site = world.GetSite(Convert.ToInt32(property.Value)); } else { property.Known = true; } break;
-                    //case "action": Action = Convert.ToInt32(property.Value); break;
             }
         }
         if (Site != null)
@@ -39,7 +37,7 @@ public class HfRazedStructure : WorldEvent
 
     public override string Print(bool link = true, DwarfObject? pov = null)
     {
-        string eventString = GetYearTime() + HistoricalFigure.ToLink(link, pov, this) + " razed ";
+        string eventString = GetYearTime() + HistoricalFigure?.ToLink(link, pov, this) + " razed ";
         eventString += Structure != null ? Structure.ToLink(link, pov, this) : "UNKNOWN STRUCTURE";
         eventString += " in " + Site.ToLink(link, pov, this);
         eventString += PrintParentCollection(link, pov);

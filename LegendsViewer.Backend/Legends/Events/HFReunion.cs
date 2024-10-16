@@ -6,10 +6,11 @@ namespace LegendsViewer.Backend.Legends.Events;
 
 public class HfReunion : WorldEvent
 {
-    public HistoricalFigure HistoricalFigure1, HistoricalFigure2;
-    public Site Site;
-    public WorldRegion Region;
-    public UndergroundRegion UndergroundRegion;
+    public HistoricalFigure? HistoricalFigure1 { get; set; }
+    public HistoricalFigure? HistoricalFigure2 { get; set; }
+    public Site? Site { get; set; }
+    public WorldRegion? Region { get; set; }
+    public UndergroundRegion? UndergroundRegion { get; set; }
     public HfReunion(List<Property> properties, World world)
         : base(properties, world)
     {
@@ -33,7 +34,7 @@ public class HfReunion : WorldEvent
     }
     public override string Print(bool link = true, DwarfObject? pov = null)
     {
-        string eventString = GetYearTime() + " " + HistoricalFigure1.ToLink(link, pov, this) + " was reunited with " + HistoricalFigure2.ToLink(link, pov, this);
+        string eventString = GetYearTime() + " " + HistoricalFigure1?.ToLink(link, pov, this) + " was reunited with " + HistoricalFigure2?.ToLink(link, pov, this);
         if (Site != null)
         {
             eventString += " in " + Site.ToLink(link, pov, this);
@@ -41,6 +42,10 @@ public class HfReunion : WorldEvent
         else if (Region != null)
         {
             eventString += " in " + Region.ToLink(link, pov, this);
+        }
+        else if (UndergroundRegion != null)
+        {
+            eventString += " in " + UndergroundRegion.ToLink(link, pov, this);
         }
 
         eventString += PrintParentCollection(link, pov);

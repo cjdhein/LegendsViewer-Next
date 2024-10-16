@@ -6,14 +6,14 @@ namespace LegendsViewer.Backend.Legends.Events;
 
 public class HfDoesInteraction : WorldEvent
 {
-    public HistoricalFigure Doer { get; set; }
-    public HistoricalFigure Target { get; set; }
-    public string Interaction { get; set; }
-    public string InteractionAction { get; set; }
-    public string InteractionString { get; set; }
-    public string Source { get; set; }
-    public WorldRegion Region { get; set; }
-    public Site Site { get; set; }
+    public HistoricalFigure? Doer { get; set; }
+    public HistoricalFigure? Target { get; set; }
+    public string? Interaction { get; set; }
+    public string? InteractionAction { get; set; }
+    public string? InteractionString { get; set; }
+    public string? Source { get; set; }
+    public WorldRegion? Region { get; set; }
+    public Site? Site { get; set; }
 
     public HfDoesInteraction(List<Property> properties, World world)
         : base(properties, world)
@@ -102,17 +102,17 @@ public class HfDoesInteraction : WorldEvent
     public override string Print(bool link = true, DwarfObject? pov = null)
     {
         string eventString = GetYearTime();
-        eventString += Doer.ToLink(link, pov, this);
+        eventString += Doer?.ToLink(link, pov, this);
         if (InteractionString?.Length == 0)
         {
             eventString += " bit ";
-            eventString += Target.ToLink(link, pov, this);
+            eventString += Target?.ToLink(link, pov, this);
             eventString += !string.IsNullOrWhiteSpace(InteractionAction) ? InteractionAction : ", passing on the " + Interaction + " ";
         }
         else
         {
             eventString += !string.IsNullOrWhiteSpace(InteractionAction) ? InteractionAction : " put " + Interaction + " on ";
-            eventString += Target.ToLink(link, pov, this);
+            eventString += Target?.ToLink(link, pov, this);
             eventString += !string.IsNullOrWhiteSpace(InteractionString) ? InteractionString : "";
         }
         eventString += " in ";

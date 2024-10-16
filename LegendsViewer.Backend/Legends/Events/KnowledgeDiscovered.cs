@@ -6,9 +6,9 @@ namespace LegendsViewer.Backend.Legends.Events;
 
 public class KnowledgeDiscovered : WorldEvent
 {
-    public string[] Knowledge { get; set; }
+    public List<string> Knowledge { get; set; } = []; // TODO
     public bool First { get; set; }
-    public HistoricalFigure HistoricalFigure { get; set; }
+    public HistoricalFigure? HistoricalFigure { get; set; }
 
     public KnowledgeDiscovered(List<Property> properties, World world) : base(properties, world)
     {
@@ -20,7 +20,7 @@ public class KnowledgeDiscovered : WorldEvent
                     HistoricalFigure = world.GetHistoricalFigure(Convert.ToInt32(property.Value));
                     break;
                 case "knowledge":
-                    Knowledge = property.Value.Split(':');
+                    Knowledge.AddRange(property.Value.Split(':'));
                     break;
                 case "first":
                     First = true;
@@ -35,7 +35,7 @@ public class KnowledgeDiscovered : WorldEvent
     public override string Print(bool link = true, DwarfObject? pov = null)
     {
         string eventString = GetYearTime();
-        eventString += HistoricalFigure.ToLink(link, pov, this);
+        eventString += HistoricalFigure?.ToLink(link, pov, this);
         if (First)
         {
             eventString += " was the first to discover ";
@@ -44,10 +44,10 @@ public class KnowledgeDiscovered : WorldEvent
         {
             eventString += " independently discovered ";
         }
-        if (Knowledge.Length > 1)
+        if (Knowledge.Count > 1)
         {
             eventString += " the " + Knowledge[1];
-            if (Knowledge.Length > 2)
+            if (Knowledge.Count > 2)
             {
                 eventString += " (" + Knowledge[2] + ")";
             }

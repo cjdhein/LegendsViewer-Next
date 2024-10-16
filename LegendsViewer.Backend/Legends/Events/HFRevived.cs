@@ -6,12 +6,12 @@ namespace LegendsViewer.Backend.Legends.Events;
 
 public class HfRevived : WorldEvent
 {
-    private readonly string _ghost;
-    public HistoricalFigure HistoricalFigure { get; set; }
-    public HistoricalFigure Actor { get; set; }
-    public Site Site { get; set; }
-    public WorldRegion Region { get; set; }
-    public UndergroundRegion UndergroundRegion { get; set; }
+    private readonly string? _ghost;
+    public HistoricalFigure? HistoricalFigure { get; set; }
+    public HistoricalFigure? Actor { get; set; }
+    public Site? Site { get; set; }
+    public WorldRegion? Region { get; set; }
+    public UndergroundRegion? UndergroundRegion { get; set; }
     public bool RaisedBefore { get; set; }
     public bool Disturbance { get; set; }
 
@@ -41,7 +41,7 @@ public class HfRevived : WorldEvent
     public override string Print(bool link = true, DwarfObject? pov = null)
     {
         string eventString = GetYearTime();
-        eventString += HistoricalFigure.ToLink(link, pov, this);
+        eventString += HistoricalFigure?.ToLink(link, pov, this);
         if (Disturbance)
         {
             eventString += " was disturbed from eternal rest";

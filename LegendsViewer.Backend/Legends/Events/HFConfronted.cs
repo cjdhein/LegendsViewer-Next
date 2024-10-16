@@ -9,21 +9,19 @@ namespace LegendsViewer.Backend.Legends.Events;
 
 public class HfConfronted : WorldEvent
 {
-    public HistoricalFigure HistoricalFigure { get; set; }
+    public HistoricalFigure? HistoricalFigure { get; set; }
     public ConfrontSituation Situation { get; set; }
-    public List<ConfrontReason> Reasons { get; set; }
-    public Site Site { get; set; }
-    public WorldRegion Region { get; set; }
-    public UndergroundRegion UndergroundRegion { get; set; }
-    public Location Coordinates { get; set; }
-    private readonly string _unknownSituation;
-    private readonly List<string> _unknownReasons;
+    public List<ConfrontReason> Reasons { get; set; } = [];
+    public Site? Site { get; set; }
+    public WorldRegion? Region { get; set; }
+    public UndergroundRegion? UndergroundRegion { get; set; }
+    public Location? Coordinates { get; set; }
+    private readonly string? _unknownSituation;
+    private readonly List<string> _unknownReasons = [];
 
     public HfConfronted(List<Property> properties, World world)
         : base(properties, world)
     {
-        Reasons = [];
-        _unknownReasons = [];
         foreach (Property property in properties)
         {
             switch (property.Name)
@@ -67,7 +65,7 @@ public class HfConfronted : WorldEvent
 
     public override string Print(bool link = true, DwarfObject? pov = null)
     {
-        string eventString = GetYearTime() + HistoricalFigure.ToLink(link, pov, this);
+        string eventString = GetYearTime() + HistoricalFigure?.ToLink(link, pov, this);
         string situationString = "";
         switch (Situation)
         {

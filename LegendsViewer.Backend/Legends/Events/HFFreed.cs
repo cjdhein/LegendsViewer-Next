@@ -6,17 +6,16 @@ namespace LegendsViewer.Backend.Legends.Events;
 
 public class HfFreed : WorldEvent
 {
-    public List<HistoricalFigure> RescuedHistoricalFigures { get; set; }
-    public HistoricalFigure FreeingHf { get; set; }
-    public Entity FreeingCiv { get; set; }
-    public Entity SiteCiv { get; set; }
-    public Entity HoldingCiv { get; set; }
-    public Site Site { get; set; }
+    public List<HistoricalFigure> RescuedHistoricalFigures { get; set; } = [];
+    public HistoricalFigure? FreeingHf { get; set; }
+    public Entity? FreeingCiv { get; set; }
+    public Entity? SiteCiv { get; set; }
+    public Entity? HoldingCiv { get; set; }
+    public Site? Site { get; set; }
 
     public HfFreed(List<Property> properties, World world)
         : base(properties, world)
     {
-        RescuedHistoricalFigures = [];
         foreach (Property property in properties)
         {
             switch (property.Name)
@@ -24,7 +23,13 @@ public class HfFreed : WorldEvent
                 case "freeing_civ_id": FreeingCiv = world.GetEntity(Convert.ToInt32(property.Value)); break;
                 case "freeing_hfid": FreeingHf = world.GetHistoricalFigure(Convert.ToInt32(property.Value)); break;
                 case "site_id": Site = world.GetSite(Convert.ToInt32(property.Value)); break;
-                case "rescued_hfid": RescuedHistoricalFigures.Add(world.GetHistoricalFigure(Convert.ToInt32(property.Value))); break;
+                case "rescued_hfid":
+                    HistoricalFigure? rescuedHf = world.GetHistoricalFigure(Convert.ToInt32(property.Value));
+                    if (rescuedHf != null)
+                    {
+                        RescuedHistoricalFigures.Add(rescuedHf);
+                    }
+                    break;
                 case "site_civ_id": SiteCiv = world.GetEntity(Convert.ToInt32(property.Value)); break;
                 case "holding_civ_id": HoldingCiv = world.GetEntity(Convert.ToInt32(property.Value)); break;
             }

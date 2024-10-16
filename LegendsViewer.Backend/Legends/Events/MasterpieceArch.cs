@@ -6,15 +6,15 @@ namespace LegendsViewer.Backend.Legends.Events;
 
 public class MasterpieceArch : WorldEvent
 {
-    private string SkillAtTime { get; set; }
-    public HistoricalFigure Maker { get; set; }
-    public Entity MakerEntity { get; set; }
-    public Site Site { get; set; }
-    public string BuildingType { get; set; }
-    public string BuildingSubType { get; set; }
+    private string? SkillAtTime { get; set; }
+    public HistoricalFigure? Maker { get; set; }
+    public Entity? MakerEntity { get; set; }
+    public Site? Site { get; set; }
+    public string? BuildingType { get; set; }
+    public string? BuildingSubType { get; set; }
     public int BuildingCustom { get; set; }
 
-    public string Process { get; set; }
+    public string? Process { get; set; }
 
     public MasterpieceArch(List<Property> properties, World world)
         : base(properties, world)

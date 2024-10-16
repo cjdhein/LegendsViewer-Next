@@ -7,9 +7,9 @@ namespace LegendsViewer.Backend.Legends.Events;
 
 public class HfGainsSecretGoal : WorldEvent
 {
-    public HistoricalFigure HistoricalFigure { get; set; }
+    public HistoricalFigure? HistoricalFigure { get; set; }
     public SecretGoal Goal { get; set; }
-    private readonly string _unknownGoal;
+    private readonly string? _unknownGoal;
 
     public HfGainsSecretGoal(List<Property> properties, World world)
         : base(properties, world)
@@ -38,11 +38,11 @@ public class HfGainsSecretGoal : WorldEvent
 
     public override string Print(bool link = true, DwarfObject? pov = null)
     {
-        string eventString = GetYearTime() + HistoricalFigure.ToLink(link, pov, this);
+        string eventString = GetYearTime() + HistoricalFigure?.ToLink(link, pov, this);
         string goalString = "";
         switch (Goal)
         {
-            case SecretGoal.Immortality: goalString = " became obsessed with " + HistoricalFigure.CasteNoun(true) + " own mortality and sought to extend " + HistoricalFigure.CasteNoun(true) + " life by any means"; break;
+            case SecretGoal.Immortality: goalString = " became obsessed with " + HistoricalFigure?.CasteNoun(true) + " own mortality and sought to extend " + HistoricalFigure?.CasteNoun(true) + " life by any means"; break;
             case SecretGoal.Unknown: goalString = " gained secret goal (" + _unknownGoal + ")"; break;
         }
         eventString += goalString;

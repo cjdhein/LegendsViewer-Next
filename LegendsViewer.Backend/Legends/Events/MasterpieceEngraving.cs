@@ -6,11 +6,11 @@ namespace LegendsViewer.Backend.Legends.Events;
 
 public class MasterpieceEngraving : WorldEvent
 {
-    private string SkillAtTime { get; set; } // TODO not used in Legends Mode
-    private string SkillRating { get; set; } // TODO not used in Legends Mode
-    public HistoricalFigure Maker { get; set; }
-    public Entity MakerEntity { get; set; }
-    public Site Site { get; set; }
+    private string? SkillAtTime { get; set; } // TODO not used in Legends Mode
+    private string? SkillRating { get; set; } // TODO not used in Legends Mode
+    public HistoricalFigure? Maker { get; set; }
+    public Entity? MakerEntity { get; set; }
+    public Site? Site { get; set; }
     public int ArtId { get; set; } // TODO not used in Legends Mode
     public int ArtSubId { get; set; } // TODO not used in Legends Mode
 

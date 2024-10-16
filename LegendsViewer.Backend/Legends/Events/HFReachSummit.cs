@@ -8,11 +8,11 @@ namespace LegendsViewer.Backend.Legends.Events;
 
 public class HfReachSummit : WorldEvent
 {
-    public HistoricalFigure HistoricalFigure { get; set; }
-    public WorldRegion Region { get; set; }
-    public UndergroundRegion UndergroundRegion { get; set; }
-    public Site Site { get; set; }
-    public Location Coordinates;
+    public HistoricalFigure? HistoricalFigure { get; set; }
+    public WorldRegion? Region { get; set; }
+    public UndergroundRegion? UndergroundRegion { get; set; }
+    public Site? Site { get; set; }
+    public Location? Coordinates;
 
     public HfReachSummit(List<Property> properties, World world)
         : base(properties, world)

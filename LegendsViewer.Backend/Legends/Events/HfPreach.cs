@@ -7,11 +7,11 @@ namespace LegendsViewer.Backend.Legends.Events;
 
 public class HfPreach : WorldEvent
 {
-    public HistoricalFigure SpeakerHf { get; set; }
-    public Site Site { get; set; }
+    public HistoricalFigure? SpeakerHf { get; set; }
+    public Site? Site { get; set; }
     public PreachTopic Topic { get; set; }
-    public Entity Entity1 { get; set; }
-    public Entity Entity2 { get; set; }
+    public Entity? Entity1 { get; set; }
+    public Entity? Entity2 { get; set; }
 
     public HfPreach(List<Property> properties, World world) : base(properties, world)
     {
@@ -49,9 +49,9 @@ public class HfPreach : WorldEvent
     public override string Print(bool link = true, DwarfObject? pov = null)
     {
         string eventString = GetYearTime();
-        eventString += SpeakerHf.ToLink(link, pov, this);
+        eventString += SpeakerHf?.ToLink(link, pov, this);
         eventString += " preached to ";
-        eventString += Entity1.ToLink(link, pov, this);
+        eventString += Entity1?.ToLink(link, pov, this);
         switch (Topic)
         {
             case PreachTopic.SetEntity1AgainstEntity2:
@@ -61,7 +61,7 @@ public class HfPreach : WorldEvent
                 eventString += ", urging love to be shown to ";
                 break;
         }
-        eventString += Entity2.ToLink(link, pov, this);
+        eventString += Entity2?.ToLink(link, pov, this);
         if (Site != null)
         {
             eventString += " at ";

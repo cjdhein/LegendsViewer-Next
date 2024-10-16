@@ -18,6 +18,9 @@ public class Site : WorldObject, IHasCoordinates
     public WorldRegion? Region { get; set; }
     public string? RegionToLink => Region?.ToLink(true, this);
 
+    [JsonIgnore]
+    public Entity? ReligionEntity { get; set; }
+
     public SiteType SiteType { get; set; }
     public string UntranslatedName { get; set; }
     public List<Location> Coordinates { get; set; } = [];

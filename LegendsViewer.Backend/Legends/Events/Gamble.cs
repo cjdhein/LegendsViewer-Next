@@ -7,11 +7,11 @@ namespace LegendsViewer.Backend.Legends.Events;
 public class Gamble : WorldEvent
 {
     public int StructureId { get; set; }
-    public Structure Structure { get; set; }
-    public Site Site { get; set; }
-    public WorldRegion Region { get; set; }
-    public UndergroundRegion UndergroundRegion { get; set; }
-    public HistoricalFigure Gambler { get; set; }
+    public Structure? Structure { get; set; }
+    public Site? Site { get; set; }
+    public WorldRegion? Region { get; set; }
+    public UndergroundRegion? UndergroundRegion { get; set; }
+    public HistoricalFigure? Gambler { get; set; }
     public int OldAccount { get; set; }
     public int NewAccount { get; set; }
 
@@ -46,7 +46,7 @@ public class Gamble : WorldEvent
     public override string Print(bool link = true, DwarfObject? pov = null)
     {
         string eventString = GetYearTime();
-        eventString += Gambler.ToLink(link, pov, this);
+        eventString += Gambler?.ToLink(link, pov, this);
         // same ranges like in "trade" event
         var balance = NewAccount - OldAccount;
         if (balance >= 5000)

@@ -7,11 +7,11 @@ namespace LegendsViewer.Backend.Legends.Events;
 
 public class HfRansomed : WorldEvent
 {
-    public HistoricalFigure RansomedHf { get; set; }
-    public HistoricalFigure RansomerHf { get; set; }
-    public HistoricalFigure PayerHf { get; set; }
-    public Entity PayerEntity { get; set; }
-    public Site MovedToSite { get; set; }
+    public HistoricalFigure? RansomedHf { get; set; }
+    public HistoricalFigure? RansomerHf { get; set; }
+    public HistoricalFigure? PayerHf { get; set; }
+    public Entity? PayerEntity { get; set; }
+    public Site? MovedToSite { get; set; }
 
     public HfRansomed(List<Property> properties, World world) : base(properties, world)
     {
@@ -37,9 +37,9 @@ public class HfRansomed : WorldEvent
     public override string Print(bool link = true, DwarfObject? pov = null)
     {
         string eventString = GetYearTime();
-        eventString += RansomerHf.ToLink(link, pov, this);
+        eventString += RansomerHf?.ToLink(link, pov, this);
         eventString += " ransomed ";
-        eventString += RansomedHf.ToLink(link, pov, this);
+        eventString += RansomedHf?.ToLink(link, pov, this);
         if (PayerHf != null)
         {
             eventString += " to ";
@@ -59,7 +59,7 @@ public class HfRansomed : WorldEvent
         eventString += ". ";
         if (MovedToSite != null)
         {
-            eventString += RansomedHf.ToLink(link, pov, this).ToUpperFirstLetter();
+            eventString += RansomedHf?.ToLink(link, pov, this).ToUpperFirstLetter();
             eventString += " was sent to ";
             eventString += MovedToSite.ToLink(link, pov, this);
         }
