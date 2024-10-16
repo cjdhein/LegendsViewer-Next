@@ -1,9 +1,7 @@
 <template>
-  <v-card>
     <div class="map-container">
       <div id="map" style="height: 100%;"></div>
     </div>
-  </v-card>
 </template>
 
 <script lang="ts">
@@ -31,13 +29,13 @@ const siteTypeMarkers: Record<SiteType, MarkerConfig> = {
   Town: { color: '#FFD700', shape: 'pentagon' },
   Hamlet: { color: '#98FB98', shape: 'circle' },
   Vault: { color: '#C0C0C0', shape: 'hexagon' },
-  DarkPits: { color: '#800000', shape: 'circle' },
+  DarkPits: { color: '#800080', shape: 'circle' },
   Hillocks: { color: '#9ACD32', shape: 'triangle' },
   Tomb: { color: '#696969', shape: 'square' },
   Tower: { color: '#4682B4', shape: 'triangle' },
-  MountainHalls: { color: '#B8860B', shape: 'pentagon' },
+  MountainHalls: { color: '#B8860B', shape: 'pentagon', size: 4 },
   Camp: { color: '#8FBC8F', shape: 'triangle' },
-  Lair: { color: '#8B0000', shape: 'circle' },
+  Lair: { color: '#8B0000', shape: 'circle', size: 2 },
   Labyrinth: { color: '#9932CC', shape: 'pentagon' },
   Shrine: { color: '#FFB6C1', shape: 'star' },
   ImportantLocation: { color: '#FF4500', shape: 'star' },
@@ -48,7 +46,7 @@ const siteTypeMarkers: Record<SiteType, MarkerConfig> = {
 
 function createMarker(siteType: SiteType, latlng: L.LatLngExpression): L.Layer {
   const config = siteTypeMarkers[siteType];
-  const size = config.size || 4;
+  const size = config.size || 3;
   switch (config.shape) {
     case 'circle':
       return L.circle(latlng, { color: config.color, radius: size });
@@ -112,6 +110,9 @@ export default defineComponent({
       }
       await worldStore.loadWorld();
       await mapStore.loadWorldMap('Large');
+      if (mapStore.worldMapMax != null) {
+        loadImageToMap(mapStore.worldMapMax);
+      }
     };
 
     const loadImageToMap = (base64Image: string) => {
