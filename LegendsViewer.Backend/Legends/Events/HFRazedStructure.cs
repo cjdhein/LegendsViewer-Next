@@ -39,7 +39,7 @@ public class HfRazedStructure : WorldEvent
     {
         string eventString = GetYearTime() + HistoricalFigure?.ToLink(link, pov, this) + " razed ";
         eventString += Structure != null ? Structure.ToLink(link, pov, this) : "UNKNOWN STRUCTURE";
-        eventString += " in " + Site.ToLink(link, pov, this);
+        eventString += " in " + Site?.ToLink(link, pov, this);
         eventString += PrintParentCollection(link, pov);
         eventString += ".";
         return eventString;
