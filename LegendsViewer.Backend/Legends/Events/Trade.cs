@@ -6,10 +6,10 @@ namespace LegendsViewer.Backend.Legends.Events;
 
 public class Trade : WorldEvent
 {
-    public HistoricalFigure Trader { get; set; }
-    public Entity TraderEntity { get; set; }
-    public Site SourceSite { get; set; }
-    public Site DestSite { get; set; }
+    public HistoricalFigure? Trader { get; set; }
+    public Entity? TraderEntity { get; set; }
+    public Site? SourceSite { get; set; }
+    public Site? DestSite { get; set; }
     public int AccountShift { get; set; }
 
     // TODO find out what these properties do
@@ -44,7 +44,7 @@ public class Trade : WorldEvent
     public override string Print(bool link = true, DwarfObject? pov = null)
     {
         string eventString = GetYearTime();
-        eventString += Trader.ToLink(link, pov, this);
+        eventString += Trader?.ToLink(link, pov, this);
         if (TraderEntity != null)
         {
             eventString += " of ";

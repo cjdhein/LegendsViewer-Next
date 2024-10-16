@@ -9,7 +9,7 @@ namespace LegendsViewer.Backend.Legends.WorldObjects;
 
 public class Artifact : WorldObject, IHasCoordinates
 {
-    public string Item { get; set; }
+    public string? Item { get; set; }
     [JsonIgnore]
     public HistoricalFigure? Creator { get; set; }
     public string? CreatorLink => Creator?.ToLink(true, this);

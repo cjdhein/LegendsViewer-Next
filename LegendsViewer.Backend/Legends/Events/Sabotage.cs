@@ -6,9 +6,9 @@ namespace LegendsViewer.Backend.Legends.Events;
 
 public class Sabotage : WorldEvent
 {
-    public HistoricalFigure SaboteurHf { get; set; }
-    public HistoricalFigure TargetHf { get; set; }
-    public Site Site { get; set; }
+    public HistoricalFigure? SaboteurHf { get; set; }
+    public HistoricalFigure? TargetHf { get; set; }
+    public Site? Site { get; set; }
 
     public Sabotage(List<Property> properties, World world)
         : base(properties, world)
@@ -37,9 +37,9 @@ public class Sabotage : WorldEvent
     public override string Print(bool link = true, DwarfObject? pov = null)
     {
         string eventString = GetYearTime();
-        eventString += SaboteurHf.ToLink(link, pov, this);
+        eventString += SaboteurHf?.ToLink(link, pov, this);
         eventString += " sabotaged the activities of ";
-        eventString += TargetHf.ToLink(link, pov, this);
+        eventString += TargetHf?.ToLink(link, pov, this);
         if (Site != null)
         {
             eventString += " at ";

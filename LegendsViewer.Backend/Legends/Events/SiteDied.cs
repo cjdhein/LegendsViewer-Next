@@ -6,9 +6,12 @@ namespace LegendsViewer.Backend.Legends.Events;
 
 public class SiteDied : WorldEvent
 {
-    public Entity Civ, SiteEntity;
-    public Site Site;
+    public Entity? Civ { get; set; }
+    public Entity? SiteEntity { get; set; }
+    public Site? Site { get; set; }
+
     public bool Abandoned;
+
     public SiteDied(List<Property> properties, World world)
         : base(properties, world)
     {
@@ -32,33 +35,39 @@ public class SiteDied : WorldEvent
             endCause = "abandoned";
         }
 
-        Site.OwnerHistory.Last().EndYear = Year;
-        Site.OwnerHistory.Last().EndCause = endCause;
+        if (Site != null)
+        {
+            Site.OwnerHistory.Last().EndYear = Year;
+            Site.OwnerHistory.Last().EndCause = endCause;
+            world.AddPlayerRelatedDwarfObjects(Site);
+        }
         if (SiteEntity != null)
         {
             SiteEntity.SiteHistory.Last(s => s.Site == Site).EndYear = Year;
             SiteEntity.SiteHistory.Last(s => s.Site == Site).EndCause = endCause;
+            world.AddPlayerRelatedDwarfObjects(SiteEntity);
         }
-        Civ.SiteHistory.Last(s => s.Site == Site).EndYear = Year;
-        Civ.SiteHistory.Last(s => s.Site == Site).EndCause = endCause;
+        if (Civ != null)
+        {
+            Civ.SiteHistory.Last(s => s.Site == Site).EndYear = Year;
+            Civ.SiteHistory.Last(s => s.Site == Site).EndCause = endCause;
+        }
 
         Civ.AddEvent(this);
         SiteEntity.AddEvent(this);
         Site.AddEvent(this);
 
-        world.AddPlayerRelatedDwarfObjects(SiteEntity);
-        world.AddPlayerRelatedDwarfObjects(Site);
     }
     public override string Print(bool link = true, DwarfObject? pov = null)
     {
-        string eventString = GetYearTime() + SiteEntity.PrintEntity(link, pov);
+        string eventString = GetYearTime() + SiteEntity?.PrintEntity(link, pov);
         if (Abandoned)
         {
-            eventString += " abandoned the settlement of " + Site.ToLink(link, pov, this);
+            eventString += " abandoned the settlement of " + Site?.ToLink(link, pov, this);
         }
         else
         {
-            eventString += " settlement of " + Site.ToLink(link, pov, this) + " withered";
+            eventString += " settlement of " + Site?.ToLink(link, pov, this) + " withered";
         }
         eventString += PrintParentCollection(link, pov);
         eventString += ".";

@@ -6,10 +6,13 @@ namespace LegendsViewer.Backend.Legends.Events;
 
 public class ReplacedStructure : WorldEvent
 {
-    public int OldStructureId, NewStructureId;
-    public Entity Civ, SiteEntity;
-    public Site Site;
-    public Structure OldStructure, NewStructure;
+    public int OldStructureId { get; set; }
+    public int NewStructureId { get; set; }
+    public Entity? Civ { get; set; }
+    public Entity? SiteEntity { get; set; }
+    public Site? Site { get; set; }
+    public Structure? OldStructure { get; set; }
+    public Structure? NewStructure { get; set; }
 
     public ReplacedStructure(List<Property> properties, World world) : base(properties, world)
     {

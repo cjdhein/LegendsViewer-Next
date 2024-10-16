@@ -22,7 +22,7 @@ public class Site : WorldObject, IHasCoordinates
     public Entity? ReligionEntity { get; set; }
 
     public SiteType SiteType { get; set; }
-    public string UntranslatedName { get; set; }
+    public string? UntranslatedName { get; set; }
     public List<Location> Coordinates { get; set; } = [];
     public Rectangle Rectangle { get; set; }
     public bool HasStructures { get; set; }
@@ -149,7 +149,7 @@ public class Site : WorldObject, IHasCoordinates
     }
 
     [JsonIgnore]
-    public List<HistoricalFigure> NotableDeaths => Events.OfType<HfDied>().Select(death => death.HistoricalFigure).ToList();
+    public List<HistoricalFigure> NotableDeaths => Events?.OfType<HfDied>().Where(death => death.HistoricalFigure != null).Select(death => death.HistoricalFigure!).ToList() ?? [];
     public List<string> NotableDeathLinks => NotableDeaths.ConvertAll(x => x.ToLink(true, this));
 
     public class Official

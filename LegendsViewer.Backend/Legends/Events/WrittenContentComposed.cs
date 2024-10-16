@@ -79,7 +79,7 @@ public class WrittenContentComposed : WorldEvent
         string eventString = GetYearTime();
         eventString += WrittenContent != null ? WrittenContent.ToLink(link, pov, this) : "UNKNOWN WRITTEN CONTENT";
         eventString += " was authored by ";
-        eventString += HistoricalFigure.ToLink(link, pov, this);
+        eventString += HistoricalFigure?.ToLink(link, pov, this);
         if (Site != null)
         {
             eventString += " in ";

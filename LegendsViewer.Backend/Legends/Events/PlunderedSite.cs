@@ -6,10 +6,10 @@ namespace LegendsViewer.Backend.Legends.Events;
 
 public class PlunderedSite : WorldEvent
 {
-    public readonly Entity Attacker;
-    public readonly Entity Defender;
-    public readonly Entity SiteEntity;
-    public readonly Site Site;
+    public Entity? Attacker { get; set; }
+    public Entity? Defender { get; set; }
+    public Entity? SiteEntity { get; set; }
+    public Site? Site { get; set; }
     public bool Detected { get; set; }
     public bool NoDefeatMention { get; set; }
     public bool WasRaid { get; set; }
@@ -78,7 +78,7 @@ public class PlunderedSite : WorldEvent
     public override string Print(bool link = true, DwarfObject? pov = null)
     {
         string eventString = GetYearTime();
-        eventString += Attacker.ToLink(link, pov, this);
+        eventString += Attacker?.ToLink(link, pov, this);
         if (TookLiveStock || TookItems)
         {
             eventString += " stole ";
@@ -108,7 +108,7 @@ public class PlunderedSite : WorldEvent
                 eventString += Defender.ToLink(link, pov, this);
             }
             eventString += " in ";
-            eventString += Site.ToLink(link, pov, this);
+            eventString += Site?.ToLink(link, pov, this);
         }
         else
         {
@@ -123,7 +123,7 @@ public class PlunderedSite : WorldEvent
                 eventString += Defender.ToLink(link, pov, this);
             }
             eventString += " and pillaged ";
-            eventString += Site.ToLink(link, pov, this);
+            eventString += Site?.ToLink(link, pov, this);
         }
         eventString += PrintParentCollection(link, pov);
         eventString += ".";

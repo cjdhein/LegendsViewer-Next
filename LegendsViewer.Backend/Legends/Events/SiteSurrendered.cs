@@ -6,10 +6,10 @@ namespace LegendsViewer.Backend.Legends.Events;
 
 public class SiteSurrendered : WorldEvent
 {
-    public Entity Attacker { get; set; }
-    public Entity Defender { get; set; }
-    public Entity SiteEntity { get; set; }
-    public Site Site { get; set; }
+    public Entity? Attacker { get; set; }
+    public Entity? Defender { get; set; }
+    public Entity? SiteEntity { get; set; }
+    public Site? Site { get; set; }
 
     public SiteSurrendered(List<Property> properties, World world) : base(properties, world)
     {

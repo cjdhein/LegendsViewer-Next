@@ -6,10 +6,10 @@ namespace LegendsViewer.Backend.Legends.Events;
 
 public class SpottedLeavingSite : WorldEvent
 {
-    public HistoricalFigure Spotter { get; set; }
-    public Entity LeaverCiv { get; set; }
-    public Entity SiteCiv { get; set; }
-    public Site Site { get; set; }
+    public HistoricalFigure? Spotter { get; set; }
+    public Entity? LeaverCiv { get; set; }
+    public Entity? SiteCiv { get; set; }
+    public Site? Site { get; set; }
 
     public SpottedLeavingSite(List<Property> properties, World world)
         : base(properties, world)

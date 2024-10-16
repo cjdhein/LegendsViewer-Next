@@ -9,8 +9,8 @@ namespace LegendsViewer.Backend.Legends.Events;
 
 public class RemoveHfHfLink : WorldEvent
 {
-    public HistoricalFigure HistoricalFigure { get; set; }
-    public HistoricalFigure HistoricalFigureTarget { get; set; }
+    public HistoricalFigure? HistoricalFigure { get; set; }
+    public HistoricalFigure? HistoricalFigureTarget { get; set; }
     public HistoricalFigureLinkType LinkType { get; set; }
 
     public RemoveHfHfLink(List<Property> properties, World world)
@@ -39,14 +39,14 @@ public class RemoveHfHfLink : WorldEvent
         //Fill in LinkType by looking at related historical figures.
         if (LinkType == HistoricalFigureLinkType.Unknown && HistoricalFigure != HistoricalFigure.Unknown && HistoricalFigureTarget != HistoricalFigure.Unknown)
         {
-            List<HistoricalFigureLink> historicalFigureToTargetLinks = HistoricalFigure.RelatedHistoricalFigures.Where(link => link.Type != HistoricalFigureLinkType.Child).Where(link => link.HistoricalFigure == HistoricalFigureTarget).ToList();
-            HistoricalFigureLink historicalFigureToTargetLink = null;
+            List<HistoricalFigureLink> historicalFigureToTargetLinks = HistoricalFigure?.RelatedHistoricalFigures.Where(link => link.Type != HistoricalFigureLinkType.Child && link.HistoricalFigure == HistoricalFigureTarget).ToList() ?? [];
+            HistoricalFigureLink? historicalFigureToTargetLink = null;
             if (historicalFigureToTargetLinks.Count <= 1)
             {
                 historicalFigureToTargetLink = historicalFigureToTargetLinks.FirstOrDefault();
             }
 
-            HfAbducted abduction = HistoricalFigureTarget.Events.OfType<HfAbducted>().SingleOrDefault(abduction1 => abduction1.Snatcher == HistoricalFigure);
+            HfAbducted? abduction = HistoricalFigureTarget?.Events.OfType<HfAbducted>().SingleOrDefault(abduction1 => abduction1.Snatcher == HistoricalFigure);
             if (historicalFigureToTargetLink != null && abduction == null)
             {
                 LinkType = historicalFigureToTargetLink.Type;

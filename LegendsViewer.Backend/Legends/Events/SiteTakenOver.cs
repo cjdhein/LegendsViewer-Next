@@ -7,11 +7,11 @@ namespace LegendsViewer.Backend.Legends.Events;
 
 public class SiteTakenOver : WorldEvent
 {
-    public Entity Attacker;
-    public Entity Defender;
-    public Entity NewSiteEntity;
-    public Entity SiteEntity;
-    public Site Site;
+    public Entity? Attacker { get; set; }
+    public Entity? Defender { get; set; }
+    public Entity? SiteEntity { get; set; }
+    public Site? Site { get; set; }
+    public Entity? NewSiteEntity { get; set; }
 
     public SiteTakenOver(List<Property> properties, World world) : base(properties, world)
     {
@@ -37,7 +37,7 @@ public class SiteTakenOver : WorldEvent
             }
         }
 
-        if (Site.OwnerHistory.Count == 0)
+        if (Site?.OwnerHistory.Count == 0)
         {
             if (SiteEntity != null)
             {
@@ -46,11 +46,15 @@ public class SiteTakenOver : WorldEvent
             }
         }
 
-        Site.OwnerHistory.Last().EndCause = "taken over";
-        Site.OwnerHistory.Last().EndYear = Year;
-        Site.OwnerHistory.Last().Ender = Attacker;
-        NewSiteEntity.SetParent(Attacker);
-        Site.OwnerHistory.Add(new OwnerPeriod(Site, NewSiteEntity, Year, "took over"));
+        NewSiteEntity?.SetParent(Attacker);
+
+        if (Site != null)
+        {
+            Site.OwnerHistory.Last().EndCause = "taken over";
+            Site.OwnerHistory.Last().EndYear = Year;
+            Site.OwnerHistory.Last().Ender = Attacker;
+            Site.OwnerHistory.Add(new OwnerPeriod(Site, NewSiteEntity, Year, "took over"));
+        }
 
         Attacker.AddEvent(this);
         if (Defender != Attacker)
@@ -68,7 +72,7 @@ public class SiteTakenOver : WorldEvent
 
     public override string Print(bool link = true, DwarfObject? pov = null)
     {
-        string eventString = GetYearTime() + Attacker.ToLink(link, pov, this) + " defeated ";
+        string eventString = GetYearTime() + Attacker?.ToLink(link, pov, this) + " defeated ";
         if (SiteEntity != null && SiteEntity != Defender)
         {
             eventString += SiteEntity.ToLink(link, pov, this);
@@ -82,7 +86,7 @@ public class SiteTakenOver : WorldEvent
         {
             eventString += Defender.ToLink(link, pov, this);
         }
-        eventString += " and took over " + Site.ToLink(link, pov, this) + ". The new government was called " + NewSiteEntity.ToLink(link, pov, this);
+        eventString += " and took over " + Site?.ToLink(link, pov, this) + ". The new government was called " + NewSiteEntity?.ToLink(link, pov, this);
         eventString += PrintParentCollection(link, pov);
         eventString += ".";
         return eventString;

@@ -666,7 +666,7 @@ public class Entity : WorldObject, IHasCoordinates
         return Icon;
     }
 
-    public void SetParent(Entity parent)
+    public void SetParent(Entity? parent)
     {
         if (parent == null || parent == this)
         {

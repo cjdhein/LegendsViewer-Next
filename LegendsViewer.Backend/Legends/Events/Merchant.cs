@@ -6,9 +6,9 @@ namespace LegendsViewer.Backend.Legends.Events;
 
 public class Merchant : WorldEvent
 {
-    public Entity Source { get; set; }
-    public Entity Destination { get; set; }
-    public Site Site { get; set; }
+    public Entity? Source { get; set; }
+    public Entity? Destination { get; set; }
+    public Site? Site { get; set; }
     public bool Seizure { get; set; }
     public bool LostValue { get; set; }
     public bool HardShip { get; set; }

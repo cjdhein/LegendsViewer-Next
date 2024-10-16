@@ -6,10 +6,10 @@ namespace LegendsViewer.Backend.Legends.Events;
 
 public class RazedStructure : WorldEvent
 {
-    public Entity Entity { get; set; }
-    public Site Site { get; set; }
+    public Entity? Entity { get; set; }
+    public Site? Site { get; set; }
     public int StructureId { get; set; }
-    public Structure Structure { get; set; }
+    public Structure? Structure { get; set; }
 
     public RazedStructure(List<Property> properties, World world)
         : base(properties, world)
@@ -35,9 +35,9 @@ public class RazedStructure : WorldEvent
 
     public override string Print(bool link = true, DwarfObject? pov = null)
     {
-        string eventString = GetYearTime() + Entity.ToLink(link, pov, this) + " razed ";
+        string eventString = GetYearTime() + Entity?.ToLink(link, pov, this) + " razed ";
         eventString += Structure != null ? Structure.ToLink(link, pov, this) : "UNKNOWN STRUCTURE";
-        eventString += " in " + Site.ToLink(link, pov, this);
+        eventString += " in " + Site?.ToLink(link, pov, this);
         eventString += PrintParentCollection(link, pov);
         eventString += ".";
         return eventString;

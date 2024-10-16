@@ -82,19 +82,19 @@ public class OccasionEvent : WorldEvent
                 case ScheduleType.PoetryRecital:
                     if (Schedule.Reference != -1)
                     {
-                        ReferencedArtForm = World.GetPoeticForm(Schedule.Reference);
+                        ReferencedArtForm = World?.GetPoeticForm(Schedule.Reference);
                     }
                     break;
                 case ScheduleType.MusicalPerformance:
                     if (Schedule.Reference != -1)
                     {
-                        ReferencedArtForm = World.GetMusicalForm(Schedule.Reference);
+                        ReferencedArtForm = World?.GetMusicalForm(Schedule.Reference);
                     }
                     break;
                 case ScheduleType.DancePerformance:
                     if (Schedule.Reference != -1)
                     {
-                        ReferencedArtForm = World.GetDanceForm(Schedule.Reference);
+                        ReferencedArtForm = World?.GetDanceForm(Schedule.Reference);
                     }
                     break;
             }
@@ -123,7 +123,7 @@ public class OccasionEvent : WorldEvent
         }
         else if (Schedule?.ScheduleType == ScheduleType.Storytelling && Schedule.Reference != -1)
         {
-            WorldEvent? worldEvent = World.GetEvent(Schedule.Reference);
+            WorldEvent? worldEvent = World?.GetEvent(Schedule.Reference);
             if (worldEvent is IFeatured featured)
             {
                 eventString += " of ";

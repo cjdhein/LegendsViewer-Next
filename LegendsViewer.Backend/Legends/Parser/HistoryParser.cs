@@ -1,5 +1,4 @@
-﻿using System.ComponentModel;
-using System.Text;
+﻿using System.Text;
 using LegendsViewer.Backend.Legends.Enums;
 using LegendsViewer.Backend.Legends.Various;
 using LegendsViewer.Backend.Legends.WorldObjects;
@@ -13,8 +12,8 @@ public class HistoryParser : IDisposable
     private readonly StreamReader _history;
     private readonly StringBuilder _log;
 
-    private string _currentLine;
-    private Entity _currentCiv;
+    private string _currentLine = string.Empty;
+    private Entity? _currentCiv;
 
     public HistoryParser(World world, string historyFile)
     {
@@ -46,7 +45,7 @@ public class HistoryParser : IDisposable
 
     private void ReadLine()
     {
-        _currentLine = _history.ReadLine();
+        _currentLine = _history.ReadLine() ?? string.Empty;
     }
 
     private bool ReadCiv()
@@ -151,7 +150,8 @@ public class HistoryParser : IDisposable
     {
         while (LeaderStart())
         {
-            string leaderType = Formatting.InitCaps(_currentLine.Substring(1, _currentLine.IndexOf("List", StringComparison.Ordinal) - 2));
+            string leaderTypeString = _currentLine?.Substring(1, _currentLine.IndexOf("List", StringComparison.Ordinal) - 2) ?? "Unknown LeaderType";
+            string leaderType = Formatting.InitCaps(leaderTypeString);
             _currentCiv?.LeaderTypes.Add(leaderType);
             _currentCiv?.Leaders.Add([]);
             ReadLine();
@@ -211,7 +211,8 @@ public class HistoryParser : IDisposable
 
     public string Parse()
     {
-        _world.Name = Formatting.ReplaceNonAscii(_history.ReadLine());
+        string? name = _history.ReadLine();
+        _world.Name = Formatting.ReplaceNonAscii(name ?? "Unkown World");
         _world.Name += ", " + _history.ReadLine();
         ReadLine();
         SkipAnimalPeople();

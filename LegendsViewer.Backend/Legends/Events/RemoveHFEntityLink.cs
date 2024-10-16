@@ -8,10 +8,10 @@ namespace LegendsViewer.Backend.Legends.Events;
 
 public class RemoveHfEntityLink : WorldEvent
 {
-    public Entity Entity { get; set; }
-    public HistoricalFigure HistoricalFigure { get; set; }
+    public Entity? Entity { get; set; }
+    public HistoricalFigure? HistoricalFigure { get; set; }
     public HfEntityLinkType LinkType { get; set; }
-    public string Position { get; set; }
+    public string? Position { get; set; }
     public int PositionId { get; set; }
 
     public RemoveHfEntityLink(List<Property> properties, World world)
@@ -99,10 +99,10 @@ public class RemoveHfEntityLink : WorldEvent
                 break;
             case HfEntityLinkType.Squad:
             case HfEntityLinkType.Position:
-                EntityPosition position = Entity.EntityPositions.Find(pos => string.Equals(pos.Name, Position, StringComparison.OrdinalIgnoreCase) || pos.Id == PositionId);
+                EntityPosition? position = Entity?.EntityPositions.Find(pos => string.Equals(pos.Name, Position, StringComparison.OrdinalIgnoreCase) || pos.Id == PositionId);
                 if (position != null)
                 {
-                    string positionName = position.GetTitleByCaste(HistoricalFigure?.Caste);
+                    string positionName = position.GetTitleByCaste(HistoricalFigure?.Caste ?? string.Empty);
                     eventString += " stopped being the " + positionName + " of ";
                 }
                 else if (!string.IsNullOrWhiteSpace(Position))
@@ -119,7 +119,7 @@ public class RemoveHfEntityLink : WorldEvent
                 break;
         }
 
-        eventString += Entity.ToLink(link, pov, this);
+        eventString += Entity?.ToLink(link, pov, this);
         eventString += PrintParentCollection(link, pov);
         eventString += ".";
         return eventString;

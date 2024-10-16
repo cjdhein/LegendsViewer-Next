@@ -8,11 +8,12 @@ namespace LegendsViewer.Backend.Legends.Events;
 public class SiteDispute : WorldEvent
 {
     public Dispute Dispute { get; set; }
-    public Entity Entity1 { get; set; }
-    public Entity Entity2 { get; set; }
-    public Site Site1 { get; set; }
-    public Site Site2 { get; set; }
-    private readonly string _unknownDispute;
+    public Entity? Entity1 { get; set; }
+    public Entity? Entity2 { get; set; }
+    public Site? Site1 { get; set; }
+    public Site? Site2 { get; set; }
+
+    private readonly string? _unknownDispute;
 
     public SiteDispute(List<Property> properties, World world) : base(properties, world)
     {
@@ -71,7 +72,7 @@ public class SiteDispute : WorldEvent
 
     public override string Print(bool link = true, DwarfObject? pov = null)
     {
-        string dispute = _unknownDispute;
+        string? dispute = _unknownDispute;
         switch (Dispute)
         {
             case Dispute.FishingRights:

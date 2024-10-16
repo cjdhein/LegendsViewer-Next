@@ -6,10 +6,11 @@ namespace LegendsViewer.Backend.Legends.Events;
 
 public class SiteRetired : WorldEvent
 {
-    public Site Site { get; set; }
-    public Entity Civ { get; set; }
-    public Entity SiteEntity { get; set; }
-    public string First { get; set; }
+    public Entity? Civ { get; set; }
+    public Entity? SiteEntity { get; set; }
+    public Site? Site { get; set; }
+    public string? First { get; set; } // TODO
+
     public SiteRetired(List<Property> properties, World world)
         : base(properties, world)
     {
@@ -23,22 +24,27 @@ public class SiteRetired : WorldEvent
                 case "first": First = property.Value; break;
             }
         }
-        Site.OwnerHistory.Last().EndYear = Year;
-        Site.OwnerHistory.Last().EndCause = "retired";
+        if (Site != null)
+        {
+            Site.OwnerHistory.Last().EndYear = Year;
+            Site.OwnerHistory.Last().EndCause = "retired";
+            world.AddPlayerRelatedDwarfObjects(Site);
+        }
         if (SiteEntity != null)
         {
             SiteEntity.SiteHistory.Last(s => s.Site == Site).EndYear = Year;
             SiteEntity.SiteHistory.Last(s => s.Site == Site).EndCause = "retired";
+            world.AddPlayerRelatedDwarfObjects(SiteEntity);
         }
-        Civ.SiteHistory.Last(s => s.Site == Site).EndYear = Year;
-        Civ.SiteHistory.Last(s => s.Site == Site).EndCause = "retired";
+        if (Civ != null)
+        {
+            Civ.SiteHistory.Last(s => s.Site == Site).EndYear = Year;
+            Civ.SiteHistory.Last(s => s.Site == Site).EndCause = "retired";
+        }
 
-        Site.AddEvent(this);
         Civ.AddEvent(this);
         SiteEntity.AddEvent(this);
-
-        world.AddPlayerRelatedDwarfObjects(SiteEntity);
-        world.AddPlayerRelatedDwarfObjects(Site);
+        Site.AddEvent(this);
     }
     public override string Print(bool link = true, DwarfObject? pov = null)
     {

@@ -8,10 +8,10 @@ namespace LegendsViewer.Backend.Legends.Events;
 public class RemoveHfSiteLink : WorldEvent
 {
     public int StructureId { get; set; }
-    public Structure Structure { get; set; } // TODO
-    public Entity Civ { get; set; }
-    public HistoricalFigure HistoricalFigure { get; set; }
-    public Site Site { get; set; }
+    public Structure? Structure { get; set; } // TODO
+    public Entity? Civ { get; set; }
+    public HistoricalFigure? HistoricalFigure { get; set; }
+    public Site? Site { get; set; }
     public SiteLinkType LinkType { get; set; }
 
     public RemoveHfSiteLink(List<Property> properties, World world) : base(properties, world)
@@ -65,25 +65,14 @@ public class RemoveHfSiteLink : WorldEvent
         {
             eventString += "UNKNOWN HISTORICAL FIGURE";
         }
-        switch (LinkType)
+        eventString += LinkType switch
         {
-            case SiteLinkType.HomeSiteAbstractBuilding:
-            case SiteLinkType.HomeSiteRealizationBuilding:
-                eventString += " moved out of ";
-                break;
-            case SiteLinkType.Hangout:
-                eventString += " stopped ruling from ";
-                break;
-            case SiteLinkType.SeatOfPower:
-                eventString += " stopped working from ";
-                break;
-            case SiteLinkType.Occupation:
-                eventString += " stopped working at ";
-                break;
-            default:
-                eventString += " UNKNOWN LINKTYPE (" + LinkType + ") ";
-                break;
-        }
+            SiteLinkType.HomeSiteAbstractBuilding or SiteLinkType.HomeSiteRealizationBuilding => " moved out of ",
+            SiteLinkType.Hangout => " stopped ruling from ",
+            SiteLinkType.SeatOfPower => " stopped working from ",
+            SiteLinkType.Occupation => " stopped working at ",
+            _ => " UNKNOWN LINKTYPE (" + LinkType + ") ",
+        };
         if (Structure != null)
         {
             eventString += Structure.ToLink(link, pov, this);

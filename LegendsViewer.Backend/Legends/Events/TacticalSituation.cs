@@ -7,16 +7,16 @@ namespace LegendsViewer.Backend.Legends.Events;
 
 public class TacticalSituation : WorldEvent
 {
-    public HistoricalFigure AttackerTactician { get; set; }
-    public HistoricalFigure DefenderTactician { get; set; }
+    public HistoricalFigure? AttackerTactician { get; set; }
+    public HistoricalFigure? DefenderTactician { get; set; }
     public int AttackerTacticsRoll { get; set; }
     public int DefenderTacticsRoll { get; set; }
     public TacticalSituationType Situation { get; set; }
-    public Site Site { get; set; }
+    public Site? Site { get; set; }
     public int StructureId { get; set; }
-    public Structure Structure { get; set; }
-    public WorldRegion Region { get; set; }
-    public UndergroundRegion UndergroundRegion { get; set; }
+    public Structure? Structure { get; set; }
+    public WorldRegion? Region { get; set; }
+    public UndergroundRegion? UndergroundRegion { get; set; }
 
     public TacticalSituation(List<Property> properties, World world)
         : base(properties, world)

@@ -32,7 +32,7 @@ public class WorldRegion : WorldObject, IRegion
         set { }
     }
     [JsonIgnore]
-    public List<HistoricalFigure> NotableDeaths { get => Events.OfType<HfDied>().Select(death => death.HistoricalFigure).ToList(); set { } }
+    public List<HistoricalFigure> NotableDeaths => Events?.OfType<HfDied>().Where(death => death.HistoricalFigure != null).Select(death => death.HistoricalFigure!).ToList() ?? [];
 
     public List<string> NotableDeathLinks => NotableDeaths.ConvertAll(d => d.ToLink(true, this));
 

@@ -9,13 +9,13 @@ namespace LegendsViewer.Backend.Legends.Events.PlusEvents;
 public class HistoricalEventRelationShip : WorldEvent
 {
     private int _occasionType; // TODO unknown field
-    private Site? _site;
     private int _unk1; // TODO unknown field
     private int _reason; // TODO unknown field
 
     public HistoricalFigure? SourceHf { get; set; }
     public HistoricalFigure? TargetHf { get; set; }
     public VagueRelationshipType RelationshipType { get; set; }
+    private Site? Site { get; set; }
 
     public HistoricalEventRelationShip(List<Property> properties, World world) : base(properties, world)
     {
@@ -83,10 +83,10 @@ public class HistoricalEventRelationShip : WorldEvent
         historicalEventRelationShip?.AddSupplements(occasionType, site, unk1, reason);
     }
 
-    private void AddSupplements(int occasionType, Site site, int unk1, int reason)
+    private void AddSupplements(int occasionType, Site? site, int unk1, int reason)
     {
+        Site = site;
         _unk1 = unk1;
-        _site = site;
         _occasionType = occasionType;
         _reason = reason;
     }
@@ -123,10 +123,10 @@ public class HistoricalEventRelationShip : WorldEvent
                 break;
         }
 
-        if (_site != null)
+        if (Site != null)
         {
             eventString += " in ";
-            eventString += _site.ToLink(link, pov, this);
+            eventString += Site.ToLink(link, pov, this);
         }
         eventString += ".";
         return eventString;

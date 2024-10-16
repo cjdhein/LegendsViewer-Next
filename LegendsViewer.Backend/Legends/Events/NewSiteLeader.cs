@@ -7,12 +7,12 @@ namespace LegendsViewer.Backend.Legends.Events;
 
 public class NewSiteLeader : WorldEvent
 {
-    public Entity Attacker { get; set; }
-    public Entity Defender { get; set; }
-    public Entity SiteEntity { get; set; }
-    public Entity NewSiteEntity { get; set; }
-    public Site Site { get; set; }
-    public HistoricalFigure NewLeader { get; set; }
+    public Entity? Attacker { get; set; }
+    public Entity? Defender { get; set; }
+    public Entity? SiteEntity { get; set; }
+    public Entity? NewSiteEntity { get; set; }
+    public Site? Site { get; set; }
+    public HistoricalFigure? NewLeader { get; set; }
 
     public NewSiteLeader(List<Property> properties, World world)
         : base(properties, world)
@@ -36,7 +36,10 @@ public class NewSiteLeader : WorldEvent
             {
                 if (SiteEntity != null)
                 {
-                    SiteEntity.SetParent(Defender);
+                    if (Defender != null)
+                    {
+                        SiteEntity.SetParent(Defender);
+                    }
                     Site.OwnerHistory.Add(new OwnerPeriod(Site, SiteEntity, -1, "founded"));
                 }
             }
@@ -46,7 +49,10 @@ public class NewSiteLeader : WorldEvent
             Site.OwnerHistory.Last().Ender = Attacker;
             if (NewSiteEntity != null)
             {
-                NewSiteEntity.SetParent(Attacker);
+                if(Attacker != null)
+                {
+                    NewSiteEntity.SetParent(Attacker);
+                }
                 Site.OwnerHistory.Add(new OwnerPeriod(Site, NewSiteEntity, Year, "took over"));
             }
         }

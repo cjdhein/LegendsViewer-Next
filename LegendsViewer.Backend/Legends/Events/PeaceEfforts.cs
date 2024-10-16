@@ -6,11 +6,12 @@ namespace LegendsViewer.Backend.Legends.Events;
 
 public class PeaceEfforts : WorldEvent
 {
-    public string Decision { get; set; }
-    public string Topic { get; set; }
-    public Entity Source { get; set; }
-    public Entity Destination { get; set; }
-    public Site Site;
+    public string? Decision { get; set; }
+    public string? Topic { get; set; }
+    public Entity? Source { get; set; }
+    public Entity? Destination { get; set; }
+    public Site? Site { get; set; }
+
     public PeaceEfforts(List<Property> properties, World world)
         : base(properties, world)
     {
@@ -36,11 +37,11 @@ public class PeaceEfforts : WorldEvent
         string eventString = GetYearTime();
         if (Source != null && Destination != null)
         {
-            eventString += Destination.ToLink(link, pov, this) + " " + Decision + " an offer of peace from " + Source.ToLink(link, pov, this) + " in " + ParentCollection.ToLink(link, pov, this) + ".";
+            eventString += Destination.ToLink(link, pov, this) + " " + Decision + " an offer of peace from " + Source.ToLink(link, pov, this) + " in " + ParentCollection?.ToLink(link, pov, this) + ".";
         }
         else
         {
-            eventString += "Peace " + Decision + " in " + ParentCollection.ToLink(link, pov, this) + ".";
+            eventString += "Peace " + Decision + " in " + ParentCollection?.ToLink(link, pov, this) + ".";
         }
         return eventString;
     }

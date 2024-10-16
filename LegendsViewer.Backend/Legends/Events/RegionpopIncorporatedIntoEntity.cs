@@ -12,12 +12,12 @@ namespace LegendsViewer.Backend.Legends.Events;
 
 public class RegionpopIncorporatedIntoEntity : WorldEvent
 {
-    public Site Site { get; set; }
-    public Entity JoinEntity { get; set; }
-    public string PopRace { get; set; }
+    public Site? Site { get; set; }
+    public Entity? JoinEntity { get; set; }
+    public string? PopRace { get; set; }
     public int PopNumberMoved { get; set; }
-    public WorldRegion PopSourceRegion { get; set; }
-    public string PopFlId { get; set; }
+    public WorldRegion? PopSourceRegion { get; set; }
+    public string? PopFlId { get; set; }
 
     public RegionpopIncorporatedIntoEntity(List<Property> properties, World world) : base(properties, world)
     {

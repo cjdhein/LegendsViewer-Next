@@ -6,11 +6,11 @@ namespace LegendsViewer.Backend.Legends.Events;
 
 public class ModifiedBuilding : WorldEvent
 {
-    public HistoricalFigure ModifierHf { get; set; }
-    public Site Site { get; set; }
+    public HistoricalFigure? ModifierHf { get; set; }
+    public Site? Site { get; set; }
     public int StructureId { get; set; }
-    public Structure Structure { get; set; }
-    public string Modification { get; set; }
+    public Structure? Structure { get; set; }
+    public string? Modification { get; set; }
 
     public ModifiedBuilding(List<Property> properties, World world) : base(properties, world)
     {
@@ -37,11 +37,11 @@ public class ModifiedBuilding : WorldEvent
     public override string Print(bool link = true, DwarfObject? pov = null)
     {
         string eventString = GetYearTime();
-        eventString += ModifierHf.ToLink(link, pov, this);
+        eventString += ModifierHf?.ToLink(link, pov, this);
         eventString += " had a ";
         eventString += Modification;
         eventString += " added to ";
-        eventString += Structure.ToLink(link, pov, this);
+        eventString += Structure?.ToLink(link, pov, this);
         if (Site != null)
         {
             eventString += " in ";

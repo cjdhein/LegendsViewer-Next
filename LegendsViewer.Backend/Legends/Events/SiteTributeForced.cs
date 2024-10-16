@@ -6,11 +6,11 @@ namespace LegendsViewer.Backend.Legends.Events;
 
 public class SiteTributeForced : WorldEvent
 {
-    public Entity Attacker { get; set; }
-    public Entity Defender { get; set; }
-    public Entity SiteEntity { get; set; }
-    public Site Site { get; set; }
-    public string Season { get; set; }
+    public Entity? Attacker { get; set; }
+    public Entity? Defender { get; set; }
+    public Entity? SiteEntity { get; set; }
+    public Site? Site { get; set; }
+    public string? Season { get; set; }
 
     public SiteTributeForced(List<Property> properties, World world) : base(properties, world)
     {
@@ -47,12 +47,12 @@ public class SiteTributeForced : WorldEvent
 
     public override string Print(bool link = true, DwarfObject? pov = null)
     {
-        string eventString = GetYearTime() + Attacker.ToLink(link, pov, this) + " secured tribute from " + SiteEntity.ToLink(link, pov, this);
+        string eventString = GetYearTime() + Attacker?.ToLink(link, pov, this) + " secured tribute from " + SiteEntity?.ToLink(link, pov, this);
         if (Defender != null)
         {
-            eventString += " of " + Defender.ToLink(link, pov, this);
+            eventString += " of " + Defender?.ToLink(link, pov, this);
         }
-        eventString += ", to be delivered from " + Site.ToLink(link, pov, this);
+        eventString += ", to be delivered from " + Site?.ToLink(link, pov, this);
         if (!string.IsNullOrWhiteSpace(Season))
         {
             eventString += " every " + Season.Trim();

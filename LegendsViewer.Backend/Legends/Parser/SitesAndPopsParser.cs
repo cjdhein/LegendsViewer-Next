@@ -13,9 +13,9 @@ public class SitesAndPopulationsParser : IDisposable
     private readonly World _world;
     private readonly StreamReader _sitesAndPops;
 
-    private string _currentLine;
-    private Site _site;
-    private Entity _owner;
+    private string _currentLine = string.Empty;
+    private Site? _site;
+    private Entity? _owner;
 
     public SitesAndPopulationsParser(World world, string sitesAndPopsFile)
     {
@@ -48,7 +48,7 @@ public class SitesAndPopulationsParser : IDisposable
 
     private void ReadLine()
     {
-        _currentLine = _sitesAndPops.ReadLine();
+        _currentLine = _sitesAndPops?.ReadLine() ?? string.Empty;
     }
 
     private bool InSites()
@@ -66,12 +66,12 @@ public class SitesAndPopulationsParser : IDisposable
         if (_currentLine == "Civilized World Population")
         {
             ReadLine();
-            _currentLine = _sitesAndPops.ReadLine();
+            ReadLine();
             while (!string.IsNullOrEmpty(_currentLine) && !_sitesAndPops.EndOfStream)
             {
                 if (string.IsNullOrEmpty(_currentLine))
                 {
-                    _currentLine = _sitesAndPops.ReadLine();
+                    ReadLine();
                     continue;
                 }
                 CreatureInfo population = _world.GetCreatureInfo(_currentLine.Substring(_currentLine.IndexOf(" ", StringComparison.Ordinal) + 1));
@@ -79,12 +79,12 @@ public class SitesAndPopulationsParser : IDisposable
                 var count = countString == "Unnumbered" ? int.MaxValue : Convert.ToInt32(countString);
 
                 _world.CivilizedPopulations.Add(new Population(_world, population, count));
-                _currentLine = _sitesAndPops.ReadLine();
+                ReadLine();
             }
             _world.CivilizedPopulations.AddRange(_world.CivilizedPopulations.OrderByDescending(population => population.Count));
             while (_currentLine != "Sites")
             {
-                _currentLine = _sitesAndPops.ReadLine();
+                ReadLine();
             }
         }
         if (_currentLine == "Sites")
@@ -124,12 +124,12 @@ public class SitesAndPopulationsParser : IDisposable
             }
             else if (entities.Count == 0)
             {
-                _world.ParsingErrors.Report($"Couldn\'t Find Entity: {entityName},\nSite Owner of {_site.Name}");
+                _world.ParsingErrors.Report($"Couldn\'t Find Entity: {entityName},\nSite Owner of {_site?.Name}");
             }
             else
             {
-                var siteOwners = _site.OwnerHistory.ConvertAll(entry => entry.Owner);
-                if (siteOwners.Count > 0)
+                var siteOwners = _site?.OwnerHistory.ConvertAll(entry => entry.Owner);
+                if (siteOwners?.Count > 0)
                 {
                     foreach (var entity in entities)
                     {
@@ -142,7 +142,7 @@ public class SitesAndPopulationsParser : IDisposable
 #if DEBUG
                 if (_owner == null)
                 {
-                    _world.ParsingErrors.Report($"Ambiguous ({entities.Count}) Site Ownership:\n{entityName}, Site Owner of {_site.Name}");
+                    _world.ParsingErrors.Report($"Ambiguous ({entities.Count}) Site Ownership:\n{entityName}, Site Owner of {_site?.Name}");
                 }
 #endif
             }
@@ -151,11 +151,11 @@ public class SitesAndPopulationsParser : IDisposable
                 var raceIdentifier = _currentLine.Substring(_currentLine.IndexOf(",", StringComparison.Ordinal) + 2,
                     _currentLine.Length - _currentLine.IndexOf(",", StringComparison.Ordinal) - 2);
                 _owner.Race = _world.GetCreatureInfo(raceIdentifier);
-                if (!_owner.Sites.Contains(_site))
+                if (_site != null && !_owner.Sites.Contains(_site))
                 {
                     _owner.Sites.Add(_site);
                 }
-                if (!_owner.CurrentSites.Contains(_site))
+                if (_site != null && !_owner.CurrentSites.Contains(_site))
                 {
                     _owner.CurrentSites.Add(_site);
                 }
@@ -168,7 +168,7 @@ public class SitesAndPopulationsParser : IDisposable
     {
         if (_currentLine.Contains("Parent Civ:"))
         {
-            Entity parent = null;
+            Entity? parent = null;
             string civName = _currentLine.Substring(_currentLine.IndexOf(":", StringComparison.Ordinal) + 2,
                 _currentLine.IndexOf(",", StringComparison.Ordinal) - _currentLine.IndexOf(":", StringComparison.Ordinal) - 2);
             CreatureInfo civRace = _world.GetCreatureInfo(_currentLine.Substring(_currentLine.IndexOf(",", StringComparison.Ordinal) + 2,
@@ -250,16 +250,16 @@ public class SitesAndPopulationsParser : IDisposable
                 {
                     var siteOfficial = officials[0];
                     string siteOfficialPosition = _currentLine.Substring(1, _currentLine.IndexOf(":", StringComparison.Ordinal) - 1);
-                    _site.Officials.Add(new Site.Official(siteOfficial, siteOfficialPosition));
+                    _site?.Officials.Add(new Site.Official(siteOfficial, siteOfficialPosition));
                 }
                 else if (officials.Count == 0)
                 {
-                    _world.ParsingErrors.Report($"Couldn\'t Find Official:\n{officialName}, Official of {_site.Name}");
+                    _world.ParsingErrors.Report($"Couldn\'t Find Official:\n{officialName}, Official of {_site?.Name}");
                 }
 #if DEBUG
                 else
                 {
-                    _world.ParsingErrors.Report($"Ambiguous ({officials.Count}) Official Name:\n{officialName}, Official of {_site.Name}");
+                    _world.ParsingErrors.Report($"Ambiguous ({officials.Count}) Official Name:\n{officialName}, Official of {_site?.Name}");
                 }
 #endif
                 ReadLine();
@@ -278,7 +278,10 @@ public class SitesAndPopulationsParser : IDisposable
             ReadLine();
         }
 
-        _site.Populations = populations.OrderByDescending(pop => pop.Count).ToList();
+        if (_site != null)
+        {
+            _site.Populations = populations.OrderByDescending(pop => pop.Count).ToList();
+        }
         _owner?.AddPopulations(populations);
         _world.SitePopulations.AddRange(populations);
     }
@@ -288,22 +291,22 @@ public class SitesAndPopulationsParser : IDisposable
         //Check if a site was gained without a proper event from the xml
         if (_owner != null)
         {
-            if (_site.OwnerHistory.Count == 0)
+            if (_site?.OwnerHistory.Count == 0)
             {
                 _site.OwnerHistory.Add(new OwnerPeriod(_site, _owner, -1, "founded"));
             }
-            else if (_site.OwnerHistory.Last().Owner != _owner)
+            else if (_site?.OwnerHistory.Last().Owner != _owner)
             {
                 bool found = false;
-                var founder = _site.OwnerHistory.Last().Founder;
+                var founder = _site?.OwnerHistory.Last().Founder;
                 if (founder != null)
                 {
                     if (founder.DeathYear != -1)
                     {
-                        _site.OwnerHistory.Add(new OwnerPeriod(_site, _owner, founder.DeathYear, "after death of its founder (" + founder.DeathCause + ") took over"));
+                        _site?.OwnerHistory.Add(new OwnerPeriod(_site, _owner, founder.DeathYear, "after death of its founder (" + founder.DeathCause + ") took over"));
                         found = true;
                     }
-                    else if (_site.Type == "Vault")
+                    else if (_site?.Type == "Vault")
                     {
                         if (_owner is Entity entity)
                         {
@@ -312,27 +315,27 @@ public class SitesAndPopulationsParser : IDisposable
                         }
                     }
                 }
-                else if (_site.CurrentOwner == null)
+                else if (_site?.CurrentOwner == null)
                 {
-                    _site.OwnerHistory.Add(new OwnerPeriod(_site, _owner, _site.OwnerHistory.Last().EndYear, "slowly repopulated after the site was " + _site.OwnerHistory.Last().EndCause));
+                    _site?.OwnerHistory.Add(new OwnerPeriod(_site, _owner, _site.OwnerHistory.Last().EndYear, "slowly repopulated after the site was " + _site.OwnerHistory.Last().EndCause));
                     found = true;
                 }
                 if (!found)
                 {
-                    ChangeHfState lastSettledEvent = _site.Events.OfType<ChangeHfState>().LastOrDefault();
+                    ChangeHfState? lastSettledEvent = _site?.Events.OfType<ChangeHfState>().LastOrDefault();
                     if (lastSettledEvent != null)
                     {
-                        _site.OwnerHistory.Add(new OwnerPeriod(_site, _owner, lastSettledEvent.Year, "settled in"));
+                        _site?.OwnerHistory.Add(new OwnerPeriod(_site, _owner, lastSettledEvent.Year, "settled in"));
                     }
                     else
                     {
-                        _world.ParsingErrors.Report("Site ownership conflict: " + _site.Name + ". Actually owned by " + _owner.ToLink(false) + " instead of " + _site.OwnerHistory.Last().Owner.ToLink(false));
+                        _world.ParsingErrors.Report("Site ownership conflict: " + _site?.Name + ". Actually owned by " + _owner.ToLink(false) + " instead of " + _site?.OwnerHistory.Last().Owner?.ToLink(false));
                     }
                 }
             }
         }
         //check for loss of period ownership, since some some loss of ownership eventsList are missing
-        if (_owner == null && _site.OwnerHistory.Count > 0 && _site.OwnerHistory.Last().EndYear == -1)
+        if (_owner == null && _site?.OwnerHistory.Count > 0 && _site.OwnerHistory.Last().EndYear == -1)
         {
             _site.OwnerHistory.Last().EndYear = _world.Events.Last().Year - 1;
             _site.OwnerHistory.Last().EndCause = "abandoned";
@@ -347,7 +350,7 @@ public class SitesAndPopulationsParser : IDisposable
         {
             if (string.IsNullOrEmpty(_currentLine))
             {
-                _currentLine = _sitesAndPops.ReadLine();
+                ReadLine();
                 continue;
             }
 
@@ -356,7 +359,7 @@ public class SitesAndPopulationsParser : IDisposable
             var count = countString == "Unnumbered" ? int.MaxValue : Convert.ToInt32(countString);
 
             _world.OutdoorPopulations.Add(new Population(_world, population, count));
-            _currentLine = _sitesAndPops.ReadLine();
+            ReadLine();
         }
         _world.OutdoorPopulations.AddRange(_world.OutdoorPopulations.OrderByDescending(population => population.Count));
     }
@@ -369,7 +372,8 @@ public class SitesAndPopulationsParser : IDisposable
         {
             if (string.IsNullOrEmpty(_currentLine))
             {
-                _currentLine = _sitesAndPops.ReadLine(); continue;
+                ReadLine();
+                continue;
             }
 
             CreatureInfo population = _world.GetCreatureInfo(_currentLine.Substring(_currentLine.IndexOf(" ", StringComparison.Ordinal) + 1));
@@ -377,7 +381,7 @@ public class SitesAndPopulationsParser : IDisposable
             var count = countString == "Unnumbered" ? int.MaxValue : Convert.ToInt32(countString);
 
             _world.UndergroundPopulations.Add(new Population(_world, population, count));
-            _currentLine = _sitesAndPops.ReadLine();
+            ReadLine();
         }
         _world.UndergroundPopulations.AddRange(_world.UndergroundPopulations.OrderByDescending(population => population.Count));
     }

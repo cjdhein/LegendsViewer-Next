@@ -7,9 +7,10 @@ namespace LegendsViewer.Backend.Legends.Events;
 
 public class ReclaimSite : WorldEvent
 {
-    public Entity Civ, SiteEntity;
-    public Site Site;
-    public bool Unretired;
+    public Entity? Civ { get; set; }
+    public Entity? SiteEntity { get; set; }
+    public Site? Site { get; set; }
+    public bool Unretired { get; set; }
 
     public ReclaimSite(List<Property> properties, World world)
         : base(properties, world)
@@ -28,22 +29,22 @@ public class ReclaimSite : WorldEvent
         SiteEntity?.SetParent(Civ);
 
         //Make sure period was lost by an event, otherwise unknown loss
-        if (Site.OwnerHistory.Count == 0)
+        if (Site?.OwnerHistory.Count == 0)
         {
             Site.OwnerHistory.Add(new OwnerPeriod(Site, null, -1, "founded"));
         }
-        if (Site.OwnerHistory.Last().EndYear == -1)
+        if (Site?.OwnerHistory.Last().EndYear == -1)
         {
             Site.OwnerHistory.Last().EndCause = "abandoned";
             Site.OwnerHistory.Last().EndYear = Year - 1 == 0 ? -1 : Year - 1;
         }
         if (Unretired)
         {
-            Site.OwnerHistory.Add(new OwnerPeriod(Site, SiteEntity, Year, "unretired"));
+            Site?.OwnerHistory.Add(new OwnerPeriod(Site, SiteEntity, Year, "unretired"));
         }
         else
         {
-            Site.OwnerHistory.Add(new OwnerPeriod(Site, SiteEntity, Year, "reclaimed"));
+            Site?.OwnerHistory.Add(new OwnerPeriod(Site, SiteEntity, Year, "reclaimed"));
         }
 
         Civ.AddEvent(this);

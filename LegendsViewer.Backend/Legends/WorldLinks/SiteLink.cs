@@ -8,16 +8,14 @@ namespace LegendsViewer.Backend.Legends.WorldLinks;
 public class SiteLink
 {
     [JsonIgnore]
-    public Site Site { get; set; }
-    public string? SiteToLink => Site?.ToLink(true);
+    public Site? Site { get; set; }
 
     public SiteLinkType Type { get; set; }
     public int SubId { get; set; }
     public int OccupationId { get; set; }
 
     [JsonIgnore]
-    public Entity Entity { get; set; }
-    public string? EntityToLink => Entity?.ToLink(true);
+    public Entity? Entity { get; set; }
 
     public SiteLink(List<Property> properties, World world)
     {

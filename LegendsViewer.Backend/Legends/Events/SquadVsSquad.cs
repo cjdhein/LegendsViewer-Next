@@ -7,20 +7,20 @@ namespace LegendsViewer.Backend.Legends.Events;
 
 public class SquadVsSquad : WorldEvent
 {
-    public HistoricalFigure AttackerHistoricalFigure { get; set; }
-    public HistoricalFigure DefenderHistoricalFigure { get; set; }
+    public HistoricalFigure? AttackerHistoricalFigure { get; set; }
+    public HistoricalFigure? DefenderHistoricalFigure { get; set; }
     public int AttackerSquadId { get; set; }
     public int DefenderSquadId { get; set; }
     public int DefenderRaceId { get; set; }
     public int DefenderNumber { get; set; }
     public int DefenderSlain { get; set; }
-    public Site Site { get; set; }
+    public Site? Site { get; set; }
     public int StructureId { get; set; }
-    public Structure Structure { get; set; }
-    public WorldRegion Region { get; set; }
-    public UndergroundRegion UndergroundRegion { get; set; }
-    public HistoricalFigure AttackerLeader { get; set; }
-    public HistoricalFigure DefenderLeader { get; set; }
+    public Structure? Structure { get; set; }
+    public WorldRegion? Region { get; set; }
+    public UndergroundRegion? UndergroundRegion { get; set; }
+    public HistoricalFigure? AttackerLeader { get; set; }
+    public HistoricalFigure? DefenderLeader { get; set; }
     public int AttackerLeadershipRoll { get; set; }
     public int DefenderLeadershipRoll { get; set; }
 
