@@ -65,7 +65,7 @@ const readFromClipboard = async () => {
         </v-container>
 
         <v-card-title>
-          {{bookmark.worldName}}
+          {{ bookmark.worldName }}
           <v-chip class="float-right">
             {{ bookmark.worldWidth + " x " + bookmark.worldHeight }}
           </v-chip>
@@ -76,21 +76,19 @@ const readFromClipboard = async () => {
         </v-card-subtitle>
 
         <v-card-actions>
-          <v-btn v-if="bookmark.filePath && bookmark.state !== 'Loaded' || bookmark.latestTimestamp !== bookmark.loadedTimestamp" :loading="bookmark.state === 'Loading'"
-            color="blue" text="Load" :disabled="bookmarkStore.isLoading" @click="bookmarkStore.loadByFullPath(bookmark.filePath ?? '', bookmark.latestTimestamp ?? '')">
+          <v-btn
+            v-if="bookmark.filePath && bookmark.state !== 'Loaded' || bookmark.latestTimestamp !== bookmark.loadedTimestamp"
+            :loading="bookmark.state === 'Loading'" color="blue" text="Load" :disabled="bookmarkStore.isLoading"
+            @click="bookmarkStore.loadByFullPath(bookmark.filePath ?? '', bookmark.latestTimestamp ?? '')">
           </v-btn>
-          <v-btn v-if="bookmark.filePath && bookmark.state === 'Loaded' && bookmark.latestTimestamp === bookmark.loadedTimestamp" color="green-lighten-2" text="Explore"
-            :disabled="bookmarkStore.isLoading" to="/world">
+          <v-btn
+            v-if="bookmark.filePath && bookmark.state === 'Loaded' && bookmark.latestTimestamp === bookmark.loadedTimestamp"
+            color="green-lighten-2" text="Explore" :disabled="bookmarkStore.isLoading" to="/world">
           </v-btn>
 
           <v-spacer></v-spacer>
-          <v-combobox
-            v-model="bookmark.latestTimestamp"
-            :items="bookmark.worldTimestamps ?? []"
-            density="compact"
-            label="Timestamps"
-            width="160"
-          ></v-combobox>
+          <v-combobox v-model="bookmark.latestTimestamp" :items="bookmark.worldTimestamps ?? []" density="compact"
+            label="Timestamps" width="160" :disabled="bookmarkStore.isLoading"></v-combobox>
         </v-card-actions>
       </v-card>
     </v-col>
@@ -111,7 +109,8 @@ const readFromClipboard = async () => {
         <v-card-actions>
           <v-dialog width="auto" min-width="480">
             <template v-slot:activator="{ props: activatorProps }">
-              <v-btn color="orange-lighten-2" prepend-icon="mdi-earth" text="Select" v-bind="activatorProps" :disabled="bookmarkStore.isLoading"></v-btn>
+              <v-btn color="orange-lighten-2" prepend-icon="mdi-earth" text="Select" v-bind="activatorProps"
+                :disabled="bookmarkStore.isLoading" :loading="bookmarkStore.isLoading"></v-btn>
             </template>
 
             <template v-slot:default="{ isActive }">
@@ -120,14 +119,10 @@ const readFromClipboard = async () => {
 
                 <v-card-text class="px-4">
                   <v-form>
-                    <v-text-field
-                      v-model="fileSystemStore.filesAndSubdirectories.currentDirectory"
-                      readonly
+                    <v-text-field v-model="fileSystemStore.filesAndSubdirectories.currentDirectory" readonly
                       label="Current Folder">
                       <template v-slot:append>
-                        <v-btn
-                          aria-label="Copy path from clipboard"
-                          icon="mdi-clipboard-outline"
+                        <v-btn aria-label="Copy path from clipboard" icon="mdi-clipboard-outline"
                           @click="readFromClipboard()">
                         </v-btn>
                       </template> </v-text-field>
@@ -137,8 +132,7 @@ const readFromClipboard = async () => {
 
                   <v-list density="compact" height="220" scrollable>
                     <v-list-subheader>Directories</v-list-subheader>
-                    <v-list-item
-                      v-if="fileSystemStore.filesAndSubdirectories.currentDirectory != '/'"
+                    <v-list-item v-if="fileSystemStore.filesAndSubdirectories.currentDirectory != '/'"
                       @click="fileSystemStore.loadDirectory(fileSystemStore.filesAndSubdirectories.parentDirectory ?? '/')"
                       color="primary" variant="plain">
                       <template v-slot:prepend>
@@ -168,8 +162,7 @@ const readFromClipboard = async () => {
                         <v-icon icon="mdi-file-xml-box"></v-icon>
                       </template>
 
-                      <v-list-item-title v-text="item"
-                        @click="fileName = item">
+                      <v-list-item-title v-text="item" @click="fileName = item">
                       </v-list-item-title>
                     </v-list-item>
                   </v-list>

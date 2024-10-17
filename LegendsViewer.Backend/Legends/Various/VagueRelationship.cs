@@ -47,6 +47,10 @@ public class VagueRelationship
             case "athlete_buddy":
                 type = VagueRelationshipType.AthleteBuddy;
                 break;
+            case "atheletic_rival": // typo in XML
+            case "athletic_rival":
+                type = VagueRelationshipType.AthleticRival;
+                break;
             case "childhood_friend":
                 type = VagueRelationshipType.ChildhoodFriend;
                 break;
@@ -76,9 +80,6 @@ public class VagueRelationship
                 break;
             case "business_rival":
                 type = VagueRelationshipType.BusinessRival;
-                break;
-            case "atheletic_rival":
-                type = VagueRelationshipType.AthleticRival;
                 break;
             case "lover":
                 type = VagueRelationshipType.Lover;

@@ -87,7 +87,7 @@ public static class Formatting
             }
 
             // Determine if the next character should start a new word
-            isNewWord = currentChar == ' ' || currentChar == '-';
+            isNewWord = newText[i] == ' ' || newText[i] == '-';
         }
 
         // Return the result as a string
