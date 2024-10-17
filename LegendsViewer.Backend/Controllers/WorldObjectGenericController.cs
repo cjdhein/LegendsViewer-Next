@@ -46,10 +46,10 @@ public abstract class WorldObjectGenericController<T>(List<T> allElements, Func<
 
         // Calculate how many elements to skip based on the page number and size
         var paginatedElements = filteredWorldObjects
-            .Select(worldObject => new WorldObjectDto(worldObject))
             .SortByProperty(sortKey, sortOrder)
             .Skip((pageNumber - 1) * pageSize)
             .Take(pageSize)
+            .Select(worldObject => new WorldObjectDto(worldObject))
             .ToList();
 
         // Create a response object to include pagination metadata
@@ -119,10 +119,10 @@ public abstract class WorldObjectGenericController<T>(List<T> allElements, Func<
 
         // Calculate how many elements to skip based on the page number and size
         var paginatedElements = item.Events
-            .Select(e => new WorldEventDto(e, item))
             .SortByProperty(sortKey, sortOrder)
             .Skip((pageNumber - 1) * pageSize)
             .Take(pageSize)
+            .Select(e => new WorldEventDto(e, item))
             .ToList();
 
         // Create a response object to include pagination metadata
@@ -166,10 +166,10 @@ public abstract class WorldObjectGenericController<T>(List<T> allElements, Func<
 
         // Calculate how many elements to skip based on the page number and size
         var paginatedElements = item.EventCollections
-            .Select(e => new WorldObjectDto(e, item))
             .SortByProperty(sortKey, sortOrder)
             .Skip((pageNumber - 1) * pageSize)
             .Take(pageSize)
+            .Select(e => new WorldObjectDto(e, item))
             .ToList();
 
         // Create a response object to include pagination metadata
@@ -230,14 +230,4 @@ public abstract class WorldObjectGenericController<T>(List<T> allElements, Func<
         response.Datasets.Add(dataset);
         return Ok(response);
     }
-}
-
-public class PaginatedResponse<T> where T : class
-{
-    public List<T> Items { get; set; } = [];
-    public int TotalCount { get; set; }
-    public int TotalFilteredCount { get; set; }
-    public int PageSize { get; set; }
-    public int PageNumber { get; set; }
-    public int TotalPages { get; set; }
 }
