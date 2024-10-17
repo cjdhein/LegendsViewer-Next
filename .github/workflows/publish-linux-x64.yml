@@ -1,0 +1,35 @@
+name: Publish linux-x64
+
+on:
+  workflow_dispatch:  # This allows manual triggering from the Actions tab.
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18.x'
+
+      - name: Setup .NET Core
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+
+      - name: Restore dependencies
+        run: dotnet restore LegendsViewer.sln
+
+      - name: Build Backend and Frontend (Vue 3)
+        run: dotnet build LegendsViewer.sln --configuration Release --no-restore
+
+      - name: Publish self-contained package
+        run: dotnet publish LegendsViewer.sln -c Release -r linux-x64 --self-contained true -p:PublishSingleFile=true -o ./publish
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: LegendsViewer
+          path: ./publish
