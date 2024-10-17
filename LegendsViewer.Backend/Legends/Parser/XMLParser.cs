@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using System.Data;
 using System.Xml;
 using LegendsViewer.Backend.Legends.Enums;
@@ -141,12 +140,12 @@ public class XmlParser : IDisposable
             // Ensure we're not at the end of the section before parsing items
             if (XmlReader.NodeType == XmlNodeType.Element)
             {
-                List<Property>? itemProperties = await ParseItemProperties();
+                List<Property>? itemProperties = await ParseItemPropertiesAsync();
                 if (itemProperties != null)
                 {
                     if (_xmlPlusParser != null)
                     {
-                        await _xmlPlusParser.AddNewProperties(itemProperties, CurrentSection);
+                        await _xmlPlusParser.AddNewPropertiesAsync(itemProperties, CurrentSection);
                     }
 
                     AddItemToWorld(itemProperties);
@@ -187,7 +186,7 @@ public class XmlParser : IDisposable
         // Now we're at the correct end element, no need to call ReadEndElement() again
     }
 
-    protected async Task<List<Property>?> ParseItemProperties()
+    protected async Task<List<Property>?> ParseItemPropertiesAsync()
     {
         _currentItemName = XmlReader.Name;
 
@@ -215,7 +214,7 @@ public class XmlParser : IDisposable
         // Read properties while not at the end of the element or a sibling element
         while (XmlReader.NodeType != XmlNodeType.EndElement && XmlReader.Name != _currentItemName)
         {
-            Property? property = await ParseProperty();
+            Property? property = await ParsePropertyAsync();
             if (property != null)
             {
                 properties.Add(property);
@@ -228,15 +227,15 @@ public class XmlParser : IDisposable
         return properties;
     }
 
-    private async Task<Property?> ParseProperty()
+    private async Task<Property?> ParsePropertyAsync()
     {
-        Property property = new();
-
         // Handle invalid or missing property names
         if (string.IsNullOrEmpty(XmlReader.Name))
         {
             return null;
         }
+
+        Property property = new();
 
         // Handle empty elements
         if (XmlReader.IsEmptyElement)
@@ -263,7 +262,7 @@ public class XmlParser : IDisposable
 
             while (XmlReader.NodeType != XmlNodeType.EndElement)
             {
-                Property? subProperty = await ParseProperty();
+                Property? subProperty = await ParsePropertyAsync();
                 if (subProperty != null)
                 {
                     property.SubProperties.Add(subProperty);

@@ -50,23 +50,67 @@ public static class Formatting
         return false;
     }
 
-    public static string InitCaps(string text)
+    //public static string InitCaps(string text)
+    //{
+    //    char[] newText = new char[text.Length];
+    //    for (int i = 0; i < text.Length; i++)
+    //    {
+    //        if (i == 0 || ((newText[i - 1] == ' ' || newText[i - 1] == '-') &&
+    //            !(text[i] == 't' && i + 2 < text.Length && (text[i + 1] == 'h' || text[i + 1] == 'H') && (text[i + 2] == 'e' || text[i + 2] == 'E') && (text[i + 3] == ' ' || text[i + 3] == '-')) &&
+    //            !(text[i] == 'o' && i + 1 < text.Length && (text[i + 1] == 'f' || text[i + 1] == 'f') && (text[i + 2] == ' ' || text[i + 2] == '-'))))
+    //        {
+    //            newText[i] = char.ToUpper(text[i]);
+    //        }
+    //        else
+    //        {
+    //            newText[i] = text[i] == '_' ? ' ' : char.ToLower(text[i]);
+    //        }
+    //    }
+    //    return string.Intern(new string(newText));
+    //}
+
+    public static string InitCaps(ReadOnlySpan<char> text)
     {
-        char[] newText = new char[text.Length];
+        // Create a span for the result with the same length as the input text
+        Span<char> newText = stackalloc char[text.Length];
+
+        // Track the previous character to determine word boundaries
+        bool isNewWord = true;
+
         for (int i = 0; i < text.Length; i++)
         {
-            if (i == 0 || ((newText[i - 1] == ' ' || newText[i - 1] == '-') &&
-                !(text[i] == 't' && i + 2 < text.Length && (text[i + 1] == 'h' || text[i + 1] == 'H') && (text[i + 2] == 'e' || text[i + 2] == 'E') && (text[i + 3] == ' ' || text[i + 3] == '-')) &&
-                !(text[i] == 'o' && i + 1 < text.Length && (text[i + 1] == 'f' || text[i + 1] == 'f') && (text[i + 2] == ' ' || text[i + 2] == '-'))))
+            char currentChar = text[i];
+            if (i == 0)
             {
-                newText[i] = char.ToUpper(text[i]);
+                newText[i] = char.ToUpper(currentChar);
+                isNewWord = false;
+                continue;
+            }
+            // Check if we are starting a new word
+            if (isNewWord)
+            {
+                if (!(currentChar == 't' && i + 2 < text.Length && (text[i + 1] == 'h' || text[i + 1] == 'H') && (text[i + 2] == 'e' || text[i + 2] == 'E') && (i + 3 >= text.Length || (text[i + 3] == ' ' || text[i + 3] == '-')))
+                    && !(currentChar == 'o' && i + 1 < text.Length && (text[i + 1] == 'f' || text[i + 1] == 'F') && (i + 2 >= text.Length || (text[i + 2] == ' ' || text[i + 2] == '-'))))
+                {
+                    newText[i] = char.ToUpper(currentChar);
+                }
+                else
+                {
+                    newText[i] = currentChar;
+                }
             }
             else
             {
-                newText[i] = text[i] == '_' ? ' ' : char.ToLower(text[i]);
+                // Convert underscores to spaces and handle regular lowercasing
+                newText[i] = currentChar == '_' ? ' ' : char.ToLower(currentChar);
             }
+
+            // Determine if the next character should start a new word
+            isNewWord = currentChar == ' ' || currentChar == '-';
         }
-        return string.Intern(new string(newText));
+
+        // Return the result as a string
+        return new string(newText);
     }
 
     public static string ToUpperFirstLetter(this string source)

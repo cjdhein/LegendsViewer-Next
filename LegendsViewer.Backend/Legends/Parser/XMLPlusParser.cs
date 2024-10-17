@@ -63,7 +63,7 @@ public class XmlPlusParser : XmlParser
             _inMiddleOfSection = true;
         }
 
-        _currentItem = await ParseItemProperties();
+        _currentItem = await ParseItemPropertiesAsync();
 
         if (XmlReader.NodeType == XmlNodeType.EndElement)
         {
@@ -72,7 +72,7 @@ public class XmlPlusParser : XmlParser
         }
     }
 
-    public async Task AddNewProperties(List<Property> existingProperties, Section xmlParserSection)
+    public async Task AddNewPropertiesAsync(List<Property> existingProperties, Section xmlParserSection)
     {
         if (_currentItem == null)
         {
@@ -105,7 +105,7 @@ public class XmlPlusParser : XmlParser
             Property? currentId = GetPropertyByName(_currentItem, "id");
             while (currentId?.ValueAsInt() < 0)
             {
-                _currentItem = await ParseItemProperties();
+                _currentItem = await ParseItemPropertiesAsync();
                 if (_currentItem != null)
                 {
                     currentId = GetPropertyByName(_currentItem, "id");
