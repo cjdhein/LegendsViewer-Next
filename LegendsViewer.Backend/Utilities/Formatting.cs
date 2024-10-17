@@ -50,25 +50,6 @@ public static class Formatting
         return false;
     }
 
-    //public static string InitCaps(string text)
-    //{
-    //    char[] newText = new char[text.Length];
-    //    for (int i = 0; i < text.Length; i++)
-    //    {
-    //        if (i == 0 || ((newText[i - 1] == ' ' || newText[i - 1] == '-') &&
-    //            !(text[i] == 't' && i + 2 < text.Length && (text[i + 1] == 'h' || text[i + 1] == 'H') && (text[i + 2] == 'e' || text[i + 2] == 'E') && (text[i + 3] == ' ' || text[i + 3] == '-')) &&
-    //            !(text[i] == 'o' && i + 1 < text.Length && (text[i + 1] == 'f' || text[i + 1] == 'f') && (text[i + 2] == ' ' || text[i + 2] == '-'))))
-    //        {
-    //            newText[i] = char.ToUpper(text[i]);
-    //        }
-    //        else
-    //        {
-    //            newText[i] = text[i] == '_' ? ' ' : char.ToLower(text[i]);
-    //        }
-    //    }
-    //    return string.Intern(new string(newText));
-    //}
-
     public static string InitCaps(ReadOnlySpan<char> text)
     {
         // Create a span for the result with the same length as the input text

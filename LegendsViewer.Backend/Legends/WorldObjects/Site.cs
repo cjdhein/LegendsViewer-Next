@@ -88,6 +88,32 @@ public class Site : WorldObject, IHasCoordinates
         }
         set { }
     }
+
+    [JsonIgnore]
+    public Entity? CurrentCiv
+    {
+        get
+        {
+            if (CurrentOwner == null)
+            {
+                return null;
+            }
+            if (CurrentOwner.IsCiv)
+            {
+                return CurrentOwner;
+            }
+            Entity? parent = CurrentOwner.Parent;
+            while (parent != null)
+            {
+                if (parent.IsCiv)
+                {
+                    return parent;
+                }
+                parent = parent.Parent;
+            }
+            return null;
+        }
+    }
     public string? CurrentOwnerToLink => CurrentOwner?.ToLink(true, this);
 
     [JsonIgnore]

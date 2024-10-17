@@ -13746,7 +13746,10 @@ export interface components {
             /** Format: int32 */
             id?: number;
             name?: string | null;
+            owner?: string | null;
+            ownerText?: string | null;
             color?: string | null;
+            typeAsString?: string | null;
             type?: components["schemas"]["SiteType"];
             coordinates?: components["schemas"]["Location"][] | null;
         };
