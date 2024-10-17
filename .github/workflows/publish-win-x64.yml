@@ -26,10 +26,10 @@ jobs:
         run: dotnet build LegendsViewer.sln --configuration Release --no-restore
 
       - name: Publish Backend
-        run: dotnet publish LegendsViewer.Backend.csproj -c Release -r win-x64 --self-contained true -p:PublishSingleFile=true -o ./publish
+        run: dotnet publish LegendsViewer.Backend/LegendsViewer.Backend.csproj -c Release -r win-x64 --self-contained true -p:PublishSingleFile=true -o ./publish
 
       - name: Publish Frontend
-        run: dotnet publish LegendsViewer.Frontend.csproj -c Release -o ./publish
+        run: dotnet publish LegendsViewer.Frontend/LegendsViewer.Frontend.csproj -c Release -o ./publish
 
       - name: Create ZIP Archive
         run: zip -r LegendsViewer-win-x64.zip ./publish
