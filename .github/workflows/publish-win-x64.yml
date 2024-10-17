@@ -25,8 +25,14 @@ jobs:
       - name: Build Backend and Frontend (Vue 3)
         run: dotnet build LegendsViewer.sln --configuration Release --no-restore
 
-      - name: Publish self-contained package
-        run: dotnet publish LegendsViewer.sln -c Release -r win-x64 --self-contained true -p:PublishSingleFile=true -o ./publish
+      - name: Publish Backend
+        run: dotnet publish LegendsViewer.Backend.csproj -c Release -r win-x64 --self-contained true -p:PublishSingleFile=true -o ./publish
+
+      - name: Publish Frontend
+        run: dotnet publish LegendsViewer.Frontend.csproj -c Release -o ./publish
+
+      - name: Create ZIP Archive
+        run: zip -r LegendsViewer-win-x64.zip ./publish
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
