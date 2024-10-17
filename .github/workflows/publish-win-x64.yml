@@ -1,4 +1,4 @@
-name: Build, Test, and Publish
+name: Publish win-x64
 
 on:
   workflow_dispatch:  # This allows manual triggering from the Actions tab.
