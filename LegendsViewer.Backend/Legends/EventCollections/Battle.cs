@@ -235,14 +235,18 @@ public class Battle : EventCollection, IHasComplexSubtype
         {
             involvedHf.Battles.Add(this);
             involvedHf.AddEventCollection(this);
-            involvedHf.AddEvent(new BattleFought(involvedHf, this, World));
+            BattleFought battleFought = new BattleFought(involvedHf, this, World);
+            World?.Events.Add(battleFought);
+            involvedHf.AddEvent(battleFought);
         }
 
-        foreach (HistoricalFigure involvedSupportMercenaries in AttackerSupportMercenaryHfs.Union(DefenderSupportMercenaryHfs).Where(hf => hf != HistoricalFigure.Unknown))
+        foreach (HistoricalFigure involvedSupportMercenary in AttackerSupportMercenaryHfs.Union(DefenderSupportMercenaryHfs).Where(hf => hf != HistoricalFigure.Unknown))
         {
-            involvedSupportMercenaries.Battles.Add(this);
-            involvedSupportMercenaries.AddEventCollection(this);
-            involvedSupportMercenaries.AddEvent(new BattleFought(involvedSupportMercenaries, this, World, true, true));
+            involvedSupportMercenary.Battles.Add(this);
+            involvedSupportMercenary.AddEventCollection(this);
+            BattleFought battleFought = new BattleFought(involvedSupportMercenary, this, World, true, true);
+            World?.Events.Add(battleFought);
+            involvedSupportMercenary.AddEvent(battleFought);
         }
 
         for (int i = 0; i < attackerSquadRaces.Count; i++)

@@ -7,7 +7,6 @@ namespace LegendsViewer.Backend.Legends;
 
 public abstract class WorldObject : DwarfObject
 {
-    public int Id { get; set; }
     public string Icon { get; set; } = string.Empty;
     public string Name { get; set; } = string.Empty;
     public virtual string Type { get; set; } = string.Empty;

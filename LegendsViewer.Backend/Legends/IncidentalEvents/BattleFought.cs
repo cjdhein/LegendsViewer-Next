@@ -16,7 +16,7 @@ public class BattleFought : WorldEvent
 
     public BattleFought(HistoricalFigure hf, Battle battle, World? world, bool wasHired = false, bool asScout = false) : base([], world)
     {
-        Id = -1;
+        Id = world?.Events.Count ?? -1;
         Type = "battle fought";
         Year = battle.StartYear;
         Seconds72 = battle.StartSeconds72;

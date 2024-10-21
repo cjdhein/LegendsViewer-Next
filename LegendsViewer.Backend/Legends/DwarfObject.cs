@@ -4,6 +4,7 @@ namespace LegendsViewer.Backend.Legends;
 
 public abstract class DwarfObject
 {
+    public int Id { get; set; }
     public virtual string GetIcon()
     {
         return "";

@@ -4,11 +4,10 @@ using LegendsViewer.Backend.Utilities;
 
 namespace LegendsViewer.Backend.Legends.Events;
 
-public class WorldEvent : IComparable<WorldEvent>
+public class WorldEvent : DwarfObject, IComparable<WorldEvent>
 {
     private int _seconds72;
 
-    public int Id { get; set; }
     public int Year { get; set; }
     public int Month { get; set; }
     public int Day { get; set; }

@@ -3,7 +3,7 @@ using LegendsViewer.Backend.Legends.Events;
 
 namespace LegendsViewer.Backend.Legends.Extensions;
 
-public static class Misc
+public static class WorldObjectExtensions
 {
     public static void AddEvent(this WorldObject? worldObject, WorldEvent? worldEvent)
     {
@@ -11,7 +11,7 @@ public static class Misc
         {
             return;
         }
-        if (!worldObject.Events.Contains(worldEvent))
+        if (worldObject.Events.GetWorldObject(worldEvent.Id) == null)
         {
             worldObject.Events.Add(worldEvent);
         }
@@ -27,7 +27,7 @@ public static class Misc
         {
             return;
         }
-        if (!worldObject.EventCollections.Contains(eventCollection))
+        if (worldObject.EventCollections.GetWorldObject(eventCollection.Id) == null)
         {
             worldObject.EventCollections.Add(eventCollection);
         }
@@ -37,7 +37,7 @@ public static class Misc
         }
     }
 
-    public static T? GetWorldObject<T>(this List<T> list, int id) where T : WorldObject
+    public static T? GetWorldObject<T>(this List<T> list, int id) where T : DwarfObject
     {
         int min = 0;
         int max = list.Count - 1;
