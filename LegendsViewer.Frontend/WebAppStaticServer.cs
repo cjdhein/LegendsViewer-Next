@@ -11,8 +11,7 @@ public static class WebAppStaticServer
         var options = new WebApplicationOptions
         {
             ContentRootPath = AppContext.BaseDirectory,
-            // Look for static files in "legends-viewer-frontend/dist"
-            WebRootPath = "legends-viewer-frontend/dist"
+            WebRootPath = Path.Combine(AppContext.BaseDirectory, "legends-viewer-frontend", "dist")
         };
         var builder = WebApplication.CreateBuilder(options);
         var app = builder.Build();
