@@ -102,6 +102,8 @@ public class BookmarkController(
             _worldDataService.Clear();
             _worldMapImageGenerator.Clear();
 
+            logger.LogInformation($"Start loading world '{regionId}' from '{directoryName}'");
+
             // Start parsing the XML asynchronously
             await _worldDataService.ParseAsync(xmlFileName, xmlPlusFileName, historyFileName, sitesAndPopsFileName, mapFileName);
 

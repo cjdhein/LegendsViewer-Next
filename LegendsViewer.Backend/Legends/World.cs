@@ -254,224 +254,74 @@ public class World : IDisposable, IWorld
 
     public WorldRegion? GetRegion(int id)
     {
-        if (id < 0)
-        {
-            return null;
-        }
-
-        return id < Regions.Count && Regions[id].Id == id ? Regions[id] : Regions.GetWorldObject(id);
+        return Regions.GetLegendsObject(id);
     }
     public UndergroundRegion? GetUndergroundRegion(int id)
     {
-        if (id < 0)
-        {
-            return null;
-        }
-
-        return id < UndergroundRegions.Count && UndergroundRegions[id].Id == id
-            ? UndergroundRegions[id]
-            : UndergroundRegions.GetWorldObject(id);
+        return UndergroundRegions.GetLegendsObject(id);
     }
     public HistoricalFigure? GetHistoricalFigure(int id)
     {
-        if (id < 0)
-        {
-            return null;
-        }
-
-        return id < HistoricalFigures.Count && HistoricalFigures[id].Id == id
-            ? HistoricalFigures[id]
-            : HistoricalFigures.GetWorldObject(id) ?? HistoricalFigure.Unknown;
+        return HistoricalFigures.GetLegendsObject(id) ?? HistoricalFigure.Unknown;
     }
     public Entity? GetEntity(int id)
     {
-        if (id < 0)
-        {
-            return null;
-        }
-
-        return id < Entities.Count && Entities[id].Id == id ? Entities[id] : Entities.GetWorldObject(id);
+        return Entities.GetLegendsObject(id);
     }
 
     public Artifact? GetArtifact(int id)
     {
-        if (id < 0)
-        {
-            return null;
-        }
-
-        return id < Artifacts.Count && Artifacts[id].Id == id ? Artifacts[id] : Artifacts.GetWorldObject(id);
+        return Artifacts.GetLegendsObject(id);
     }
     public PoeticForm? GetPoeticForm(int id)
     {
-        if (id < 0)
-        {
-            return null;
-        }
-
-        return id < PoeticForms.Count && PoeticForms[id].Id == id ? PoeticForms[id] : PoeticForms.GetWorldObject(id);
+        return PoeticForms.GetLegendsObject(id);
     }
     public MusicalForm? GetMusicalForm(int id)
     {
-        if (id < 0)
-        {
-            return null;
-        }
-
-        return id < MusicalForms.Count && MusicalForms[id].Id == id ? MusicalForms[id] : MusicalForms.GetWorldObject(id);
+        return MusicalForms.GetLegendsObject(id);
     }
     public DanceForm? GetDanceForm(int id)
     {
-        if (id < 0)
-        {
-            return null;
-        }
-
-        return id < DanceForms.Count && DanceForms[id].Id == id ? DanceForms[id] : DanceForms.GetWorldObject(id);
+        return DanceForms.GetLegendsObject(id);
     }
     public WrittenContent? GetWrittenContent(int id)
     {
-        if (id < 0)
-        {
-            return null;
-        }
-
-        return id < WrittenContents.Count && WrittenContents[id].Id == id ? WrittenContents[id] : WrittenContents.GetWorldObject(id);
+        return WrittenContents.GetLegendsObject(id);
     }
     public Landmass? GetLandmass(int id)
     {
-        if (id < 0)
-        {
-            return null;
-        }
-
-        return id < Landmasses.Count && Landmasses[id].Id == id ? Landmasses[id] : Landmasses.GetWorldObject(id);
+        return Landmasses.GetLegendsObject(id);
     }
     public River? GetRiver(int id)
     {
-        if (id < 0)
-        {
-            return null;
-        }
-
-        return id < Rivers.Count && Rivers[id].Id == id ? Rivers[id] : Rivers.GetWorldObject(id);
+        return Rivers.GetLegendsObject(id);
     }
     public MountainPeak? GetMountainPeak(int id)
     {
-        if (id < 0)
-        {
-            return null;
-        }
-
-        return id < MountainPeaks.Count && MountainPeaks[id].Id == id ? MountainPeaks[id] : MountainPeaks.GetWorldObject(id);
+        return MountainPeaks.GetLegendsObject(id);
     }
 
     public EntityPopulation? GetEntityPopulation(int id)
     {
-        if (id < 0)
-        {
-            return null;
-        }
+        return EntityPopulations.GetLegendsObject(id);
+    }
 
-        return id < EntityPopulations.Count && EntityPopulations[id].Id == id ? EntityPopulations[id] : EntityPopulations.GetWorldObject(id);
+    public Structure? GetStructure(int id)
+    {
+        return Structures.GetLegendsObject(id);
     }
 
     public T? GetEventCollection<T>(int id) where T : EventCollection => GetEventCollection(id) as T;
 
     public EventCollection? GetEventCollection(int id)
     {
-        if (id < 0)
-        {
-            return null;
-        }
-
-        if (id < EventCollections.Count && EventCollections[id].Id == id)
-        {
-            return EventCollections[id];
-        }
-        int min = 0;
-        int max = EventCollections.Count - 1;
-        while (min <= max)
-        {
-            int mid = min + (max - min) / 2;
-            if (id > EventCollections[mid].Id)
-            {
-                min = mid + 1;
-            }
-            else if (id < EventCollections[mid].Id)
-            {
-                max = mid - 1;
-            }
-            else
-            {
-                return EventCollections[mid];
-            }
-        }
-        return null;
+        return EventCollections.GetLegendsObject(id);
     }
 
     public WorldEvent? GetEvent(int id)
     {
-        if (id < 0)
-        {
-            return null;
-        }
-
-        if (id < Events.Count && Events[id].Id == id)
-        {
-            return Events[id];
-        }
-        int min = 0;
-        int max = Events.Count - 1;
-        while (min <= max)
-        {
-            int mid = min + (max - min) / 2;
-            if (id > Events[mid].Id)
-            {
-                min = mid + 1;
-            }
-            else if (id < Events[mid].Id)
-            {
-                max = mid - 1;
-            }
-            else
-            {
-                return Events[mid];
-            }
-        }
-        return null;
-    }
-
-    public Structure? GetStructure(int id)
-    {
-        if (id < 0)
-        {
-            return null;
-        }
-
-        if (id < Structures.Count && Structures[id].Id == id)
-        {
-            return Structures[id];
-        }
-        int min = 0;
-        int max = Structures.Count - 1;
-        while (min <= max)
-        {
-            int mid = min + (max - min) / 2;
-            if (id > Structures[mid].Id)
-            {
-                min = mid + 1;
-            }
-            else if (id < Structures[mid].Id)
-            {
-                max = mid - 1;
-            }
-            else
-            {
-                return Structures[mid];
-            }
-        }
-        return null;
+        return Events.GetLegendsObject(id);
     }
 
     public Site? GetSite(int id)
@@ -482,7 +332,7 @@ public class World : IDisposable, IWorld
             return null;
         }
 
-        return id <= Sites.Count && Sites[id - 1].Id == id ? Sites[id - 1] : Sites.GetWorldObject(id);
+        return id <= Sites.Count && Sites[id - 1].Id == id ? Sites[id - 1] : Sites.GetLegendsObject(id);
     }
 
     public WorldConstruction? GetWorldConstruction(int id)
@@ -495,12 +345,12 @@ public class World : IDisposable, IWorld
 
         return id <= WorldConstructions.Count && WorldConstructions[id - 1].Id == id
             ? WorldConstructions[id - 1]
-            : WorldConstructions.GetWorldObject(id);
+            : WorldConstructions.GetLegendsObject(id);
     }
 
     public Era? GetEra(int id)
     {
-        return Eras.Find(era => era.Id == id);
+        return Eras.GetLegendsObject(id);
     }
 
     public CreatureInfo GetCreatureInfo(string id)

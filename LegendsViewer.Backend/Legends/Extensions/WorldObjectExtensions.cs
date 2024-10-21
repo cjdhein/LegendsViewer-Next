@@ -7,11 +7,11 @@ public static class WorldObjectExtensions
 {
     public static void AddEvent(this WorldObject? worldObject, WorldEvent? worldEvent)
     {
-        if (worldObject == null || worldEvent == null)
+        if (worldObject == null || worldEvent == null || worldObject.Id == -1 || worldEvent.Id == -1)
         {
             return;
         }
-        if (worldObject.Events.GetWorldObject(worldEvent.Id) == null)
+        if (worldObject.Events.GetLegendsObject(worldEvent.Id) == null)
         {
             worldObject.Events.Add(worldEvent);
         }
@@ -23,11 +23,11 @@ public static class WorldObjectExtensions
 
     public static void AddEventCollection(this WorldObject? worldObject, EventCollection? eventCollection)
     {
-        if (worldObject == null || eventCollection == null)
+        if (worldObject == null || eventCollection == null || worldObject.Id == -1 || eventCollection.Id == -1)
         {
             return;
         }
-        if (worldObject.EventCollections.GetWorldObject(eventCollection.Id) == null)
+        if (worldObject.EventCollections.GetLegendsObject(eventCollection.Id) == null)
         {
             worldObject.EventCollections.Add(eventCollection);
         }
@@ -37,8 +37,16 @@ public static class WorldObjectExtensions
         }
     }
 
-    public static T? GetWorldObject<T>(this List<T> list, int id) where T : DwarfObject
+    public static T? GetLegendsObject<T>(this List<T> list, int id) where T : DwarfObject
     {
+        if (id < 0)
+        {
+            return null;
+        }
+        if (id < list.Count && list[id].Id == id)
+        {
+            return list[id];
+        }
         int min = 0;
         int max = list.Count - 1;
         while (min <= max)

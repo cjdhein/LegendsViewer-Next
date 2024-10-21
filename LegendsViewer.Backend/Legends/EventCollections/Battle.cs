@@ -220,15 +220,20 @@ public class Battle : EventCollection, IHasComplexSubtype
             }
         }
 
-        if (Events.OfType<AttackedSite>().Any())
+        AttackedSite? attackedSiteEvent = Events.OfType<AttackedSite>().FirstOrDefault();
+        if (attackedSiteEvent != null)
         {
-            Attacker = Events.OfType<AttackedSite>().First().Attacker;
-            Defender = Events.OfType<AttackedSite>().First().Defender;
+            Attacker = attackedSiteEvent.Attacker;
+            Defender = attackedSiteEvent.Defender;
         }
-        else if (Events.OfType<FieldBattle>().Any())
+        else
         {
-            Attacker = Events.OfType<FieldBattle>().First().Attacker;
-            Defender = Events.OfType<FieldBattle>().First().Defender;
+            FieldBattle? fieldBattleEvent = Events.OfType<FieldBattle>().FirstOrDefault();
+            if (fieldBattleEvent != null)
+            {
+                Attacker = fieldBattleEvent.Attacker;
+                Defender = fieldBattleEvent.Defender;
+            }
         }
 
         foreach (HistoricalFigure involvedHf in NotableAttackers.Union(NotableDefenders).Where(hf => hf != HistoricalFigure.Unknown))
