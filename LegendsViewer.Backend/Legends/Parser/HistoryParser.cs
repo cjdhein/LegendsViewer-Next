@@ -229,7 +229,7 @@ public class HistoryParser : IDisposable
                 SkipToNextCiv();
             }
         }
-        if (_currentLine != null && CivStart())
+        if (!string.IsNullOrEmpty(_currentLine) && CivStart())
         {
             ReadCiv();
         }
