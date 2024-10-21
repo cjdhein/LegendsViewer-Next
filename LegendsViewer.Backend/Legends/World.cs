@@ -80,6 +80,8 @@ public class World : IDisposable, IWorld
     public List<WorldObject> PlayerRelatedObjects { get; } = [];
 
     public readonly Dictionary<int, WorldEvent> SpecialEventsById = [];
+    public readonly Dictionary<Location, WorldRegion> WorldGrid = [];
+
     private readonly List<CreatureInfo> _creatureInfos = [];
     private readonly Dictionary<string, CreatureInfo> _creatureInfosById = [];
 
@@ -136,7 +138,6 @@ public class World : IDisposable, IWorld
         ResolveSitePropertyOwners();
         ResolveHonorEntities();
         ResolveMountainPeakToRegionLinks();
-        ResolveSiteToRegionLinks();
         ResolveRegionProperties();
         ResolveArtifactProperties();
         ResolveArtformEventsProperties();
@@ -404,9 +405,12 @@ public class World : IDisposable, IWorld
         for (int i = 0; i < _hFtoHfLinks.Count; i++)
         {
             Property link = _hFtoHfLinks[i];
-            HistoricalFigure hf = _hFtoHfLinkHFs[i];
-            HistoricalFigureLink relation = new(link.SubProperties, this);
-            hf.RelatedHistoricalFigures.Add(relation);
+            if (link.SubProperties != null)
+            {
+                HistoricalFigure hf = _hFtoHfLinkHFs[i];
+                HistoricalFigureLink relation = new(link.SubProperties, this);
+                hf.RelatedHistoricalFigures.Add(relation);
+            }
         }
 
         _hFtoHfLinkHFs.Clear();
@@ -424,6 +428,10 @@ public class World : IDisposable, IWorld
         for (int i = 0; i < _hFtoEntityLinks.Count; i++)
         {
             Property link = _hFtoEntityLinks[i];
+            if (link.SubProperties == null)
+            {
+                continue;
+            }
             HistoricalFigure hf = _hFtoEntityLinkHFs[i];
             EntityLink relatedEntity = new(link.SubProperties, this);
             if (relatedEntity.Entity != null)
@@ -450,6 +458,10 @@ public class World : IDisposable, IWorld
         for (int i = 0; i < _hFtoSiteLinks.Count; i++)
         {
             Property link = _hFtoSiteLinks[i];
+            if (link.SubProperties == null)
+            {
+                continue;
+            }
             HistoricalFigure hf = _hFtoSiteLinkHFs[i];
             SiteLink hfToSiteLink = new(link.SubProperties, this);
             hf.RelatedSites.Add(hfToSiteLink);
@@ -470,10 +482,14 @@ public class World : IDisposable, IWorld
     {
         for (int i = 0; i < _entityEntityLinkEntities.Count; i++)
         {
+            Property link = _entityEntityLinks[i];
+            if (link.SubProperties == null)
+            {
+                continue;
+            }
             Entity entity = _entityEntityLinkEntities[i];
-            Property entityLink = _entityEntityLinks[i];
-            entityLink.Known = true;
-            var entityEntityLink = new EntityEntityLink(entityLink.SubProperties, this);
+            link.Known = true;
+            var entityEntityLink = new EntityEntityLink(link.SubProperties, this);
             if (entityEntityLink.Type == EntityEntityLinkType.Parent)
             {
                 entity.Parent = entityEntityLink.Target;
@@ -492,9 +508,13 @@ public class World : IDisposable, IWorld
     {
         for (int i = 0; i < _reputations.Count; i++)
         {
-            Property reputation = _reputations[i];
+            Property link = _reputations[i];
+            if (link.SubProperties == null)
+            {
+                continue;
+            }
             HistoricalFigure hf = _reputationHFs[i];
-            EntityReputation entityReputation = new(reputation.SubProperties, this);
+            EntityReputation entityReputation = new(link.SubProperties, this);
             hf.Reputations.Add(entityReputation);
         }
 
@@ -598,24 +618,6 @@ public class World : IDisposable, IWorld
                 {
                     peak.Region = region;
                     region.MountainPeaks.Add(peak);
-                    break;
-                }
-            }
-        }
-    }
-
-    private void ResolveSiteToRegionLinks()
-    {
-        foreach (Site site in Sites)
-        {
-            foreach (WorldRegion region in Regions)
-            {
-                if (region.Coordinates.Intersect(site.Coordinates).Any())
-                {
-                    site.Region = region;
-                    site.Subtype = region.RegionType.GetDescription();
-
-                    region.Sites.Add(site);
                     break;
                 }
             }

@@ -1,5 +1,4 @@
 ﻿using System.Diagnostics;
-using System.Reflection;
 
 namespace LegendsViewer.Frontend;
 
@@ -9,10 +8,9 @@ public static class WebAppStaticServer
 
     public static async Task RunAsync()
     {
-        var assembly = Assembly.GetAssembly(typeof(WebAppStaticServer));
         var options = new WebApplicationOptions
         {
-            ContentRootPath = Path.GetDirectoryName(assembly?.Location),
+            ContentRootPath = AppContext.BaseDirectory,
             // Look for static files in "legends-viewer-frontend/dist"
             WebRootPath = "legends-viewer-frontend/dist"
         };

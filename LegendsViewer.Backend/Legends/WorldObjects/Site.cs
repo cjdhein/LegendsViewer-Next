@@ -1,10 +1,12 @@
-﻿using System.Drawing;
+﻿using System.ComponentModel;
+using System.Drawing;
 using System.Text.Json.Serialization;
 using LegendsViewer.Backend.Contracts;
 using LegendsViewer.Backend.Extensions;
 using LegendsViewer.Backend.Legends.Enums;
 using LegendsViewer.Backend.Legends.EventCollections;
 using LegendsViewer.Backend.Legends.Events;
+using LegendsViewer.Backend.Legends.Extensions;
 using LegendsViewer.Backend.Legends.Interfaces;
 using LegendsViewer.Backend.Legends.Parser;
 using LegendsViewer.Backend.Legends.Various;
@@ -230,7 +232,14 @@ public class Site : WorldObject, IHasCoordinates
                     }
                     break;
                 case "name": Name = Formatting.InitCaps(property.Value); break;
-                case "coords": Coordinates.Add(Formatting.ConvertToLocation(property.Value)); break;
+                case "coords":
+                    Location location = Formatting.ConvertToLocation(property.Value);
+                    var region = world.WorldGrid[location];
+                    Region = region;
+                    Subtype = region.RegionType.GetDescription();
+                    region.Sites.Add(this);
+                    Coordinates.Add(location);
+                    break;
                 case "structures":
                     HasStructures = true;
                     property.Known = true;
@@ -239,6 +248,10 @@ public class Site : WorldObject, IHasCoordinates
                         foreach (Property subProperty in property.SubProperties)
                         {
                             subProperty.Known = true;
+                            if (subProperty.SubProperties == null)
+                            {
+                                continue;
+                            }
                             Structures.Add(new Structure(subProperty.SubProperties, world, this));
                         }
                     }
@@ -268,6 +281,10 @@ public class Site : WorldObject, IHasCoordinates
                         foreach (Property subProperty in property.SubProperties)
                         {
                             subProperty.Known = true;
+                            if (subProperty.SubProperties == null)
+                            {
+                                continue;
+                            }
                             SiteProperties.Add(new SiteProperty(subProperty.SubProperties, world, this));
                         }
                     }

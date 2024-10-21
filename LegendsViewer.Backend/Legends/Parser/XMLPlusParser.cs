@@ -158,13 +158,16 @@ public class XmlPlusParser : XmlParser
                             }
                             matchingProperty.Value = property.Value;
                             matchingProperty.Known = false;
-                            if (matchingProperty.SubProperties == null)
+                            if (property.SubProperties != null)
                             {
-                                matchingProperty.SubProperties = property.SubProperties;
-                            }
-                            else
-                            {
-                                matchingProperty.SubProperties.AddRange(property.SubProperties);
+                                if (matchingProperty.SubProperties == null)
+                                {
+                                    matchingProperty.SubProperties = property.SubProperties;
+                                }
+                                else
+                                {
+                                    matchingProperty.SubProperties.AddRange(property.SubProperties);
+                                }
                             }
                         }
                         else

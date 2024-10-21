@@ -62,6 +62,11 @@ public class ArtifactCreated : WorldEvent
                     }
                     break;
                 case "circumstance":
+                    property.Known = true;
+                    if (property.SubProperties == null)
+                    {
+                        continue;
+                    }
                     foreach (var subProperty in property.SubProperties)
                     {
                         switch (subProperty.Name)
@@ -82,7 +87,6 @@ public class ArtifactCreated : WorldEvent
                                 break;
                         }
                     }
-                    property.Known = true;
                     break;
             }
         }
