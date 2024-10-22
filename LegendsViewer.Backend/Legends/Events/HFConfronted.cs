@@ -53,7 +53,7 @@ public class HfConfronted : WorldEvent
                 case "site_id": Site = world.GetSite(Convert.ToInt32(property.Value)); break;
                 case "subregion_id": Region = world.GetRegion(Convert.ToInt32(property.Value)); break;
                 case "feature_layer_id": UndergroundRegion = world.GetUndergroundRegion(Convert.ToInt32(property.Value)); break;
-                case "coords": Coordinates = Formatting.ConvertToLocation(property.Value); break;
+                case "coords": Coordinates = Formatting.ConvertToLocation(property.Value, world); break;
             }
         }
 

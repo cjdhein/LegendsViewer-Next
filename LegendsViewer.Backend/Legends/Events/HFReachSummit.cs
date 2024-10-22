@@ -25,7 +25,7 @@ public class HfReachSummit : WorldEvent
                 case "subregion_id": Region = world.GetRegion(Convert.ToInt32(property.Value)); break;
                 case "feature_layer_id": UndergroundRegion = world.GetUndergroundRegion(Convert.ToInt32(property.Value)); break;
                 case "site": Site = world.GetSite(Convert.ToInt32(property.Value)); break;
-                case "coords": Coordinates = Formatting.ConvertToLocation(property.Value); break;
+                case "coords": Coordinates = Formatting.ConvertToLocation(property.Value, world); break;
                 case "group": if (HistoricalFigure == null) { HistoricalFigure = world.GetHistoricalFigure(Convert.ToInt32(property.Value)); } else { property.Known = true; } break;
             }
         }

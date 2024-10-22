@@ -212,8 +212,8 @@ public class HistoryParser : IDisposable
     public string Parse()
     {
         string? name = _history.ReadLine();
-        _world.Name = Formatting.ReplaceNonAscii(name ?? "Unkown World");
-        _world.Name += ", " + _history.ReadLine();
+        _world.Name = Formatting.ReplaceNonAscii(name ?? "Unknown World");
+        _world.AlternativeName = _history.ReadLine() ?? "";
         ReadLine();
         SkipAnimalPeople();
 

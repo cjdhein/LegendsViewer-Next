@@ -124,7 +124,7 @@ public class Battle : EventCollection, IHasComplexSubtype
                     }
                     break;
                 case "name": Name = Formatting.InitCaps(property.Value); break;
-                case "coords": Coordinates = Formatting.ConvertToLocation(property.Value); break;
+                case "coords": Coordinates = Formatting.ConvertToLocation(property.Value, world); break;
                 case "war_eventcol": ParentCollection = world.GetEventCollection(Convert.ToInt32(property.Value)); break;
                 case "attacking_hfid":
                     HistoricalFigure? attackingHf = world.GetHistoricalFigure(Convert.ToInt32(property.Value));

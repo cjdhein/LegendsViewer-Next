@@ -233,11 +233,14 @@ public class Site : WorldObject, IHasCoordinates
                     break;
                 case "name": Name = Formatting.InitCaps(property.Value); break;
                 case "coords":
-                    Location location = Formatting.ConvertToLocation(property.Value);
-                    var region = world.WorldGrid[location];
-                    Region = region;
-                    Subtype = region.RegionType.GetDescription();
-                    region.Sites.Add(this);
+                    Location location = Formatting.ConvertToLocation(property.Value, world);
+                    if (world.WorldGrid.ContainsKey(location))
+                    {
+                        var region = world.WorldGrid[location];
+                        Region = region;
+                        Subtype = region.RegionType.GetDescription();
+                        region.Sites.Add(this);
+                    }
                     Coordinates.Add(location);
                     break;
                 case "structures":

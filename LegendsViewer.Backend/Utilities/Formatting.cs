@@ -1,5 +1,7 @@
 ﻿using System.Drawing;
 using System.Text;
+using LegendsViewer.Backend.Legends;
+using LegendsViewer.Backend.Legends.Interfaces;
 using LegendsViewer.Backend.Legends.Various;
 
 namespace LegendsViewer.Backend.Utilities;
@@ -241,12 +243,40 @@ public static class Formatting
         return name;
     }
 
-    public static Location ConvertToLocation(string coordinates)
+    public static Location ConvertToLocation(string coordinates, IWorld world)
     {
         var indexOfComma = coordinates.IndexOf(',');
         int x = int.Parse(coordinates.Substring(0, indexOfComma));
         int y = int.Parse(coordinates.Substring(indexOfComma + 1, coordinates.Length - indexOfComma - 1));
+        if (x > world.Width)
+        {
+            world.Width = x;
+        }
+        if (y > world.Height)
+        {
+            world.Height = y;
+        }
         return new Location(x, y);
+    }
+
+    // After processing all coordinates adjust the world size
+    public static void AdjustWorldSizeToPowerOfTwo(IWorld world)
+    {
+        world.Width = NextPowerOfTwo(world.Width);
+        world.Height = NextPowerOfTwo(world.Height);
+    }
+
+    // Helper function to find the next power of two
+    private static int NextPowerOfTwo(int n)
+    {
+        if (n <= 0) return 1;
+        n--;
+        n |= n >> 1;
+        n |= n >> 2;
+        n |= n >> 4;
+        n |= n >> 8;
+        n |= n >> 16;
+        return n + 1;
     }
 
     public static Color HsvToColor(double h, double s, double v)

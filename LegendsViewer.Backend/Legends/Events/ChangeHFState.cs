@@ -41,7 +41,7 @@ public class ChangeHfState : WorldEvent
                     }
                     break;
                 case "substate": SubState = Convert.ToInt32(property.Value); break;
-                case "coords": Coordinates = Formatting.ConvertToLocation(property.Value); break;
+                case "coords": Coordinates = Formatting.ConvertToLocation(property.Value, world); break;
                 case "hfid": HistoricalFigure = world.GetHistoricalFigure(Convert.ToInt32(property.Value)); break;
                 case "site_id": Site = world.GetSite(Convert.ToInt32(property.Value)); break;
                 case "subregion_id": Region = world.GetRegion(Convert.ToInt32(property.Value)); break;

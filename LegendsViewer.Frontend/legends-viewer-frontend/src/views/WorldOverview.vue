@@ -57,42 +57,7 @@ const readFromClipboard = async () => {
 
 <template>
   <v-row dense>
-    <v-col v-for="(bookmark, i) in bookmarkStore.bookmarks" :key="i" cols="12" md="3">
-      <v-card class="mx-auto" max-width="320">
-        <v-container>
-          <v-img height="300px" width="300px" class="pixelated-image" :src="getImageData(bookmark)" cover>
-          </v-img>
-        </v-container>
-
-        <v-card-title>
-          {{ bookmark.worldName }}
-          <v-chip class="float-right">
-            {{ bookmark.worldWidth + " x " + bookmark.worldHeight }}
-          </v-chip>
-        </v-card-title>
-
-        <v-card-subtitle>
-          {{ bookmark.worldAlternativeName }}
-        </v-card-subtitle>
-
-        <v-card-actions>
-          <v-btn
-            v-if="bookmark.filePath && bookmark.state !== 'Loaded' || bookmark.latestTimestamp !== bookmark.loadedTimestamp"
-            :loading="bookmark.state === 'Loading'" color="blue" text="Load" :disabled="bookmarkStore.isLoading"
-            @click="bookmarkStore.loadByFullPath(bookmark.filePath ?? '', bookmark.latestTimestamp ?? '')">
-          </v-btn>
-          <v-btn
-            v-if="bookmark.filePath && bookmark.state === 'Loaded' && bookmark.latestTimestamp === bookmark.loadedTimestamp"
-            color="green-lighten-2" text="Explore" :disabled="bookmarkStore.isLoading" to="/world">
-          </v-btn>
-
-          <v-spacer></v-spacer>
-          <v-combobox v-model="bookmark.latestTimestamp" :items="bookmark.worldTimestamps ?? []" density="compact"
-            label="Timestamps" width="160" :disabled="bookmarkStore.isLoading"></v-combobox>
-        </v-card-actions>
-      </v-card>
-    </v-col>
-    <v-col>
+    <v-col cols="12" md="3">
       <v-card class="mx-auto" max-width="320">
         <v-container>
           <v-icon icon="mdi-earth-plus" size="300"></v-icon>
@@ -106,7 +71,7 @@ const readFromClipboard = async () => {
           Select an exported legends XML file
         </v-card-subtitle>
 
-        <v-card-actions>
+        <v-card-actions style="height: 62px; margin-top: 8px; margin-bottom: 8px;">
           <v-dialog width="auto" min-width="480">
             <template v-slot:activator="{ props: activatorProps }">
               <v-btn color="orange-lighten-2" prepend-icon="mdi-earth" text="Select" v-bind="activatorProps"
@@ -185,6 +150,41 @@ const readFromClipboard = async () => {
           </v-dialog>
           <v-spacer></v-spacer>
 
+        </v-card-actions>
+      </v-card>
+    </v-col>
+    <v-col v-for="(bookmark, i) in bookmarkStore.bookmarks" :key="i" cols="12" md="3">
+      <v-card class="mx-auto" max-width="320">
+        <v-container>
+          <v-img height="300px" width="300px" class="pixelated-image" :src="getImageData(bookmark)" cover>
+          </v-img>
+        </v-container>
+
+        <v-card-title>
+          {{ bookmark.worldName }}
+          <v-chip class="float-right">
+            {{ bookmark.worldWidth + " x " + bookmark.worldHeight }}
+          </v-chip>
+        </v-card-title>
+
+        <v-card-subtitle>
+          {{ bookmark.worldAlternativeName }}
+        </v-card-subtitle>
+
+        <v-card-actions>
+          <v-btn
+            v-if="bookmark.filePath && bookmark.state !== 'Loaded' || bookmark.latestTimestamp !== bookmark.loadedTimestamp"
+            :loading="bookmark.state === 'Loading'" color="blue" text="Load" :disabled="bookmarkStore.isLoading"
+            @click="bookmarkStore.loadByFullPath(bookmark.filePath ?? '', bookmark.latestTimestamp ?? '')">
+          </v-btn>
+          <v-btn
+            v-if="bookmark.filePath && bookmark.state === 'Loaded' && bookmark.latestTimestamp === bookmark.loadedTimestamp"
+            color="green-lighten-2" text="Explore" :disabled="bookmarkStore.isLoading" to="/world">
+          </v-btn>
+
+          <v-spacer></v-spacer>
+          <v-combobox v-model="bookmark.latestTimestamp" :items="bookmark.worldTimestamps ?? []" density="compact"
+            label="Timestamps" width="160" :disabled="bookmarkStore.isLoading"></v-combobox>
         </v-card-actions>
       </v-card>
     </v-col>

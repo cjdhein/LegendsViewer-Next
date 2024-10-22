@@ -24,7 +24,7 @@ public class Abduction : EventCollection
             switch (property.Name)
             {
                 case "ordinal": Ordinal = Convert.ToInt32(property.Value); break;
-                case "coords": Coordinates = Formatting.ConvertToLocation(property.Value); break;
+                case "coords": Coordinates = Formatting.ConvertToLocation(property.Value, world); break;
                 case "parent_eventcol": ParentCollection = world.GetEventCollection(Convert.ToInt32(property.Value)); break;
                 case "subregion_id": Region = world.GetRegion(Convert.ToInt32(property.Value)); break;
                 case "feature_layer_id": UndergroundRegion = world.GetUndergroundRegion(Convert.ToInt32(property.Value)); break;

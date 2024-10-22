@@ -45,7 +45,7 @@ public class ChangeHfBodyState : WorldEvent
                     break;
                 case "subregion_id": Region = world.GetRegion(Convert.ToInt32(property.Value)); break;
                 case "feature_layer_id": UndergroundRegion = world.GetUndergroundRegion(Convert.ToInt32(property.Value)); break;
-                case "coords": Coordinates = Formatting.ConvertToLocation(property.Value); break;
+                case "coords": Coordinates = Formatting.ConvertToLocation(property.Value, world); break;
             }
         }
         if (Site != null)

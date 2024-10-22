@@ -27,7 +27,7 @@ public class FieldBattle : WorldEvent
         {
             switch (property.Name)
             {
-                case "coords": Coordinates = Formatting.ConvertToLocation(property.Value); break;
+                case "coords": Coordinates = Formatting.ConvertToLocation(property.Value, world); break;
                 case "attacker_civ_id": Attacker = world.GetEntity(Convert.ToInt32(property.Value)); break;
                 case "defender_civ_id": Defender = world.GetEntity(Convert.ToInt32(property.Value)); break;
                 case "subregion_id": Region = world.GetRegion(Convert.ToInt32(property.Value)); break;

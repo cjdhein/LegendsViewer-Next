@@ -23,7 +23,7 @@ public class HfTravel : WorldEvent
         {
             switch (property.Name)
             {
-                case "coords": Coordinates = Formatting.ConvertToLocation(property.Value); break;
+                case "coords": Coordinates = Formatting.ConvertToLocation(property.Value, world); break;
                 case "escape": Escaped = true; property.Known = true; break;
                 case "return": Returned = true; property.Known = true; break;
                 case "group_hfid": HistoricalFigure = world.GetHistoricalFigure(Convert.ToInt32(property.Value)); break;

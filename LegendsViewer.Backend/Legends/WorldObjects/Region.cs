@@ -129,20 +129,9 @@ public class WorldRegion : WorldObject, IRegion
                         StringSplitOptions.RemoveEmptyEntries);
                     foreach (var coordinateString in coordinateStrings)
                     {
-                        string[] xYCoordinates = coordinateString.Split(',');
-                        int x = Convert.ToInt32(xYCoordinates[0]);
-                        int y = Convert.ToInt32(xYCoordinates[1]);
-                        Location location = new Location(x, y);
+                        Location location = Formatting.ConvertToLocation(coordinateString, world);
                         world.WorldGrid[location] = this;
                         Coordinates.Add(location);
-                        if (x > world.Width)
-                        {
-                            world.Width = x;
-                        }
-                        if (y > world.Height)
-                        {
-                            world.Height = y;
-                        }
                     }
                     break;
                 case "evilness":

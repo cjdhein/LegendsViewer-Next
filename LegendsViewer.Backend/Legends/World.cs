@@ -131,6 +131,7 @@ public class World : IDisposable, IWorld
             sitesAndPopulations.Parse();
         }
 
+        Formatting.AdjustWorldSizeToPowerOfTwo(this);
         ProcessHFtoEntityLinks();
         ResolveEntityToEntityPopulation();
         ResolveHfToEntityPopulation();

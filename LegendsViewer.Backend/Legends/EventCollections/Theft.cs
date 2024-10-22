@@ -23,7 +23,7 @@ public class Theft : EventCollection, IHasComplexSubtype
             switch (property.Name)
             {
                 case "ordinal": Ordinal = Convert.ToInt32(property.Value); break;
-                case "coords": Coordinates = Formatting.ConvertToLocation(property.Value); break;
+                case "coords": Coordinates = Formatting.ConvertToLocation(property.Value, world); break;
                 case "parent_eventcol": ParentCollection = world.GetEventCollection(Convert.ToInt32(property.Value)); break;
                 case "attacking_enid": Attacker = world.GetEntity(Convert.ToInt32(property.Value)); break;
                 case "defending_enid": Defender = world.GetEntity(Convert.ToInt32(property.Value)); break;
