@@ -608,13 +608,26 @@ public class Entity : WorldObject, IHasCoordinates
         if (link)
         {
             return pov != this
-                ? HtmlStyleUtil.GetAnchorString(Icon, "entity", Id, GetToolTip(), Name)
-                : HtmlStyleUtil.GetAnchorCurrentString(Icon, GetToolTip(), HtmlStyleUtil.CurrentDwarfObject(Name));
+                ? HtmlStyleUtil.GetAnchorString(Icon, "entity", Id, Title, Name)
+                : HtmlStyleUtil.GetAnchorCurrentString(Icon, Title, HtmlStyleUtil.CurrentDwarfObject(Name));
         }
         return Name;
     }
 
-    private string GetToolTip()
+    private string? _title;
+    private string Title
+    {
+        get
+        {
+            if (string.IsNullOrEmpty(_title))
+            {
+                _title = GetAnchorTitle();
+            }
+            return _title;
+        }
+    }
+
+    private string GetAnchorTitle()
     {
         string title = GetTitle();
         if (Parent != null)
