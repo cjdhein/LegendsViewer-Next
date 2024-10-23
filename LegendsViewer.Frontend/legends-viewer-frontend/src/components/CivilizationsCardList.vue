@@ -32,7 +32,7 @@
                                     <v-icon icon="mdi-home-minus-outline" start></v-icon>
                                     {{ item.lostSitesCount }}
                                 </v-chip>
-                                <v-chip class="ma-2" color="primary" label>
+                                <v-chip v-if="item.entityPopulationCount" class="ma-2" color="primary" label>
                                     <v-icon icon="mdi-account-circle-outline" start></v-icon>
                                     {{ item.entityPopulationCount }}
                                 </v-chip>
@@ -61,7 +61,7 @@ import { components } from '../generated/api-schema'; // Import from the OpenAPI
 type MainCivilizationDto = components['schemas']['MainCivilizationDto'];
 
 export default defineComponent({
-    name: 'LegendsCardList',
+    name: 'CivilizationsCardList',
     props: {
         icon: {
             type: String,

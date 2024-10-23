@@ -7,6 +7,7 @@ export type Bookmark = components['schemas']['Bookmark'];
 export const useBookmarkStore = defineStore('bookmark', {
   state: () => ({
     bookmarks: [] as Bookmark[],
+    bookmarkWarning: '' as string,
     isLoadingNewWorld: false as boolean
   }),
   getters: {
@@ -39,7 +40,9 @@ export const useBookmarkStore = defineStore('bookmark', {
         console.error(error);
       } else if (data) {
         const newBookmark = data as Bookmark;
-
+        if (newBookmark.worldName == null || newBookmark.worldName.length == 0) {
+          this.bookmarkWarning = 'The legends_plus.xml file was not found. Dwarf Fortress currently exports only a limited amount of legends data. To access more detailed information, including proper maps and other important features, please install DFHack, which will automatically export the additional data.'
+        }
         // Check if the bookmark already exists
         const index = this.bookmarks.findIndex(bookmark => bookmark.filePath === newBookmark.filePath);
         this.bookmarks.forEach(b => b.state = 'Default')

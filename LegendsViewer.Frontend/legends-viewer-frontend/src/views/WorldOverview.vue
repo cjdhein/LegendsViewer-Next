@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
 import { useBookmarkStore } from '../stores/bookmarkStore';
 import { useFileSystemStore } from '../stores/fileSystemStore';
 
@@ -52,6 +52,21 @@ const readFromClipboard = async () => {
     console.error('Failed to read from clipboard:', err);
   }
 }
+
+const isDialogVisible = computed({
+  get() {
+    return bookmarkStore.bookmarkWarning != null && bookmarkStore.bookmarkWarning.length > 0;
+  },
+  set(value: boolean) {
+    if (!value) {
+      bookmarkStore.bookmarkWarning = ''; // Clear bookmarkWarning on close
+    }
+  },
+});
+
+const closeDialog = () => {
+  isDialogVisible.value = false; // Close the dialog and clear the warning
+};
 
 </script>
 
@@ -160,8 +175,9 @@ const readFromClipboard = async () => {
         </v-container>
 
         <v-card-title>
-          {{ (bookmark.worldName != null && bookmark.worldName.length > 0 ? bookmark.worldName :
-            bookmark.worldRegionName)
+          {{ (bookmark.worldName != null && bookmark.worldName.length > 0 ?
+              bookmark.worldName :
+              bookmark.worldRegionName)
           }}
           <v-chip class="float-right">
             {{ bookmark.worldWidth + " x " + bookmark.worldHeight }}
@@ -169,7 +185,10 @@ const readFromClipboard = async () => {
         </v-card-title>
 
         <v-card-subtitle>
-          {{ bookmark.worldAlternativeName }}
+          {{ (bookmark.worldAlternativeName != null && bookmark.worldAlternativeName.length > 0 ?
+              bookmark.worldAlternativeName :
+              '-') 
+          }}
         </v-card-subtitle>
 
         <v-card-actions>
@@ -190,4 +209,13 @@ const readFromClipboard = async () => {
       </v-card>
     </v-col>
   </v-row>
+  <v-dialog v-model="isDialogVisible" transition="dialog-top-transition" width="500px">
+    <v-card max-width="400" prepend-icon="mdi-alert-outline"
+    title="Warning"  
+    :text="bookmarkStore.bookmarkWarning">
+      <template v-slot:actions>
+        <v-btn class="ms-auto" text="Ok" @click="closeDialog"></v-btn>
+      </template>
+    </v-card>
+  </v-dialog>
 </template>

@@ -57,6 +57,9 @@ public class BookmarkService : IBookmarkService
                     existingBookmark.WorldTimestamps.Add(timestamp);
                 }
             }
+            existingBookmark.WorldName = bookmark.WorldName;
+            existingBookmark.WorldAlternativeName = bookmark.WorldAlternativeName;
+            existingBookmark.WorldMapImage = bookmark.WorldMapImage;
             existingBookmark.State = BookmarkState.Loaded;
             existingBookmark.LoadedTimestamp = bookmark.LoadedTimestamp;
             existingBookmark.LatestTimestamp = bookmark.LatestTimestamp;

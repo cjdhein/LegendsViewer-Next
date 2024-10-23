@@ -1,4 +1,5 @@
 ﻿using LegendsViewer.Backend.Extensions;
+using LegendsViewer.Backend.Legends.Enums;
 using LegendsViewer.Backend.Legends.Events;
 using LegendsViewer.Backend.Legends.Extensions;
 using LegendsViewer.Backend.Legends.Interfaces;
@@ -31,6 +32,11 @@ public class Occasion : EventCollection, IHasComplexSubtype
                 case "ordinal": Ordinal = Convert.ToInt32(property.Value); break;
                 case "occasion_id": OccasionId = Convert.ToInt32(property.Value); break;
             }
+        }
+        if (Civ != null)
+        {
+            Civ.EntityType = EntityType.Civilization;
+            Civ.IsCiv = true;
         }
         Civ?.AddEventCollection(this);
         if (Civ?.Occassions.Count > 0)

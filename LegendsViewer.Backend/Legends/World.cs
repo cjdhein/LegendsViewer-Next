@@ -167,6 +167,15 @@ public class World : IDisposable, IWorld
 
     private void ResolveEntityIsMainCiv()
     {
+        foreach (var theft in Thefts)
+        {
+            if (theft.Attacker != null && theft.Attacker.Race == CreatureInfo.Unknown)
+            {
+                theft.Attacker.EntityType = EntityType.Civilization;
+                theft.Attacker.IsCiv = true;
+                theft.Attacker.Race = GetCreatureInfo("kobold");
+            }
+        }
         foreach (var entity in Entities.Where(e => e.EntityType == EntityType.Civilization))
         {
             if (!entity.IsCiv && !string.IsNullOrWhiteSpace(entity.Name))
@@ -440,6 +449,13 @@ public class World : IDisposable, IWorld
                 if (relatedEntity.Type != EntityLinkType.Enemy || relatedEntity.Type == EntityLinkType.Enemy && relatedEntity.Entity.IsCiv)
                 {
                     hf.RelatedEntities.Add(relatedEntity);
+                }
+                if (relatedEntity.Entity.IsCiv &&
+                    relatedEntity.Entity.Race == CreatureInfo.Unknown &&
+                    relatedEntity.Type == EntityLinkType.Position &&
+                    !hf.Race.NamePlural.StartsWith("demon", StringComparison.InvariantCultureIgnoreCase))
+                {
+                    relatedEntity.Entity.Race = hf.Race;
                 }
             }
         }

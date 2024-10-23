@@ -47,6 +47,11 @@ public class OccasionEvent : WorldEvent
             }
         }
 
+        if (Civ != null)
+        {
+            Civ.EntityType = EntityType.Civilization;
+            Civ.IsCiv = true;
+        }
         if (Civ?.Occassions.Count > 0 == true)
         {
             EntityOccasion = Civ.Occassions.ElementAt(OccasionId);
