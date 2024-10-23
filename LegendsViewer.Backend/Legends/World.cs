@@ -264,7 +264,7 @@ public class World : IDisposable, IWorld
     }
     public HistoricalFigure? GetHistoricalFigure(int id)
     {
-        return HistoricalFigures.GetLegendsObject(id) ?? HistoricalFigure.Unknown;
+        return HistoricalFigures.GetLegendsObject(id);
     }
     public Entity? GetEntity(int id)
     {
@@ -633,6 +633,8 @@ public class World : IDisposable, IWorld
             if (civ != null)
             {
                 civ.EntityPopulation = entityPopulation;
+                civ.EntityType = EntityType.Civilization;
+                civ.Race = entityPopulation.Race;
                 entityPopulation.Entity = civ;
             }
         }

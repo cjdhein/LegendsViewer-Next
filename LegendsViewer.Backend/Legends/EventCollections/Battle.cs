@@ -236,7 +236,7 @@ public class Battle : EventCollection, IHasComplexSubtype
             }
         }
 
-        foreach (HistoricalFigure involvedHf in NotableAttackers.Union(NotableDefenders).Where(hf => hf != HistoricalFigure.Unknown))
+        foreach (HistoricalFigure involvedHf in NotableAttackers.Union(NotableDefenders).Where(hf => hf != null))
         {
             involvedHf.Battles.Add(this);
             involvedHf.AddEventCollection(this);
@@ -245,7 +245,7 @@ public class Battle : EventCollection, IHasComplexSubtype
             involvedHf.AddEvent(battleFought);
         }
 
-        foreach (HistoricalFigure involvedSupportMercenary in AttackerSupportMercenaryHfs.Union(DefenderSupportMercenaryHfs).Where(hf => hf != HistoricalFigure.Unknown))
+        foreach (HistoricalFigure involvedSupportMercenary in AttackerSupportMercenaryHfs.Union(DefenderSupportMercenaryHfs).Where(hf => hf != null))
         {
             involvedSupportMercenary.Battles.Add(this);
             involvedSupportMercenary.AddEventCollection(this);

@@ -91,10 +91,7 @@ public class ArtifactPossessed : WorldEvent
                 break;
         }
         Artifact?.AddEvent(this);
-        if (HistoricalFigure != HistoricalFigure.Unknown)
-        {
-            HistoricalFigure?.AddEvent(this);
-        }
+        HistoricalFigure?.AddEvent(this);
         Site?.AddEvent(this);
     }
 

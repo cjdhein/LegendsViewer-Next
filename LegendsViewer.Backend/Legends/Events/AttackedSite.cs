@@ -47,11 +47,11 @@ public class AttackedSite : WorldEvent
             SiteEntity?.AddEvent(this);
         }
         Site?.AddEvent(this);
-        if (AttackerGeneral != HistoricalFigure.Unknown)
+        if (AttackerGeneral != null)
         {
             AttackerGeneral?.AddEvent(this);
         }
-        if (DefenderGeneral != HistoricalFigure.Unknown)
+        if (DefenderGeneral != null)
         {
             DefenderGeneral?.AddEvent(this);
         }

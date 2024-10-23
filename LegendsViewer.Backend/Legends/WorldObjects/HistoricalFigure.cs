@@ -26,8 +26,6 @@ public class HistoricalFigure : WorldObject
     public static readonly string FemaleIcon = HtmlStyleUtil.GetIconString("gender-female");
     public static readonly string MaleIcon = HtmlStyleUtil.GetIconString("gender-male");
 
-    public static readonly HistoricalFigure Unknown = new();
-
     public override string Type { get => Formatting.InitCaps(GetRaceString()); set => base.Type = value; }
 
     private string ShortName
@@ -727,11 +725,6 @@ public class HistoricalFigure : WorldObject
 
     public override string ToLink(bool link = true, DwarfObject? pov = null, WorldEvent? worldEvent = null)
     {
-        if (this == Unknown)
-        {
-            return Name;
-        }
-
         if (link)
         {
             if (pov == null || pov != this)

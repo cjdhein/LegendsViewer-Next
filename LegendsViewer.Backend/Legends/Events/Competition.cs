@@ -34,7 +34,7 @@ public class Competition : OccasionEvent
         Winner?.AddEvent(this);
         Competitors.ForEach(competitor =>
         {
-            if (competitor != Winner && competitor != HistoricalFigure.Unknown)
+            if (competitor != Winner && competitor != null)
             {
                 competitor.AddEvent(this);
             }

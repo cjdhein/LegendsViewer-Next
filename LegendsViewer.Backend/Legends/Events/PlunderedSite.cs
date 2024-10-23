@@ -116,10 +116,13 @@ public class PlunderedSite : WorldEvent
             if (SiteEntity != null && Defender != SiteEntity)
             {
                 eventString += SiteEntity.ToLink(link, pov, this);
+                if (Defender != SiteEntity && Defender != null)
+                {
+                    eventString += " of ";
+                }
             }
             if (Defender != null)
             {
-                eventString += " of ";
                 eventString += Defender.ToLink(link, pov, this);
             }
             eventString += " and pillaged ";

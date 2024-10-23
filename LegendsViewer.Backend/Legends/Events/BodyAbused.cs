@@ -133,7 +133,7 @@ public class BodyAbused : WorldEvent
         UndergroundRegion?.AddEvent(this);
         Bodies.ForEach(body =>
         {
-            if (body != HistoricalFigure.Unknown)
+            if (body != null)
             {
                 body.AddEvent(this);
                 if (AbuseType == AbuseType.Animated)

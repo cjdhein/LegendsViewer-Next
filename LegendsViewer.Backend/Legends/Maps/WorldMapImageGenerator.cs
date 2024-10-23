@@ -203,7 +203,7 @@ public class WorldMapImageGenerator(IWorld worldDataService) : IWorldMapImageGen
         {
             Style = SKPaintStyle.Stroke,
             Color = SKColors.Yellow,
-            StrokeWidth = strokeThickness // Thickness of the circle outline
+            StrokeWidth = strokeThickness
         })
         {
             canvas.DrawOval(pixelCenterX, pixelCenterY, pixelRadiusX, pixelRadiusY, circlePaint);
@@ -212,7 +212,7 @@ public class WorldMapImageGenerator(IWorld worldDataService) : IWorldMapImageGen
         {
             Style = SKPaintStyle.Stroke,
             Color = SKColors.IndianRed,
-            StrokeWidth = strokeThickness // Thickness of the circle outline
+            StrokeWidth = strokeThickness
         })
         {
             canvas.DrawOval(pixelCenterX, pixelCenterY, pixelRadiusX + strokeThickness, pixelRadiusY + strokeThickness, circlePaint);
@@ -283,12 +283,10 @@ public class WorldMapImageGenerator(IWorld worldDataService) : IWorldMapImageGen
         {
             for (int x = tileSize; x <= (width * tileSize) - tileSize; x += tileSize)
             {
-                // Draw thicker lines at multiples of 16 * tileSize
                 if ((x / tileSize) % ThicklineInterval == 0)
                 {
                     canvas.DrawLine(x, 0, x, height * tileSize, thickPaint);
                 }
-                // Draw thinner lines at multiples of 2 * tileSize
                 else if ((x / tileSize) % ThinlineInterval == 0)
                 {
                     canvas.DrawLine(x, 0, x, height * tileSize, thinPaint);
@@ -297,12 +295,10 @@ public class WorldMapImageGenerator(IWorld worldDataService) : IWorldMapImageGen
 
             for (int y = tileSize; y <= (height * tileSize) - tileSize; y += tileSize)
             {
-                // Draw thicker lines at multiples of 16 * tileSize
                 if ((y / tileSize) % ThicklineInterval == 0)
                 {
                     canvas.DrawLine(0, y, width * tileSize, y, thickPaint);
                 }
-                // Draw thinner lines at multiples of 2 * tileSize
                 else if ((y / tileSize) % ThinlineInterval == 0)
                 {
                     canvas.DrawLine(0, y, width * tileSize, y, thinPaint);

@@ -227,6 +227,29 @@ public class Entity : WorldObject, IHasCoordinates
         }
     }
 
+
+    [JsonIgnore]
+    public Entity? CurrentCiv
+    {
+        get
+        {
+            if(IsCiv)
+            {
+                return this;
+            }
+            Entity? parent = Parent;
+            while (parent != null)
+            {
+                if (parent.IsCiv)
+                {
+                    return parent;
+                }
+                parent = parent.Parent;
+            }
+            return null;
+        }
+    }
+
     [JsonIgnore]
     public List<EntityPositionAssignment> EntityPositionAssignments { get; set; } = []; // legends_plus.xml
     public List<ListItemDto> EntityPositionAssignmentsList

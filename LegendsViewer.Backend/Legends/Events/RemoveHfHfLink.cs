@@ -37,7 +37,7 @@ public class RemoveHfHfLink : WorldEvent
         }
 
         //Fill in LinkType by looking at related historical figures.
-        if (LinkType == HistoricalFigureLinkType.Unknown && HistoricalFigure != HistoricalFigure.Unknown && HistoricalFigureTarget != HistoricalFigure.Unknown)
+        if (LinkType == HistoricalFigureLinkType.Unknown && HistoricalFigure != null && HistoricalFigureTarget != null)
         {
             List<HistoricalFigureLink> historicalFigureToTargetLinks = HistoricalFigure?.RelatedHistoricalFigures.Where(link => link.Type != HistoricalFigureLinkType.Child && link.HistoricalFigure == HistoricalFigureTarget).ToList() ?? [];
             HistoricalFigureLink? historicalFigureToTargetLink = null;

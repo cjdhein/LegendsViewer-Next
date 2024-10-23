@@ -61,7 +61,7 @@ public class EntityPersecuted : WorldEvent
         PersecutorEntity?.AddEvent(this);
         TargetEntity?.AddEvent(this);
         Site?.AddEvent(this);
-        foreach (HistoricalFigure expelledHf in ExpelledHfs.Where(eHf => eHf != HistoricalFigure.Unknown))
+        foreach (HistoricalFigure expelledHf in ExpelledHfs.Where(eHf => eHf != null))
         {
             expelledHf.AddEvent(this);
         }
