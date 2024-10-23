@@ -7,6 +7,7 @@ export type Bookmark = components['schemas']['Bookmark'];
 export const useBookmarkStore = defineStore('bookmark', {
   state: () => ({
     bookmarks: [] as Bookmark[],
+    bookmarkError: '' as string,
     bookmarkWarning: '' as string,
     isLoadingNewWorld: false as boolean
   }),
@@ -38,6 +39,12 @@ export const useBookmarkStore = defineStore('bookmark', {
 
       if (error !== undefined) {
         console.error(error);
+        let existingBookmark = this.bookmarks.find(bookmark => bookmark.filePath === filePath);
+        if (existingBookmark) {
+          existingBookmark.state = 'Default';
+        }
+        this.isLoadingNewWorld = false;
+        this.bookmarkError = error
       } else if (data) {
         const newBookmark = data as Bookmark;
         if (newBookmark.worldName == null || newBookmark.worldName.length == 0) {

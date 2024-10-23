@@ -68,6 +68,21 @@ const closeDialog = () => {
   isDialogVisible.value = false; // Close the dialog and clear the warning
 };
 
+const isSnackbarVisible = computed({
+  get() {
+    return bookmarkStore.bookmarkError != null && bookmarkStore.bookmarkError.length > 0;
+  },
+  set(value: boolean) {
+    if (!value) {
+      bookmarkStore.bookmarkError = ''; // Clear bookmarkError on close
+    }
+  },
+});
+
+const closeSnackbar = () => {
+  isSnackbarVisible.value = false; // Close the snackbar and clear the error
+};
+
 </script>
 
 <template>
@@ -75,7 +90,7 @@ const closeDialog = () => {
     <v-col cols="12" md="3">
       <v-card class="mx-auto" max-width="320">
         <v-container>
-          <v-icon icon="mdi-earth-plus" size="300"></v-icon>
+          <v-icon icon="mdi-earth-box-plus" size="300"></v-icon>
         </v-container>
 
         <v-card-title>
@@ -218,4 +233,22 @@ const closeDialog = () => {
       </template>
     </v-card>
   </v-dialog>
+  <v-snackbar
+      v-model="isSnackbarVisible"
+      multi-line
+      top
+      color="error"
+    >
+      {{ bookmarkStore.bookmarkError }}
+
+      <template v-slot:actions>
+        <v-btn
+          color="black"
+          variant="tonal"
+          @click="closeSnackbar"
+        >
+          Close
+        </v-btn>
+      </template>
+    </v-snackbar>
 </template>
