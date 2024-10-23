@@ -622,8 +622,20 @@ public class Entity : WorldObject, IHasCoordinates
             title += "&#13";
             title += "Part of " + Parent.Name;
         }
+        if (CurrentSites.Count > 0)
+        {
+            title += "&#13";
+            title += "Current Sites: " + CurrentSites.Count;
+        }
+        if (LostSites.Count > 0)
+        {
+            title += "&#13";
+            title += "Lost Sites: " + LostSites.Count;
+        }
         title += "&#13";
-        title += "Events: " + Events.Count;
+        title += "Events: " + EventCount;
+        title += "&#13";
+        title += "Chronicles: " + EventCollectionCount;
         return title;
     }
 

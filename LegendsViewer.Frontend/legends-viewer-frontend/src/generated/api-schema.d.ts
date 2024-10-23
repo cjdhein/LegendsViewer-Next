@@ -12856,17 +12856,14 @@ export interface components {
             readonly eventCount?: number;
             /** Format: int32 */
             readonly eventCollectionCount?: number;
-            item?: string | null;
             readonly creatorLink?: string | null;
             readonly holderLink?: string | null;
-            readonly structureLink?: string | null;
-            /** Format: int32 */
-            holderId?: number;
+            item?: string | null;
             description?: string | null;
             material?: string | null;
             /** Format: int32 */
             pageCount?: number;
-            readonly writtenContentLinks?: string[] | null;
+            readonly writtenContentLink?: string | null;
             /** Format: int32 */
             absTileX?: number;
             /** Format: int32 */
@@ -12874,6 +12871,7 @@ export interface components {
             /** Format: int32 */
             absTileZ?: number;
             coordinates?: components["schemas"]["Location"][] | null;
+            readonly structureLink?: string | null;
             readonly siteLink?: string | null;
             readonly regionLink?: string | null;
         };

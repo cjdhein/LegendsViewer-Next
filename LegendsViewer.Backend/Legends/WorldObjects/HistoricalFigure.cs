@@ -771,9 +771,16 @@ public class HistoricalFigure : WorldObject
     private string GetAnchorTitle()
     {
         string title = "";
+
         if (Positions.Count > 0)
         {
             title += GetLastNoblePosition();
+            title += "&#13";
+        }
+        var assignmentString = GetLastAssignmentString();
+        if (!string.IsNullOrWhiteSpace(assignmentString))
+        {
+            title += assignmentString;
             title += "&#13";
         }
         if (!string.IsNullOrWhiteSpace(AssociatedType) && AssociatedType != "Standard")
@@ -785,7 +792,15 @@ public class HistoricalFigure : WorldObject
         title += Formatting.InitCaps(RaceString);
         if (!Deity && !Force)
         {
-            title += " (" + BirthYear + " - " + (DeathYear == -1 ? "Present" : DeathYear.ToString()) + ")";
+            title += "&#13";
+            title += $"Born: {BirthYear}";
+            if (DeathYear != -1)
+            {
+                title += "&#13";
+                title += $"Died: {DeathYear}";
+            }
+            title += "&#13";
+            title += $"Age: {Age} years {(DeathYear == -1 ? "" : "✝")}";
         }
         title += "&#13";
         title += "Events: " + Events.Count;

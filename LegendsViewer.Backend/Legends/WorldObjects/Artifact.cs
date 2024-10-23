@@ -1,4 +1,5 @@
-﻿using LegendsViewer.Backend.Legends.Events;
+﻿using LegendsViewer.Backend.Contracts;
+using LegendsViewer.Backend.Legends.Events;
 using LegendsViewer.Backend.Legends.Interfaces;
 using LegendsViewer.Backend.Legends.Parser;
 using LegendsViewer.Backend.Legends.Various;
@@ -9,35 +10,36 @@ namespace LegendsViewer.Backend.Legends.WorldObjects;
 
 public class Artifact : WorldObject, IHasCoordinates
 {
-    public string? Item { get; set; }
     [JsonIgnore]
     public HistoricalFigure? Creator { get; set; }
     public string? CreatorLink => Creator?.ToLink(true, this);
 
     [JsonIgnore]
+    public int HolderId { get; set; } = -1;
+    [JsonIgnore]
     public HistoricalFigure? Holder { get; set; }
     public string? HolderLink => Holder?.ToLink(true, this);
 
-    [JsonIgnore]
-    public Structure? Structure { get; set; }
-    public string? StructureLink => Structure?.ToLink(true, this);
-
-    public int HolderId { get; set; }
+    public string? Item { get; set; }
     public string? Description { get; set; } // legends_plus.xml
     public string? Material { get; set; } // legends_plus.xml
     public int PageCount { get; set; } // legends_plus.xml
 
     [JsonIgnore]
-    public List<int> WrittenContentIds { get; set; } = [];
+    public int WrittenContentId { get; set; } = -1;
 
     [JsonIgnore]
-    public List<WrittenContent> WrittenContents { get; set; } = [];
-    public List<string> WrittenContentLinks => WrittenContents.ConvertAll(x => x.ToLink(true, this));
+    public WrittenContent? WrittenContent { get; set; }
+    public string? WrittenContentLink => WrittenContent?.ToLink(true, this);
 
     public int AbsTileX { get; set; }
     public int AbsTileY { get; set; }
     public int AbsTileZ { get; set; }
     public List<Location> Coordinates { get; set; } = [];
+
+    [JsonIgnore]
+    public Structure? Structure { get; set; }
+    public string? StructureLink => Structure?.ToLink(true, this);
 
     [JsonIgnore]
     public Site? Site { get; set; }
@@ -76,10 +78,7 @@ public class Artifact : WorldObject, IHasCoordinates
                                     break;
                                 case "page_written_content_id":
                                 case "writing_written_content_id":
-                                    if (!WrittenContentIds.Contains(Convert.ToInt32(subProperty.Value)))
-                                    {
-                                        WrittenContentIds.Add(Convert.ToInt32(subProperty.Value));
-                                    }
+                                    WrittenContentId = Convert.ToInt32(subProperty.Value);
                                     break;
                             }
                         }
@@ -97,7 +96,7 @@ public class Artifact : WorldObject, IHasCoordinates
                 case "abs_tile_x": AbsTileX = Convert.ToInt32(property.Value); break;
                 case "abs_tile_y": AbsTileY = Convert.ToInt32(property.Value); break;
                 case "abs_tile_z": AbsTileZ = Convert.ToInt32(property.Value); break;
-                case "writing": if (!WrittenContentIds.Contains(Convert.ToInt32(property.Value))) { WrittenContentIds.Add(Convert.ToInt32(property.Value)); } break;
+                case "writing": WrittenContentId = Convert.ToInt32(property.Value); break;
                 case "site_id":
                     Site = world.GetSite(Convert.ToInt32(property.Value));
                     break;
@@ -124,7 +123,7 @@ public class Artifact : WorldObject, IHasCoordinates
 
     public void Resolve(World world)
     {
-        if (HolderId > 0)
+        if (HolderId > -1)
         {
             Holder = world.GetHistoricalFigure(HolderId);
             if (Holder?.HoldingArtifacts.Contains(this) == false)
@@ -132,17 +131,9 @@ public class Artifact : WorldObject, IHasCoordinates
                 Holder.HoldingArtifacts.Add(this);
             }
         }
-        if (WrittenContentIds.Count > 0)
+        if (WrittenContentId > -1)
         {
-            WrittenContents = [];
-            foreach (var writtenContentId in WrittenContentIds)
-            {
-                WrittenContent? writtenContent = world.GetWrittenContent(writtenContentId);
-                if (writtenContent != null)
-                {
-                    WrittenContents.Add(writtenContent);
-                }
-            }
+            WrittenContent = world.GetWrittenContent(WrittenContentId);
         }
     }
 
