@@ -156,12 +156,13 @@ const readFromClipboard = async () => {
     <v-col v-for="(bookmark, i) in bookmarkStore.bookmarks" :key="i" cols="12" md="3">
       <v-card class="mx-auto" max-width="320">
         <v-container>
-          <v-img height="300px" width="300px" class="pixelated-image" :src="getImageData(bookmark)" cover>
-          </v-img>
+          <v-img height="300px" width="300px" class="pixelated-image" :src="getImageData(bookmark)" cover></v-img>
         </v-container>
 
         <v-card-title>
-          {{ bookmark.worldName }}
+          {{ (bookmark.worldName != null && bookmark.worldName.length > 0 ? bookmark.worldName :
+            bookmark.worldRegionName)
+          }}
           <v-chip class="float-right">
             {{ bookmark.worldWidth + " x " + bookmark.worldHeight }}
           </v-chip>

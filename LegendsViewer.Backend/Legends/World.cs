@@ -230,7 +230,7 @@ public class World : IDisposable, IWorld
             }
             else
             {
-                raceColor = colorIndex * colorVariance < 1080 ? Formatting.HsvToColor(colorIndex * colorVariance - 720, 1, 0.4) : Color.Black;
+                raceColor = colorIndex * colorVariance < 1080 ? Formatting.HsvToColor(colorIndex * colorVariance - 720, 1, 0.4) : Color.DarkSeaGreen;
             }
 
             const int alpha = 176;

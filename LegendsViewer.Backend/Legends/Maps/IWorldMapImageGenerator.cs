@@ -6,5 +6,6 @@ namespace LegendsViewer.Backend.Legends.Maps
     {
         byte[]? GenerateMapByteArray(int tileSize = WorldMapImageGenerator.DefaultTileSizeMid, int? depth = null, IHasCoordinates? objectWithCoordinates = null);
         void Clear();
+        Task LoadExportedWorldMapAsync(string? bmpFilePath);
     }
 }

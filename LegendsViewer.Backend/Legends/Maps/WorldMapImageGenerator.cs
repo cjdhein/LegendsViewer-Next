@@ -10,11 +10,30 @@ public class WorldMapImageGenerator(IWorld worldDataService) : IWorldMapImageGen
     public const int DefaultTileSizeMin = 2;
     public const int DefaultTileSizeMid = 4;
     public const int DefaultTileSizeMax = 10;
-
+    private const int ThicklineInterval = 16;
+    private const int ThinlineInterval = 4;
     private readonly IWorld _worldDataService = worldDataService;
     private byte[]? _worldMapMin;
     private byte[]? _worldMapMid;
     private byte[]? _worldMapMax;
+
+    private SKBitmap? _exportedWorldMapBitmap;
+
+    public async Task LoadExportedWorldMapAsync(string? bmpFilePath)
+    {
+        if (string.IsNullOrEmpty(bmpFilePath) || !File.Exists(bmpFilePath))
+        {
+            return;
+        }
+
+        using (var fileStream = new FileStream(bmpFilePath, FileMode.Open, FileAccess.Read, FileShare.Read, 4096, useAsync: true))
+        using (var memoryStream = new MemoryStream())
+        {
+            await fileStream.CopyToAsync(memoryStream);
+            memoryStream.Position = 0; // Reset the position of the memory stream to the beginning
+            _exportedWorldMapBitmap = SKBitmap.Decode(memoryStream);
+        }
+    }
 
     public byte[]? GenerateMapByteArray(int tileSize = DefaultTileSizeMid, int? depth = null, IHasCoordinates? objectWithCoordinates = null)
     {
@@ -23,7 +42,27 @@ public class WorldMapImageGenerator(IWorld worldDataService) : IWorldMapImageGen
             return imageData;
         }
 
-        SKBitmap worldImage = GenerateMapImage(tileSize, objectWithCoordinates, depth);
+        int pixelWidth = _worldDataService.Width * tileSize;
+        int pixelHeight = _worldDataService.Height * tileSize;
+
+        SKBitmap worldImage = new(pixelWidth, pixelHeight);
+        if (_exportedWorldMapBitmap != null)
+        {
+            using (var canvas = new SKCanvas(worldImage))
+            {
+                // Draw the resized BMP as the base image
+                canvas.DrawBitmap(_exportedWorldMapBitmap, new SKRect(0, 0, pixelWidth, pixelHeight));
+            }
+        }
+        else
+        {
+            using (var canvas = new SKCanvas(worldImage))
+            {
+                DrawGrid(canvas, _worldDataService.Width, _worldDataService.Height, tileSize);
+            }
+        }
+
+        worldImage = GenerateMapImage(worldImage, tileSize, objectWithCoordinates, depth);
 
         using (var stream = new SKDynamicMemoryWStream())
         {
@@ -57,15 +96,15 @@ public class WorldMapImageGenerator(IWorld worldDataService) : IWorldMapImageGen
         _worldMapMin = null;
         _worldMapMid = null;
         _worldMapMax = null;
+        _exportedWorldMapBitmap = null;
     }
 
-    private SKBitmap GenerateMapImage(int tileSize, IHasCoordinates? objectWithCoordinates = null, int? depth = null)
+    private SKBitmap GenerateMapImage(SKBitmap worldImage, int tileSize, IHasCoordinates? objectWithCoordinates = null, int? depth = null)
     {
         IRegion[,] worldTiles = GetWorldTiles(depth);
 
         int width = worldTiles.GetLength(0);
         int height = worldTiles.GetLength(1);
-        SKBitmap worldImage = new(width * tileSize, height * tileSize);
 
         // Create a hash set of the object's coordinates for faster lookup
         HashSet<(int, int)> objectCoordinates = new();
@@ -233,6 +272,41 @@ public class WorldMapImageGenerator(IWorld worldDataService) : IWorldMapImageGen
             foreach (var location in region.Coordinates)
             {
                 worldTiles[location.X, location.Y] = region;
+            }
+        }
+    }
+
+    private void DrawGrid(SKCanvas canvas, int width, int height, int tileSize)
+    {
+        using (var thinPaint = new SKPaint { Color = SKColors.DarkSlateGray, StrokeWidth = 0 })
+        using (var thickPaint = new SKPaint { Color = SKColors.DarkSlateBlue, StrokeWidth = 0 })
+        {
+            for (int x = tileSize; x <= (width * tileSize) - tileSize; x += tileSize)
+            {
+                // Draw thicker lines at multiples of 16 * tileSize
+                if ((x / tileSize) % ThicklineInterval == 0)
+                {
+                    canvas.DrawLine(x, 0, x, height * tileSize, thickPaint);
+                }
+                // Draw thinner lines at multiples of 2 * tileSize
+                else if ((x / tileSize) % ThinlineInterval == 0)
+                {
+                    canvas.DrawLine(x, 0, x, height * tileSize, thinPaint);
+                }
+            }
+
+            for (int y = tileSize; y <= (height * tileSize) - tileSize; y += tileSize)
+            {
+                // Draw thicker lines at multiples of 16 * tileSize
+                if ((y / tileSize) % ThicklineInterval == 0)
+                {
+                    canvas.DrawLine(0, y, width * tileSize, y, thickPaint);
+                }
+                // Draw thinner lines at multiples of 2 * tileSize
+                else if ((y / tileSize) % ThinlineInterval == 0)
+                {
+                    canvas.DrawLine(0, y, width * tileSize, y, thinPaint);
+                }
             }
         }
     }

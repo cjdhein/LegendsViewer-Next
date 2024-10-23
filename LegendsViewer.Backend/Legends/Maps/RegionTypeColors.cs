@@ -8,7 +8,7 @@ public static class RegionTypeColors
     // Dictionary to map RegionType to SKColor
     public static readonly Dictionary<RegionType, SKColor> BaseRegionColors = new Dictionary<RegionType, SKColor>
     {
-        { RegionType.Default, new SKColor(169, 169, 169) },    // Default - Gray
+        { RegionType.Default, new SKColor(169, 169, 169, 0) }, // Default - Transparent
         { RegionType.Mountains, new SKColor(139, 137, 137) },  // Mountains - Dark Gray
         { RegionType.Forest, new SKColor(34, 139, 34) },       // Forest - Dark Green
         { RegionType.Desert, new SKColor(255, 223, 186) },     // Desert - Sandy Yellow

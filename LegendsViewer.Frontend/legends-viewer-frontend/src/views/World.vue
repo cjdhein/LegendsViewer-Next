@@ -94,7 +94,9 @@ const eventCollectionTableHeaders: TableHeader[] = [
             </v-card>
         </v-col>
         <v-col
-            v-if="store.world?.areaByOverworldRegions?.labels != null && store.world?.areaByOverworldRegions?.labels?.length > 0"
+            v-if="store.world?.areaByOverworldRegions?.datasets != null &&
+                  store.world?.areaByOverworldRegions?.datasets?.length > 0 &&
+                  store.world?.areaByOverworldRegions?.datasets[0].data?.some(value => value > 0)"
             cols="12" xl="4" lg="6" md="12">
             <v-card title="Area by Overworld Regions"
                 subtitle="A comparative view of the land distribution across the world" height="400" variant="text">

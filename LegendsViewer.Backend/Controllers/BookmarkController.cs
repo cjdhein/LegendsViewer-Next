@@ -78,13 +78,12 @@ public class BookmarkController(
         int firstHyphenIndex = regionId.IndexOf('-');
         if (firstHyphenIndex != -1)
         {
-            regionName = regionId[..firstHyphenIndex]; // Extract the region name
-            timestamp = regionId[(firstHyphenIndex + 1)..]; // Extract the timestamp part
+            regionName = regionId[..firstHyphenIndex];
+            timestamp = regionId[(firstHyphenIndex + 1)..];
 
-            // Extract year, month, and day as integers
-            _worldDataService.CurrentYear = int.Parse(timestamp.Substring(0, 5));   // First 5 characters represent the year
-            _worldDataService.CurrentMonth = int.Parse(timestamp.Substring(6, 2));  // Characters 6 and 7 represent the month
-            _worldDataService.CurrentDay = int.Parse(timestamp.Substring(9, 2));    // Characters 9 and 10 represent the day
+            _worldDataService.CurrentYear = int.Parse(timestamp.Substring(0, 5));
+            _worldDataService.CurrentMonth = int.Parse(timestamp.Substring(6, 2));
+            _worldDataService.CurrentDay = int.Parse(timestamp.Substring(9, 2));
         }
 
         var xmlFileName = Directory.EnumerateFiles(directoryName, regionId + FileIdentifierLegendsXml).FirstOrDefault();
@@ -104,7 +103,7 @@ public class BookmarkController(
 
             logger.LogInformation($"Start loading world '{regionId}' from '{directoryName}'");
 
-            // Start parsing the XML asynchronously
+            await _worldMapImageGenerator.LoadExportedWorldMapAsync(mapFileName);
             await _worldDataService.ParseAsync(xmlFileName, xmlPlusFileName, historyFileName, sitesAndPopsFileName, mapFileName);
 
             logger.LogInformation(_worldDataService.Log.ToString());
@@ -115,7 +114,6 @@ public class BookmarkController(
         }
         catch (Exception ex)
         {
-            // Handle errors (e.g., file not found, XML parsing errors, etc.)
             return StatusCode(500, $"Error parsing the XML file: {ex.Message}");
         }
     }
