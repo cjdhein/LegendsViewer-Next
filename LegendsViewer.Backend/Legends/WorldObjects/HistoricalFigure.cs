@@ -772,16 +772,20 @@ public class HistoricalFigure : WorldObject
     {
         string title = "";
 
-        if (Positions.Count > 0)
+        var lastNoblePosition = GetLastNoblePosition();
+        if (!string.IsNullOrWhiteSpace(lastNoblePosition))
         {
-            title += GetLastNoblePosition();
+            title += lastNoblePosition;
             title += "&#13";
         }
-        var assignmentString = GetLastAssignmentString();
-        if (!string.IsNullOrWhiteSpace(assignmentString))
+        else
         {
-            title += assignmentString;
-            title += "&#13";
+            var assignmentString = GetLastAssignmentString();
+            if (!string.IsNullOrWhiteSpace(assignmentString))
+            {
+                title += assignmentString;
+                title += "&#13";
+            }
         }
         if (!string.IsNullOrWhiteSpace(AssociatedType) && AssociatedType != "Standard")
         {

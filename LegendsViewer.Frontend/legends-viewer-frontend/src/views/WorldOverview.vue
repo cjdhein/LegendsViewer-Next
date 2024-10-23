@@ -104,8 +104,8 @@ const closeSnackbar = () => {
         <v-card-actions>
           <v-dialog width="auto" min-width="480">
             <template v-slot:activator="{ props: activatorProps }">
-              <v-btn color="orange-lighten-2" prepend-icon="mdi-earth" text="Select" v-bind="activatorProps"
-                :disabled="bookmarkStore.isLoading" :loading="bookmarkStore.isLoading"></v-btn>
+              <v-btn color="orange-lighten-2" prepend-icon="mdi-earth" text="Select" variant="tonal" class="ml-1"
+                v-bind="activatorProps" :disabled="bookmarkStore.isLoading" :loading="bookmarkStore.isLoading"></v-btn>
             </template>
 
             <template v-slot:default="{ isActive }">
@@ -183,7 +183,8 @@ const closeSnackbar = () => {
         </v-card-actions>
       </v-card>
     </v-col>
-    <v-col v-for="(bookmark, i) in bookmarkStore.bookmarks" :key="i" cols="12" md="3">
+    <template v-for="(bookmark, i) in bookmarkStore.bookmarks" :key="i">
+    <v-col v-if="bookmark != null && bookmark.filePath" :for="i" cols="12" md="3">
       <v-card class="mx-auto" max-width="320">
         <v-container>
           <v-img height="300px" width="300px" class="pixelated-image" :src="getImageData(bookmark)" cover></v-img>
@@ -210,18 +211,34 @@ const closeSnackbar = () => {
           <v-btn
             v-if="bookmark.filePath && bookmark.state !== 'Loaded' || bookmark.latestTimestamp !== bookmark.loadedTimestamp"
             :loading="bookmark.state === 'Loading'" color="blue" text="Load" :disabled="bookmarkStore.isLoading"
+            variant="tonal" class="ml-1"
             @click="bookmarkStore.loadByFullPath(bookmark.filePath ?? '', bookmark.latestTimestamp ?? '')">
           </v-btn>
           <v-btn
             v-if="bookmark.filePath && bookmark.state === 'Loaded' && bookmark.latestTimestamp === bookmark.loadedTimestamp"
-            color="green-lighten-2" text="Explore" :disabled="bookmarkStore.isLoading" to="/world">
+            color="green-lighten-2" text="Explore" variant="tonal" class="ml-1" :disabled="bookmarkStore.isLoading"
+            to="/world">
           </v-btn>
+          <v-menu
+            v-if="bookmark.filePath && bookmark.state !== 'Loaded' || bookmark.latestTimestamp !== bookmark.loadedTimestamp"
+            :disabled="bookmarkStore.isLoading" transition="slide-x-transition">
+            <template v-slot:activator="{ props }">
+              <v-btn v-bind="props" icon="mdi-dots-horizontal" variant="plain" density="compact"></v-btn>
+            </template>
 
+            <v-list>
+              <v-list-item :disabled="bookmarkStore.isLoading" @click="bookmarkStore.deleteByFullPath(bookmark.filePath ?? '', bookmark.latestTimestamp ?? '')">
+                <v-list-item-title>
+                  <v-icon class="mt-n1" color="error" icon="mdi-delete-outline"></v-icon>
+                  Delete Bookmark
+                </v-list-item-title>
+              </v-list-item>
+            </v-list>
+          </v-menu>
           <v-spacer></v-spacer>
           <v-menu transition="slide-x-transition">
             <template v-slot:activator="{ props }">
-              <v-btn v-bind="props"
-                variant="text"
+              <v-btn v-bind="props" variant="text"
                 :disabled="bookmark.worldTimestamps == null || bookmark.worldTimestamps.length <= 1">
                 {{ bookmark.latestTimestamp }}
                 <template v-if="bookmark.worldTimestamps != null && bookmark.worldTimestamps.length > 1" v-slot:append>
@@ -242,6 +259,7 @@ const closeSnackbar = () => {
         </v-card-actions>
       </v-card>
     </v-col>
+  </template>
   </v-row>
   <v-dialog v-model="isDialogVisible" transition="dialog-top-transition" width="500px">
     <v-card max-width="400" prepend-icon="mdi-alert-outline" title="Warning" :text="bookmarkStore.bookmarkWarning">

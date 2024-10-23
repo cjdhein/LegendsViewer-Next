@@ -64,6 +64,48 @@ export const useBookmarkStore = defineStore('bookmark', {
         this.isLoadingNewWorld = false;
       }
     },
+    async deleteByFullPath(filePath: string, latestTimestamp: string) {
+      // Set the state of the bookmark to 'Loading' if it exists
+      let existingBookmark = this.bookmarks.find(bookmark => bookmark.filePath === filePath);
+      if (existingBookmark) {
+        existingBookmark.state = 'Loading';
+      }
+      else {
+        this.isLoadingNewWorld = true;
+      }
+
+      const { data, error } = await client.DELETE("/api/Bookmark/{filePath}", {
+        params: {
+          path: {
+            filePath: filePath.replace("{TIMESTAMP}", latestTimestamp)
+          }
+        }
+      });
+
+      if (error !== undefined) {
+        console.error(error);
+        let existingBookmark = this.bookmarks.find(bookmark => bookmark.filePath === filePath);
+        if (existingBookmark) {
+          existingBookmark.state = 'Default';
+        }
+        this.isLoadingNewWorld = false;
+        this.bookmarkError = error.title ?? error.type ?? ''
+      } else if (data) {
+        const newBookmark = data as Bookmark | null | undefined;
+
+        const index = this.bookmarks.findIndex(bookmark => bookmark.filePath === filePath);
+        if (newBookmark != null && index !== -1) {
+          // Update the existing bookmark
+          this.bookmarks[index] = newBookmark;
+        } else {
+          // Remove the bookmark if newBookmark is null or undefined
+          this.bookmarks.splice(index, 1);
+          this.bookmarks = this.bookmarks
+        }
+
+        this.isLoadingNewWorld = false;
+      }
+    },
     async loadByFolderAndFile(folderPath: string, fileName: string) {
 
       let fileNameWithoutTimestamp: string = '';

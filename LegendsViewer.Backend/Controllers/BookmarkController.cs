@@ -44,6 +44,24 @@ public class BookmarkController(
         return Ok(item);
     }
 
+    [HttpDelete("{filePath}")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public ActionResult<Bookmark> Delete([FromRoute] string filePath)
+    {
+        if(!_bookmarkService.DeleteBookmarkTimestamp(filePath))
+        {
+            return NotFound();
+        }
+        var item = _bookmarkService.GetBookmark(filePath);
+        if (item == null)
+        {
+            return NoContent();
+        }
+        return Ok(item);
+    }
+
     [HttpPost("loadByFullPath")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -52,7 +70,7 @@ public class BookmarkController(
     {
         if (string.IsNullOrWhiteSpace(filePath) || !System.IO.File.Exists(filePath))
         {
-            return BadRequest("Invalid file path.");
+            return BadRequest($"Invalid file path.\n{filePath}");
         }
         FileInfo fileInfo = new(filePath);
         if (string.IsNullOrWhiteSpace(fileInfo.DirectoryName))
@@ -73,7 +91,7 @@ public class BookmarkController(
         }
         else
         {
-            return BadRequest("Invalid file name.");
+            return BadRequest($"Invalid file name.\n{fileInfo.Name}");
         }
         int firstHyphenIndex = regionId.IndexOf('-');
         if (firstHyphenIndex != -1)
@@ -137,7 +155,7 @@ public class BookmarkController(
         var imageData = _worldMapImageGenerator.GenerateMapByteArray(WorldMapImageGenerator.DefaultTileSizeMin);
         var bookmark = new Bookmark
         {
-            FilePath = filePath.Replace(timestamp, BookmarkService.TimestampPlaceholder),
+            FilePath = BookmarkService.ReplaceLastOccurrence(filePath, timestamp, BookmarkService.TimestampPlaceholder),
             WorldName = _worldDataService.Name,
             WorldAlternativeName = _worldDataService.AlternativeName,
             WorldRegionName = regionName,
