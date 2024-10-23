@@ -101,7 +101,7 @@ const closeSnackbar = () => {
           Select an exported legends XML file
         </v-card-subtitle>
 
-        <v-card-actions style="height: 62px; margin-top: 8px; margin-bottom: 8px;">
+        <v-card-actions>
           <v-dialog width="auto" min-width="480">
             <template v-slot:activator="{ props: activatorProps }">
               <v-btn color="orange-lighten-2" prepend-icon="mdi-earth" text="Select" v-bind="activatorProps"
@@ -191,8 +191,8 @@ const closeSnackbar = () => {
 
         <v-card-title>
           {{ (bookmark.worldName != null && bookmark.worldName.length > 0 ?
-              bookmark.worldName :
-              bookmark.worldRegionName)
+            bookmark.worldName :
+            bookmark.worldRegionName)
           }}
           <v-chip class="float-right">
             {{ bookmark.worldWidth + " x " + bookmark.worldHeight }}
@@ -201,8 +201,8 @@ const closeSnackbar = () => {
 
         <v-card-subtitle>
           {{ (bookmark.worldAlternativeName != null && bookmark.worldAlternativeName.length > 0 ?
-              bookmark.worldAlternativeName :
-              '-') 
+            bookmark.worldAlternativeName :
+            '-')
           }}
         </v-card-subtitle>
 
@@ -218,37 +218,45 @@ const closeSnackbar = () => {
           </v-btn>
 
           <v-spacer></v-spacer>
-          <v-combobox v-model="bookmark.latestTimestamp" :items="bookmark.worldTimestamps ?? []" density="compact"
-            label="Timestamps" width="160" :disabled="bookmarkStore.isLoading"></v-combobox>
+          <v-menu transition="slide-x-transition">
+            <template v-slot:activator="{ props }">
+              <v-btn v-bind="props"
+                variant="text"
+                :disabled="bookmark.worldTimestamps == null || bookmark.worldTimestamps.length <= 1">
+                {{ bookmark.latestTimestamp }}
+                <template v-if="bookmark.worldTimestamps != null && bookmark.worldTimestamps.length > 1" v-slot:append>
+                  <v-icon icon="mdi-menu-down"></v-icon>
+                </template>
+              </v-btn>
+            </template>
+
+            <v-list>
+              <v-list-item v-for="(item, i) in bookmark.worldTimestamps ?? []" :key="i"
+                @click="bookmark.latestTimestamp = item">
+                <v-list-item-title>{{ item }}</v-list-item-title>
+              </v-list-item>
+            </v-list>
+          </v-menu>
+          <!-- <v-combobox v-model="bookmark.latestTimestamp" :items="bookmark.worldTimestamps ?? []" density="compact"
+            label="Timestamps" width="160" :disabled="bookmarkStore.isLoading"></v-combobox> -->
         </v-card-actions>
       </v-card>
     </v-col>
   </v-row>
   <v-dialog v-model="isDialogVisible" transition="dialog-top-transition" width="500px">
-    <v-card max-width="400" prepend-icon="mdi-alert-outline"
-    title="Warning"  
-    :text="bookmarkStore.bookmarkWarning">
+    <v-card max-width="400" prepend-icon="mdi-alert-outline" title="Warning" :text="bookmarkStore.bookmarkWarning">
       <template v-slot:actions>
         <v-btn class="ms-auto" text="Ok" @click="closeDialog"></v-btn>
       </template>
     </v-card>
   </v-dialog>
-  <v-snackbar
-      v-model="isSnackbarVisible"
-      multi-line
-      top
-      color="error"
-    >
-      {{ bookmarkStore.bookmarkError }}
+  <v-snackbar v-model="isSnackbarVisible" multi-line top color="error">
+    {{ bookmarkStore.bookmarkError }}
 
-      <template v-slot:actions>
-        <v-btn
-          color="black"
-          variant="tonal"
-          @click="closeSnackbar"
-        >
-          Close
-        </v-btn>
-      </template>
-    </v-snackbar>
+    <template v-slot:actions>
+      <v-btn color="black" variant="tonal" @click="closeSnackbar">
+        Close
+      </v-btn>
+    </template>
+  </v-snackbar>
 </template>
