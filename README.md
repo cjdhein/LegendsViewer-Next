@@ -8,9 +8,14 @@
 
 - Overview and easy access to already opened worlds with thumbnails and timestamps
 - Generated maps from parsed information of the exported XML plus files
-- Visualize detailed **world maps** with sites and structures
-- Browse through a paginated tables of **world objects**, including their historical details
+- The most important information about a world at a glance
+  ![World Summary](https://i.imgur.com/bMa0WATl.png "World Summary")
+- Browse through paginated tables of **world objects**, including their historical details
+  ![Browse World Objects](https://i.imgur.com/t3JSfTxl.png "Browse World Objects")
 - Interactive map powered by **Leaflet.js** for exploring location of sites
+  ![Interactive Map](https://i.imgur.com/svKABNGl.png "Interactive Map")
+- Look into the family trees of historical figures
+  ![Family Tree](https://i.imgur.com/fwDbczfl.png "Family Tree")
 - Load large Dwarf Fortress **XML exports** quickly and efficiently using **XmlReader**
 
 ## Installation for Development
