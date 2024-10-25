@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useWrittenContentStore } from '../stores/worldObjectStores';
 import WorldObjectsPage from '../components/WorldObjectsPage.vue';
-import { TableHeader } from '../types/legends'; // Adjust the import path as needed
+import { TableHeader } from '../types/legends';
 
 const store = useWrittenContentStore();
 const icon = "mdi-bookshelf";
@@ -9,6 +9,7 @@ const title = "Written Content";
 const subtitle = "The preserved knowledge, stories, and records that document the past and shape the future";
 const overviewSubtitle = "Browse and search all written content";
 const overviewTitle = "Overview";
+const wikiKeyWord = "Book";
 const tableHeaders: TableHeader[] = [
     { title: 'Id', key: 'id', align: 'end' },
     { title: 'Name', key: 'html', align: 'start' },
@@ -21,6 +22,6 @@ const tableHeaders: TableHeader[] = [
 
 <template>
     <WorldObjectsPage :store="store" :icon="icon" :title="title" :subtitle="subtitle" :overviewTitle="overviewTitle"
-        :overviewSubtitle="overviewSubtitle" :tableHeaders="tableHeaders">
+        :overviewSubtitle="overviewSubtitle" :wikiKeyWord="wikiKeyWord" :tableHeaders="tableHeaders">
     </WorldObjectsPage>
 </template>

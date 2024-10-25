@@ -9,6 +9,7 @@ const title = "Insurrections";
 const subtitle = "Uprisings and rebellions challenging the established order";
 const overviewSubtitle = "Browse and search all insurrections";
 const overviewTitle = "Overview";
+const wikiKeyWord = "Insurrection";
 const tableHeaders: TableHeader[] = [
     { title: 'Start', key: 'startDate', align: 'center' },
     { title: 'End', key: 'endDate', align: 'center' },
@@ -21,6 +22,6 @@ const tableHeaders: TableHeader[] = [
 
 <template>
     <WorldObjectsPage :store="store" :icon="icon" :title="title" :subtitle="subtitle" :overviewTitle="overviewTitle"
-        :overviewSubtitle="overviewSubtitle" :tableHeaders="tableHeaders">
+        :overviewSubtitle="overviewSubtitle" :wikiKeyWord="wikiKeyWord" :tableHeaders="tableHeaders">
     </WorldObjectsPage>
 </template>

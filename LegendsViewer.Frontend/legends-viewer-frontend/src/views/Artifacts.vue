@@ -9,6 +9,7 @@ const title = "Artifacts";
 const subtitle = "The treasured relics of history, each holding tales of power, craftsmanship, and legend";
 const overviewSubtitle = "Browse and search all artifacts";
 const overviewTitle = "Overview";
+const wikiKeyWord = "artifact";
 const tableHeaders: TableHeader[] = [
     { title: 'Id', key: 'id', align: 'end' },
     { title: 'Name', key: 'html', align: 'start' },
@@ -21,6 +22,6 @@ const tableHeaders: TableHeader[] = [
 
 <template>
     <WorldObjectsPage :store="store" :icon="icon" :title="title" :subtitle="subtitle" :overviewTitle="overviewTitle"
-        :overviewSubtitle="overviewSubtitle" :tableHeaders="tableHeaders">
+        :overviewSubtitle="overviewSubtitle" :wikiKeyWord="wikiKeyWord" :tableHeaders="tableHeaders">
     </WorldObjectsPage>
 </template>

@@ -12,6 +12,17 @@
                             {{ subtitle }}
                         </v-card-subtitle>
                     </v-col>
+                    <v-col v-if="wikiKeyWord" cols="auto">
+                        <v-btn append-icon="mdi-search-web"
+                            :href="`https://dwarffortresswiki.org/index.php/${encodeURIComponent(wikiKeyWord)}`"
+                            target="_blank">
+                            Search DF Wiki
+
+                            <template v-slot:append>
+                                <v-icon color="primary"></v-icon>
+                            </template>
+                        </v-btn>
+                    </v-col>
                 </v-row>
             </v-card>
         </v-col>
@@ -83,6 +94,10 @@ const props = defineProps({
     overviewSubtitle: {
         type: String,
         required: true,
+    },
+    wikiKeyWord: {
+        type: String,
+        required: false,
     },
     tableHeaders: {
         type: Array as () => TableHeader[],

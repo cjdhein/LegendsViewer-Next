@@ -297,14 +297,17 @@ public class HistoricalFigure : WorldObject
                 list.Add(new ListItemDto
                 {
                     Title = "Age",
-                    Subtitle = Age.ToString() + (DeathYear > -1 ? " ✝" : "")
+                    Subtitle = Age.ToString() + (Alive ? "" : " ✝")
                 });
             }
-            list.Add(new ListItemDto
+            if (BirthYear != -1)
             {
-                Title = "Born",
-                Subtitle = Formatting.YearPlusSeconds72ToProsa(BirthYear, BirthSeconds72)
-            });
+                list.Add(new ListItemDto
+                {
+                    Title = "Born",
+                    Subtitle = Formatting.YearPlusSeconds72ToProsa(BirthYear, BirthSeconds72)
+                });
+            }
             if (DeathYear > -1)
             {
                 list.Add(new ListItemDto
@@ -794,17 +797,20 @@ public class HistoricalFigure : WorldObject
         }
         title += !string.IsNullOrWhiteSpace(Caste) && Caste != "Default" ? Caste + " " : "";
         title += Formatting.InitCaps(RaceString);
-        if (!Deity && !Force)
+        if (BirthYear != -1)
         {
             title += "&#13";
             title += $"Born: {BirthYear}";
-            if (DeathYear != -1)
-            {
-                title += "&#13";
-                title += $"Died: {DeathYear}";
-            }
+        }
+        if (!Alive)
+        {
             title += "&#13";
-            title += $"Age: {Age} years {(DeathYear == -1 ? "" : "✝")}";
+            title += $"Died: {DeathYear}";
+        }
+        if (Age > -1)
+        {
+            title += "&#13";
+            title += $"Age: {Age} years {(Alive ? "" : "✝")}";
         }
         title += "&#13";
         title += "Events: " + Events.Count;

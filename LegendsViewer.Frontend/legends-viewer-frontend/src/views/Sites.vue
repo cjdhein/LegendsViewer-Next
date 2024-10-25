@@ -9,6 +9,7 @@ const title = "Sites";
 const subtitle = "Sites are diverse inhabited locations, including towns, fortresses, and other settlements, found throughout the world. Explore their history, structures, and inhabitants";
 const overviewSubtitle = "Browse and search all world sites";
 const overviewTitle = "Overview";
+const wikiKeyWord = "Site";
 const tableHeaders: TableHeader[] = [
     { title: 'Id', key: 'id', align: 'end' },
     { title: 'Name', key: 'html', align: 'start' },
@@ -21,6 +22,6 @@ const tableHeaders: TableHeader[] = [
 
 <template>
     <WorldObjectsPage :store="store" :icon="icon" :title="title" :subtitle="subtitle" :overviewTitle="overviewTitle"
-        :overviewSubtitle="overviewSubtitle" :tableHeaders="tableHeaders">
+        :overviewSubtitle="overviewSubtitle" :wikiKeyWord="wikiKeyWord" :tableHeaders="tableHeaders">
     </WorldObjectsPage>
 </template>

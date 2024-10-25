@@ -9,6 +9,7 @@ const title = "Underground Regions";
 const subtitle = "Discover the secrets of the underground, where darkness holds treasures and ancient civilizations thrive";
 const overviewSubtitle = "Browse and search all underground regions";
 const overviewTitle = "Overview";
+const wikiKeyWord = "Region";
 const tableHeaders: TableHeader[] = [
     { title: 'Id', key: 'id', align: 'end' },
     { title: 'Name', key: 'html', align: 'start' },
@@ -21,6 +22,6 @@ const tableHeaders: TableHeader[] = [
 
 <template>
     <WorldObjectsPage :store="store" :icon="icon" :title="title" :subtitle="subtitle" :overviewTitle="overviewTitle"
-        :overviewSubtitle="overviewSubtitle" :tableHeaders="tableHeaders">
+        :overviewSubtitle="overviewSubtitle" :wikiKeyWord="wikiKeyWord" :tableHeaders="tableHeaders">
     </WorldObjectsPage>
 </template>

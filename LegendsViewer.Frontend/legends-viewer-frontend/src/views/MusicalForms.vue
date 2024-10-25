@@ -9,6 +9,7 @@ const title = "Musical Forms";
 const subtitle = "The rhythmic and melodic expressions that resonate through time, shaping culture and emotion";
 const overviewSubtitle = "Browse and search all musical forms";
 const overviewTitle = "Overview";
+const wikiKeyWord = "Musical_form";
 const tableHeaders: TableHeader[] = [
     { title: 'Id', key: 'id', align: 'end' },
     { title: 'Name', key: 'html', align: 'start' },
@@ -20,6 +21,6 @@ const tableHeaders: TableHeader[] = [
 
 <template>
     <WorldObjectsPage :store="store" :icon="icon" :title="title" :subtitle="subtitle" :overviewTitle="overviewTitle"
-        :overviewSubtitle="overviewSubtitle" :tableHeaders="tableHeaders">
+        :overviewSubtitle="overviewSubtitle" :wikiKeyWord="wikiKeyWord" :tableHeaders="tableHeaders">
     </WorldObjectsPage>
 </template>

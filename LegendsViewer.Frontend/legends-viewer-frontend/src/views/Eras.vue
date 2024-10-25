@@ -9,6 +9,7 @@ const title = "Eras";
 const subtitle = "The defining periods that shaped the course of history and civilization";
 const overviewSubtitle = "Browse and search all eras";
 const overviewTitle = "Overview";
+const wikiKeyWord = "Ages";
 const tableHeaders: TableHeader[] = [
     { title: 'Id', key: 'id', align: 'end' },
     { title: 'Duration', key: 'type', align: 'center' },
@@ -21,6 +22,6 @@ const tableHeaders: TableHeader[] = [
 
 <template>
     <WorldObjectsPage :store="store" :icon="icon" :title="title" :subtitle="subtitle" :overviewTitle="overviewTitle"
-        :overviewSubtitle="overviewSubtitle" :tableHeaders="tableHeaders">
+        :overviewSubtitle="overviewSubtitle" :wikiKeyWord="wikiKeyWord" :tableHeaders="tableHeaders">
     </WorldObjectsPage>
 </template>

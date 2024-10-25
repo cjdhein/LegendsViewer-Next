@@ -9,6 +9,7 @@ const title = "Performances";
 const subtitle = "An artistic display, from music to theater, bringing culture and creativity to life";
 const overviewSubtitle = "Browse and search all performances";
 const overviewTitle = "Overview";
+const wikiKeyWord = "Performance";
 const tableHeaders: TableHeader[] = [
     { title: 'Start', key: 'startDate', align: 'center' },
     { title: 'End', key: 'endDate', align: 'center' },
@@ -22,6 +23,6 @@ const tableHeaders: TableHeader[] = [
 
 <template>
     <WorldObjectsPage :store="store" :icon="icon" :title="title" :subtitle="subtitle" :overviewTitle="overviewTitle"
-        :overviewSubtitle="overviewSubtitle" :tableHeaders="tableHeaders">
+        :overviewSubtitle="overviewSubtitle" :wikiKeyWord="wikiKeyWord" :tableHeaders="tableHeaders">
     </WorldObjectsPage>
 </template>

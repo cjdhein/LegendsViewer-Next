@@ -9,6 +9,7 @@ const title = "Wars";
 const subtitle = "The grand conflicts that shaped the course of history";
 const overviewSubtitle = "Browse and search all wars";
 const overviewTitle = "Overview";
+const wikiKeyWord = "War";
 const tableHeaders: TableHeader[] = [
     { title: 'Start', key: 'startDate', align: 'center' },
     { title: 'End', key: 'endDate', align: 'center' },
@@ -22,6 +23,6 @@ const tableHeaders: TableHeader[] = [
 
 <template>
     <WorldObjectsPage :store="store" :icon="icon" :title="title" :subtitle="subtitle" :overviewTitle="overviewTitle"
-        :overviewSubtitle="overviewSubtitle" :tableHeaders="tableHeaders">
+        :overviewSubtitle="overviewSubtitle" :wikiKeyWord="wikiKeyWord" :tableHeaders="tableHeaders">
     </WorldObjectsPage>
 </template>

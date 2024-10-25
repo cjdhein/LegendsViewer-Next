@@ -9,6 +9,7 @@ const title = "Structures";
 const subtitle = "From grand guildhalls to mysterious catacombs, uncover the stories behind each structure";
 const overviewSubtitle = "Browse and search all site structures";
 const overviewTitle = "Overview";
+const wikiKeyWord = "Structure";
 const tableHeaders: TableHeader[] = [
     { title: 'Id', key: 'id', align: 'end' },
     { title: 'Name', key: 'html', align: 'start' },
@@ -20,6 +21,6 @@ const tableHeaders: TableHeader[] = [
 
 <template>
     <WorldObjectsPage :store="store" :icon="icon" :title="title" :subtitle="subtitle" :overviewTitle="overviewTitle"
-        :overviewSubtitle="overviewSubtitle" :tableHeaders="tableHeaders">
+        :overviewSubtitle="overviewSubtitle" :wikiKeyWord="wikiKeyWord" :tableHeaders="tableHeaders">
     </WorldObjectsPage>
 </template>

@@ -893,9 +893,12 @@ public class XmlParser : IDisposable
             int lastYear = World.Events.Last().Year;
             foreach (HistoricalFigure hf in World.HistoricalFigures)
             {
-                hf.Age = hf.DeathYear > 0
-                    ? hf.DeathYear - hf.BirthYear
-                    : lastYear - hf.BirthYear;
+                if (hf.BirthYear != -1)
+                {
+                    hf.Age = hf.DeathYear > -1
+                        ? hf.DeathYear - hf.BirthYear
+                        : lastYear - hf.BirthYear;
+                }
             }
         }
 
