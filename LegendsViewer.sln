@@ -14,6 +14,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution", "Solution", "{C0
 		README.md = README.md
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LegendsViewer.Backend.Tests", "LegendsViewer.Backend.Tests\LegendsViewer.Backend.Tests.csproj", "{A65185CD-FBE4-4FE7-96F6-B0D188CC775D}"
+	ProjectSection(ProjectDependencies) = postProject
+		{F46548D3-818A-4C12-A4AD-28D132E745DD} = {F46548D3-818A-4C12-A4AD-28D132E745DD}
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -28,6 +33,10 @@ Global
 		{9AD21B79-09BC-4C21-B181-27BF65999DD4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9AD21B79-09BC-4C21-B181-27BF65999DD4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9AD21B79-09BC-4C21-B181-27BF65999DD4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A65185CD-FBE4-4FE7-96F6-B0D188CC775D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A65185CD-FBE4-4FE7-96F6-B0D188CC775D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A65185CD-FBE4-4FE7-96F6-B0D188CC775D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A65185CD-FBE4-4FE7-96F6-B0D188CC775D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
