@@ -77,6 +77,9 @@ public class ArtifactCreated : WorldEvent
                                     case "defeated":
                                         Circumstance = Circumstance.DefeatedHf;
                                         break;
+                                    case "conflict":
+                                        Circumstance = Circumstance.Conflict;
+                                        break;
                                     default:
                                         property.Known = false;
                                         break;

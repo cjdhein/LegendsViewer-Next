@@ -1,7 +1,9 @@
 <template>
-    <v-fab class="me-2" icon="mdi-chevron-right" location="top end" absolute :to="'/' + objectType + '/' + (store.object?.nextId ?? routeId + 1)">
+    <v-fab class="me-2" icon="mdi-chevron-right" location="top end" absolute
+        :to="'/' + objectType + '/' + (store.object?.nextId ?? routeId + 1)">
     </v-fab>
-    <v-fab class="me-16" icon="mdi-chevron-left" location="top end" absolute :to="'/' + objectType + '/' + (store.object?.previousId ?? routeId - 1)">
+    <v-fab class="me-16" icon="mdi-chevron-left" location="top end" absolute
+        :to="'/' + objectType + '/' + (store.object?.previousId ?? routeId - 1)">
     </v-fab>
     <v-row>
         <v-col cols="12">
@@ -29,8 +31,8 @@
                     <v-icon class="mr-2" icon="mdi-map-search-outline" size="32px"></v-icon>
                 </template>
                 <v-card-text>
-                    <v-img width="320" height="320" class="position-relative ml-12 pixelated-image" :src="mapStore.currentWorldObjectMap"
-                        :cover="false" />
+                    <v-img width="320" height="320" class="position-relative ml-12 pixelated-image"
+                        :src="mapStore.currentWorldObjectMap" :cover="false" />
                 </v-card-text>
             </v-card>
         </v-col>
@@ -44,13 +46,13 @@
                 </template>
                 <v-card-text class="ml-12">
                     <LineChart v-if="store.objectEventChartData != null" :chart-data="store.objectEventChartData" />
-                    <v-data-table-server v-model:items-per-page="store.objectEventsPerPage" :headers="eventTableHeaders" :items="store.objectEvents"
-                    :items-length="store.objectEventsTotalItems" :loading="store.isLoading" item-value="id"
-                    @update:options="loadEvents">
-                    <template v-slot:item.html="{ value }">
-                        <span v-html="value"></span>
-                    </template>
-                </v-data-table-server>
+                    <v-data-table-server v-model:items-per-page="store.objectEventsPerPage" :headers="eventTableHeaders"
+                        :items="store.objectEvents" :items-length="store.objectEventsTotalItems"
+                        :loading="store.isLoading" item-value="id" @update:options="loadEvents">
+                        <template v-slot:item.html="{ value }">
+                            <span v-html="value"></span>
+                        </template>
+                    </v-data-table-server>
                 </v-card-text>
             </v-card>
         </v-col>
@@ -62,16 +64,17 @@
                     <v-icon class="mr-2" icon="mdi-calendar-clock" size="32px"></v-icon>
                 </template>
                 <v-card-text class="ml-12">
-                    <v-data-table-server v-model:items-per-page="store.objectEventCollectionsPerPage" :headers="eventCollectionTableHeaders" :items="store.objectEventCollections"
-                    :items-length="store.objectEventCollectionsTotalItems" :loading="store.isLoading" item-value="id"
-                    @update:options="loadEventCollections">
-                    <template v-slot:item.subtype="{ value }">
-                        <span v-html="value"></span>
-                    </template>
-                    <template v-slot:item.html="{ value }">
-                        <span v-html="value"></span>
-                    </template>
-                </v-data-table-server>
+                    <v-data-table-server v-model:items-per-page="store.objectEventCollectionsPerPage"
+                        :headers="eventCollectionTableHeaders" :items="store.objectEventCollections"
+                        :items-length="store.objectEventCollectionsTotalItems" :loading="store.isLoading"
+                        item-value="id" @update:options="loadEventCollections">
+                        <template v-slot:item.subtype="{ value }">
+                            <span v-html="value"></span>
+                        </template>
+                        <template v-slot:item.html="{ value }">
+                            <span v-html="value"></span>
+                        </template>
+                    </v-data-table-server>
                 </v-card-text>
             </v-card>
         </v-col>
@@ -84,7 +87,7 @@
 <script setup lang="ts">
 import { computed, watch } from 'vue';
 import { useRoute } from 'vue-router';
-import { LoadItemsOptions, TableHeader } from '../types/legends';
+import { LoadItemsOptions, LoadItemsSortOption, TableHeader } from '../types/legends';
 import LineChart from '../components/LineChart.vue';
 
 const route = useRoute()
@@ -102,6 +105,8 @@ const loadEvents = async ({ page, itemsPerPage, sortBy }: LoadItemsOptions) => {
 const loadEventCollections = async ({ page, itemsPerPage, sortBy }: LoadItemsOptions) => {
     await props.store.loadEventCollections(routeId.value, page, itemsPerPage, sortBy)
 }
+
+const eventSortBy: LoadItemsSortOption[] = [{ key: 'date', order: 'asc' }]
 
 const eventTableHeaders = [
     { title: 'Date', key: 'date' },
@@ -140,7 +145,7 @@ const load = async (idString: string | string[]) => {
         await props.store.load(id)
         await props.mapStore?.loadWorldObjectMap(id, 'Default')
         await props.store.loadEventChartData(id)
-        await loadEvents({ page: 1, itemsPerPage: props.store.objectEventsPerPage, sortBy: [] })
+        await loadEvents({ page: 1, itemsPerPage: props.store.objectEventsPerPage, sortBy: eventSortBy })
     }
 }
 
@@ -154,5 +159,4 @@ watch(
 
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>
