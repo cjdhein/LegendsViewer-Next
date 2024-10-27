@@ -7,5 +7,6 @@ public enum Circumstance
     DefeatedHf,
     MurderedHf,
     HfIsDead,
-    AbductedHf
+    AbductedHf,
+    Conflict
 }
