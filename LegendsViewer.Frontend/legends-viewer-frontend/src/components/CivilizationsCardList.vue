@@ -9,10 +9,10 @@
                     <v-list-item>
                         <template v-if="item?.thumbnail" v-slot:prepend>
                             <v-img v-if="item.thumbnail && item.currentSitesCount != null && item.currentSitesCount > 0"
-                                width="92" height="92" class="mr-4 mt-n2" :src="`data:image/png;base64,${item.thumbnail}`"
+                                width="92" height="92" class="mr-4 mt-n2 pixelated-image" :src="`data:image/png;base64,${item.thumbnail}`"
                                 :cover="false" />
                             <v-img v-if="item.thumbnail && item.currentSitesCount != null && item.currentSitesCount == 0"
-                                width="92" height="92" class="mr-4 mt-n2"
+                                width="92" height="92" class="mr-4 mt-n2 pixelated-image"
                                 :src="`data:image/png;base64,${item.thumbnail}`" :cover="false"
                                 gradient="to top right, rgba(25,32,72,.75), rgba(25,32,72,.80)" />
                         </template>
