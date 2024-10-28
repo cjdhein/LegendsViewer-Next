@@ -116,22 +116,22 @@ public static class HistoricalFigureExtensions
         string description = "";
         if (current.ActiveInteractions.Any(it => it.Contains("VAMPIRE")))
         {
-            description += "Vampire ";
+            description += "\nVampire\n";
             classes.Add("vampire");
         }
         if (current.ActiveInteractions.Any(it => it.Contains("WEREBEAST")))
         {
-            description += "Werebeast ";
+            description += "\nWerebeast\n";
             classes.Add("werebeast");
         }
         if (current.ActiveInteractions.Any(it => it.Contains("SECRET") && !it.Contains("ANIMATE") && !it.Contains("UNDEAD_RES")))
         {
-            description += "Necromancer ";
+            description += "\nNecromancer\n";
             classes.Add("necromancer");
         }
         if (current.Ghost)
         {
-            description += "Ghost ";
+            description += "\nGhost\n";
             classes.Add("ghost");
         }
         if (current.IsMainCivLeader)
@@ -153,30 +153,38 @@ public static class HistoricalFigureExtensions
             hfAssignment != title &&
             !hfHighestSkill.Contains(hfAssignment))
         {
+            if (!string.IsNullOrWhiteSpace(description))
+            {
+                description += "\n";
+            }
             description += hfAssignment;
         }
         if (!string.IsNullOrWhiteSpace(hfHighestSkill))
         {
             if (!string.IsNullOrWhiteSpace(description))
             {
-                description += "\n--------------------\n";
+                description += "\n──────── ✶ ────────\n\n";
             }
             description += hfHighestSkill;
         }
         if (!string.IsNullOrWhiteSpace(title))
         {
-            title += "\n--------------------\n";
+            title += "\n────────────\n";
         }
         if (!string.IsNullOrWhiteSpace(description))
         {
-            description += "\n--------------------\n";
+            description += "\n────────────\n";
         }
         title += description;
         title += current.Name;
         if (!current.Alive)
         {
-            title += "\n\n✝";
+            title += $"\n\n(Age: {current.Age}✝)";
             classes.Add("dead");
+        }
+        else
+        {
+            title += $"\n\nAge: {current.Age}";
         }
 
         FamilyTreeNodeData nodaData = new()

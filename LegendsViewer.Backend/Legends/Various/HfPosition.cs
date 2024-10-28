@@ -23,7 +23,7 @@ public class HfPosition(Entity? entity, int? startYear, int? endYear, int positi
                 positionName += historicalFigure != null ? position.GetTitleByCaste(historicalFigure.Caste) : Title;
                 if (Entity != null)
                 {
-                    return $"The {positionName} of {(link ? Entity.ToLink() : Entity.Name)}";
+                    return $"{positionName} of {(link ? Entity.ToLink() : Entity.Name)}";
                 }
                 return $"{positionName}";
             }
