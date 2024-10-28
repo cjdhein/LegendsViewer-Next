@@ -292,6 +292,17 @@ public class HistoricalFigure : WorldObject
                     Subtitle = Goal
                 });
             }
+
+            if (Positions?.Count > 0)
+            {
+                var lastPosition = Positions[^1];
+                list.Add(new ListItemDto
+                {
+                    Title = lastPosition.PrintTitle(true, this),
+                    Subtitle = lastPosition.PrintReign(this),
+                });
+            }
+
             if (Age > -1)
             {
                 list.Add(new ListItemDto
@@ -399,7 +410,27 @@ public class HistoricalFigure : WorldObject
     public List<Battle> BattlesNonCombatant => Battles.Where(battle => battle.NonCombatants.Contains(this)).ToList();
     public List<string> BattlesNonCombatantLinks => BattlesNonCombatant.ConvertAll(x => x.ToLink(true, this));
 
-    public List<Position> Positions { get; set; } = [];
+    [JsonIgnore]
+    public List<HfPosition>? Positions { get; set; }
+    public List<ListItemDto> PositionList
+    {
+        get
+        {
+            var list = new List<ListItemDto>();
+            if (Positions?.Count > 1)
+            {
+                foreach (var position in Positions)
+                {
+                    list.Add(new ListItemDto
+                    {
+                        Title = position.PrintTitle(true, this),
+                        Subtitle = position.PrintReign(this),
+                    });
+                }
+            }
+            return list;
+        }
+    }
 
     [JsonIgnore]
     public Entity? WorshippedBy { get; set; }
@@ -450,6 +481,7 @@ public class HistoricalFigure : WorldObject
     public string AnimatedType { get; set; } = string.Empty;
     public bool Adventurer { get; set; }
     public string? BreedId { get; set; }
+    public bool IsMainCivLeader { get; internal set; }
 
     private string? _shortName;
     private string? _raceString;
@@ -820,84 +852,84 @@ public class HistoricalFigure : WorldObject
     public string GetLastNoblePosition()
     {
         string title = "";
-        if (Positions.Count > 0)
+        if (Positions?.Count > 0)
         {
-            string positionName = "";
-            var hfposition = Positions[^1];
-            EntityPosition? position = hfposition.Entity?.EntityPositions.Find(pos => string.Equals(pos.Name, hfposition.Title, StringComparison.OrdinalIgnoreCase));
-            positionName = position != null ? position.GetTitleByCaste(Caste) : hfposition.Title;
-            title += (hfposition.Ended == -1 ? "" : "Former ") + positionName + " of " + (string.IsNullOrEmpty(hfposition.Entity?.Name) ? "Unknown" : hfposition.Entity.Name);
+            var lastHfposition = Positions[^1];
+            title += lastHfposition.PrintTitle(false, this);
         }
         return title;
     }
+    private List<HfJob>? _jobs;
 
-    private List<Assignment>? _assignments;
+    public void StartPositionAssignment(Entity? entity, int? startYear, int positionId, string title)
+    {
+        if (Positions == null)
+        {
+            Positions = [];
+        }
+        if (Positions.Exists(p => string.Equals(p.Title, title, StringComparison.OrdinalIgnoreCase) && p.StartYear == startYear && p.Entity == entity))
+        {
+            return;
+        }
+        Positions.Add(new HfPosition(entity, startYear, null, positionId, title));
+        if (entity != null && entity.IsCiv && positionId == 0)
+        {
+            IsMainCivLeader = true;
+        }
+    }
+
+    public void EndPositionAssignment(Entity? entity, int? endYear, int positionId, string title)
+    {
+        if (Positions == null)
+        {
+            Positions = [];
+        }
+        var position = Positions.LastOrDefault(p => string.Equals(p.Title, title, StringComparison.OrdinalIgnoreCase) && p.Entity == entity && p.PositionId == positionId);
+        if (position != null)
+        {
+            position.EndYear = endYear;
+        }
+        else
+        {
+            Positions.Add(new HfPosition(entity, null, endYear, positionId, title));
+            if (entity != null && entity.IsCiv && positionId == 0)
+            {
+                IsMainCivLeader = true;
+            }
+        }
+    }
 
     public string GetLastAssignmentString()
     {
-        if (_assignments?.Count > 0)
-        {
-            Assignment lastAssignment = _assignments.Last();
-            if (lastAssignment.Ended != -1)
-            {
-                return $"Former {lastAssignment.Title}";
-            }
-            return lastAssignment.Title;
-        }
         var lastAssignmentString = GetLastNoblePosition();
         if (!string.IsNullOrEmpty(lastAssignmentString))
         {
             return lastAssignmentString;
         }
-        _assignments = [];
-        var relevantEvents = Events.Where(e => e is ChangeHfJob || e is AddHfEntityLink);
-        if (relevantEvents.Any())
+        if(_jobs == null)
         {
-            foreach (var relevantEvent in relevantEvents)
+            _jobs = [];
+            foreach (var relevantEvent in Events.OfType<ChangeHfJob>())
             {
-                var lastAssignment = _assignments.LastOrDefault();
-                if (relevantEvent is ChangeHfJob changeHfJobEvent)
+                var lastJob = _jobs.LastOrDefault();
+                if (!string.Equals(relevantEvent.NewJob, "UNKNOWN JOB", StringComparison.OrdinalIgnoreCase))
                 {
-                    if (!string.Equals(changeHfJobEvent.NewJob, "UNKNOWN JOB", StringComparison.OrdinalIgnoreCase))
+                    if (lastJob != null)
                     {
-                        if (lastAssignment != null)
-                        {
-                            lastAssignment.Ended = changeHfJobEvent.Year;
-                        }
-                        _assignments.Add(new Assignment(changeHfJobEvent.Site, changeHfJobEvent.Year, -1, changeHfJobEvent.NewJob));
+                        lastJob.EndYear = relevantEvent.Year;
                     }
-                    else if (lastAssignment != null && changeHfJobEvent.OldJob == lastAssignment.Title)
-                    {
-                        lastAssignment.Ended = changeHfJobEvent.Year;
-                    }
+                    _jobs.Add(new HfJob(relevantEvent.Site, relevantEvent.Year, null, Formatting.InitCaps(relevantEvent.NewJob)));
                 }
-                else if (relevantEvent is AddHfEntityLink addHfEntityLinkEvent && (addHfEntityLinkEvent.LinkType == HfEntityLinkType.Squad || addHfEntityLinkEvent.LinkType == HfEntityLinkType.Position))
+                else if (lastJob != null && relevantEvent.OldJob == lastJob.Title)
                 {
-                    EntityPosition? position = addHfEntityLinkEvent.Entity?.EntityPositions.Find(pos => string.Equals(pos.Name, addHfEntityLinkEvent.Position, StringComparison.OrdinalIgnoreCase) || pos.Id == addHfEntityLinkEvent.PositionId);
-                    if (position != null)
-                    {
-                        if (lastAssignment != null)
-                        {
-                            lastAssignment.Ended = addHfEntityLinkEvent.Year;
-                        }
-                        string positionName = position.GetTitleByCaste(Caste ?? string.Empty);
-                        _assignments.Add(new Assignment(addHfEntityLinkEvent.Entity, addHfEntityLinkEvent.Year, -1, positionName));
-                    }
-                    else if (!string.IsNullOrWhiteSpace(addHfEntityLinkEvent.Position))
-                    {
-                        if (lastAssignment != null)
-                        {
-                            lastAssignment.Ended = addHfEntityLinkEvent.Year;
-                        }
-                        _assignments.Add(new Assignment(addHfEntityLinkEvent.Entity, addHfEntityLinkEvent.Year, -1, addHfEntityLinkEvent.Position));
-                    }
+                    lastJob.EndYear = relevantEvent.Year;
                 }
             }
         }
-        if (_assignments?.Count > 0)
+        HfJob? lastAssignment = _jobs?.LastOrDefault();
+        if (lastAssignment != null)
         {
-            Assignment lastAssignment = _assignments.Last();
-            if (lastAssignment.Ended != -1)
+            if (lastAssignment.EndYear != null)
             {
                 return $"Former {lastAssignment.Title}";
             }
@@ -938,53 +970,6 @@ public class HistoricalFigure : WorldObject
             spheres += sphere;
         }
         return spheres;
-    }
-
-    public class Assignment : Position
-    {
-        public Assignment(Site? site, int began, int ended, string title) : this(site?.CurrentOwner, began, ended, title)
-        {
-            Site = site;
-        }
-
-        public Assignment(Entity? entity, int began, int ended, string title) : base(entity, began, ended, title)
-        {
-        }
-
-        public Site? Site { get; set; }
-
-        public override string ToString()
-        {
-            if (Site != null)
-            {
-                return $"{Title} in  {Site.Name}";
-            }
-            if (Entity != null)
-            {
-                return $"{Title} of {Entity.Name}";
-            }
-            return Title;
-        }
-    }
-
-    public class Position
-    {
-        [JsonIgnore]
-        public Entity? Entity { get; set; }
-        public string? EntityToLink => Entity?.ToLink(true);
-
-        public string Title { get; set; }
-        public int Began { get; set; }
-        public int Ended { get; set; }
-        public int Length { get; set; }
-
-        public Position(Entity? entity, int began, int ended, string title)
-        {
-            Entity = entity;
-            Began = began;
-            Ended = ended;
-            Title = Formatting.InitCaps(title);
-        }
     }
 
     public class State

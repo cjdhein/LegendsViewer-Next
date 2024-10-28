@@ -23,6 +23,7 @@ public class WrittenContent : WorldObject
     public int PageCount => PageEnd - PageStart + 1;
     public int AuthorRoll { get; set; }
     public int FormId { get; set; }
+    public new string Subtype => Author?.ToLink(true, this) ?? string.Empty;
 
     public WrittenContent(List<Property> properties, World world)
         : base(properties, world)
@@ -169,7 +170,6 @@ public class WrittenContent : WorldObject
             Name = "An untitled " + WrittenContentType.GetDescription().ToLower();
         }
         Type = WrittenContentType.GetDescription();
-        Subtype = Author?.ToLink(true, this) ?? string.Empty;
     }
 
     public override string ToString()

@@ -111,12 +111,6 @@ public static class HistoricalFigureExtensions
         List<string> classes = original.Equals(current) ? ["current"] : [];
 
         string title = "";
-        if (current.Positions.Count != 0)
-        {
-            title += original.GetLastNoblePosition();
-            title += "\n--------------------\n";
-            classes.Add("leader");
-        }
         title += current.Race != null && current.Race != original.Race ? current.Race.NameSingular + " " : "";
 
         string description = "";
@@ -139,6 +133,10 @@ public static class HistoricalFigureExtensions
         {
             description += "Ghost ";
             classes.Add("ghost");
+        }
+        if (current.IsMainCivLeader)
+        {
+            classes.Add("leader");
         }
         if (current.Caste == "Male")
         {
