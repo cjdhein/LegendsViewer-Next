@@ -351,13 +351,25 @@ public class HistoricalFigure : WorldObject
                     Subtitle = WorshippedBy.ToLink(true, this)
                 });
             }
+            if (LineageCurseParent != null)
+            {
+                string curse = "Curse";
+                if (!string.IsNullOrWhiteSpace(Interaction))
+                {
+                    curse = Formatting.InitCaps(Interaction);
+                }
+                list.Add(new ListItemDto
+                {
+                    Title = $"Lineage {curse} Parent",
+                    Subtitle = LineageCurseParent.ToLink(true, this)
+                });
+            }
             return list;
         }
     }
 
     [JsonIgnore]
     public HistoricalFigure? LineageCurseParent { get; set; }
-    public string? LineageCurseParentToLink => LineageCurseParent?.ToLink(true, this);
 
     [JsonIgnore]
     public List<HistoricalFigure> LineageCurseChilds { get; set; } = [];
