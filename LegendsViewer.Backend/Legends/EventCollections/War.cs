@@ -1,4 +1,6 @@
-﻿using LegendsViewer.Backend.Legends.Enums;
+﻿using LegendsViewer.Backend.Contracts;
+using LegendsViewer.Backend.Extensions;
+using LegendsViewer.Backend.Legends.Enums;
 using LegendsViewer.Backend.Legends.Events;
 using LegendsViewer.Backend.Legends.Extensions;
 using LegendsViewer.Backend.Legends.Interfaces;
@@ -6,6 +8,7 @@ using LegendsViewer.Backend.Legends.Parser;
 using LegendsViewer.Backend.Legends.Various;
 using LegendsViewer.Backend.Legends.WorldObjects;
 using LegendsViewer.Backend.Utilities;
+using System.Drawing;
 using System.Text.Json.Serialization;
 
 namespace LegendsViewer.Backend.Legends.EventCollections;
@@ -14,36 +17,89 @@ public class War : EventCollection, IHasComplexSubtype
 {
     public int Length { get; set; }
     public int DeathCount { get; set; }
+    public int AttackerDeathCount { get; set; }
+    public int DefenderDeathCount { get; set; }
 
-    private readonly Dictionary<CreatureInfo, int> _deaths = [];
-    [JsonIgnore]
-    public Dictionary<CreatureInfo, int> Deaths
+    public List<ListItemDto> MiscList
     {
         get
         {
-            if (_deaths.Count > 0)
+            var list = new List<ListItemDto>();
+
+            if (Attacker != null)
             {
-                return _deaths;
-            }
-            foreach (Battle battle in Battles)
-            {
-                foreach (KeyValuePair<CreatureInfo, int> deathByRace in battle.Deaths)
+                list.Add(new ListItemDto
                 {
-                    if (_deaths.ContainsKey(deathByRace.Key))
-                    {
-                        _deaths[deathByRace.Key] += deathByRace.Value;
-                    }
-                    else
-                    {
-                        _deaths[deathByRace.Key] = deathByRace.Value;
-                    }
-                }
+                    Title = $"Attacker",
+                    Subtitle = $"{Attacker.ToLink(true, this)} (Deaths: {AttackerDeathCount} ✝)",
+                });
             }
-            return _deaths;
+
+            if (Defender != null)
+            {
+                list.Add(new ListItemDto
+                {
+                    Title = $"Defender",
+                    Subtitle = $"{Defender.ToLink(true, this)} (Deaths: {DefenderDeathCount} ✝)",
+                });
+            }
+            return list;
         }
     }
-    public int AttackerDeathCount { get; set; }
-    public int DefenderDeathCount { get; set; }
+
+    [JsonIgnore]
+    public List<HistoricalFigure> NotableDeaths => AllEvents?.OfType<HfDied>().Where(death => death.HistoricalFigure != null).Select(death => death.HistoricalFigure!).ToList() ?? [];
+    public List<string> NotableDeathLinks => NotableDeaths.ConvertAll(x => x.ToLink(true, this));
+    public ChartDataDto DeathsByRace
+    {
+        get
+        {
+            Dictionary<CreatureInfo, int> deaths = [];
+
+            foreach (var notableDeath in NotableDeaths)
+            {
+                if (deaths.TryGetValue(notableDeath.Race, out int deathCount))
+                {
+                    deaths[notableDeath.Race] = ++deathCount;
+                }
+                else
+                {
+                    deaths[notableDeath.Race] = 1;
+                }
+            }
+
+            foreach (var squad in Battles.SelectMany(battle => battle.AttackerSquads.Concat(battle.DefenderSquads)))
+            {
+                if (deaths.TryGetValue(squad.Race, out int deathCount))
+                {
+                    deaths[squad.Race] = deathCount + squad.Deaths;
+                }
+                else
+                {
+                    deaths[squad.Race] = squad.Deaths;
+                }
+            }
+            ChartDataDto deathsByRace = new();
+            ChartDatasetDto deathsByRaceDataset = new();
+            foreach (var death in deaths)
+            {
+                deathsByRace.Labels.Add(death.Key.NamePlural);
+                deathsByRaceDataset.Data.Add(death.Value);
+                if (World != null && World.MainRaces.TryGetValue(death.Key, out var raceColor))
+                {
+                    deathsByRaceDataset.BorderColor.Add(raceColor.ToRgbaString());
+                    deathsByRaceDataset.BackgroundColor.Add(raceColor.ToRgbaString(0.2f));
+                }
+                else
+                {
+                    deathsByRaceDataset.BorderColor.Add(Color.SlateGray.ToRgbaString());
+                    deathsByRaceDataset.BackgroundColor.Add(Color.SlateGray.ToRgbaString(0.2f));
+                }
+            }
+            deathsByRace.Datasets.Add(deathsByRaceDataset);
+            return deathsByRace;
+        }
+    }
     [JsonIgnore]
     public Entity? Attacker { get; set; }
     [JsonIgnore]

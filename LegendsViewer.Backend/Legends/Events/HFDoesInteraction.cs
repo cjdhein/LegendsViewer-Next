@@ -28,7 +28,6 @@ public class HfDoesInteraction : WorldEvent
                 case "doer": if (Doer == null) { Doer = world.GetHistoricalFigure(Convert.ToInt32(property.Value)); } else { property.Known = true; } break;
                 case "target": if (Target == null) { Target = world.GetHistoricalFigure(Convert.ToInt32(property.Value)); } else { property.Known = true; } break;
                 case "interaction_action": InteractionAction = property.Value.Replace("[IS_HIST_STRING_1:", "").Replace("[IS_HIST_STRING_2:", "").Replace("]", ""); break;
-                case "interaction_string": InteractionString = property.Value.Replace("[IS_HIST_STRING_2:", "").Replace("[I_TARGET:A:CREATURE", "").Replace("]", ""); break;
                 case "source": Source = property.Value; break;
                 case "region": Region = world.GetRegion(Convert.ToInt32(property.Value)); break;
                 case "site": Site = world.GetSite(Convert.ToInt32(property.Value)); break;
@@ -71,17 +70,17 @@ public class HfDoesInteraction : WorldEvent
                     creatureType = "resurrected undead";
                 }
             }
-            if (!string.IsNullOrWhiteSpace(InteractionAction) && InteractionAction.Contains(", passing on the "))
+            if (!string.IsNullOrWhiteSpace(InteractionAction) && InteractionAction.Contains("bit, passing on the "))
             {
-                Target.Interaction = InteractionAction.Replace(", passing on the ", "");
+                Target.Interaction = InteractionAction.Replace("bit, passing on the ", "");
                 if (!string.IsNullOrEmpty(Target.Interaction))
                 {
                     creatureType = "were" + Target.Interaction.Replace(" monster curse", " ");
                 }
             }
-            else if (!string.IsNullOrWhiteSpace(InteractionString) && InteractionString.Contains(" to assume the form of a "))
+            else if (!string.IsNullOrWhiteSpace(InteractionAction) && InteractionAction.Contains("cursed to assume the form of a "))
             {
-                Target.Interaction = InteractionString.Replace(" to assume the form of a ", "").Replace("-like", "").Replace(" every full moon", " curse");
+                Target.Interaction = InteractionAction.Replace("cursed to assume the form of a ", "").Replace("-like", "").Replace(" every full moon", " curse");
                 if (!string.IsNullOrEmpty(Target.Interaction))
                 {
                     creatureType = "were" + Target.Interaction.Replace(" monster curse", " ");
@@ -103,20 +102,24 @@ public class HfDoesInteraction : WorldEvent
     {
         string eventString = GetYearTime();
         eventString += Doer?.ToLink(link, pov, this);
-        if (InteractionString?.Length == 0)
+        if(string.IsNullOrEmpty(InteractionAction))
         {
             eventString += " bit ";
             eventString += Target?.ToLink(link, pov, this);
-            eventString += !string.IsNullOrWhiteSpace(InteractionAction) ? InteractionAction : ", passing on the " + Interaction + " ";
+            eventString += ", passing on the " + Interaction;
         }
         else
         {
-            eventString += !string.IsNullOrWhiteSpace(InteractionAction) ? InteractionAction : " put " + Interaction + " on ";
-            eventString += Target?.ToLink(link, pov, this);
-            eventString += !string.IsNullOrWhiteSpace(InteractionString) ? InteractionString : "";
+            string interactionString = InteractionAction
+                .Replace("bit,", $"bit {Target?.ToLink(link, pov, this) ?? "an unknown creature"},")
+                .Replace("cursed to", $"cursed {Target?.ToLink(link, pov, this) ?? "an unknown creature"} to");
+            eventString += $" {interactionString}";
         }
-        eventString += " in ";
-        eventString += Site != null ? Site.ToLink(link, pov, this) : "UNKNOWN SITE";
+        if (Site != null)
+        {
+            eventString += " in ";
+            eventString += Site.ToLink(link, pov, this);
+        }
         eventString += PrintParentCollection(link, pov);
         eventString += ".";
         return eventString;

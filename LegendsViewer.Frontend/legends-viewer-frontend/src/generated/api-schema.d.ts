@@ -12946,6 +12946,9 @@ export interface components {
             readonly defendersRemainingCount?: number;
             /** Format: int32 */
             readonly deathCount?: number;
+            readonly miscList?: components["schemas"]["ListItemDto"][] | null;
+            readonly notableDeathLinks?: string[] | null;
+            deathsByRace?: components["schemas"]["ChartDataDto"];
             /** Format: int32 */
             attackerDeathCount?: number;
             /** Format: int32 */
@@ -13423,7 +13426,6 @@ export interface components {
             goal?: string | null;
             interaction?: string | null;
             readonly miscList?: components["schemas"]["ListItemDto"][] | null;
-            readonly lineageCurseParentToLink?: string | null;
             readonly lineageCurseChildLinks?: string[] | null;
             spheres?: string[] | null;
             journeyPets?: components["schemas"]["ListItemDto"][] | null;
@@ -13433,7 +13435,7 @@ export interface components {
             readonly battlesAttackingLinks?: string[] | null;
             readonly battlesDefendingLinks?: string[] | null;
             readonly battlesNonCombatantLinks?: string[] | null;
-            positions?: components["schemas"]["Position"][] | null;
+            readonly positionList?: components["schemas"]["ListItemDto"][] | null;
             readonly beastAttackLinks?: string[] | null;
             familyTreeData?: components["schemas"]["FamilyTreeData"];
             alive?: boolean;
@@ -13446,6 +13448,7 @@ export interface components {
             animatedType?: string | null;
             adventurer?: boolean;
             breedId?: string | null;
+            readonly isMainCivLeader?: boolean;
         };
         Honor: {
             readonly entityToLink?: string | null;
@@ -13732,16 +13735,6 @@ export interface components {
             race?: components["schemas"]["CreatureInfo"];
             /** Format: int32 */
             count?: number;
-        };
-        Position: {
-            readonly entityToLink?: string | null;
-            title?: string | null;
-            /** Format: int32 */
-            began?: number;
-            /** Format: int32 */
-            ended?: number;
-            /** Format: int32 */
-            length?: number;
         };
         ProblemDetails: {
             type?: string | null;
@@ -14134,6 +14127,9 @@ export interface components {
             attackerDeathCount?: number;
             /** Format: int32 */
             defenderDeathCount?: number;
+            readonly miscList?: components["schemas"]["ListItemDto"][] | null;
+            readonly notableDeathLinks?: string[] | null;
+            deathsByRace?: components["schemas"]["ChartDataDto"];
             /** Format: double */
             readonly attackerToDefenderKills?: number;
             /** Format: double */
@@ -14271,7 +14267,6 @@ export interface components {
             icon?: string | null;
             name?: string | null;
             type?: string | null;
-            subtype?: string | null;
             /** Format: int32 */
             previousId?: number;
             /** Format: int32 */
@@ -14296,6 +14291,7 @@ export interface components {
             authorRoll?: number;
             /** Format: int32 */
             formId?: number;
+            readonly subtype?: string | null;
         };
         /** @enum {string} */
         WrittenContentType: "Unknown" | "Autobiography" | "Biography" | "Chronicle" | "Dialog" | "Essay" | "Guide" | "Letter" | "Manual" | "Novel" | "Play" | "Poem" | "ShortStory" | "Choreography" | "MusicalComposition" | "StarChart" | "CulturalHistory" | "ComparativeBiography" | "CulturalComparison" | "Atlas" | "TreatiseOnTechnologicalEvolution" | "AlternateHistory" | "StarCatalogue" | "Dictionary" | "Genealogy" | "Encyclopedia" | "BiographicalDictionary";

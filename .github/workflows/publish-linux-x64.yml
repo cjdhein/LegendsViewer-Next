@@ -26,7 +26,7 @@ jobs:
         run: dotnet build LegendsViewer.sln --configuration Release --no-restore
 
       - name: Publish Backend
-        run: dotnet publish LegendsViewer.Backend/LegendsViewer.Backend.csproj -c Release -r linux-x64 --self-contained true -p:PublishSingleFile=true -o ./publish
+        run: dotnet publish LegendsViewer.Backend/LegendsViewer.Backend.csproj -c Release -r linux-x64 --self-contained true -p:PublishSingleFile=true -p:DebugType=none -o ./publish
 
       - name: Publish Frontend
         run: dotnet publish LegendsViewer.Frontend/LegendsViewer.Frontend.csproj -c Release -o ./publish

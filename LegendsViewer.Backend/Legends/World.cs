@@ -169,11 +169,23 @@ public class World : IDisposable, IWorld
     {
         foreach (var theft in Thefts)
         {
-            if (theft.Attacker != null && theft.Attacker.Race == CreatureInfo.Unknown)
+            if (theft.Attacker != null)
             {
-                theft.Attacker.EntityType = EntityType.Civilization;
-                theft.Attacker.IsCiv = true;
-                theft.Attacker.Race = GetCreatureInfo("kobold");
+                if (theft.Attacker.Race == CreatureInfo.Unknown)
+                {
+                    theft.Attacker.EntityType = EntityType.Civilization;
+                    theft.Attacker.IsCiv = true;
+                    theft.Attacker.Race = GetCreatureInfo("kobold");
+                }
+                if (theft.Attacker.SiteHistory.Count == 0)
+                {
+                    var itemStolenEvent = theft.AllEvents.OfType<ItemStolen>().FirstOrDefault(e => e.ReturnSite != null);
+                    if (itemStolenEvent?.ReturnSite != null)
+                    {
+                        var ownerPeriod = new OwnerPeriod(itemStolenEvent.ReturnSite, theft.Attacker, -1, "ancestral claim");
+                        theft.Attacker.AddOwnedSite(ownerPeriod);
+                    }
+                }
             }
         }
         foreach (var entity in Entities.Where(e => e.EntityType == EntityType.Civilization))

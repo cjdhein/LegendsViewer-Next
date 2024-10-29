@@ -564,7 +564,11 @@ public class Entity : WorldObject, IHasCoordinates
     //TODO: Check and possibly move logic
     public void AddOwnedSite(OwnerPeriod ownerPeriod)
     {
-        if ((ownerPeriod.StartCause == "UNKNOWN" || ownerPeriod.StartCause == "ancestral claim") && SiteHistory.All(s => s.Site != ownerPeriod.Site))
+        if (SiteHistory.Exists(sh => sh.StartCause == ownerPeriod.StartCause && sh.Site == ownerPeriod.Site && sh.StartYear == ownerPeriod.StartYear))
+        {
+            return;
+        }
+        if ((ownerPeriod.StartCause == "UNKNOWN" || ownerPeriod.StartCause == "ancestral claim"))
         {
             SiteHistory.Insert(0, ownerPeriod);
         }

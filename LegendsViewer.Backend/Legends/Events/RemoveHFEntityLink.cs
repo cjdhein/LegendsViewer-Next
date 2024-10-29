@@ -69,9 +69,17 @@ public class RemoveHfEntityLink : WorldEvent
             }
         }
 
-        HistoricalFigure.AddEvent(this);
+        if (HistoricalFigure != null)
+        {
+            HistoricalFigure.AddEvent(this);
+            if(PositionId != -1)
+            {
+                HistoricalFigure.EndPositionAssignment(Entity, Year, PositionId, Position ?? string.Empty);
+            }
+        }
         Entity.AddEvent(this);
     }
+
     public override string Print(bool link = true, DwarfObject? pov = null)
     {
         string eventString = GetYearTime();

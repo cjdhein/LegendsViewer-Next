@@ -71,7 +71,14 @@ public class AddHfEntityLink : WorldEvent, IFeatured
             }
         }
 
-        HistoricalFigure?.AddEvent(this);
+        if (HistoricalFigure != null)
+        {
+            HistoricalFigure.AddEvent(this);
+            if (PositionId != -1)
+            {
+                HistoricalFigure.StartPositionAssignment(Entity, Year, PositionId, Position ?? string.Empty);
+            }
+        }
         Entity?.AddEvent(this);
         AppointerHf?.AddEvent(this);
         if (PromiseToHf != HistoricalFigure)
