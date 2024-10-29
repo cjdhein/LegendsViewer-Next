@@ -12946,6 +12946,9 @@ export interface components {
             readonly defendersRemainingCount?: number;
             /** Format: int32 */
             readonly deathCount?: number;
+            readonly miscList?: components["schemas"]["ListItemDto"][] | null;
+            readonly notableDeathLinks?: string[] | null;
+            deathsByRace?: components["schemas"]["ChartDataDto"];
             /** Format: int32 */
             attackerDeathCount?: number;
             /** Format: int32 */
@@ -13423,7 +13426,6 @@ export interface components {
             goal?: string | null;
             interaction?: string | null;
             readonly miscList?: components["schemas"]["ListItemDto"][] | null;
-            readonly lineageCurseParentToLink?: string | null;
             readonly lineageCurseChildLinks?: string[] | null;
             spheres?: string[] | null;
             journeyPets?: components["schemas"]["ListItemDto"][] | null;
@@ -14125,6 +14127,9 @@ export interface components {
             attackerDeathCount?: number;
             /** Format: int32 */
             defenderDeathCount?: number;
+            readonly miscList?: components["schemas"]["ListItemDto"][] | null;
+            readonly notableDeathLinks?: string[] | null;
+            deathsByRace?: components["schemas"]["ChartDataDto"];
             /** Format: double */
             readonly attackerToDefenderKills?: number;
             /** Format: double */

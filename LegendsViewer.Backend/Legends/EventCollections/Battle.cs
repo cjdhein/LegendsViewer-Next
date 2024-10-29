@@ -1,4 +1,6 @@
-﻿using LegendsViewer.Backend.Legends.Enums;
+﻿using LegendsViewer.Backend.Contracts;
+using LegendsViewer.Backend.Extensions;
+using LegendsViewer.Backend.Legends.Enums;
 using LegendsViewer.Backend.Legends.Events;
 using LegendsViewer.Backend.Legends.Extensions;
 using LegendsViewer.Backend.Legends.IncidentalEvents;
@@ -7,6 +9,7 @@ using LegendsViewer.Backend.Legends.Parser;
 using LegendsViewer.Backend.Legends.Various;
 using LegendsViewer.Backend.Legends.WorldObjects;
 using LegendsViewer.Backend.Utilities;
+using System.Drawing;
 using System.Text.Json.Serialization;
 
 namespace LegendsViewer.Backend.Legends.EventCollections;
@@ -44,12 +47,90 @@ public class Battle : EventCollection, IHasComplexSubtype
     public int DeathCount => AttackerDeathCount + DefenderDeathCount;
     [JsonIgnore]
     public Dictionary<CreatureInfo, int> Deaths { get; set; } = [];
+
+    public List<ListItemDto> MiscList
+    {
+        get
+        {
+            var list = new List<ListItemDto>();
+
+            if (Attacker != null)
+            {
+                list.Add(new ListItemDto
+                {
+                    Title = $"Attacker",
+                    Subtitle = $"{Attacker.ToLink(true, this)} (Deaths: {AttackerDeathCount} ✝)",
+                });
+            }
+
+            if (Defender != null)
+            {
+                list.Add(new ListItemDto
+                {
+                    Title = $"Defender",
+                    Subtitle = $"{Defender.ToLink(true, this)} (Deaths: {DefenderDeathCount} ✝)",
+                });
+            }
+            return list;
+        }
+    }
+
     [JsonIgnore]
     public List<HistoricalFigure> NotableDeaths => NotableAttackers
-        .Where(attacker => GetSubEvents().OfType<HfDied>()
-        .Count(death => death.HistoricalFigure == attacker) > 0)
+        .Where(attacker => GetSubEvents().OfType<HfDied>().Any(death => death.HistoricalFigure == attacker))
         .Concat(NotableDefenders.Where(defender => GetSubEvents().OfType<HfDied>().Any(death => death.HistoricalFigure == defender)))
         .ToList();
+    public List<string> NotableDeathLinks => NotableDeaths.ConvertAll(x => x.ToLink(true, this));
+    public ChartDataDto DeathsByRace
+    {
+        get
+        {
+            Dictionary<CreatureInfo, int> deaths = [];
+
+            foreach (var notableDeath in NotableDeaths)
+            {
+                if (deaths.TryGetValue(notableDeath.Race, out int deathCount))
+                {
+                    deaths[notableDeath.Race] = ++deathCount;
+                }
+                else
+                {
+                    deaths[notableDeath.Race] = 1;
+                }
+            }
+
+            foreach (var squad in AttackerSquads.Concat(DefenderSquads))
+            {
+                if (deaths.TryGetValue(squad.Race, out int deathCount))
+                {
+                    deaths[squad.Race] = deathCount + squad.Deaths;
+                }
+                else
+                {
+                    deaths[squad.Race] = squad.Deaths;
+                }
+            }
+            ChartDataDto deathsByRace = new();
+            ChartDatasetDto deathsByRaceDataset = new();
+            foreach (var death in deaths)
+            {
+                deathsByRace.Labels.Add(death.Key.NamePlural);
+                deathsByRaceDataset.Data.Add(death.Value);
+                if (World != null && World.MainRaces.TryGetValue(death.Key, out var raceColor))
+                {
+                    deathsByRaceDataset.BorderColor.Add(raceColor.ToRgbaString());
+                    deathsByRaceDataset.BackgroundColor.Add(raceColor.ToRgbaString(0.2f));
+                }
+                else
+                {
+                    deathsByRaceDataset.BorderColor.Add(Color.SlateGray.ToRgbaString());
+                    deathsByRaceDataset.BackgroundColor.Add(Color.SlateGray.ToRgbaString(0.2f));
+                }
+            }
+            deathsByRace.Datasets.Add(deathsByRaceDataset);
+            return deathsByRace;
+        }
+    }
     public int AttackerDeathCount { get; set; }
     public int DefenderDeathCount { get; set; }
     public double AttackersToDefenders
