@@ -10,8 +10,8 @@ const store = useBattleStore()
 
 
 const lists: ComputedRef<LegendLinkListData[]> = computed(() => [
-    { title: 'War Overview', items: store.object?.miscList ?? [], icon: "mdi-swords-crossed", subtitle: "A summary of significant details of this war" },
-    { title: 'Notable Deaths', items: store.object?.notableDeathLinks ?? [], icon: "mdi-grave-stone", subtitle: "Key figures who died here" },
+    { title: 'Battle Overview', items: store.object?.miscList ?? [], icon: "mdi-swords-crossed", subtitle: "A summary of significant details of this battle" },
+    { title: 'Notable Deaths', items: store.object?.notableDeathLinks ?? [], icon: "mdi-grave-stone", subtitle: "Key figures who died in this battle" },
 ]);
 
 </script>
@@ -26,7 +26,7 @@ const lists: ComputedRef<LegendLinkListData[]> = computed(() => [
             </template>
            <v-col v-if="store.object?.deathsByRace?.labels != null && store.object?.deathsByRace?.labels?.length > 0"
                 cols="12" xl="4" lg="6" md="12">
-                <v-card title="Deaths by Race" :subtitle="'How many deaths were at this site, grouped by the race'"
+                <v-card title="Deaths by Race" :subtitle="'How many deaths were in this battle, grouped by the race'"
                     height="400" variant="text">
                     <template v-slot:prepend>
                         <v-icon class="mr-2" icon="mdi-grave-stone" size="32px"></v-icon>

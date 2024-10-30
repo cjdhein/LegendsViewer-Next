@@ -1,5 +1,6 @@
 ﻿using LegendsViewer.Backend.Legends.EventCollections;
 using LegendsViewer.Backend.Legends.Events;
+using LegendsViewer.Backend.Legends.Interfaces;
 
 namespace LegendsViewer.Backend.Legends.Extensions;
 
@@ -17,7 +18,9 @@ public static class WorldObjectExtensions
         }
         else
         {
+#if DEBUG
             worldEvent.World?.ParsingErrors.Report($"Already added event {worldEvent.Id} '{worldEvent.Type}' to object {worldObject.Id} '{worldObject.GetType()}'");
+#endif
         }
     }
 
@@ -33,7 +36,9 @@ public static class WorldObjectExtensions
         }
         else
         {
+#if DEBUG
             eventCollection.World?.ParsingErrors.Report($"Already added eventCollection {eventCollection.Id} '{eventCollection.Type}' to object {worldObject.Id} '{worldObject.GetType()}'");
+#endif
         }
     }
 

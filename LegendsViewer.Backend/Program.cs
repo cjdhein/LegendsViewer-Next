@@ -68,6 +68,8 @@ public class Program
         var logger = app.Services.GetRequiredService<ILogger<Program>>();
 
         logger.LogInformation(AsciiArt.LegendsViewerLogo);
+        logger.LogInformation("If the Legends Viewer frontend does not open automatically, you can access it directly by visiting:");
+        logger.LogInformation(WebAppStaticServer.WebAppUrl);
 
         if (!app.Environment.IsDevelopment())
         {

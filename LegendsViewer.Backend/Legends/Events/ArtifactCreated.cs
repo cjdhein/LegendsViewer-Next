@@ -80,6 +80,9 @@ public class ArtifactCreated : WorldEvent
                                     case "conflict":
                                         Circumstance = Circumstance.Conflict;
                                         break;
+                                    case "trauma":
+                                        Circumstance = Circumstance.Trauma;
+                                        break;
                                     default:
                                         property.Known = false;
                                         break;

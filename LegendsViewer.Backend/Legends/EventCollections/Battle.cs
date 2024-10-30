@@ -58,7 +58,7 @@ public class Battle : EventCollection, IHasComplexSubtype
             {
                 list.Add(new ListItemDto
                 {
-                    Title = $"Attacker",
+                    Title = $"Attacker{(Victor == Attacker ? " (Victorious)":"")}",
                     Subtitle = $"{Attacker.ToLink(true, this)} (Deaths: {AttackerDeathCount} ✝)",
                 });
             }
@@ -67,7 +67,7 @@ public class Battle : EventCollection, IHasComplexSubtype
             {
                 list.Add(new ListItemDto
                 {
-                    Title = $"Defender",
+                    Title = $"Defender{(Victor == Defender ? " (Victorious)" : "")}",
                     Subtitle = $"{Defender.ToLink(true, this)} (Deaths: {DefenderDeathCount} ✝)",
                 });
             }
