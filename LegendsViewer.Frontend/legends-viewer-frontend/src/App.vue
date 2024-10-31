@@ -68,7 +68,12 @@ const ritualItems = [
         <h1>
           Legends Viewer
         </h1>
-        <div style="position: absolute; right: 20px">{{ versionStore.version }}</div>
+        <div style="position: absolute; right: 30px;">
+          <v-btn href="https://github.com/Kromtec/LegendsViewer-Next/releases" target="_blank" :aria-label="versionStore.version">
+            <p class="mr-2 mt-1">{{ versionStore.version }}</p>
+            <v-icon icon="mdi-github" size="24px"></v-icon>
+          </v-btn>
+        </div>
       </v-app-bar>
 
       <v-navigation-drawer>

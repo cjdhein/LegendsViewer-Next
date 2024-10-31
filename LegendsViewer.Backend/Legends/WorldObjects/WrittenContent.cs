@@ -1,4 +1,5 @@
-﻿using LegendsViewer.Backend.Legends.Enums;
+﻿using LegendsViewer.Backend.Contracts;
+using LegendsViewer.Backend.Legends.Enums;
 using LegendsViewer.Backend.Legends.Events;
 using LegendsViewer.Backend.Legends.Extensions;
 using LegendsViewer.Backend.Legends.Parser;
@@ -16,14 +17,58 @@ public class WrittenContent : WorldObject
 
     [JsonIgnore]
     public HistoricalFigure? Author { get; set; } // legends_plus.xml
+    [JsonIgnore]
+    public Artifact? Artifact { get; set; }
     public int AuthorId { get; set; } // legends_plus.xml
-    public List<string> Styles { get; set; } = [];
-    public List<Reference> References { get; set; } = [];
+    public List<string>? Styles { get; set; }
+    public List<Reference>? References { get; set; }
     public string TypeAsString => WrittenContentType.GetDescription();
     public int PageCount => PageEnd - PageStart + 1;
     public int AuthorRoll { get; set; }
     public int FormId { get; set; }
-    public new string Subtype => Author?.ToLink(true, this) ?? string.Empty;
+    public override string Subtype => Author?.ToLink(true, this) ?? string.Empty;
+
+
+    public List<ListItemDto> MiscList
+    {
+        get
+        {
+            var list = new List<ListItemDto>();
+
+            if (Author != null)
+            {
+                list.Add(new ListItemDto
+                {
+                    Title = "Author",
+                    Subtitle = Author.ToLink(true, this),
+                });
+            }
+
+            if (Artifact != null)
+            {
+                list.Add(new ListItemDto
+                {
+                    Title = "Artifact",
+                    Subtitle = Artifact.ToLink(true, this),
+                });
+            }
+
+            if (Styles != null)
+            {
+                list.Add(new ListItemDto
+                {
+                    Title = "Styles",
+                    Subtitle = string.Join(", ", Styles),
+                });
+            }
+            list.Add(new ListItemDto
+            {
+                Title = "Pages",
+                Subtitle = PageCount.ToString(),
+            });
+            return list;
+        }
+    }
 
     public WrittenContent(List<Property> properties, World world)
         : base(properties, world)
@@ -43,6 +88,10 @@ public class WrittenContent : WorldObject
                     property.Known = true;
                     if (property.SubProperties != null)
                     {
+                        if (References == null)
+                        {
+                            References = [];
+                        }
                         References.Add(new Reference(property.SubProperties, world));
                     }
 
@@ -144,6 +193,10 @@ public class WrittenContent : WorldObject
                     Author = world.GetHistoricalFigure(AuthorId);
                     break;
                 case "style":
+                    if (Styles == null)
+                    {
+                        Styles = [];
+                    }
                     var style = property.Value.Contains(":")
                         ? string.Intern(property.Value.Substring(0, property.Value.IndexOf(":", StringComparison.Ordinal))).ToLower()
                         : string.Intern(property.Value).ToLower();

@@ -10,7 +10,7 @@ public abstract class WorldObject : DwarfObject
     public string Icon { get; set; } = string.Empty;
     public string Name { get; set; } = string.Empty;
     public virtual string Type { get; set; } = string.Empty;
-    public string Subtype { get; set; } = string.Empty;
+    public virtual string Subtype { get; set; } = string.Empty;
 
     public int PreviousId { get; set; }
     public int NextId { get; set; }

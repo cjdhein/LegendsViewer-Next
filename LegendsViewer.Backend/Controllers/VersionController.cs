@@ -14,13 +14,14 @@ public class VersionController(IWebHostEnvironment env) : ControllerBase
     public ActionResult<VersionDto> GetVersion()
     {
         var version = System.Reflection.Assembly.GetExecutingAssembly()
-            .GetName().Version?.ToString() ?? "1.0.0";
+            .GetName().Version;
+        var versionString = version != null ? $"{version.Major}.{version.Minor}.{version.Build}" : "1.0.0";
 
         // Append "-dev" if running in the Development environment
         if (_env.IsDevelopment())
         {
-            version += "-dev";
+            versionString += "-dev";
         }
-        return Ok(new VersionDto { Version = version});
+        return Ok(new VersionDto { Version = versionString });
     }
 }

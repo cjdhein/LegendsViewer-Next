@@ -134,6 +134,10 @@ public class Artifact : WorldObject, IHasCoordinates
         if (WrittenContentId > -1)
         {
             WrittenContent = world.GetWrittenContent(WrittenContentId);
+            if (WrittenContent != null)
+            {
+                WrittenContent.Artifact = this;
+            }
         }
     }
 

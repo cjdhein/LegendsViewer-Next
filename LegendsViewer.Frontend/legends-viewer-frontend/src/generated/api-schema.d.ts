@@ -14332,6 +14332,7 @@ export interface components {
             /** Format: int32 */
             formId?: number;
             readonly subtype?: string | null;
+            readonly miscList?: components["schemas"]["ListItemDto"][] | null;
         };
         /** @enum {string} */
         WrittenContentType: "Unknown" | "Autobiography" | "Biography" | "Chronicle" | "Dialog" | "Essay" | "Guide" | "Letter" | "Manual" | "Novel" | "Play" | "Poem" | "ShortStory" | "Choreography" | "MusicalComposition" | "StarChart" | "CulturalHistory" | "ComparativeBiography" | "CulturalComparison" | "Atlas" | "TreatiseOnTechnologicalEvolution" | "AlternateHistory" | "StarCatalogue" | "Dictionary" | "Genealogy" | "Encyclopedia" | "BiographicalDictionary";
