@@ -1,5 +1,9 @@
 <script setup lang="ts">
 import { useBookmarkStore } from './stores/bookmarkStore';
+import { useVersionStore } from './stores/versionStore';
+
+const versionStore = useVersionStore()
+versionStore.loadVersion()
 const bookmarkStore = useBookmarkStore()
 bookmarkStore.getAll()
 
@@ -64,6 +68,7 @@ const ritualItems = [
         <h1>
           Legends Viewer
         </h1>
+        <div style="position: absolute; right: 20px">{{ versionStore.version }}</div>
       </v-app-bar>
 
       <v-navigation-drawer>
