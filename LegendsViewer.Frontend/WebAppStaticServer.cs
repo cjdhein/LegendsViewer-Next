@@ -5,6 +5,7 @@ namespace LegendsViewer.Frontend;
 public static class WebAppStaticServer
 {
     public const uint WebAppPort = 8081;
+    public static readonly string WebAppUrl = $"http://localhost:{WebAppPort}";
 
     public static async Task RunAsync()
     {
@@ -24,14 +25,13 @@ public static class WebAppStaticServer
     public static async Task OpenPageInBrowserAsync()
     {
         await Task.Delay(200);
-        var url = $"http://localhost:{WebAppPort}";
         try
         {
-            Process.Start(new ProcessStartInfo(url) { UseShellExecute = true });
+            Process.Start(new ProcessStartInfo(WebAppUrl) { UseShellExecute = true });
         }
         catch
         {
-            Console.WriteLine($"Failed to open URL: {url}");
+            Console.WriteLine($"Failed to open URL: {WebAppUrl}");
         }
     }
 }

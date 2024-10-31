@@ -11460,6 +11460,43 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/version": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description OK */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["VersionDto"];
+                        "application/json": components["schemas"]["VersionDto"];
+                        "text/json": components["schemas"]["VersionDto"];
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/War": {
         parameters: {
             query?: never;
@@ -14101,6 +14138,9 @@ export interface components {
         };
         /** @enum {string} */
         VagueRelationshipType: "Unknown" | "WarBuddy" | "AthleteBuddy" | "ChildhoodFriend" | "PersecutionGrudge" | "SupernaturalGrudge" | "ReligiousPersecutionGrudge" | "ArtisticBuddy" | "JealousObsession" | "Grudge" | "JealousRelationshipGrudge" | "ScholarBuddy" | "BusinessRival" | "AthleticRival" | "Lover" | "FormerLover" | "Lieutenant";
+        VersionDto: {
+            version?: string | null;
+        };
         War: {
             /** Format: int32 */
             id?: number;
@@ -14292,6 +14332,7 @@ export interface components {
             /** Format: int32 */
             formId?: number;
             readonly subtype?: string | null;
+            readonly miscList?: components["schemas"]["ListItemDto"][] | null;
         };
         /** @enum {string} */
         WrittenContentType: "Unknown" | "Autobiography" | "Biography" | "Chronicle" | "Dialog" | "Essay" | "Guide" | "Letter" | "Manual" | "Novel" | "Play" | "Poem" | "ShortStory" | "Choreography" | "MusicalComposition" | "StarChart" | "CulturalHistory" | "ComparativeBiography" | "CulturalComparison" | "Atlas" | "TreatiseOnTechnologicalEvolution" | "AlternateHistory" | "StarCatalogue" | "Dictionary" | "Genealogy" | "Encyclopedia" | "BiographicalDictionary";
