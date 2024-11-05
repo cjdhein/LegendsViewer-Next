@@ -46,8 +46,8 @@ export const useFileSystemStore = defineStore('fileSystem', {
               params: {
                 path:
                 { 
-                    currentPath: currentPath,
-                    subFolder: subFolder 
+                    currentPath: encodeURIComponent(currentPath),
+                    subFolder: encodeURIComponent(subFolder)
                 },
               },
             });
