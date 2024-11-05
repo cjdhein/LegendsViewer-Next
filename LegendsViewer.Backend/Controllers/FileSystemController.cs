@@ -1,4 +1,5 @@
-﻿using LegendsViewer.Backend.Contracts;
+﻿using System.Web;
+using LegendsViewer.Backend.Contracts;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LegendsViewer.Backend.Controllers;
@@ -14,10 +15,11 @@ public class FileSystemController : ControllerBase
         return Ok(GetRootInformation());
     }
 
-    [HttpGet("{path}")]
+    [HttpGet("{encodedPath}")]
     [ProducesResponseType<FilesAndSubdirectoriesDto>(StatusCodes.Status200OK)]
-    public ActionResult<FilesAndSubdirectoriesDto> Get([FromRoute] string path)
+    public ActionResult<FilesAndSubdirectoriesDto> Get([FromRoute] string encodedPath)
     {
+        var path = HttpUtility.UrlDecode(encodedPath);
         if (!Path.Exists(path) && !Directory.Exists(path))
         {
             return Ok(GetRootInformation());
@@ -35,17 +37,26 @@ public class FileSystemController : ControllerBase
         {
             CurrentDirectory = directoryName,
             ParentDirectory = Directory.GetParent(directoryName)?.FullName,
-            Subdirectories = Directory.GetDirectories(directoryName).Select(subDirectoryPath => Path.GetRelativePath(directoryName, subDirectoryPath)).ToArray(),
-            Files = Directory.GetFiles(directoryName, $"*{BookmarkController.FileIdentifierLegendsXml}").Select(p => Path.GetFileName(p) ?? "").ToArray()
+            Subdirectories = Directory.GetDirectories(directoryName)
+                .Select(subDirectoryPath => Path.GetRelativePath(directoryName, subDirectoryPath))
+                .Where(f => !f.StartsWith('.')) // remove hidden directories
+                .Order() // sort alphabetically
+                .ToArray(),
+            Files = Directory.GetFiles(directoryName, $"*{BookmarkController.FileIdentifierLegendsXml}")
+                .Select(f => Path.GetFileName(f) ?? "")
+                .Order()
+                .ToArray()
         };
         return Ok(response);
     }
 
-    [HttpGet("{currentPath}/{subFolder}")]
+    [HttpGet("{encodedCurrentPath}/{encodedSubFolder}")]
     [ProducesResponseType<string>(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public ActionResult<FilesAndSubdirectoriesDto> Get([FromRoute] string currentPath, [FromRoute] string subFolder)
+    public ActionResult<FilesAndSubdirectoriesDto> Get([FromRoute] string encodedCurrentPath, [FromRoute] string encodedSubFolder)
     {
+        var currentPath = HttpUtility.UrlDecode(encodedCurrentPath);
+        var subFolder = HttpUtility.UrlDecode(encodedSubFolder);
         var fullPath = Path.Combine(currentPath, subFolder);
         if (!Path.Exists(fullPath))
         {
@@ -56,14 +67,36 @@ public class FileSystemController : ControllerBase
 
     private static FilesAndSubdirectoriesDto GetRootInformation()
     {
-        var logicalDrives = Directory.GetLogicalDrives();
-        var response = new FilesAndSubdirectoriesDto
+        if (OperatingSystem.IsWindows())
         {
-            CurrentDirectory = "/",
-            ParentDirectory = null,
-            Subdirectories = logicalDrives,
-            Files = []
-        };
-        return response;
+            // Windows: return logical drives (C:\, D:\, etc.)
+            var logicalDrives = Directory.GetLogicalDrives();
+            return new FilesAndSubdirectoriesDto
+            {
+                CurrentDirectory = Path.DirectorySeparatorChar.ToString(),
+                ParentDirectory = null,
+                Subdirectories = logicalDrives,
+                Files = Array.Empty<string>()
+            };
+        }
+        else
+        {
+            // Unix-like systems (Linux, macOS): start from root directory
+            var rootDir = new DirectoryInfo("/");
+            return new FilesAndSubdirectoriesDto
+            {
+                CurrentDirectory = "/",
+                ParentDirectory = null,
+                Subdirectories = rootDir.GetDirectories()
+                    .Select(d => d.FullName)
+                    .Where(d => !d.StartsWith('.')) // remove hidden directories
+                    .Order() // sort alphabetically
+                    .ToArray(),
+                Files = rootDir.GetFiles()
+                    .Select(f => f.FullName)
+                    .Order()
+                    .ToArray()
+            };
+        }
     }
 }
