@@ -2,7 +2,6 @@
 
 executable="publish/LegendsViewer"
 app=".github/scripts/LegendsViewer.app"
-zip="LegendsViewer-osx-x64.zip"
 libskiasharp="publish/libSkiaSharp.dylib"
 bundle_id="com.kromtec.legendsviewer-next"
 
@@ -35,19 +34,25 @@ cp -r ./publish/ "${app}/Contents/MacOS"
 
 codesign -s "${MACOS_DEVELOPER_ID}" --timestamp --options runtime -f --deep "${app}"
 
-# zip the app bundle
-zip -r "${zip}" "${app}"
-
-codesign -s "${MACOS_DEVELOPER_ID}" --timestamp --options runtime -f --deep "${zip}"
-
 if ! command -v xcrun >/dev/null || ! xcrun --find notarytool >/dev/null; then
     echo "Notarytool is not present in the system. Notarization has failed."
     exit 1
 fi
 
+
+mkdir release
+
+# this create-dmg script kinda sucks but the output is pretty ¯\_(ツ)_/¯
+npm install --global create-dmg
+create-dmg "${app}" ./release || true
+
+dmg=$(ls ./release/*.dmg)
+
+codesign -s "${MACOS_DEVELOPER_ID}" --timestamp --options runtime -f --deep "${dmg}"
+
 # Submit the package for notarization
 notarization_output=$(
-    xcrun notarytool submit "${zip}" \
+    xcrun notarytool submit "${dmg}" \
         --apple-id "hello@koenschmeets.nl" \
         --password "${MACOS_APPSTORE_APP_PASSWORD}" \
         --team-id "8X77K9NDG3" \
@@ -56,8 +61,6 @@ notarization_output=$(
 if [ $? -eq 0 ]; then
     # Extract the operation ID from the output
     echo $notarization_output
-    operation_id=$(echo "$notarization_output" | awk '/RequestUUID/ {print $NF}')
-    echo "Notarization submitted. Operation ID: $operation_id"
     exit 0
   else
     echo "Notarization failed. Error: $notarization_output"
@@ -66,4 +69,4 @@ if [ $? -eq 0 ]; then
 fi
 
 # staple
-xcrun stapler staple "${zip}"
+xcrun stapler staple "${dmg}"
