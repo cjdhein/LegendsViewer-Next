@@ -1,12 +1,13 @@
 #!/bin/bash -xe
 
-app="publish/LegendsViewer"
+executable="publish/LegendsViewer"
+app=".github/scripts/LegendsViewer.app"
 zip="LegendsViewer-osx-x64.zip"
 libskiasharp="publish/libSkiaSharp.dylib"
 bundle_id="com.kromtec.legendsviewer-next"
 
 if [ "$CI" = "true" ]; then
-    # get the signing certificate (this is the Developer ID:Application: Your Name, exported to a p12 file, then converted to base64, e.g.: cat ~/Desktop/certificate.p12 | base64 | pbcopy)
+    # get the signing certificate (this is the Developer ID: Application: Your Name, exported to a p12 file, then converted to base64, e.g.: cat ~/Desktop/certificate.p12 | base64 | pbcopy)
     echo $MACOS_CERTIFICATE_P12 | base64 --decode > certificate.p12
 
     # create a keychain
@@ -27,14 +28,22 @@ fi
 codesign -s "${MACOS_DEVELOPER_ID}" --timestamp --options runtime -f --deep "${libskiasharp}"
 
 # sign the app
+codesign -s "${MACOS_DEVELOPER_ID}" --timestamp --options runtime -f --deep "${executable}"
+
+# copy into app skeleton
+cp -r ./publish/ "${app}/Contents/MacOS"
+
 codesign -s "${MACOS_DEVELOPER_ID}" --timestamp --options runtime -f --deep "${app}"
+
+# zip the app bundle
+zip -r "${zip}" "${app}"
+
+codesign -s "${MACOS_DEVELOPER_ID}" --timestamp --options runtime -f --deep "${zip}"
 
 if ! command -v xcrun >/dev/null || ! xcrun --find notarytool >/dev/null; then
     echo "Notarytool is not present in the system. Notarization has failed."
     exit 1
 fi
-
-zip -r "${zip}" ./publish
 
 # Submit the package for notarization
 notarization_output=$(
