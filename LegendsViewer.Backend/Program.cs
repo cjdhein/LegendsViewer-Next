@@ -71,9 +71,10 @@ public class Program
         logger.LogInformation("If the Legends Viewer frontend does not open automatically, you can access it directly by visiting:");
         logger.LogInformation(WebAppStaticServer.WebAppUrl);
 
+        _ = WebAppStaticServer.RunAsync();
+
         if (!app.Environment.IsDevelopment())
         {
-            _ = WebAppStaticServer.RunAsync();
             _ = WebAppStaticServer.OpenPageInBrowserAsync();
         }
 
