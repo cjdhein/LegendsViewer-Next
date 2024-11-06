@@ -59,14 +59,12 @@ notarization_output=$(
         --wait 2>&1)
 
 if [ $? -eq 0 ]; then
-    # Extract the operation ID from the output
+    echo "Notarization succeeded."
     echo $notarization_output
+    xcrun stapler staple "${dmg}"
     exit 0
   else
     echo "Notarization failed. Error: $notarization_output"
     exit 1
   fi
 fi
-
-# staple
-xcrun stapler staple "${dmg}"
