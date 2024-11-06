@@ -12,5 +12,11 @@
     <string>Icon</string>
     <key>CFBundleExecutable</key>
     <string>LegendsViewer</string>
+    <key>CFBundleIdentifier</key>
+    <string>com.kromtec.legendsviewer-next</string>
+    <key>CFBundlePackageType</key>
+    <string>APPL</string>
+    <key>LSMinimumSystemVersion</key>
+    <string>10.12</string>
 </dict>
 </plist>
