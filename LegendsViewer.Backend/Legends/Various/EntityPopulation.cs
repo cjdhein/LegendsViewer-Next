@@ -16,8 +16,6 @@ public class EntityPopulation : WorldObject
 
     [JsonIgnore]
     public List<HistoricalFigure> Members { get; set; } = [];
-    [JsonIgnore]
-    public List<string> MemberLinks => Members.ConvertAll(x => x.ToLink(true));
 
     public EntityPopulation(List<Property> properties, World world)
         :base(properties, world)
@@ -29,7 +27,7 @@ public class EntityPopulation : WorldObject
                 case "race":
                     var raceCount = property.Value.Split(':');
                     Race = world.GetCreatureInfo(raceCount[0]);
-                    Count = Convert.ToInt32(raceCount[1]);
+                    Count = Math.Abs(Convert.ToInt32(raceCount[1]));
                     break;
                 case "civ_id":
                     EntityId = property.ValueAsInt();

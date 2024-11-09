@@ -43,22 +43,42 @@
                                         v-html="'<b>' + item.currentLeader.title + ':</b> ' + item.currentLeader.subtitle">
                                     </div>
                                 </template>
-                                <v-chip v-if="item.currentSitesCount" class="ma-2" color="primary" label>
-                                    <v-icon icon="mdi-home" start></v-icon>
-                                    {{ item.currentSitesCount }}
-                                </v-chip>
-                                <v-chip v-if="item.lostSitesCount" class="ma-2" color="pink" label>
-                                    <v-icon icon="mdi-home-minus-outline" start></v-icon>
-                                    {{ item.lostSitesCount }}
-                                </v-chip>
-                                <v-chip v-if="item.entityPopulationCount" class="ma-2" color="primary" label>
-                                    <v-icon icon="mdi-account-circle-outline" start></v-icon>
-                                    {{ item.entityPopulationCount }}
-                                </v-chip>
-                                <v-chip v-if="item.entityPopulationMemberCount" class="ma-2" color="cyan" label>
-                                    <v-icon icon="mdi-account-supervisor-circle-outline" start></v-icon>
-                                    {{ item.entityPopulationMemberCount }}
-                                </v-chip>
+                                <v-tooltip text="Current Sites">
+                                    <template v-slot:activator="{ props }">
+                                        <v-chip v-if="item.currentSitesCount" class="ma-2" color="primary" label
+                                            v-bind="props">
+                                            <v-icon icon="mdi-home" start></v-icon>
+                                            {{ item.currentSitesCount }}
+                                        </v-chip>
+                                    </template>
+                                </v-tooltip>
+                                <v-tooltip text="Lost Sites">
+                                    <template v-slot:activator="{ props }">
+                                        <v-chip v-if="item.lostSitesCount" class="ma-2" color="pink" label
+                                            v-bind="props">
+                                            <v-icon icon="mdi-home-minus-outline" start></v-icon>
+                                            {{ item.lostSitesCount }}
+                                        </v-chip>
+                                    </template>
+                                </v-tooltip>
+                                <v-tooltip text="Current Population">
+                                    <template v-slot:activator="{ props }">
+                                        <v-chip v-if="item.entityPopulationCount" class="ma-2" color="primary" label
+                                            v-bind="props">
+                                            <v-icon icon="mdi-account-circle-outline" start></v-icon>
+                                            {{ item.entityPopulationCount }}
+                                        </v-chip>
+                                    </template>
+                                </v-tooltip>
+                                <v-tooltip text="Historical Figures (Dead and Alive)">
+                                    <template v-slot:activator="{ props }">
+                                        <v-chip v-if="item.entityPopulationMemberCount" class="ma-2" color="cyan" label
+                                            v-bind="props">
+                                            <v-icon icon="mdi-account-supervisor-circle-outline" start></v-icon>
+                                            {{ item.entityPopulationMemberCount }}
+                                        </v-chip>
+                                    </template>
+                                </v-tooltip>
                             </div>
                         </template>
                         <template v-slot:append>

@@ -23,6 +23,13 @@
     image-rendering: crisp-edges;
 }
 
+.v-overlay > .v-overlay__content  {
+    background-color: rgb(var(--v-theme-surface)) !important;
+    color: rgba(255, 255, 255, 0.8) !important;
+    border: 1px solid rgba(255, 255, 255, 0.5) !important;
+    opacity: 1 !important;
+}
+
 /* SKILLS */
 
 .v-chip.stn,

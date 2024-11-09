@@ -83,6 +83,9 @@ public class ArtifactCreated : WorldEvent
                                     case "trauma":
                                         Circumstance = Circumstance.Trauma;
                                         break;
+                                    case "favoritepossession":
+                                        Circumstance = Circumstance.FavoritePossession;
+                                        break;
                                     default:
                                         property.Known = false;
                                         break;
