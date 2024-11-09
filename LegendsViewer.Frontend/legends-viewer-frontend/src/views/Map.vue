@@ -206,7 +206,7 @@ export default defineComponent({
 
       const scale = 8;
       const width = (worldStore.world.width ?? 0);
-      const height = (worldStore.world.width ?? 0);
+      const height = (worldStore.world.height ?? 0);
 
       const bounds: L.LatLngBoundsExpression = [[0, 0], [scale * height, scale * width]];
       const imageOverlay = L.imageOverlay(base64Image, bounds);

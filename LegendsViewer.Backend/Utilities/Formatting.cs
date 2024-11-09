@@ -262,8 +262,8 @@ public static class Formatting
     // After processing all coordinates adjust the world size
     public static void AdjustWorldSizeToPowerOfTwo(IWorld world)
     {
-        world.Width = NextPowerOfTwo(world.Width);
-        world.Height = NextPowerOfTwo(world.Height);
+        world.Width = NextPowerOfTwo(world.Width) + 1;
+        world.Height = NextPowerOfTwo(world.Height) + 1;
     }
 
     // Helper function to find the next power of two

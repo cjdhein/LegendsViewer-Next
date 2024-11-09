@@ -8,13 +8,30 @@
                 <template v-for="(item) in list">
                     <v-list-item>
                         <template v-if="item?.thumbnail" v-slot:prepend>
-                            <v-img v-if="item.thumbnail && item.currentSitesCount != null && item.currentSitesCount > 0"
-                                width="92" height="92" class="mr-4 mt-n2 pixelated-image" :src="`data:image/png;base64,${item.thumbnail}`"
-                                :cover="false" />
-                            <v-img v-if="item.thumbnail && item.currentSitesCount != null && item.currentSitesCount == 0"
-                                width="92" height="92" class="mr-4 mt-n2 pixelated-image"
-                                :src="`data:image/png;base64,${item.thumbnail}`" :cover="false"
-                                gradient="to top right, rgba(25,32,72,.75), rgba(25,32,72,.80)" />
+                            <v-tooltip location="end center" origin="auto" no-click-animation>
+                                <template v-slot:activator="{ props }">
+                                    <v-img
+                                        v-if="item.thumbnail && item.currentSitesCount != null && item.currentSitesCount > 0"
+                                        width="92" height="92" class="mr-4 mt-n2 pixelated-image"
+                                        :src="`data:image/png;base64,${item.thumbnail}`" v-bind="props"
+                                        :cover="false" />
+                                    <v-img
+                                        v-if="item.thumbnail && item.currentSitesCount != null && item.currentSitesCount == 0"
+                                        width="92" height="92" class="mr-4 mt-n2 pixelated-image"
+                                        :src="`data:image/png;base64,${item.thumbnail}`" :cover="false" v-bind="props"
+                                        gradient="to top right, rgba(25,32,72,.75), rgba(25,32,72,.80)" />
+                                </template>
+
+                                <v-img
+                                    v-if="item.thumbnail && item.currentSitesCount != null && item.currentSitesCount > 0"
+                                    width="400" class="mt-3 mb-3 pixelated-image"
+                                    :src="`data:image/png;base64,${item.thumbnail}`" />
+                                <v-img
+                                    v-if="item.thumbnail && item.currentSitesCount != null && item.currentSitesCount == 0"
+                                    width="400" class="mt-3 mb-3 pixelated-image"
+                                    :src="`data:image/png;base64,${item.thumbnail}`"
+                                    gradient="to top right, rgba(25,32,72,.75), rgba(25,32,72,.80)" />
+                            </v-tooltip>
                         </template>
                         <template v-if="item?.link" v-slot:title>
                             <div class="mb-2" v-html="item.link"></div>
@@ -22,7 +39,9 @@
                         <template v-if="item?.race" v-slot:subtitle>
                             <div>
                                 <template v-if="item?.currentLeader">
-                                    <div class="ml-3" v-html="'<b>' + item.currentLeader.title + ':</b> ' + item.currentLeader.subtitle"></div>
+                                    <div class="ml-3"
+                                        v-html="'<b>' + item.currentLeader.title + ':</b> ' + item.currentLeader.subtitle">
+                                    </div>
                                 </template>
                                 <v-chip v-if="item.currentSitesCount" class="ma-2" color="primary" label>
                                     <v-icon icon="mdi-home" start></v-icon>
