@@ -5,6 +5,7 @@ import WorldObjectPage from '../components/WorldObjectPage.vue';
 import LegendsCardList from '../components/LegendsCardList.vue';
 import { computed, ComputedRef } from 'vue';
 import { LegendLinkListData } from '../types/legends';
+import DirectedChordDiagram from '../components/DirectedChordDiagram.vue';
 
 const store = useEntityStore()
 const mapStore = useEntityMapStore()
@@ -26,6 +27,47 @@ const afterLists: ComputedRef<LegendLinkListData[]> = computed(() => [
 <template>
     <WorldObjectPage :store="store" :mapStore="mapStore" :object-type="'entity'">
         <template v-slot:type-specific-before-table>
+            <v-col v-if="store.object?.warDiagramData != null && store.object?.warDiagramData.length > 0" cols="12"
+                xl="4" lg="6" md="12">
+                <v-card title="War Graph" subtitle="Scaled representation of faction roles in war" height="400"
+                    variant="text">
+                    <template v-slot:prepend>
+                        <v-icon class="mr-2" icon="mdi-family-tree" size="32px"></v-icon>
+                    </template>
+                    <v-card-text>
+                        <div style="width: 320px; margin: auto;">
+                            <DirectedChordDiagram :data="store.object?.warDiagramData ?? []" :font-size="32" />
+                        </div>
+                    </v-card-text>
+                    <template v-slot:append>
+                        <v-dialog>
+                            <template v-slot:activator="{ props: activatorProps }">
+                                <v-btn v-bind="activatorProps" icon="mdi-resize" size="large"></v-btn>
+                            </template>
+
+                            <template v-slot:default="{ isActive }">
+                                <v-card title="War Graph" subtitle="Scaled representation of faction roles in war">
+                                    <template v-slot:prepend>
+                                        <v-icon class="mr-2" icon="mdi-family-tree" size="32px"></v-icon>
+                                    </template>
+                                    <v-card-text style="background-color: rgb(var(--v-theme-background));">
+                                        <div style="width: 760px; margin: auto;">
+                                            <DirectedChordDiagram :data="store.object?.warDiagramData ?? []"
+                                                :font-size="12" />
+                                        </div>
+                                    </v-card-text>
+
+                                    <v-card-actions>
+                                        <v-spacer></v-spacer>
+
+                                        <v-btn text="Close Dialog" @click="isActive.value = false"></v-btn>
+                                    </v-card-actions>
+                                </v-card>
+                            </template>
+                        </v-dialog>
+                    </template>
+                </v-card>
+            </v-col>
             <template v-for="(list, i) in beforeLists" :key="i">
                 <v-col v-if="list?.items.length" cols="12" xl="4" lg="6" md="12">
                     <LegendsCardList :list="list" />
@@ -39,7 +81,7 @@ const afterLists: ComputedRef<LegendLinkListData[]> = computed(() => [
                 </v-col>
             </template>
         </template>
-   </WorldObjectPage>
+    </WorldObjectPage>
 </template>
 
 <style scoped></style>

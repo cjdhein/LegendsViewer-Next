@@ -4470,7 +4470,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/api/FileSystem/{path}": {
+    "/api/FileSystem/{encodedPath}": {
         parameters: {
             query?: never;
             header?: never;
@@ -4482,7 +4482,7 @@ export interface paths {
                 query?: never;
                 header?: never;
                 path: {
-                    path: string;
+                    encodedPath: string;
                 };
                 cookie?: never;
             };
@@ -4509,7 +4509,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/api/FileSystem/{currentPath}/{subFolder}": {
+    "/api/FileSystem/{encodedCurrentPath}/{encodedSubFolder}": {
         parameters: {
             query?: never;
             header?: never;
@@ -4521,8 +4521,8 @@ export interface paths {
                 query?: never;
                 header?: never;
                 path: {
-                    currentPath: string;
-                    subFolder: string;
+                    encodedCurrentPath: string;
+                    encodedSubFolder: string;
                 };
                 cookie?: never;
             };
@@ -13147,6 +13147,16 @@ export interface components {
         };
         /** @enum {string} */
         DeathCause: "Unknown" | "None" | "Struck" | "OldAge" | "Thirst" | "Suffocated" | "Bled" | "Cold" | "CrushedByABridge" | "Drowned" | "Starved" | "InACage" | "Infection" | "CollidedWithAnObstacle" | "PutToRest" | "StarvedQuit" | "Trap" | "DragonsFire" | "Burned" | "Murdered" | "Shot" | "CaveIn" | "FrozenInWater" | "ExecutedGeneric" | "ExecutedFedToBeasts" | "ExecutedBurnedAlive" | "ExecutedCrucified" | "ExecutedDrowned" | "ExecutedHackedToPieces" | "ExecutedBuriedAlive" | "ExecutedBeheaded" | "DrainedBlood" | "Collapsed" | "ScaredToDeath" | "Scuttled" | "FlyingObject" | "Slaughtered" | "Melted" | "Spikes" | "Heat" | "Vanish" | "CoolingMagma" | "Vehicle" | "SuicideDrowned" | "SuicideLeaping" | "Chasm";
+        DirectedChordDataDto: {
+            source: string | null;
+            target: string | null;
+            /** Format: int32 */
+            value?: number;
+            sourceColor: string | null;
+            targetColor: string | null;
+            tooltip: string | null;
+            href: string | null;
+        };
         Duel: {
             /** Format: int32 */
             id?: number;
@@ -13202,6 +13212,8 @@ export interface components {
             weapons?: string[] | null;
             profession?: string | null;
             readonly warLinks?: string[] | null;
+            readonly warDiagramData?: components["schemas"]["DirectedChordDataDto"][] | null;
+            readonly battleDiagramData?: components["schemas"]["DirectedChordDataDto"][] | null;
             readonly warAttackingLinks?: string[] | null;
             readonly warDefendingLinks?: string[] | null;
             /** Format: int32 */
@@ -14170,6 +14182,7 @@ export interface components {
             readonly miscList?: components["schemas"]["ListItemDto"][] | null;
             readonly notableDeathLinks?: string[] | null;
             deathsByRace?: components["schemas"]["ChartDataDto"];
+            readonly battleDiagramData?: components["schemas"]["DirectedChordDataDto"][] | null;
             /** Format: double */
             readonly attackerToDefenderKills?: number;
             /** Format: double */

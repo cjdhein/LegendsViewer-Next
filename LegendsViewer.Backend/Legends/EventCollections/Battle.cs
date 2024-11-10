@@ -317,6 +317,18 @@ public class Battle : EventCollection, IHasComplexSubtype
             }
         }
 
+        if (ParentCollection is War war)
+        {
+            if (Attacker == null)
+            {
+                Attacker = war.Attacker;
+            }
+            if (Defender == null)
+            {
+                Defender = war.Defender;
+            }
+        }
+
         foreach (HistoricalFigure involvedHf in NotableAttackers.Union(NotableDefenders).Where(hf => hf != null))
         {
             involvedHf.Battles.Add(this);

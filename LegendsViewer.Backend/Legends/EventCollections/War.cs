@@ -100,6 +100,33 @@ public class War : EventCollection, IHasComplexSubtype
             return deathsByRace;
         }
     }
+
+    public List<DirectedChordDataDto> BattleDiagramData
+    {
+        get
+        {
+            var battleDiagramData = new List<DirectedChordDataDto>();
+            if (Battles.Count > 0)
+            {
+                string defaultColor = Color.Gray.ToRgbaString(0.75f);
+                foreach (var battle in Battles)
+                {
+                    battleDiagramData.Add(new DirectedChordDataDto
+                    {
+                        Source = battle.Attacker?.CurrentCiv?.Name ?? battle.Attacker?.Name ?? "Unknown",
+                        Target = battle.Defender?.CurrentCiv?.Name ?? battle.Defender?.Name ?? "Unknown",
+                        SourceColor = battle.Attacker?.LineColor.ToRgbaString(0.75f) ?? defaultColor,
+                        TargetColor = battle.Defender?.LineColor.ToRgbaString(0.75f) ?? defaultColor,
+                        Value = 100 / Battles.Count(b => b.Attacker?.CurrentCiv == battle.Attacker?.CurrentCiv),
+                        Tooltip = $"{battle.Name} | {battle.Type} | Deaths: {battle.DeathCount}",
+                        Href = $"/battle/{battle.Id}"
+                    });
+                }
+            }
+            return battleDiagramData;
+        }
+    }
+
     [JsonIgnore]
     public Entity? Attacker { get; set; }
     [JsonIgnore]
@@ -216,19 +243,33 @@ public class War : EventCollection, IHasComplexSubtype
     {
         if (link)
         {
-            string title = Type;
-            title += "&#13";
-            title += Attacker?.PrintEntity(false) + " (Attacker)";
-            title += "&#13";
-            title += Defender?.PrintEntity(false) + " (Defender)";
-            title += "&#13";
-            title += "Deaths: " + DeathCount + " | (" + StartYear + " - " + (EndYear == -1 ? "Present" : EndYear.ToString()) + ")";
+            string title = GetTitle();
 
             return pov != this
                 ? HtmlStyleUtil.GetAnchorString(Icon, "war", Id, title, Name)
                 : HtmlStyleUtil.GetAnchorCurrentString(Icon, title, HtmlStyleUtil.CurrentDwarfObject(Name));
         }
         return Name;
+    }
+
+    public string GetTooltip()
+    {
+        string tooltip = Name;
+        tooltip += "&#13";
+        tooltip += GetTitle();
+        return tooltip;
+    }
+
+    private string GetTitle()
+    {
+        string title = Type;
+        title += "&#13";
+        title += Attacker?.PrintEntity(false) + " (Attacker)";
+        title += "&#13";
+        title += Defender?.PrintEntity(false) + " (Defender)";
+        title += "&#13";
+        title += "Deaths: " + DeathCount + " | (" + StartYear + " - " + (EndYear == -1 ? "Present" : EndYear.ToString()) + ")";
+        return title;
     }
 
     public override string ToString()

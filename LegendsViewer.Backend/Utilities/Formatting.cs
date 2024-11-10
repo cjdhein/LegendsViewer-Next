@@ -618,4 +618,9 @@ public static class Formatting
 
         return retval;
     }
+
+    public static double ScaleValue(double value, double minValue, double maxValue, double minSize, double maxSize)
+    {
+        return minSize + ((value - minValue) * (maxSize - minSize) / (maxValue - minValue));
+    }
 }

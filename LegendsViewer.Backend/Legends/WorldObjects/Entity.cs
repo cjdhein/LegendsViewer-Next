@@ -1,6 +1,7 @@
 ﻿using System.Drawing;
 using System.Text.Json.Serialization;
 using LegendsViewer.Backend.Contracts;
+using LegendsViewer.Backend.Extensions;
 using LegendsViewer.Backend.Legends.Enums;
 using LegendsViewer.Backend.Legends.EventCollections;
 using LegendsViewer.Backend.Legends.Events;
@@ -325,6 +326,31 @@ public class Entity : WorldObject, IHasCoordinates
     [JsonIgnore]
     public List<War> Wars { get; set; } = [];
     public List<string> WarLinks => Wars.ConvertAll(x => x.ToLink(true, this));
+    public List<DirectedChordDataDto> WarDiagramData
+    {
+        get
+        {
+            var warDiagramData = new List<DirectedChordDataDto>();
+            if (Wars.Count > 0)
+            {
+                string defaultColor = Color.Gray.ToRgbaString(0.75f);
+                foreach (var war in Wars)
+                {
+                    warDiagramData.Add(new DirectedChordDataDto
+                    {
+                        Source = war.Attacker?.CurrentCiv?.Name ?? war.Attacker?.Name ?? "Unknown",
+                        Target = war.Defender?.CurrentCiv?.Name ?? war.Defender?.Name ?? "Unknown",
+                        SourceColor = war.Attacker?.LineColor.ToRgbaString(0.75f) ?? defaultColor,
+                        TargetColor = war.Defender?.LineColor.ToRgbaString(0.75f) ?? defaultColor,
+                        Value = 100 / Wars.Count(w => w.Attacker?.CurrentCiv == war.Attacker?.CurrentCiv),
+                        Tooltip = $"{war.Name} | {war.Type} | Battles: {war.Battles.Count} | Deaths: {war.DeathCount}",
+                        Href = $"/war/{war.Id}"
+                    });
+                }
+            }
+            return warDiagramData;
+        }
+    }
 
     [JsonIgnore]
     public List<War> WarsAttacking => Wars.Where(war => war.Attacker == this).ToList();
