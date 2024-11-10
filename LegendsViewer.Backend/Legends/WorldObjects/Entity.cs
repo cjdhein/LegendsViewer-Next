@@ -325,7 +325,23 @@ public class Entity : WorldObject, IHasCoordinates
 
     [JsonIgnore]
     public List<War> Wars { get; set; } = [];
-    public List<string> WarLinks => Wars.ConvertAll(x => x.ToLink(true, this));
+    public List<ListItemDto> WarList
+    {
+        get
+        {
+            var list = new List<ListItemDto>();
+            foreach (var war in Wars)
+            {
+                list.Add(new ListItemDto
+                {
+                    Title = war.ToLink(true, this),
+                    Subtitle = war.Subtype,
+                    Append = HtmlStyleUtil.GetChipString($"{war.DeathCount} ✝")
+                });
+            }
+            return list;
+        }
+    }
     public List<DirectedChordDataDto> WarDiagramData
     {
         get

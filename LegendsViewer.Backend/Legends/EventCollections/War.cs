@@ -133,6 +133,25 @@ public class War : EventCollection, IHasComplexSubtype
     public Entity? Defender { get; set; }
     [JsonIgnore]
     public List<Battle> Battles => EventCollections.OfType<Battle>().ToList();
+
+    public List<ListItemDto> BattleList
+    {
+        get
+        {
+            var list = new List<ListItemDto>();
+            foreach (var battle in Battles)
+            {
+                list.Add(new ListItemDto
+                {
+                    Title = battle.ToLink(true, this),
+                    Subtitle = battle.Subtype,
+                    Append = HtmlStyleUtil.GetChipString($"{battle.DeathCount} ✝")
+                });
+            }
+            return list;
+        }
+    }
+
     [JsonIgnore]
     public List<SiteConquered> Conquerings => EventCollections.OfType<SiteConquered>().ToList();
     [JsonIgnore]
@@ -250,14 +269,6 @@ public class War : EventCollection, IHasComplexSubtype
                 : HtmlStyleUtil.GetAnchorCurrentString(Icon, title, HtmlStyleUtil.CurrentDwarfObject(Name));
         }
         return Name;
-    }
-
-    public string GetTooltip()
-    {
-        string tooltip = Name;
-        tooltip += "&#13";
-        tooltip += GetTitle();
-        return tooltip;
     }
 
     private string GetTitle()

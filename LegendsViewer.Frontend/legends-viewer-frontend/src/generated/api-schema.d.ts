@@ -13211,9 +13211,8 @@ export interface components {
             readonly entityPositionAssignmentsList?: components["schemas"]["ListItemDto"][] | null;
             weapons?: string[] | null;
             profession?: string | null;
-            readonly warLinks?: string[] | null;
+            readonly warList?: components["schemas"]["ListItemDto"][] | null;
             readonly warDiagramData?: components["schemas"]["DirectedChordDataDto"][] | null;
-            readonly battleDiagramData?: components["schemas"]["DirectedChordDataDto"][] | null;
             readonly warAttackingLinks?: string[] | null;
             readonly warDefendingLinks?: string[] | null;
             /** Format: int32 */
@@ -14183,6 +14182,7 @@ export interface components {
             readonly notableDeathLinks?: string[] | null;
             deathsByRace?: components["schemas"]["ChartDataDto"];
             readonly battleDiagramData?: components["schemas"]["DirectedChordDataDto"][] | null;
+            readonly battleList?: components["schemas"]["ListItemDto"][] | null;
             /** Format: double */
             readonly attackerToDefenderKills?: number;
             /** Format: double */

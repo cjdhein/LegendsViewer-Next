@@ -11,6 +11,7 @@ const store = useEntityStore()
 const mapStore = useEntityMapStore()
 
 const beforeLists: ComputedRef<LegendLinkListData[]> = computed(() => [
+    { title: 'Wars', items: store.object?.warList ?? [], icon: "mdi-sword-cross", subtitle: "Wars shaping the realm’s history" },
     { title: 'Noble Positions', items: store.object?.entityPositionAssignmentsList ?? [], icon: "mdi-seal", subtitle: "The ruling elite, guiding the fate of realms and people" },
     { title: 'Related Factions and Groups', items: store.object?.entityEntityLinkList ?? [], icon: "mdi-account-group", subtitle: "The organizations and groups connected to this entity" },
     { title: 'Current Sites', items: store.object?.currentSiteList ?? [], icon: "mdi-home-outline", subtitle: "The sites held by this entity, from settlements to strongholds of power" },
@@ -53,7 +54,7 @@ const afterLists: ComputedRef<LegendLinkListData[]> = computed(() => [
                                     <v-card-text style="background-color: rgb(var(--v-theme-background));">
                                         <div style="width: 760px; margin: auto;">
                                             <DirectedChordDiagram :data="store.object?.warDiagramData ?? []"
-                                                :font-size="12" />
+                                                :font-size="16" />
                                         </div>
                                     </v-card-text>
 
