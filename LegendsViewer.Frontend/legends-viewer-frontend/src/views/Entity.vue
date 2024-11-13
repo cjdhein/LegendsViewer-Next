@@ -37,7 +37,7 @@ const afterLists: ComputedRef<LegendLinkListData[]> = computed(() => [
                     </template>
                     <v-card-text>
                         <div style="width: 320px; margin: auto;">
-                            <DirectedChordDiagram :data="store.object?.warDiagramData ?? []" :font-size="32" />
+                            <DirectedChordDiagram :key="store.object.id" :data="store.object?.warDiagramData ?? []" :font-size="32" />
                         </div>
                     </v-card-text>
                     <template v-slot:append>
@@ -53,7 +53,7 @@ const afterLists: ComputedRef<LegendLinkListData[]> = computed(() => [
                                     </template>
                                     <v-card-text style="background-color: rgb(var(--v-theme-background));">
                                         <div style="width: 760px; margin: auto;">
-                                            <DirectedChordDiagram :data="store.object?.warDiagramData ?? []"
+                                            <DirectedChordDiagram :key="store.object.id" :data="store.object?.warDiagramData ?? []"
                                                 :font-size="16" />
                                         </div>
                                     </v-card-text>
