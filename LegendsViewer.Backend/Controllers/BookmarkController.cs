@@ -93,15 +93,21 @@ public class BookmarkController(
         {
             return BadRequest($"Invalid file name.\n{fileInfo.Name}");
         }
-        int firstHyphenIndex = regionId.IndexOf('-');
-        if (firstHyphenIndex != -1)
+        var array = regionId.Split('-').ToList();
+        if (array.Count >= 4)
         {
-            regionName = regionId[..firstHyphenIndex];
-            timestamp = regionId[(firstHyphenIndex + 1)..];
+            string day = array[^1];
+            _worldDataService.CurrentDay = int.Parse(day);
+            array.RemoveAt(array.Count - 1);
+            string month = array[^1];
+            _worldDataService.CurrentMonth = int.Parse(month);
+            array.RemoveAt(array.Count - 1);
+            string year = array[^1];
+            _worldDataService.CurrentYear = int.Parse(year);
+            array.RemoveAt(array.Count - 1);
 
-            _worldDataService.CurrentYear = int.Parse(timestamp.Substring(0, 5));
-            _worldDataService.CurrentMonth = int.Parse(timestamp.Substring(6, 2));
-            _worldDataService.CurrentDay = int.Parse(timestamp.Substring(9, 2));
+            regionName = string.Join('-', array);
+            timestamp = $"{year}-{month}-{day}";
         }
 
         var xmlFileName = Directory.EnumerateFiles(directoryName, regionId + FileIdentifierLegendsXml).FirstOrDefault();
