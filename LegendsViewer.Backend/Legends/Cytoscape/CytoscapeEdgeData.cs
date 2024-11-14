@@ -1,6 +1,6 @@
-﻿namespace LegendsViewer.Backend.Legends.FamilyTree;
+﻿namespace LegendsViewer.Backend.Legends.Cytoscape;
 
-public class FamilyTreeEdgeData
+public class CytoscapeEdgeData
 {
     public string Source { get; set; } = string.Empty;
     public string Target { get; set; } = string.Empty;

@@ -13127,6 +13127,27 @@ export interface components {
             /** Format: int32 */
             startDay?: number;
         };
+        CytoscapeData: {
+            nodes?: components["schemas"]["CytoscapeNodeElement"][] | null;
+            edges?: components["schemas"]["CytoscapeEdgeElement"][] | null;
+        };
+        CytoscapeEdgeData: {
+            source?: string | null;
+            target?: string | null;
+        };
+        CytoscapeEdgeElement: {
+            data?: components["schemas"]["CytoscapeEdgeData"];
+            classes?: string[] | null;
+        };
+        CytoscapeNodeData: {
+            id?: string | null;
+            label?: string | null;
+            href?: string | null;
+        };
+        CytoscapeNodeElement: {
+            data?: components["schemas"]["CytoscapeNodeData"];
+            classes?: string[] | null;
+        };
         DanceForm: {
             /** Format: int32 */
             id?: number;
@@ -13390,27 +13411,6 @@ export interface components {
         };
         /** @enum {string} */
         Evilness: "Neutral" | "Good" | "Evil";
-        FamilyTreeData: {
-            nodes?: components["schemas"]["FamilyTreeNodeElement"][] | null;
-            edges?: components["schemas"]["FamilyTreeEdgeElement"][] | null;
-        };
-        FamilyTreeEdgeData: {
-            source?: string | null;
-            target?: string | null;
-        };
-        FamilyTreeEdgeElement: {
-            data?: components["schemas"]["FamilyTreeEdgeData"];
-            classes?: string[] | null;
-        };
-        FamilyTreeNodeData: {
-            id?: string | null;
-            label?: string | null;
-            href?: string | null;
-        };
-        FamilyTreeNodeElement: {
-            data?: components["schemas"]["FamilyTreeNodeData"];
-            classes?: string[] | null;
-        };
         FilesAndSubdirectoriesDto: {
             currentDirectory?: string | null;
             parentDirectory?: string | null;
@@ -13485,7 +13485,7 @@ export interface components {
             readonly battlesNonCombatantLinks?: string[] | null;
             readonly positionList?: components["schemas"]["ListItemDto"][] | null;
             readonly beastAttackLinks?: string[] | null;
-            familyTreeData?: components["schemas"]["FamilyTreeData"];
+            familyTreeData?: components["schemas"]["CytoscapeData"];
             alive?: boolean;
             deity?: boolean;
             skeleton?: boolean;

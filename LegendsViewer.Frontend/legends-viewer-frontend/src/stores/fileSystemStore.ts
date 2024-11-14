@@ -9,7 +9,7 @@ export const useFileSystemStore = defineStore('fileSystem', {
     filesAndSubdirectories: {} as FilesAndSubdirectories,
     loading: false as boolean,
   }),
-  
+
   actions: {
     async loadDirectory(path: string = "/") {
       // Set loading state to true
@@ -17,11 +17,12 @@ export const useFileSystemStore = defineStore('fileSystem', {
 
       try {
         // Fetch directory info from the backend
+        // @ts-ignore
         const { data, error } = await client.GET('/api/FileSystem/{path}', {
-            params: {
-              path: { path: path },
-            },
-          });
+          params: {
+            path: { path: path },
+          },
+        });
 
         if (error) {
           console.error(error);
@@ -37,55 +38,56 @@ export const useFileSystemStore = defineStore('fileSystem', {
       }
     },
     async loadSubDirectory(currentPath: string = "/", subFolder: string = "/") {
-        // Set loading state to true
-        this.loading = true;
-  
-        try {
-          // Fetch directory info from the backend
-          const { data, error } = await client.GET('/api/FileSystem/{currentPath}/{subFolder}', {
-              params: {
-                path:
-                { 
-                    currentPath: encodeURIComponent(currentPath),
-                    subFolder: encodeURIComponent(subFolder)
-                },
-              },
-            });
-  
-          if (error) {
-            console.error(error);
-          } else if (data) {
-            // Set the received data to the store state
-            this.filesAndSubdirectories = data as FilesAndSubdirectories;
-          }
-        } catch (err) {
-          console.error('Error loading directory:', err);
-        } finally {
-          // Set loading state to false after the operation
-          this.loading = false;
+      // Set loading state to true
+      this.loading = true;
+
+      try {
+        // Fetch directory info from the backend
+        // @ts-ignore
+        const { data, error } = await client.GET('/api/FileSystem/{currentPath}/{subFolder}', {
+          params: {
+            path:
+            {
+              currentPath: encodeURIComponent(currentPath),
+              subFolder: encodeURIComponent(subFolder)
+            },
+          },
+        });
+
+        if (error) {
+          console.error(error);
+        } else if (data) {
+          // Set the received data to the store state
+          this.filesAndSubdirectories = data as FilesAndSubdirectories;
         }
-      },
-  
+      } catch (err) {
+        console.error('Error loading directory:', err);
+      } finally {
+        // Set loading state to false after the operation
+        this.loading = false;
+      }
+    },
+
     async getRoot() {
-        // Set loading state to true
-        this.loading = true;
-  
-        try {
-          // Fetch directory info from the backend
-          const { data, error } = await client.GET('/api/FileSystem');
-  
-          if (error) {
-            console.error(error);
-          } else if (data) {
-            // Set the received data to the store state
-            this.filesAndSubdirectories = data as FilesAndSubdirectories;
-          }
-        } catch (err) {
-          console.error('Error loading directory:', err);
-        } finally {
-          // Set loading state to false after the operation
-          this.loading = false;
+      // Set loading state to true
+      this.loading = true;
+
+      try {
+        // Fetch directory info from the backend
+        const { data, error } = await client.GET('/api/FileSystem');
+
+        if (error) {
+          console.error(error);
+        } else if (data) {
+          // Set the received data to the store state
+          this.filesAndSubdirectories = data as FilesAndSubdirectories;
         }
+      } catch (err) {
+        console.error('Error loading directory:', err);
+      } finally {
+        // Set loading state to false after the operation
+        this.loading = false;
+      }
     },
   },
 });

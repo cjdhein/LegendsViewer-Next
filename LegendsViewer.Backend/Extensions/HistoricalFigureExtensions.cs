@@ -1,5 +1,5 @@
-﻿using LegendsViewer.Backend.Legends.Enums;
-using LegendsViewer.Backend.Legends.FamilyTree;
+﻿using LegendsViewer.Backend.Legends.Cytoscape;
+using LegendsViewer.Backend.Legends.Enums;
 using LegendsViewer.Backend.Legends.WorldObjects;
 using LegendsViewer.Backend.Utilities;
 using System.Net;
@@ -8,21 +8,21 @@ namespace LegendsViewer.Backend.Extensions;
 
 public static class HistoricalFigureExtensions
 {
-    public static FamilyTreeData CreateFamilyTreeElements(this HistoricalFigure historicalFigure)
+    public static CytoscapeData CreateFamilyTreeElements(this HistoricalFigure historicalFigure)
     {
-        List<FamilyTreeNodeElement> nodes = [CreateFamilyTreeNodeData(historicalFigure, historicalFigure)];
-        List<FamilyTreeEdgeElement> edges = [];
+        List<CytoscapeNodeElement> nodes = [CreateFamilyTreeNodeData(historicalFigure, historicalFigure)];
+        List<CytoscapeEdgeElement> edges = [];
         int mothertreesize = 0;
         int fathertreesize = 0;
         GetFamilyDataParents(historicalFigure, historicalFigure, nodes, edges, ref mothertreesize, ref fathertreesize);
         GetFamilyDataChildren(historicalFigure, historicalFigure, nodes, edges);
-        var familyTreeData = new FamilyTreeData();
+        var familyTreeData = new CytoscapeData();
         familyTreeData.Nodes.AddRange(nodes);
         familyTreeData.Edges.AddRange(edges);
         return familyTreeData;
     }
 
-    private static void GetFamilyDataChildren(HistoricalFigure original, HistoricalFigure current, List<FamilyTreeNodeElement> nodes, List<FamilyTreeEdgeElement> edges)
+    private static void GetFamilyDataChildren(HistoricalFigure original, HistoricalFigure current, List<CytoscapeNodeElement> nodes, List<CytoscapeEdgeElement> edges)
     {
         foreach (HistoricalFigure? child in current.RelatedHistoricalFigures.Where(rel => rel.Type == HistoricalFigureLinkType.Child).Select(rel => rel.HistoricalFigure))
         {
@@ -31,12 +31,12 @@ public static class HistoricalFigureExtensions
                 continue;
             }
 
-            FamilyTreeNodeElement node = CreateFamilyTreeNodeData(original, child);
+            CytoscapeNodeElement node = CreateFamilyTreeNodeData(original, child);
             if (!nodes.Contains(node))
             {
                 nodes.Add(node);
             }
-            FamilyTreeEdgeElement edge = new(new FamilyTreeEdgeData
+            CytoscapeEdgeElement edge = new(new CytoscapeEdgeData
             {
                 Source = current.Id.ToString(),
                 Target = child.Id.ToString(),
@@ -48,7 +48,7 @@ public static class HistoricalFigureExtensions
         }
     }
 
-    private static void GetFamilyDataParents(HistoricalFigure original, HistoricalFigure current, List<FamilyTreeNodeElement> nodes, List<FamilyTreeEdgeElement> edges, ref int mothertreesize, ref int fathertreesize)
+    private static void GetFamilyDataParents(HistoricalFigure original, HistoricalFigure current, List<CytoscapeNodeElement> nodes, List<CytoscapeEdgeElement> edges, ref int mothertreesize, ref int fathertreesize)
     {
         foreach (HistoricalFigure? mother in current.RelatedHistoricalFigures.Where(rel => rel.Type == HistoricalFigureLinkType.Mother).Select(rel => rel.HistoricalFigure))
         {
@@ -57,12 +57,12 @@ public static class HistoricalFigureExtensions
                 continue;
             }
             mothertreesize++;
-            FamilyTreeNodeElement node = CreateFamilyTreeNodeData(original, mother);
+            CytoscapeNodeElement node = CreateFamilyTreeNodeData(original, mother);
             if (!nodes.Contains(node))
             {
                 nodes.Add(node);
             }
-            FamilyTreeEdgeElement edge = new(new FamilyTreeEdgeData
+            CytoscapeEdgeElement edge = new(new CytoscapeEdgeData
             {
                 Source = mother.Id.ToString(),
                 Target = current.Id.ToString(),
@@ -84,12 +84,12 @@ public static class HistoricalFigureExtensions
                 continue;
             }
             fathertreesize++;
-            FamilyTreeNodeElement node = CreateFamilyTreeNodeData(original, father);
+            CytoscapeNodeElement node = CreateFamilyTreeNodeData(original, father);
             if (!nodes.Contains(node))
             {
                 nodes.Add(node);
             }
-            FamilyTreeEdgeElement edge = new(new FamilyTreeEdgeData
+            CytoscapeEdgeElement edge = new(new CytoscapeEdgeData
             {
                 Source = father.Id.ToString(),
                 Target = current.Id.ToString(),
@@ -106,7 +106,7 @@ public static class HistoricalFigureExtensions
         }
     }
 
-    private static FamilyTreeNodeElement CreateFamilyTreeNodeData(HistoricalFigure original, HistoricalFigure current)
+    private static CytoscapeNodeElement CreateFamilyTreeNodeData(HistoricalFigure original, HistoricalFigure current)
     {
         List<string> classes = original.Equals(current) ? ["current"] : [];
 
@@ -187,13 +187,13 @@ public static class HistoricalFigureExtensions
             title += $"\n\nAge: {current.Age}";
         }
 
-        FamilyTreeNodeData nodaData = new()
+        CytoscapeNodeData nodaData = new()
         {
             Id = current.Id.ToString(),
             Label = WebUtility.HtmlEncode(title),
             Href = $"/hf/{current.Id}"
         };
-        return new FamilyTreeNodeElement(nodaData)
+        return new CytoscapeNodeElement(nodaData)
         {
             Classes = classes
         };
