@@ -37,6 +37,7 @@ export default defineComponent({
                 const cyInstance = cytoscape({
                     container: cy.value,
                     zoom: .5,
+                    wheelSensitivity: 0.1,
                     elements: {
                         nodes: props.data.nodes,
                         edges: props.data.edges
@@ -168,7 +169,16 @@ export default defineComponent({
                         window.location.href = href;  // Navigates to the URL in the same tab
                     }
                 });
-            }
+ 
+                // Add cursor change on hover
+                cyInstance.on('mouseover', 'node', () => {
+                    cyInstance.container()!.style.cursor = 'pointer';
+                });
+
+                cyInstance.on('mouseout', 'node', () => {
+                    cyInstance.container()!.style.cursor = '';
+                });
+           }
         });
 
         return {

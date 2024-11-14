@@ -2,6 +2,7 @@
 using System.Text.Json.Serialization;
 using LegendsViewer.Backend.Contracts;
 using LegendsViewer.Backend.Extensions;
+using LegendsViewer.Backend.Legends.Cytoscape;
 using LegendsViewer.Backend.Legends.Enums;
 using LegendsViewer.Backend.Legends.EventCollections;
 using LegendsViewer.Backend.Legends.Events;
@@ -234,7 +235,7 @@ public class Entity : WorldObject, IHasCoordinates
     {
         get
         {
-            if(IsCiv)
+            if (IsCiv)
             {
                 return this;
             }
@@ -342,30 +343,53 @@ public class Entity : WorldObject, IHasCoordinates
             return list;
         }
     }
-    public List<DirectedChordDataDto> WarDiagramData
+
+    private CytoscapeData? _warGraphData;
+    public CytoscapeData? WarGraphData
     {
         get
         {
-            var warDiagramData = new List<DirectedChordDataDto>();
-            if (Wars.Count > 0)
+            if (_warGraphData == null && Wars.Count > 0)
             {
-                string defaultColor = Color.Gray.ToRgbaString(0.75f);
-                foreach (var war in Wars)
+                Dictionary<int, CytoscapeNodeElement> nodes = [];
+                List<CytoscapeEdgeElement> edges = [];
+
+                foreach (var item in Wars)
                 {
-                    warDiagramData.Add(new DirectedChordDataDto
+                    if (item.Attacker != null && !nodes.ContainsKey(item.Attacker.Id))
                     {
-                        Source = war.Attacker?.CurrentCiv?.Name ?? war.Attacker?.Name ?? "Unknown",
-                        Target = war.Defender?.CurrentCiv?.Name ?? war.Defender?.Name ?? "Unknown",
-                        SourceColor = war.Attacker?.LineColor.ToRgbaString(0.75f) ?? defaultColor,
-                        TargetColor = war.Defender?.LineColor.ToRgbaString(0.75f) ?? defaultColor,
-                        Value = 100 / Wars.Count(w => w.Attacker?.CurrentCiv == war.Attacker?.CurrentCiv),
-                        Tooltip = $"{war.Name} | {war.Type} | Battles: {war.Battles.Count} | Deaths: {war.DeathCount}",
-                        Href = $"/war/{war.Id}"
-                    });
+                        nodes.Add(item.Attacker.Id, item.Attacker.GetCytoscapeNode(this));
+                    }
+                    if (item.Defender != null && !nodes.ContainsKey(item.Defender.Id))
+                    {
+                        nodes.Add(item.Defender.Id, item.Defender.GetCytoscapeNode(this));
+                    }
+                    if (item.Attacker != null && item.Defender != null)
+                    {
+                        int edgeWidth = item.DeathCount / 10;
+                        edges.Add(new CytoscapeEdgeElement(new CytoscapeEdgeData
+                        {
+                            Source = $"node-{item.Attacker.Id}",
+                            Target = $"node-{item.Defender.Id}",
+                            Href = $"/war/{item.Id}",
+                            BackgroundColor = item.Attacker.LineColor.ToRgbaString(0.6f),
+                            ForegroundColor = Formatting.GetReadableForegroundColor(item.Attacker.LineColor),
+                            Width = edgeWidth > 15 ? 15 : edgeWidth == 0 ? 1: edgeWidth,
+                            Label = $"{item.DeathCount} ✝",
+                            Tooltip = $"{item.ToLink(true, item)}<br/>{item.Subtype}"
+                        }));
+                    }
                 }
+
+                var warGraphData = new CytoscapeData();
+                warGraphData.Nodes.AddRange(nodes.Values);
+                warGraphData.Edges.AddRange(edges);
+                _warGraphData = warGraphData;
             }
-            return warDiagramData;
+            return _warGraphData;
         }
+
+        set => _warGraphData = value;
     }
 
     [JsonIgnore]
@@ -436,6 +460,7 @@ public class Entity : WorldObject, IHasCoordinates
                     if (civilizedPopColor == Color.Empty)
                     {
                         civilizedPopColor = World.MainRaces.FirstOrDefault(r => r.Key == Race).Value;
+                        LineColor = civilizedPopColor;
                     }
                     coloredIcon = HtmlStyleUtil.GetIconString("account-group", ColorTranslator.ToHtml(civilizedPopColor));
                 }

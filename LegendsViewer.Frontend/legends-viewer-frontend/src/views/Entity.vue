@@ -4,9 +4,9 @@ import { useEntityMapStore } from '../stores/mapStore';
 import WorldObjectPage from '../components/WorldObjectPage.vue';
 import LegendsCardList from '../components/LegendsCardList.vue';
 import ExpandableCard from '../components/ExpandableCard.vue';
+import WarfareGraph from '../components/WarfareGraph.vue';
 import { computed, ComputedRef } from 'vue';
 import { LegendLinkListData } from '../types/legends';
-import DirectedChordDiagram from '../components/DirectedChordDiagram.vue';
 
 const store = useEntityStore()
 const mapStore = useEntityMapStore()
@@ -29,19 +29,14 @@ const afterLists: ComputedRef<LegendLinkListData[]> = computed(() => [
 <template>
     <WorldObjectPage :store="store" :mapStore="mapStore" :object-type="'entity'">
         <template v-slot:type-specific-before-table>
-            <v-col v-if="store.object?.warDiagramData != null && store.object?.warDiagramData.length > 0" cols="12"
-                xl="4" lg="6" md="12">
+            <v-col v-if="store.object?.warGraphData != null" cols="12" xl="4" lg="6" md="12">
                 <ExpandableCard title="War Graph" subtitle="Scaled representation of faction roles in war"
                     icon="mdi-sword-cross">
                     <template #compact-content>
-                        <div style="width: 320px; margin: auto;">
-                            <DirectedChordDiagram :key="store.object.id" :data="store.object?.warDiagramData ?? []" :font-size="32" />
-                        </div>
+                        <WarfareGraph :key="'wargraph' + store.object.id" :data="store.object.warGraphData ?? []" />
                     </template>
                     <template #expanded-content>
-                        <div style="width: 760px; margin: auto;">
-                            <DirectedChordDiagram :key="store.object.id" :data="store.object?.warDiagramData ?? []" :font-size="16" />
-                        </div>
+                        <WarfareGraph :key="'wargraph-full' + store.object.id" :data="store.object?.warGraphData ?? []" :fullscreen="true" />
                     </template>
                 </ExpandableCard>
             </v-col>

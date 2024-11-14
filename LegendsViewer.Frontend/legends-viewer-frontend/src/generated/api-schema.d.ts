@@ -13134,6 +13134,13 @@ export interface components {
         CytoscapeEdgeData: {
             source?: string | null;
             target?: string | null;
+            href?: string | null;
+            foregroundColor?: string | null;
+            backgroundColor?: string | null;
+            label?: string | null;
+            tooltip?: string | null;
+            /** Format: int32 */
+            width?: number;
         };
         CytoscapeEdgeElement: {
             data?: components["schemas"]["CytoscapeEdgeData"];
@@ -13142,7 +13149,11 @@ export interface components {
         CytoscapeNodeData: {
             id?: string | null;
             label?: string | null;
+            tooltip?: string | null;
             href?: string | null;
+            parent?: string | null;
+            foregroundColor?: string | null;
+            backgroundColor?: string | null;
         };
         CytoscapeNodeElement: {
             data?: components["schemas"]["CytoscapeNodeData"];
@@ -13168,16 +13179,6 @@ export interface components {
         };
         /** @enum {string} */
         DeathCause: "Unknown" | "None" | "Struck" | "OldAge" | "Thirst" | "Suffocated" | "Bled" | "Cold" | "CrushedByABridge" | "Drowned" | "Starved" | "InACage" | "Infection" | "CollidedWithAnObstacle" | "PutToRest" | "StarvedQuit" | "Trap" | "DragonsFire" | "Burned" | "Murdered" | "Shot" | "CaveIn" | "FrozenInWater" | "ExecutedGeneric" | "ExecutedFedToBeasts" | "ExecutedBurnedAlive" | "ExecutedCrucified" | "ExecutedDrowned" | "ExecutedHackedToPieces" | "ExecutedBuriedAlive" | "ExecutedBeheaded" | "DrainedBlood" | "Collapsed" | "ScaredToDeath" | "Scuttled" | "FlyingObject" | "Slaughtered" | "Melted" | "Spikes" | "Heat" | "Vanish" | "CoolingMagma" | "Vehicle" | "SuicideDrowned" | "SuicideLeaping" | "Chasm";
-        DirectedChordDataDto: {
-            source: string | null;
-            target: string | null;
-            /** Format: int32 */
-            value?: number;
-            sourceColor: string | null;
-            targetColor: string | null;
-            tooltip: string | null;
-            href: string | null;
-        };
         Duel: {
             /** Format: int32 */
             id?: number;
@@ -13233,7 +13234,7 @@ export interface components {
             weapons?: string[] | null;
             profession?: string | null;
             readonly warList?: components["schemas"]["ListItemDto"][] | null;
-            readonly warDiagramData?: components["schemas"]["DirectedChordDataDto"][] | null;
+            warGraphData?: components["schemas"]["CytoscapeData"];
             readonly warAttackingLinks?: string[] | null;
             readonly warDefendingLinks?: string[] | null;
             /** Format: int32 */
@@ -14181,7 +14182,7 @@ export interface components {
             readonly miscList?: components["schemas"]["ListItemDto"][] | null;
             readonly notableDeathLinks?: string[] | null;
             deathsByRace?: components["schemas"]["ChartDataDto"];
-            readonly battleDiagramData?: components["schemas"]["DirectedChordDataDto"][] | null;
+            battleGraphData?: components["schemas"]["CytoscapeData"];
             readonly battleList?: components["schemas"]["ListItemDto"][] | null;
             /** Format: double */
             readonly attackerToDefenderKills?: number;

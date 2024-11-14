@@ -1,5 +1,6 @@
 ﻿using LegendsViewer.Backend.Contracts;
 using LegendsViewer.Backend.Extensions;
+using LegendsViewer.Backend.Legends.Cytoscape;
 using LegendsViewer.Backend.Legends.Enums;
 using LegendsViewer.Backend.Legends.Events;
 using LegendsViewer.Backend.Legends.Extensions;
@@ -101,30 +102,52 @@ public class War : EventCollection, IHasComplexSubtype
         }
     }
 
-    public List<DirectedChordDataDto> BattleDiagramData
+    private CytoscapeData? _battleGraphData;
+    public CytoscapeData? BattleGraphData
     {
         get
         {
-            var battleDiagramData = new List<DirectedChordDataDto>();
-            if (Battles.Count > 0)
+            if (_battleGraphData == null && Battles.Count > 0)
             {
-                string defaultColor = Color.Gray.ToRgbaString(0.75f);
-                foreach (var battle in Battles)
+                Dictionary<int, CytoscapeNodeElement> nodes = [];
+                List<CytoscapeEdgeElement> edges = [];
+
+                foreach (var item in Battles)
                 {
-                    battleDiagramData.Add(new DirectedChordDataDto
+                    if (item.Attacker != null && !nodes.ContainsKey(item.Attacker.Id))
                     {
-                        Source = battle.Attacker?.CurrentCiv?.Name ?? battle.Attacker?.Name ?? "Unknown",
-                        Target = battle.Defender?.CurrentCiv?.Name ?? battle.Defender?.Name ?? "Unknown",
-                        SourceColor = battle.Attacker?.LineColor.ToRgbaString(0.75f) ?? defaultColor,
-                        TargetColor = battle.Defender?.LineColor.ToRgbaString(0.75f) ?? defaultColor,
-                        Value = 100 / Battles.Count(b => b.Attacker?.CurrentCiv == battle.Attacker?.CurrentCiv),
-                        Tooltip = $"{battle.Name} | {battle.Type} | Deaths: {battle.DeathCount}",
-                        Href = $"/battle/{battle.Id}"
-                    });
+                        nodes.Add(item.Attacker.Id, item.Attacker.GetCytoscapeNode());
+                    }
+                    if (item.Defender != null && !nodes.ContainsKey(item.Defender.Id))
+                    {
+                        nodes.Add(item.Defender.Id, item.Defender.GetCytoscapeNode());
+                    }
+                    if (item.Attacker != null && item.Defender != null)
+                    {
+                        int edgeWidth = item.DeathCount / 10;
+                        edges.Add(new CytoscapeEdgeElement(new CytoscapeEdgeData
+                        {
+                            Source = $"node-{item.Attacker.Id}",
+                            Target = $"node-{item.Defender.Id}",
+                            Href = $"/battle/{item.Id}",
+                            BackgroundColor = item.Attacker.LineColor.ToRgbaString(0.6f),
+                            ForegroundColor = Formatting.GetReadableForegroundColor(item.Attacker.LineColor),
+                            Width = edgeWidth > 15 ? 15 : edgeWidth == 0 ? 1 : edgeWidth,
+                            Label = $"{item.DeathCount} ✝",
+                            Tooltip = $"{item.ToLink(true, item)}<br/>{item.Subtype}"
+                        }));
+                    }
                 }
+
+                var warGraphData = new CytoscapeData();
+                warGraphData.Nodes.AddRange(nodes.Values);
+                warGraphData.Edges.AddRange(edges);
+                _battleGraphData = warGraphData;
             }
-            return battleDiagramData;
+            return _battleGraphData;
         }
+
+        set => _battleGraphData = value;
     }
 
     [JsonIgnore]
