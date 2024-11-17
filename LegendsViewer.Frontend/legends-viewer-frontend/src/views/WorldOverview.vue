@@ -110,9 +110,13 @@ const closeSnackbar = () => {
 
             <template v-slot:default="{ isActive }">
               <v-card prepend-icon="mdi-earth" title="Select World Export">
-                <v-divider class="mt-3"></v-divider>
+                <v-card-text class="px-4" style="max-width: 720px;">
+                  <v-alert type="info" variant="tonal" style="margin-bottom: 16px;">
+                    This file list shows only the main export file (e.g., &lt;savename&gt;-&lt;timestamp&gt;-legends.xml). 
+                    If other files related to the same export are present,
+                    they will be automatically detected and included when you select the main file.
+                  </v-alert> 
 
-                <v-card-text class="px-4">
                   <v-form>
                     <v-text-field v-model="fileSystemStore.filesAndSubdirectories.currentDirectory" readonly
                       label="Current Folder">
@@ -187,7 +191,7 @@ const closeSnackbar = () => {
       <v-col v-if="bookmark != null && bookmark.filePath" :for="i" cols="12" md="3">
         <v-card class="mx-auto" max-width="320">
           <v-container>
-            <v-img height="300px" width="300px" class="pixelated-image" :src="getImageData(bookmark)" ></v-img>
+            <v-img height="300px" width="300px" class="pixelated-image" :src="getImageData(bookmark)"></v-img>
           </v-container>
 
           <v-card-title>
