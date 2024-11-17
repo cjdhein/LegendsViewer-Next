@@ -126,7 +126,7 @@ const eventCollectionTableHeaders: TableHeader[] = [
                 <v-card-text class="ml-12">
                     <LineChart v-if="store.objectEventChartData != null" :chart-data="store.objectEventChartData" />
                     <v-data-table-server v-model:items-per-page="store.objectEventsPerPage" :headers="eventTableHeaders" :items="store.objectEvents"
-                    :items-length="store.objectEventsTotalItems" :loading="store.isLoading" item-value="id"
+                    :items-length="store.objectEventsTotalItems" :loading="store.isLoading" item-value="id" :items-per-page-options="store.itemsPerPageOptions"
                     @update:options="loadEvents">
                     <template v-slot:item.html="{ value }">
                         <span v-html="value"></span>
@@ -144,7 +144,7 @@ const eventCollectionTableHeaders: TableHeader[] = [
                 </template>
                 <v-card-text class="ml-12">
                     <v-data-table-server v-model:items-per-page="store.objectEventCollectionsPerPage" :headers="eventCollectionTableHeaders" :items="store.objectEventCollections"
-                    :items-length="store.objectEventCollectionsTotalItems" :loading="store.isLoading" item-value="id"
+                    :items-length="store.objectEventCollectionsTotalItems" :loading="store.isLoading" item-value="id" :items-per-page-options="store.itemsPerPageOptions"
                     @update:options="loadEventCollections">
                     <template v-slot:item.subtype="{ value }">
                         <span v-html="value"></span>

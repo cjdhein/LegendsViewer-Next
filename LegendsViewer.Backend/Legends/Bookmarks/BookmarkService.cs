@@ -1,6 +1,7 @@
 ﻿namespace LegendsViewer.Backend.Legends.Bookmarks;
 
 using LegendsViewer.Backend.Controllers;
+using LegendsViewer.Backend.Legends.Interfaces;
 using System.IO;
 using System.Text.Json;
 
@@ -91,11 +92,8 @@ public class BookmarkService : IBookmarkService
         {
             var fileName = Path.GetFileName(filePath);
             string regionId = fileName.Replace(BookmarkController.FileIdentifierLegendsXml, "");
-            int firstHyphenIndex = regionId.IndexOf('-');
-            if (firstHyphenIndex != -1)
-            {
-                timestamp = regionId[(firstHyphenIndex + 1)..]; // Extract the timestamp part
-            }
+            var (_, Timestamp) = GetRegionNameAndTimestampByRegionId(regionId);
+            timestamp = Timestamp;
         }
         if (string.IsNullOrWhiteSpace(timestamp))
         {
@@ -111,11 +109,8 @@ public class BookmarkService : IBookmarkService
         {
             var fileName = Path.GetFileName(filePath);
             string regionId = fileName.Replace(BookmarkController.FileIdentifierLegendsXml, "");
-            int firstHyphenIndex = regionId.IndexOf('-');
-            if (firstHyphenIndex != -1)
-            {
-                timestamp = regionId[(firstHyphenIndex + 1)..]; // Extract the timestamp part
-            }
+            var (_, Timestamp) = GetRegionNameAndTimestampByRegionId(regionId);
+            timestamp = Timestamp;
         }
         if (string.IsNullOrWhiteSpace(timestamp))
         {
@@ -156,5 +151,31 @@ public class BookmarkService : IBookmarkService
         }
 
         return source.Remove(lastIndex, find.Length).Insert(lastIndex, replace);
+    }
+
+    public static (string RegionName, string Timestamp) GetRegionNameAndTimestampByRegionId(string regionId, IWorld? worldDataService = null)
+    {
+        var array = regionId.Split('-').ToList();
+        if (array.Count < 4)
+        {
+            return ("", "");
+        }
+        string day = array[^1];
+        array.RemoveAt(array.Count - 1);
+        string month = array[^1];
+        array.RemoveAt(array.Count - 1);
+        string year = array[^1];
+        array.RemoveAt(array.Count - 1);
+
+        if (worldDataService != null)
+        {
+            worldDataService.CurrentDay = int.Parse(day);
+            worldDataService.CurrentMonth = int.Parse(month);
+            worldDataService.CurrentYear = int.Parse(year);
+        }
+
+        var regionName = string.Join('-', array);
+        var timestamp = $"{year}-{month}-{day}";
+        return (regionName, timestamp);
     }
 }
