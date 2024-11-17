@@ -341,6 +341,13 @@ export function createWorldObjectStore<T>(resourceName: string, type: string) {
 
             objectEventChartData: null as ChartDataDto | null,
 
+            itemsPerPageOptions: [
+                {value: 10, title: '10'},
+                {value: 25, title: '25'},
+                {value: 50, title: '50'},
+                {value: 100, title: '100'}
+              ],
+
             isLoading: false as boolean
         }),
         actions: {

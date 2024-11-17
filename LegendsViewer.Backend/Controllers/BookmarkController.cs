@@ -24,7 +24,7 @@ public class BookmarkController(
     private readonly IBookmarkService _bookmarkService = bookmarkService;
 
     [HttpGet]
-    [ProducesResponseType<List<Bookmark>>( StatusCodes.Status200OK)]
+    [ProducesResponseType<List<Bookmark>>(StatusCodes.Status200OK)]
     public ActionResult<List<Bookmark>> Get()
     {
         var bookmarks = _bookmarkService.GetAll();
@@ -50,7 +50,7 @@ public class BookmarkController(
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public ActionResult<Bookmark> Delete([FromRoute] string filePath)
     {
-        if(!_bookmarkService.DeleteBookmarkTimestamp(filePath))
+        if (!_bookmarkService.DeleteBookmarkTimestamp(filePath))
         {
             return NotFound();
         }
@@ -78,8 +78,6 @@ public class BookmarkController(
             return BadRequest("Invalid directory.");
         }
         string directoryName = fileInfo.DirectoryName;
-        string regionName = string.Empty;
-        string timestamp = string.Empty;
         string regionId;
         if (fileInfo.Name.Contains(FileIdentifierLegendsXml))
         {
@@ -93,16 +91,8 @@ public class BookmarkController(
         {
             return BadRequest($"Invalid file name.\n{fileInfo.Name}");
         }
-        int firstHyphenIndex = regionId.IndexOf('-');
-        if (firstHyphenIndex != -1)
-        {
-            regionName = regionId[..firstHyphenIndex];
-            timestamp = regionId[(firstHyphenIndex + 1)..];
 
-            _worldDataService.CurrentYear = int.Parse(timestamp.Substring(0, 5));
-            _worldDataService.CurrentMonth = int.Parse(timestamp.Substring(6, 2));
-            _worldDataService.CurrentDay = int.Parse(timestamp.Substring(9, 2));
-        }
+        var (RegionName, Timestamp) = BookmarkService.GetRegionNameAndTimestampByRegionId(regionId, _worldDataService);
 
         var xmlFileName = Directory.EnumerateFiles(directoryName, regionId + FileIdentifierLegendsXml).FirstOrDefault();
         if (string.IsNullOrWhiteSpace(xmlFileName))
@@ -126,7 +116,7 @@ public class BookmarkController(
 
             logger.LogInformation(_worldDataService.Log.ToString());
 
-            var bookmark = AddBookmark(filePath, regionName, timestamp);
+            var bookmark = AddBookmark(filePath, RegionName, Timestamp);
 
             return Ok(bookmark);
         }

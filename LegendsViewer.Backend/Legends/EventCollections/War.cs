@@ -1,5 +1,6 @@
 ﻿using LegendsViewer.Backend.Contracts;
 using LegendsViewer.Backend.Extensions;
+using LegendsViewer.Backend.Legends.Cytoscape;
 using LegendsViewer.Backend.Legends.Enums;
 using LegendsViewer.Backend.Legends.Events;
 using LegendsViewer.Backend.Legends.Extensions;
@@ -100,12 +101,80 @@ public class War : EventCollection, IHasComplexSubtype
             return deathsByRace;
         }
     }
+
+    private CytoscapeData? _battleGraphData;
+    public CytoscapeData? BattleGraphData
+    {
+        get
+        {
+            if (_battleGraphData == null && Battles.Count > 0)
+            {
+                Dictionary<int, CytoscapeNodeElement> nodes = [];
+                List<CytoscapeEdgeElement> edges = [];
+
+                foreach (var item in Battles)
+                {
+                    if (item.Attacker != null && !nodes.ContainsKey(item.Attacker.Id))
+                    {
+                        nodes.Add(item.Attacker.Id, item.Attacker.GetCytoscapeNode());
+                    }
+                    if (item.Defender != null && !nodes.ContainsKey(item.Defender.Id))
+                    {
+                        nodes.Add(item.Defender.Id, item.Defender.GetCytoscapeNode());
+                    }
+                    if (item.Attacker != null && item.Defender != null)
+                    {
+                        int edgeWidth = item.DeathCount / 10;
+                        edges.Add(new CytoscapeEdgeElement(new CytoscapeEdgeData
+                        {
+                            Source = $"node-{item.Attacker.Id}",
+                            Target = $"node-{item.Defender.Id}",
+                            Href = $"/battle/{item.Id}",
+                            BackgroundColor = item.Attacker.LineColor.ToRgbaString(0.6f),
+                            ForegroundColor = Formatting.GetReadableForegroundColor(item.Attacker.LineColor),
+                            Width = edgeWidth > 15 ? 15 : edgeWidth == 0 ? 1 : edgeWidth,
+                            Label = $"{item.DeathCount} ✝",
+                            Tooltip = $"{item.ToLink(true, item)}<br/>{item.Subtype}"
+                        }));
+                    }
+                }
+
+                var warGraphData = new CytoscapeData();
+                warGraphData.Nodes.AddRange(nodes.Values);
+                warGraphData.Edges.AddRange(edges);
+                _battleGraphData = warGraphData;
+            }
+            return _battleGraphData;
+        }
+
+        set => _battleGraphData = value;
+    }
+
     [JsonIgnore]
     public Entity? Attacker { get; set; }
     [JsonIgnore]
     public Entity? Defender { get; set; }
     [JsonIgnore]
     public List<Battle> Battles => EventCollections.OfType<Battle>().ToList();
+
+    public List<ListItemDto> BattleList
+    {
+        get
+        {
+            var list = new List<ListItemDto>();
+            foreach (var battle in Battles)
+            {
+                list.Add(new ListItemDto
+                {
+                    Title = battle.ToLink(true, this),
+                    Subtitle = battle.Subtype,
+                    Append = HtmlStyleUtil.GetChipString($"{battle.DeathCount} ✝")
+                });
+            }
+            return list;
+        }
+    }
+
     [JsonIgnore]
     public List<SiteConquered> Conquerings => EventCollections.OfType<SiteConquered>().ToList();
     [JsonIgnore]
@@ -216,19 +285,25 @@ public class War : EventCollection, IHasComplexSubtype
     {
         if (link)
         {
-            string title = Type;
-            title += "&#13";
-            title += Attacker?.PrintEntity(false) + " (Attacker)";
-            title += "&#13";
-            title += Defender?.PrintEntity(false) + " (Defender)";
-            title += "&#13";
-            title += "Deaths: " + DeathCount + " | (" + StartYear + " - " + (EndYear == -1 ? "Present" : EndYear.ToString()) + ")";
+            string title = GetTitle();
 
             return pov != this
                 ? HtmlStyleUtil.GetAnchorString(Icon, "war", Id, title, Name)
                 : HtmlStyleUtil.GetAnchorCurrentString(Icon, title, HtmlStyleUtil.CurrentDwarfObject(Name));
         }
         return Name;
+    }
+
+    private string GetTitle()
+    {
+        string title = Type;
+        title += "&#13";
+        title += Attacker?.PrintEntity(false) + " (Attacker)";
+        title += "&#13";
+        title += Defender?.PrintEntity(false) + " (Defender)";
+        title += "&#13";
+        title += "Deaths: " + DeathCount + " | (" + StartYear + " - " + (EndYear == -1 ? "Present" : EndYear.ToString()) + ")";
+        return title;
     }
 
     public override string ToString()

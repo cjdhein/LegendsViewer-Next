@@ -4470,7 +4470,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/api/FileSystem/{path}": {
+    "/api/FileSystem/{encodedPath}": {
         parameters: {
             query?: never;
             header?: never;
@@ -4482,7 +4482,7 @@ export interface paths {
                 query?: never;
                 header?: never;
                 path: {
-                    path: string;
+                    encodedPath: string;
                 };
                 cookie?: never;
             };
@@ -4509,7 +4509,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/api/FileSystem/{currentPath}/{subFolder}": {
+    "/api/FileSystem/{encodedCurrentPath}/{encodedSubFolder}": {
         parameters: {
             query?: never;
             header?: never;
@@ -4521,8 +4521,8 @@ export interface paths {
                 query?: never;
                 header?: never;
                 path: {
-                    currentPath: string;
-                    subFolder: string;
+                    encodedCurrentPath: string;
+                    encodedSubFolder: string;
                 };
                 cookie?: never;
             };
@@ -13127,6 +13127,38 @@ export interface components {
             /** Format: int32 */
             startDay?: number;
         };
+        CytoscapeData: {
+            nodes?: components["schemas"]["CytoscapeNodeElement"][] | null;
+            edges?: components["schemas"]["CytoscapeEdgeElement"][] | null;
+        };
+        CytoscapeEdgeData: {
+            source?: string | null;
+            target?: string | null;
+            href?: string | null;
+            foregroundColor?: string | null;
+            backgroundColor?: string | null;
+            label?: string | null;
+            tooltip?: string | null;
+            /** Format: int32 */
+            width?: number;
+        };
+        CytoscapeEdgeElement: {
+            data?: components["schemas"]["CytoscapeEdgeData"];
+            classes?: string[] | null;
+        };
+        CytoscapeNodeData: {
+            id?: string | null;
+            label?: string | null;
+            tooltip?: string | null;
+            href?: string | null;
+            parent?: string | null;
+            foregroundColor?: string | null;
+            backgroundColor?: string | null;
+        };
+        CytoscapeNodeElement: {
+            data?: components["schemas"]["CytoscapeNodeData"];
+            classes?: string[] | null;
+        };
         DanceForm: {
             /** Format: int32 */
             id?: number;
@@ -13201,7 +13233,8 @@ export interface components {
             readonly entityPositionAssignmentsList?: components["schemas"]["ListItemDto"][] | null;
             weapons?: string[] | null;
             profession?: string | null;
-            readonly warLinks?: string[] | null;
+            readonly warList?: components["schemas"]["ListItemDto"][] | null;
+            warGraphData?: components["schemas"]["CytoscapeData"];
             readonly warAttackingLinks?: string[] | null;
             readonly warDefendingLinks?: string[] | null;
             /** Format: int32 */
@@ -13379,27 +13412,6 @@ export interface components {
         };
         /** @enum {string} */
         Evilness: "Neutral" | "Good" | "Evil";
-        FamilyTreeData: {
-            nodes?: components["schemas"]["FamilyTreeNodeElement"][] | null;
-            edges?: components["schemas"]["FamilyTreeEdgeElement"][] | null;
-        };
-        FamilyTreeEdgeData: {
-            source?: string | null;
-            target?: string | null;
-        };
-        FamilyTreeEdgeElement: {
-            data?: components["schemas"]["FamilyTreeEdgeData"];
-            classes?: string[] | null;
-        };
-        FamilyTreeNodeData: {
-            id?: string | null;
-            label?: string | null;
-            href?: string | null;
-        };
-        FamilyTreeNodeElement: {
-            data?: components["schemas"]["FamilyTreeNodeData"];
-            classes?: string[] | null;
-        };
         FilesAndSubdirectoriesDto: {
             currentDirectory?: string | null;
             parentDirectory?: string | null;
@@ -13474,7 +13486,7 @@ export interface components {
             readonly battlesNonCombatantLinks?: string[] | null;
             readonly positionList?: components["schemas"]["ListItemDto"][] | null;
             readonly beastAttackLinks?: string[] | null;
-            familyTreeData?: components["schemas"]["FamilyTreeData"];
+            familyTreeData?: components["schemas"]["CytoscapeData"];
             alive?: boolean;
             deity?: boolean;
             skeleton?: boolean;
@@ -14170,6 +14182,8 @@ export interface components {
             readonly miscList?: components["schemas"]["ListItemDto"][] | null;
             readonly notableDeathLinks?: string[] | null;
             deathsByRace?: components["schemas"]["ChartDataDto"];
+            battleGraphData?: components["schemas"]["CytoscapeData"];
+            readonly battleList?: components["schemas"]["ListItemDto"][] | null;
             /** Format: double */
             readonly attackerToDefenderKills?: number;
             /** Format: double */

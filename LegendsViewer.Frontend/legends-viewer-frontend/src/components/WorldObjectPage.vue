@@ -46,9 +46,9 @@
                 </template>
                 <v-card-text class="ml-12">
                     <LineChart v-if="store.objectEventChartData != null" :chart-data="store.objectEventChartData" />
-                    <v-data-table-server v-model:items-per-page="store.objectEventsPerPage" :headers="eventTableHeaders"
+                    <v-data-table-server :key="store.object.id" v-model:items-per-page="store.objectEventsPerPage" :headers="eventTableHeaders"
                         :items="store.objectEvents" :items-length="store.objectEventsTotalItems"
-                        :loading="store.isLoading" item-value="id" @update:options="loadEvents">
+                        :loading="store.isLoading" item-value="id" :items-per-page-options="store.itemsPerPageOptions" @update:options="loadEvents">
                         <template v-slot:item.html="{ value }">
                             <span v-html="value"></span>
                         </template>
@@ -64,10 +64,10 @@
                     <v-icon class="mr-2" icon="mdi-calendar-clock" size="32px"></v-icon>
                 </template>
                 <v-card-text class="ml-12">
-                    <v-data-table-server v-model:items-per-page="store.objectEventCollectionsPerPage"
+                    <v-data-table-server :key="store.object.id" v-model:items-per-page="store.objectEventCollectionsPerPage"
                         :headers="eventCollectionTableHeaders" :items="store.objectEventCollections"
                         :items-length="store.objectEventCollectionsTotalItems" :loading="store.isLoading"
-                        item-value="id" @update:options="loadEventCollections">
+                        item-value="id" :items-per-page-options="store.itemsPerPageOptions" @update:options="loadEventCollections">
                         <template v-slot:item.subtype="{ value }">
                             <span v-html="value"></span>
                         </template>

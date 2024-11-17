@@ -9,5 +9,6 @@ public enum Circumstance
     HfIsDead,
     AbductedHf,
     Conflict,
-    Trauma
+    Trauma,
+    FavoritePossession
 }

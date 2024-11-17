@@ -23,13 +23,13 @@ public class WorldDto(IWorld worldDataService, IWorldMapImageGenerator worldMapI
     public List<MainCivilizationDto> MainCivilizations { get; set; } = worldDataService.Entities
         .Where(e => e.IsCiv && e.CurrentSites?.Count > 0)
         .OrderBy(e => e.Race.NamePlural)
-        .Select(civ => new MainCivilizationDto(worldMapImageGenerator, civ))
+        .Select(civ => civ.GetCivilizationInfo(worldMapImageGenerator))
         .ToList();
 
     public List<MainCivilizationDto> MainCivilizationsLost { get; set; } = worldDataService.Entities
         .Where(e => e.IsCiv && e.CurrentSites?.Count == 0)
         .OrderBy(e => e.Race.NamePlural)
-        .Select(civ => new MainCivilizationDto(worldMapImageGenerator, civ))
+        .Select(civ => civ.GetCivilizationInfo(worldMapImageGenerator))
         .ToList();
 
     public List<SiteMarkerDto> SiteMarkers { get; set; } = worldDataService.Sites.ConvertAll(s => new SiteMarkerDto(s));

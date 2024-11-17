@@ -12,10 +12,12 @@
   "dependencies": {
     "chart.js": "^4.4.4",
     "cytoscape": "^3.30.2",
+    "cytoscape-cola": "^2.5.1",
     "cytoscape-dagre": "^2.5.0",
     "leaflet": "^1.9.4",
     "openapi-fetch": "^0.12.2",
     "pinia": "^2.2.2",
+    "tippy.js": "^6.3.7",
     "vue": "^3.4.37",
     "vue-chartjs": "^5.3.1",
     "vue-router": "^4.4.5",

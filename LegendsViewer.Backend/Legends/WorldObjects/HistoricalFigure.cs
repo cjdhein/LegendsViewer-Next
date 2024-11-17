@@ -2,11 +2,11 @@
 using System.Text.Json.Serialization;
 using LegendsViewer.Backend.Contracts;
 using LegendsViewer.Backend.Extensions;
+using LegendsViewer.Backend.Legends.Cytoscape;
 using LegendsViewer.Backend.Legends.Enums;
 using LegendsViewer.Backend.Legends.EventCollections;
 using LegendsViewer.Backend.Legends.Events;
 using LegendsViewer.Backend.Legends.Extensions;
-using LegendsViewer.Backend.Legends.FamilyTree;
 using LegendsViewer.Backend.Legends.Parser;
 using LegendsViewer.Backend.Legends.Various;
 using LegendsViewer.Backend.Legends.WorldLinks;
@@ -460,8 +460,8 @@ public class HistoricalFigure : WorldObject
     [JsonIgnore]
     public List<Identity> Identities { get; set; } = [];
 
-    private FamilyTreeData? _familyTreeData;
-    public FamilyTreeData? FamilyTreeData
+    private CytoscapeData? _familyTreeData;
+    public CytoscapeData? FamilyTreeData
     {
         get
         {

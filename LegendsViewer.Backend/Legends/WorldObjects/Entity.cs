@@ -1,11 +1,14 @@
 ﻿using System.Drawing;
 using System.Text.Json.Serialization;
 using LegendsViewer.Backend.Contracts;
+using LegendsViewer.Backend.Extensions;
+using LegendsViewer.Backend.Legends.Cytoscape;
 using LegendsViewer.Backend.Legends.Enums;
 using LegendsViewer.Backend.Legends.EventCollections;
 using LegendsViewer.Backend.Legends.Events;
 using LegendsViewer.Backend.Legends.Extensions;
 using LegendsViewer.Backend.Legends.Interfaces;
+using LegendsViewer.Backend.Legends.Maps;
 using LegendsViewer.Backend.Legends.Parser;
 using LegendsViewer.Backend.Legends.Various;
 using LegendsViewer.Backend.Legends.WorldLinks;
@@ -233,7 +236,7 @@ public class Entity : WorldObject, IHasCoordinates
     {
         get
         {
-            if(IsCiv)
+            if (IsCiv)
             {
                 return this;
             }
@@ -324,7 +327,71 @@ public class Entity : WorldObject, IHasCoordinates
 
     [JsonIgnore]
     public List<War> Wars { get; set; } = [];
-    public List<string> WarLinks => Wars.ConvertAll(x => x.ToLink(true, this));
+    public List<ListItemDto> WarList
+    {
+        get
+        {
+            var list = new List<ListItemDto>();
+            foreach (var war in Wars)
+            {
+                list.Add(new ListItemDto
+                {
+                    Title = war.ToLink(true, this),
+                    Subtitle = war.Subtype,
+                    Append = HtmlStyleUtil.GetChipString($"{war.DeathCount} ✝")
+                });
+            }
+            return list;
+        }
+    }
+
+    private CytoscapeData? _warGraphData;
+    public CytoscapeData? WarGraphData
+    {
+        get
+        {
+            if (_warGraphData == null && Wars.Count > 0)
+            {
+                Dictionary<int, CytoscapeNodeElement> nodes = [];
+                List<CytoscapeEdgeElement> edges = [];
+
+                foreach (var item in Wars)
+                {
+                    if (item.Attacker != null && !nodes.ContainsKey(item.Attacker.Id))
+                    {
+                        nodes.Add(item.Attacker.Id, item.Attacker.GetCytoscapeNode(this));
+                    }
+                    if (item.Defender != null && !nodes.ContainsKey(item.Defender.Id))
+                    {
+                        nodes.Add(item.Defender.Id, item.Defender.GetCytoscapeNode(this));
+                    }
+                    if (item.Attacker != null && item.Defender != null)
+                    {
+                        int edgeWidth = item.DeathCount / 10;
+                        edges.Add(new CytoscapeEdgeElement(new CytoscapeEdgeData
+                        {
+                            Source = $"node-{item.Attacker.Id}",
+                            Target = $"node-{item.Defender.Id}",
+                            Href = $"/war/{item.Id}",
+                            BackgroundColor = item.Attacker.LineColor.ToRgbaString(0.6f),
+                            ForegroundColor = Formatting.GetReadableForegroundColor(item.Attacker.LineColor),
+                            Width = edgeWidth > 15 ? 15 : edgeWidth == 0 ? 1: edgeWidth,
+                            Label = $"{item.DeathCount} ✝",
+                            Tooltip = $"{item.ToLink(true, item)}<br/>{item.Subtype}"
+                        }));
+                    }
+                }
+
+                var warGraphData = new CytoscapeData();
+                warGraphData.Nodes.AddRange(nodes.Values);
+                warGraphData.Edges.AddRange(edges);
+                _warGraphData = warGraphData;
+            }
+            return _warGraphData;
+        }
+
+        set => _warGraphData = value;
+    }
 
     [JsonIgnore]
     public List<War> WarsAttacking => Wars.Where(war => war.Attacker == this).ToList();
@@ -394,6 +461,7 @@ public class Entity : WorldObject, IHasCoordinates
                     if (civilizedPopColor == Color.Empty)
                     {
                         civilizedPopColor = World.MainRaces.FirstOrDefault(r => r.Key == Race).Value;
+                        LineColor = civilizedPopColor;
                     }
                     coloredIcon = HtmlStyleUtil.GetIconString("account-group", ColorTranslator.ToHtml(civilizedPopColor));
                 }
@@ -731,5 +799,15 @@ public class Entity : WorldObject, IHasCoordinates
         }
 
         Parent = parent;
+    }
+
+    private MainCivilizationDto? _civilizationInfo;
+    public MainCivilizationDto GetCivilizationInfo(IWorldMapImageGenerator worldMapImageGenerator)
+    {
+        if (_civilizationInfo == null)
+        {
+            _civilizationInfo = new MainCivilizationDto(worldMapImageGenerator, this);
+        }
+        return _civilizationInfo;
     }
 }

@@ -2,7 +2,9 @@
 import { useWarStore } from '../stores/worldObjectStores';
 import WorldObjectPage from '../components/WorldObjectPage.vue';
 import LegendsCardList from '../components/LegendsCardList.vue';
+import ExpandableCard from '../components/ExpandableCard.vue';
 import DoughnutChart from '../components/DoughnutChart.vue';
+import WarfareGraph from '../components/WarfareGraph.vue';
 import { computed, ComputedRef } from 'vue';
 import { LegendLinkListData } from '../types/legends';
 
@@ -11,6 +13,7 @@ const store = useWarStore()
 
 const lists: ComputedRef<LegendLinkListData[]> = computed(() => [
     { title: 'War Overview', items: store.object?.miscList ?? [], icon: "mdi-swords-crossed", subtitle: "A summary of significant details of this war" },
+    { title: 'Battles', items: store.object?.battleList ?? [], icon: "mdi-chess-bishop", subtitle: "Battles shaping the realm’s history" },
     { title: 'Notable Deaths', items: store.object?.notableDeathLinks ?? [], icon: "mdi-grave-stone", subtitle: "Key figures who died in this war" },
 ]);
 
@@ -19,6 +22,17 @@ const lists: ComputedRef<LegendLinkListData[]> = computed(() => [
 <template>
     <WorldObjectPage :store="store" :object-type="'war'">
         <template v-slot:type-specific-before-table>
+            <v-col v-if="store.object?.battleGraphData != null" cols="12" xl="4" lg="6" md="12">
+                <ExpandableCard title="Battle Graph" subtitle="Scaled representation of faction roles in battle"
+                    icon="mdi-chess-bishop">
+                    <template #compact-content>
+                        <WarfareGraph :key="'battlegraph' + store.object.id" :data="store.object.battleGraphData ?? []" />
+                    </template>
+                    <template #expanded-content>
+                        <WarfareGraph :key="'battlegraph-full' + store.object.id" :data="store.object?.battleGraphData ?? []" :fullscreen="true" />
+                    </template>
+                </ExpandableCard>
+            </v-col>
             <template v-for="(list, i) in lists" :key="i">
                 <v-col v-if="list?.items.length" cols="12" xl="4" lg="6" md="12">
                     <LegendsCardList :list="list" />
