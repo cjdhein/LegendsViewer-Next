@@ -43,7 +43,7 @@
                 <v-card-text>
                     <v-data-table-server v-model:items-per-page="store.objectsPerPage" :headers="tableHeaders"
                         :items="store.objects" :items-length="store.objectsTotalFilteredItems" :search="searchString"
-                        :loading="store.isLoading" item-value="id" @update:options="loadWorldObjects">
+                        :loading="store.isLoading" item-value="id" :items-per-page-options="store.itemsPerPageOptions" @update:options="loadWorldObjects">
                         <template v-slot:item.html="{ value }">
                             <span v-html="value"></span>
                         </template>
