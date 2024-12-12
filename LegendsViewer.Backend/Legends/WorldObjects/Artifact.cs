@@ -10,6 +10,8 @@ namespace LegendsViewer.Backend.Legends.WorldObjects;
 
 public class Artifact : WorldObject, IHasCoordinates
 {
+    private const string DefaultName = "Untitled";
+
     [JsonIgnore]
     public HistoricalFigure? Creator { get; set; }
     public string? CreatorLink => Creator?.ToLink(true, this);
@@ -53,7 +55,7 @@ public class Artifact : WorldObject, IHasCoordinates
         : base(properties, world)
     {
         Icon = HtmlStyleUtil.GetIconString("diamond-stone");
-        Name = "Untitled";
+        Name = DefaultName;
         Type = "Unknown";
         Subtype = "";
 
@@ -61,7 +63,7 @@ public class Artifact : WorldObject, IHasCoordinates
         {
             switch (property.Name)
             {
-                case "name": Name = Formatting.InitCaps(property.Value); break;
+                case "name": Name = Formatting.InitCaps(CheckArtifactName(property.Value)); break;
                 case "item":
                     if (property.SubProperties != null)
                     {
@@ -71,7 +73,7 @@ public class Artifact : WorldObject, IHasCoordinates
                             switch (subProperty.Name)
                             {
                                 case "name_string":
-                                    Item = Formatting.InitCaps(subProperty.Value);
+                                    Item = Formatting.InitCaps(CheckArtifactName(subProperty.Value));
                                     break;
                                 case "page_number":
                                     PageCount = Convert.ToInt32(subProperty.Value);
@@ -119,6 +121,42 @@ public class Artifact : WorldObject, IHasCoordinates
         {
             Coordinates.AddRange(Site.Coordinates);
         }
+        if (Name == DefaultName && !string.IsNullOrEmpty(Item))
+        {
+            Name = Item;
+        }
+    }
+
+    private static string CheckArtifactName(ReadOnlySpan<char> text)
+    {
+        // Determine the start and end characters to replace if needed
+        char firstChar = text.Length > 0 ? text[0] : '\0';
+        char lastChar = text.Length > 1 ? text[^1] : '\0';
+
+        // If no replacements are necessary, return the original string
+        if (firstChar != ' ' && lastChar != ' ')
+        {
+            return text.ToString();
+        }
+
+        // Allocate a new array to modify the content if changes are needed
+        Span<char> result = stackalloc char[text.Length];
+        text.CopyTo(result);
+
+        // Replace the first character if it's a space
+        if (firstChar == ' ')
+        {
+            result[0] = '‹';
+        }
+
+        // Replace the last character if it's a space
+        if (lastChar == ' ')
+        {
+            result[^1] = '›';
+        }
+
+        // Convert the modified span back to a string
+        return new string(result);
     }
 
     public void Resolve(World world)

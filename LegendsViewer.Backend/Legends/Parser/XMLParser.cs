@@ -21,7 +21,9 @@ public class XmlParser : IDisposable
     protected XmlParser(World world, string xmlFile)
     {
         World = world;
-        XmlReader = XmlReader.Create(xmlFile, new XmlReaderSettings { Async = true, IgnoreWhitespace = true, IgnoreComments = true, IgnoreProcessingInstructions = true });
+        XmlReader = XmlReader.Create(
+            new FilteredStream(new FileStream(xmlFile, FileMode.Open)),
+            new XmlReaderSettings { Async = true, IgnoreWhitespace = true, IgnoreComments = true, IgnoreProcessingInstructions = true });
     }
 
     public XmlParser(World world, string xmlFile, string? xmlPlusFile) : this(world, xmlFile)
