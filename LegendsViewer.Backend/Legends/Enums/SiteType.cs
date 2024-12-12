@@ -29,5 +29,11 @@ public enum SiteType
     ImportantLocation,
     Fort,
     Monastery,
-    Castle
+    Castle,
+    [Description("Mysterious Palace")]
+    MysteriousPalace,
+    [Description("Mysterious Dungeon")]
+    MysteriousDungeon,
+    [Description("Mysterious Lair")]
+    MysteriousLair
 }
