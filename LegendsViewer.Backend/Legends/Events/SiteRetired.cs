@@ -26,20 +26,11 @@ public class SiteRetired : WorldEvent
         }
         if (Site != null)
         {
-            Site.OwnerHistory.Last().EndYear = Year;
-            Site.OwnerHistory.Last().EndCause = "retired";
             world.AddPlayerRelatedDwarfObjects(Site);
         }
         if (SiteEntity != null)
         {
-            SiteEntity.SiteHistory.Last(s => s.Site == Site).EndYear = Year;
-            SiteEntity.SiteHistory.Last(s => s.Site == Site).EndCause = "retired";
             world.AddPlayerRelatedDwarfObjects(SiteEntity);
-        }
-        if (Civ != null)
-        {
-            Civ.SiteHistory.Last(s => s.Site == Site).EndYear = Year;
-            Civ.SiteHistory.Last(s => s.Site == Site).EndCause = "retired";
         }
 
         Civ.AddEvent(this);

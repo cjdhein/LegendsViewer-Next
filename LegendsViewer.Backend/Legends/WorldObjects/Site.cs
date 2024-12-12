@@ -225,6 +225,9 @@ public class Site : WorldObject, IHasCoordinates
                         case "fort": SiteType = SiteType.Fort; break;
                         case "monastery": SiteType = SiteType.Monastery; break;
                         case "castle": SiteType = SiteType.Castle; break;
+                        case "mysterious palace": SiteType = SiteType.MysteriousPalace; break;
+                        case "mysterious dungeon": SiteType = SiteType.MysteriousDungeon; break;
+                        case "mysterious lair": SiteType = SiteType.MysteriousLair; break;
                         default:
                             property.Known = false;
                             break;
@@ -356,6 +359,15 @@ public class Site : WorldObject, IHasCoordinates
                 break;
             case SiteType.Castle:
                 Icon = HtmlStyleUtil.GetIconString("castle");
+                break;
+            case SiteType.MysteriousPalace:
+                Icon = HtmlStyleUtil.GetIconString("shield-crown");
+                break;
+            case SiteType.MysteriousDungeon:
+                Icon = HtmlStyleUtil.GetIconString("checkbox-multiple-blank");
+                break;
+            case SiteType.MysteriousLair:
+                Icon = HtmlStyleUtil.GetIconString("checkbox-multiple-blank-circle");
                 break;
             default:
                 Icon = HtmlStyleUtil.GetIconString("home-modern");
