@@ -70,8 +70,8 @@ const siteTypeMarkers: Record<SiteType, MarkerConfig> = {
 function createMarker(siteType: SiteType, siteColor: string | null | undefined, latlng: L.LatLngExpression): L.Layer {
   const config = siteTypeMarkers[siteType];
   const color = siteColor || "#666"
-  const size = config.size || 3;
-  switch (config.shape) {
+  const size = config?.size ?? 3;
+  switch (config?.shape) {
     case 'circle':
       return L.circle(latlng, { color: color, radius: size });
     case 'triangle':
