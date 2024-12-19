@@ -14032,7 +14032,7 @@ export interface components {
         /** @enum {string} */
         SitePropertyType: "Unknown" | "House";
         /** @enum {string} */
-        SiteType: "Unknown" | "Cave" | "Fortress" | "ForestRetreat" | "DarkFortress" | "Town" | "Hamlet" | "Vault" | "DarkPits" | "Hillocks" | "Tomb" | "Tower" | "MountainHalls" | "Camp" | "Lair" | "Labyrinth" | "Shrine" | "ImportantLocation" | "Fort" | "Monastery" | "Castle";
+        SiteType: "Unknown" | "Cave" | "Fortress" | "ForestRetreat" | "DarkFortress" | "Town" | "Hamlet" | "Vault" | "DarkPits" | "Hillocks" | "Tomb" | "Tower" | "MountainHalls" | "Camp" | "Lair" | "Labyrinth" | "Shrine" | "ImportantLocation" | "Fort" | "Monastery" | "Castle" | "MysteriousPalace" | "MysteriousDungeon" | "MysteriousLair";
         Size: {
             readonly isEmpty?: boolean;
             /** Format: int32 */
