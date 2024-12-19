@@ -13448,6 +13448,8 @@ export interface components {
             creatureTypes?: components["schemas"]["CreatureType"][] | null;
             readonly relatedHistoricalFigureList?: components["schemas"]["ListItemDto"][] | null;
             readonly worshippedDeities?: components["schemas"]["ListItemDto"][] | null;
+            readonly worshippingFiguresList?: components["schemas"]["ListItemDto"][] | null;
+            readonly worshippingEntitiesList?: components["schemas"]["ListItemDto"][] | null;
             siteProperties?: components["schemas"]["SiteProperty"][] | null;
             reputations?: components["schemas"]["EntityReputation"][] | null;
             relationshipProfiles?: components["schemas"]["RelationshipProfileHf"][] | null;
