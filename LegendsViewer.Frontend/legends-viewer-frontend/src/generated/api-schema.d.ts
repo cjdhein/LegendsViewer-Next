@@ -317,17 +317,6 @@ export interface paths {
                         "text/json": components["schemas"]["ChartDataDto"];
                     };
                 };
-                /** @description Bad Request */
-                400: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "text/plain": components["schemas"]["ProblemDetails"];
-                        "application/json": components["schemas"]["ProblemDetails"];
-                        "text/json": components["schemas"]["ProblemDetails"];
-                    };
-                };
                 /** @description Not Found */
                 404: {
                     headers: {
@@ -376,17 +365,6 @@ export interface paths {
                         "text/plain": components["schemas"]["ChartDataDto"];
                         "application/json": components["schemas"]["ChartDataDto"];
                         "text/json": components["schemas"]["ChartDataDto"];
-                    };
-                };
-                /** @description Bad Request */
-                400: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "text/plain": components["schemas"]["ProblemDetails"];
-                        "application/json": components["schemas"]["ProblemDetails"];
-                        "text/json": components["schemas"]["ProblemDetails"];
                     };
                 };
                 /** @description Not Found */
@@ -723,17 +701,6 @@ export interface paths {
                         "text/json": components["schemas"]["ChartDataDto"];
                     };
                 };
-                /** @description Bad Request */
-                400: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "text/plain": components["schemas"]["ProblemDetails"];
-                        "application/json": components["schemas"]["ProblemDetails"];
-                        "text/json": components["schemas"]["ProblemDetails"];
-                    };
-                };
                 /** @description Not Found */
                 404: {
                     headers: {
@@ -782,17 +749,6 @@ export interface paths {
                         "text/plain": components["schemas"]["ChartDataDto"];
                         "application/json": components["schemas"]["ChartDataDto"];
                         "text/json": components["schemas"]["ChartDataDto"];
-                    };
-                };
-                /** @description Bad Request */
-                400: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "text/plain": components["schemas"]["ProblemDetails"];
-                        "application/json": components["schemas"]["ProblemDetails"];
-                        "text/json": components["schemas"]["ProblemDetails"];
                     };
                 };
                 /** @description Not Found */
@@ -1129,17 +1085,6 @@ export interface paths {
                         "text/json": components["schemas"]["ChartDataDto"];
                     };
                 };
-                /** @description Bad Request */
-                400: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "text/plain": components["schemas"]["ProblemDetails"];
-                        "application/json": components["schemas"]["ProblemDetails"];
-                        "text/json": components["schemas"]["ProblemDetails"];
-                    };
-                };
                 /** @description Not Found */
                 404: {
                     headers: {
@@ -1188,17 +1133,6 @@ export interface paths {
                         "text/plain": components["schemas"]["ChartDataDto"];
                         "application/json": components["schemas"]["ChartDataDto"];
                         "text/json": components["schemas"]["ChartDataDto"];
-                    };
-                };
-                /** @description Bad Request */
-                400: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "text/plain": components["schemas"]["ProblemDetails"];
-                        "application/json": components["schemas"]["ProblemDetails"];
-                        "text/json": components["schemas"]["ProblemDetails"];
                     };
                 };
                 /** @description Not Found */
@@ -1535,17 +1469,6 @@ export interface paths {
                         "text/json": components["schemas"]["ChartDataDto"];
                     };
                 };
-                /** @description Bad Request */
-                400: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "text/plain": components["schemas"]["ProblemDetails"];
-                        "application/json": components["schemas"]["ProblemDetails"];
-                        "text/json": components["schemas"]["ProblemDetails"];
-                    };
-                };
                 /** @description Not Found */
                 404: {
                     headers: {
@@ -1594,17 +1517,6 @@ export interface paths {
                         "text/plain": components["schemas"]["ChartDataDto"];
                         "application/json": components["schemas"]["ChartDataDto"];
                         "text/json": components["schemas"]["ChartDataDto"];
-                    };
-                };
-                /** @description Bad Request */
-                400: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "text/plain": components["schemas"]["ProblemDetails"];
-                        "application/json": components["schemas"]["ProblemDetails"];
-                        "text/json": components["schemas"]["ProblemDetails"];
                     };
                 };
                 /** @description Not Found */
@@ -2193,17 +2105,6 @@ export interface paths {
                         "text/json": components["schemas"]["ChartDataDto"];
                     };
                 };
-                /** @description Bad Request */
-                400: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "text/plain": components["schemas"]["ProblemDetails"];
-                        "application/json": components["schemas"]["ProblemDetails"];
-                        "text/json": components["schemas"]["ProblemDetails"];
-                    };
-                };
                 /** @description Not Found */
                 404: {
                     headers: {
@@ -2252,17 +2153,6 @@ export interface paths {
                         "text/plain": components["schemas"]["ChartDataDto"];
                         "application/json": components["schemas"]["ChartDataDto"];
                         "text/json": components["schemas"]["ChartDataDto"];
-                    };
-                };
-                /** @description Bad Request */
-                400: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "text/plain": components["schemas"]["ProblemDetails"];
-                        "application/json": components["schemas"]["ProblemDetails"];
-                        "text/json": components["schemas"]["ProblemDetails"];
                     };
                 };
                 /** @description Not Found */
@@ -2599,17 +2489,6 @@ export interface paths {
                         "text/json": components["schemas"]["ChartDataDto"];
                     };
                 };
-                /** @description Bad Request */
-                400: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "text/plain": components["schemas"]["ProblemDetails"];
-                        "application/json": components["schemas"]["ProblemDetails"];
-                        "text/json": components["schemas"]["ProblemDetails"];
-                    };
-                };
                 /** @description Not Found */
                 404: {
                     headers: {
@@ -2658,17 +2537,6 @@ export interface paths {
                         "text/plain": components["schemas"]["ChartDataDto"];
                         "application/json": components["schemas"]["ChartDataDto"];
                         "text/json": components["schemas"]["ChartDataDto"];
-                    };
-                };
-                /** @description Bad Request */
-                400: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "text/plain": components["schemas"]["ProblemDetails"];
-                        "application/json": components["schemas"]["ProblemDetails"];
-                        "text/json": components["schemas"]["ProblemDetails"];
                     };
                 };
                 /** @description Not Found */
@@ -3005,17 +2873,6 @@ export interface paths {
                         "text/json": components["schemas"]["ChartDataDto"];
                     };
                 };
-                /** @description Bad Request */
-                400: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "text/plain": components["schemas"]["ProblemDetails"];
-                        "application/json": components["schemas"]["ProblemDetails"];
-                        "text/json": components["schemas"]["ProblemDetails"];
-                    };
-                };
                 /** @description Not Found */
                 404: {
                     headers: {
@@ -3064,17 +2921,6 @@ export interface paths {
                         "text/plain": components["schemas"]["ChartDataDto"];
                         "application/json": components["schemas"]["ChartDataDto"];
                         "text/json": components["schemas"]["ChartDataDto"];
-                    };
-                };
-                /** @description Bad Request */
-                400: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "text/plain": components["schemas"]["ProblemDetails"];
-                        "application/json": components["schemas"]["ProblemDetails"];
-                        "text/json": components["schemas"]["ProblemDetails"];
                     };
                 };
                 /** @description Not Found */
@@ -3411,17 +3257,6 @@ export interface paths {
                         "text/json": components["schemas"]["ChartDataDto"];
                     };
                 };
-                /** @description Bad Request */
-                400: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "text/plain": components["schemas"]["ProblemDetails"];
-                        "application/json": components["schemas"]["ProblemDetails"];
-                        "text/json": components["schemas"]["ProblemDetails"];
-                    };
-                };
                 /** @description Not Found */
                 404: {
                     headers: {
@@ -3470,17 +3305,6 @@ export interface paths {
                         "text/plain": components["schemas"]["ChartDataDto"];
                         "application/json": components["schemas"]["ChartDataDto"];
                         "text/json": components["schemas"]["ChartDataDto"];
-                    };
-                };
-                /** @description Bad Request */
-                400: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "text/plain": components["schemas"]["ProblemDetails"];
-                        "application/json": components["schemas"]["ProblemDetails"];
-                        "text/json": components["schemas"]["ProblemDetails"];
                     };
                 };
                 /** @description Not Found */
@@ -3817,17 +3641,6 @@ export interface paths {
                         "text/json": components["schemas"]["ChartDataDto"];
                     };
                 };
-                /** @description Bad Request */
-                400: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "text/plain": components["schemas"]["ProblemDetails"];
-                        "application/json": components["schemas"]["ProblemDetails"];
-                        "text/json": components["schemas"]["ProblemDetails"];
-                    };
-                };
                 /** @description Not Found */
                 404: {
                     headers: {
@@ -3876,17 +3689,6 @@ export interface paths {
                         "text/plain": components["schemas"]["ChartDataDto"];
                         "application/json": components["schemas"]["ChartDataDto"];
                         "text/json": components["schemas"]["ChartDataDto"];
-                    };
-                };
-                /** @description Bad Request */
-                400: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "text/plain": components["schemas"]["ProblemDetails"];
-                        "application/json": components["schemas"]["ProblemDetails"];
-                        "text/json": components["schemas"]["ProblemDetails"];
                     };
                 };
                 /** @description Not Found */
@@ -4223,17 +4025,6 @@ export interface paths {
                         "text/json": components["schemas"]["ChartDataDto"];
                     };
                 };
-                /** @description Bad Request */
-                400: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "text/plain": components["schemas"]["ProblemDetails"];
-                        "application/json": components["schemas"]["ProblemDetails"];
-                        "text/json": components["schemas"]["ProblemDetails"];
-                    };
-                };
                 /** @description Not Found */
                 404: {
                     headers: {
@@ -4282,17 +4073,6 @@ export interface paths {
                         "text/plain": components["schemas"]["ChartDataDto"];
                         "application/json": components["schemas"]["ChartDataDto"];
                         "text/json": components["schemas"]["ChartDataDto"];
-                    };
-                };
-                /** @description Bad Request */
-                400: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "text/plain": components["schemas"]["ProblemDetails"];
-                        "application/json": components["schemas"]["ProblemDetails"];
-                        "text/json": components["schemas"]["ProblemDetails"];
                     };
                 };
                 /** @description Not Found */
@@ -4666,17 +4446,6 @@ export interface paths {
                         "text/json": components["schemas"]["ChartDataDto"];
                     };
                 };
-                /** @description Bad Request */
-                400: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "text/plain": components["schemas"]["ProblemDetails"];
-                        "application/json": components["schemas"]["ProblemDetails"];
-                        "text/json": components["schemas"]["ProblemDetails"];
-                    };
-                };
                 /** @description Not Found */
                 404: {
                     headers: {
@@ -4725,17 +4494,6 @@ export interface paths {
                         "text/plain": components["schemas"]["ChartDataDto"];
                         "application/json": components["schemas"]["ChartDataDto"];
                         "text/json": components["schemas"]["ChartDataDto"];
-                    };
-                };
-                /** @description Bad Request */
-                400: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "text/plain": components["schemas"]["ProblemDetails"];
-                        "application/json": components["schemas"]["ProblemDetails"];
-                        "text/json": components["schemas"]["ProblemDetails"];
                     };
                 };
                 /** @description Not Found */
@@ -5072,17 +4830,6 @@ export interface paths {
                         "text/json": components["schemas"]["ChartDataDto"];
                     };
                 };
-                /** @description Bad Request */
-                400: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "text/plain": components["schemas"]["ProblemDetails"];
-                        "application/json": components["schemas"]["ProblemDetails"];
-                        "text/json": components["schemas"]["ProblemDetails"];
-                    };
-                };
                 /** @description Not Found */
                 404: {
                     headers: {
@@ -5131,17 +4878,6 @@ export interface paths {
                         "text/plain": components["schemas"]["ChartDataDto"];
                         "application/json": components["schemas"]["ChartDataDto"];
                         "text/json": components["schemas"]["ChartDataDto"];
-                    };
-                };
-                /** @description Bad Request */
-                400: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "text/plain": components["schemas"]["ProblemDetails"];
-                        "application/json": components["schemas"]["ProblemDetails"];
-                        "text/json": components["schemas"]["ProblemDetails"];
                     };
                 };
                 /** @description Not Found */
@@ -5605,17 +5341,6 @@ export interface paths {
                         "text/json": components["schemas"]["ChartDataDto"];
                     };
                 };
-                /** @description Bad Request */
-                400: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "text/plain": components["schemas"]["ProblemDetails"];
-                        "application/json": components["schemas"]["ProblemDetails"];
-                        "text/json": components["schemas"]["ProblemDetails"];
-                    };
-                };
                 /** @description Not Found */
                 404: {
                     headers: {
@@ -5664,17 +5389,6 @@ export interface paths {
                         "text/plain": components["schemas"]["ChartDataDto"];
                         "application/json": components["schemas"]["ChartDataDto"];
                         "text/json": components["schemas"]["ChartDataDto"];
-                    };
-                };
-                /** @description Bad Request */
-                400: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "text/plain": components["schemas"]["ProblemDetails"];
-                        "application/json": components["schemas"]["ProblemDetails"];
-                        "text/json": components["schemas"]["ProblemDetails"];
                     };
                 };
                 /** @description Not Found */
@@ -6011,17 +5725,6 @@ export interface paths {
                         "text/json": components["schemas"]["ChartDataDto"];
                     };
                 };
-                /** @description Bad Request */
-                400: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "text/plain": components["schemas"]["ProblemDetails"];
-                        "application/json": components["schemas"]["ProblemDetails"];
-                        "text/json": components["schemas"]["ProblemDetails"];
-                    };
-                };
                 /** @description Not Found */
                 404: {
                     headers: {
@@ -6070,17 +5773,6 @@ export interface paths {
                         "text/plain": components["schemas"]["ChartDataDto"];
                         "application/json": components["schemas"]["ChartDataDto"];
                         "text/json": components["schemas"]["ChartDataDto"];
-                    };
-                };
-                /** @description Bad Request */
-                400: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "text/plain": components["schemas"]["ProblemDetails"];
-                        "application/json": components["schemas"]["ProblemDetails"];
-                        "text/json": components["schemas"]["ProblemDetails"];
                     };
                 };
                 /** @description Not Found */
@@ -6417,17 +6109,6 @@ export interface paths {
                         "text/json": components["schemas"]["ChartDataDto"];
                     };
                 };
-                /** @description Bad Request */
-                400: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "text/plain": components["schemas"]["ProblemDetails"];
-                        "application/json": components["schemas"]["ProblemDetails"];
-                        "text/json": components["schemas"]["ProblemDetails"];
-                    };
-                };
                 /** @description Not Found */
                 404: {
                     headers: {
@@ -6476,17 +6157,6 @@ export interface paths {
                         "text/plain": components["schemas"]["ChartDataDto"];
                         "application/json": components["schemas"]["ChartDataDto"];
                         "text/json": components["schemas"]["ChartDataDto"];
-                    };
-                };
-                /** @description Bad Request */
-                400: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "text/plain": components["schemas"]["ProblemDetails"];
-                        "application/json": components["schemas"]["ProblemDetails"];
-                        "text/json": components["schemas"]["ProblemDetails"];
                     };
                 };
                 /** @description Not Found */
@@ -6823,17 +6493,6 @@ export interface paths {
                         "text/json": components["schemas"]["ChartDataDto"];
                     };
                 };
-                /** @description Bad Request */
-                400: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "text/plain": components["schemas"]["ProblemDetails"];
-                        "application/json": components["schemas"]["ProblemDetails"];
-                        "text/json": components["schemas"]["ProblemDetails"];
-                    };
-                };
                 /** @description Not Found */
                 404: {
                     headers: {
@@ -6882,17 +6541,6 @@ export interface paths {
                         "text/plain": components["schemas"]["ChartDataDto"];
                         "application/json": components["schemas"]["ChartDataDto"];
                         "text/json": components["schemas"]["ChartDataDto"];
-                    };
-                };
-                /** @description Bad Request */
-                400: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "text/plain": components["schemas"]["ProblemDetails"];
-                        "application/json": components["schemas"]["ProblemDetails"];
-                        "text/json": components["schemas"]["ProblemDetails"];
                     };
                 };
                 /** @description Not Found */
@@ -7229,17 +6877,6 @@ export interface paths {
                         "text/json": components["schemas"]["ChartDataDto"];
                     };
                 };
-                /** @description Bad Request */
-                400: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "text/plain": components["schemas"]["ProblemDetails"];
-                        "application/json": components["schemas"]["ProblemDetails"];
-                        "text/json": components["schemas"]["ProblemDetails"];
-                    };
-                };
                 /** @description Not Found */
                 404: {
                     headers: {
@@ -7288,17 +6925,6 @@ export interface paths {
                         "text/plain": components["schemas"]["ChartDataDto"];
                         "application/json": components["schemas"]["ChartDataDto"];
                         "text/json": components["schemas"]["ChartDataDto"];
-                    };
-                };
-                /** @description Bad Request */
-                400: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "text/plain": components["schemas"]["ProblemDetails"];
-                        "application/json": components["schemas"]["ProblemDetails"];
-                        "text/json": components["schemas"]["ProblemDetails"];
                     };
                 };
                 /** @description Not Found */
@@ -7635,17 +7261,6 @@ export interface paths {
                         "text/json": components["schemas"]["ChartDataDto"];
                     };
                 };
-                /** @description Bad Request */
-                400: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "text/plain": components["schemas"]["ProblemDetails"];
-                        "application/json": components["schemas"]["ProblemDetails"];
-                        "text/json": components["schemas"]["ProblemDetails"];
-                    };
-                };
                 /** @description Not Found */
                 404: {
                     headers: {
@@ -7694,17 +7309,6 @@ export interface paths {
                         "text/plain": components["schemas"]["ChartDataDto"];
                         "application/json": components["schemas"]["ChartDataDto"];
                         "text/json": components["schemas"]["ChartDataDto"];
-                    };
-                };
-                /** @description Bad Request */
-                400: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "text/plain": components["schemas"]["ProblemDetails"];
-                        "application/json": components["schemas"]["ProblemDetails"];
-                        "text/json": components["schemas"]["ProblemDetails"];
                     };
                 };
                 /** @description Not Found */
@@ -8041,17 +7645,6 @@ export interface paths {
                         "text/json": components["schemas"]["ChartDataDto"];
                     };
                 };
-                /** @description Bad Request */
-                400: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "text/plain": components["schemas"]["ProblemDetails"];
-                        "application/json": components["schemas"]["ProblemDetails"];
-                        "text/json": components["schemas"]["ProblemDetails"];
-                    };
-                };
                 /** @description Not Found */
                 404: {
                     headers: {
@@ -8100,17 +7693,6 @@ export interface paths {
                         "text/plain": components["schemas"]["ChartDataDto"];
                         "application/json": components["schemas"]["ChartDataDto"];
                         "text/json": components["schemas"]["ChartDataDto"];
-                    };
-                };
-                /** @description Bad Request */
-                400: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "text/plain": components["schemas"]["ProblemDetails"];
-                        "application/json": components["schemas"]["ProblemDetails"];
-                        "text/json": components["schemas"]["ProblemDetails"];
                     };
                 };
                 /** @description Not Found */
@@ -8447,17 +8029,6 @@ export interface paths {
                         "text/json": components["schemas"]["ChartDataDto"];
                     };
                 };
-                /** @description Bad Request */
-                400: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "text/plain": components["schemas"]["ProblemDetails"];
-                        "application/json": components["schemas"]["ProblemDetails"];
-                        "text/json": components["schemas"]["ProblemDetails"];
-                    };
-                };
                 /** @description Not Found */
                 404: {
                     headers: {
@@ -8506,17 +8077,6 @@ export interface paths {
                         "text/plain": components["schemas"]["ChartDataDto"];
                         "application/json": components["schemas"]["ChartDataDto"];
                         "text/json": components["schemas"]["ChartDataDto"];
-                    };
-                };
-                /** @description Bad Request */
-                400: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "text/plain": components["schemas"]["ProblemDetails"];
-                        "application/json": components["schemas"]["ProblemDetails"];
-                        "text/json": components["schemas"]["ProblemDetails"];
                     };
                 };
                 /** @description Not Found */
@@ -8853,17 +8413,6 @@ export interface paths {
                         "text/json": components["schemas"]["ChartDataDto"];
                     };
                 };
-                /** @description Bad Request */
-                400: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "text/plain": components["schemas"]["ProblemDetails"];
-                        "application/json": components["schemas"]["ProblemDetails"];
-                        "text/json": components["schemas"]["ProblemDetails"];
-                    };
-                };
                 /** @description Not Found */
                 404: {
                     headers: {
@@ -8912,17 +8461,6 @@ export interface paths {
                         "text/plain": components["schemas"]["ChartDataDto"];
                         "application/json": components["schemas"]["ChartDataDto"];
                         "text/json": components["schemas"]["ChartDataDto"];
-                    };
-                };
-                /** @description Bad Request */
-                400: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "text/plain": components["schemas"]["ProblemDetails"];
-                        "application/json": components["schemas"]["ProblemDetails"];
-                        "text/json": components["schemas"]["ProblemDetails"];
                     };
                 };
                 /** @description Not Found */
@@ -9259,17 +8797,6 @@ export interface paths {
                         "text/json": components["schemas"]["ChartDataDto"];
                     };
                 };
-                /** @description Bad Request */
-                400: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "text/plain": components["schemas"]["ProblemDetails"];
-                        "application/json": components["schemas"]["ProblemDetails"];
-                        "text/json": components["schemas"]["ProblemDetails"];
-                    };
-                };
                 /** @description Not Found */
                 404: {
                     headers: {
@@ -9318,17 +8845,6 @@ export interface paths {
                         "text/plain": components["schemas"]["ChartDataDto"];
                         "application/json": components["schemas"]["ChartDataDto"];
                         "text/json": components["schemas"]["ChartDataDto"];
-                    };
-                };
-                /** @description Bad Request */
-                400: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "text/plain": components["schemas"]["ProblemDetails"];
-                        "application/json": components["schemas"]["ProblemDetails"];
-                        "text/json": components["schemas"]["ProblemDetails"];
                     };
                 };
                 /** @description Not Found */
@@ -9665,17 +9181,6 @@ export interface paths {
                         "text/json": components["schemas"]["ChartDataDto"];
                     };
                 };
-                /** @description Bad Request */
-                400: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "text/plain": components["schemas"]["ProblemDetails"];
-                        "application/json": components["schemas"]["ProblemDetails"];
-                        "text/json": components["schemas"]["ProblemDetails"];
-                    };
-                };
                 /** @description Not Found */
                 404: {
                     headers: {
@@ -9724,17 +9229,6 @@ export interface paths {
                         "text/plain": components["schemas"]["ChartDataDto"];
                         "application/json": components["schemas"]["ChartDataDto"];
                         "text/json": components["schemas"]["ChartDataDto"];
-                    };
-                };
-                /** @description Bad Request */
-                400: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "text/plain": components["schemas"]["ProblemDetails"];
-                        "application/json": components["schemas"]["ProblemDetails"];
-                        "text/json": components["schemas"]["ProblemDetails"];
                     };
                 };
                 /** @description Not Found */
@@ -10071,17 +9565,6 @@ export interface paths {
                         "text/json": components["schemas"]["ChartDataDto"];
                     };
                 };
-                /** @description Bad Request */
-                400: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "text/plain": components["schemas"]["ProblemDetails"];
-                        "application/json": components["schemas"]["ProblemDetails"];
-                        "text/json": components["schemas"]["ProblemDetails"];
-                    };
-                };
                 /** @description Not Found */
                 404: {
                     headers: {
@@ -10130,17 +9613,6 @@ export interface paths {
                         "text/plain": components["schemas"]["ChartDataDto"];
                         "application/json": components["schemas"]["ChartDataDto"];
                         "text/json": components["schemas"]["ChartDataDto"];
-                    };
-                };
-                /** @description Bad Request */
-                400: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "text/plain": components["schemas"]["ProblemDetails"];
-                        "application/json": components["schemas"]["ProblemDetails"];
-                        "text/json": components["schemas"]["ProblemDetails"];
                     };
                 };
                 /** @description Not Found */
@@ -10477,17 +9949,6 @@ export interface paths {
                         "text/json": components["schemas"]["ChartDataDto"];
                     };
                 };
-                /** @description Bad Request */
-                400: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "text/plain": components["schemas"]["ProblemDetails"];
-                        "application/json": components["schemas"]["ProblemDetails"];
-                        "text/json": components["schemas"]["ProblemDetails"];
-                    };
-                };
                 /** @description Not Found */
                 404: {
                     headers: {
@@ -10536,17 +9997,6 @@ export interface paths {
                         "text/plain": components["schemas"]["ChartDataDto"];
                         "application/json": components["schemas"]["ChartDataDto"];
                         "text/json": components["schemas"]["ChartDataDto"];
-                    };
-                };
-                /** @description Bad Request */
-                400: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "text/plain": components["schemas"]["ProblemDetails"];
-                        "application/json": components["schemas"]["ProblemDetails"];
-                        "text/json": components["schemas"]["ProblemDetails"];
                     };
                 };
                 /** @description Not Found */
@@ -10883,17 +10333,6 @@ export interface paths {
                         "text/json": components["schemas"]["ChartDataDto"];
                     };
                 };
-                /** @description Bad Request */
-                400: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "text/plain": components["schemas"]["ProblemDetails"];
-                        "application/json": components["schemas"]["ProblemDetails"];
-                        "text/json": components["schemas"]["ProblemDetails"];
-                    };
-                };
                 /** @description Not Found */
                 404: {
                     headers: {
@@ -10942,17 +10381,6 @@ export interface paths {
                         "text/plain": components["schemas"]["ChartDataDto"];
                         "application/json": components["schemas"]["ChartDataDto"];
                         "text/json": components["schemas"]["ChartDataDto"];
-                    };
-                };
-                /** @description Bad Request */
-                400: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "text/plain": components["schemas"]["ProblemDetails"];
-                        "application/json": components["schemas"]["ProblemDetails"];
-                        "text/json": components["schemas"]["ProblemDetails"];
                     };
                 };
                 /** @description Not Found */
@@ -11289,17 +10717,6 @@ export interface paths {
                         "text/json": components["schemas"]["ChartDataDto"];
                     };
                 };
-                /** @description Bad Request */
-                400: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "text/plain": components["schemas"]["ProblemDetails"];
-                        "application/json": components["schemas"]["ProblemDetails"];
-                        "text/json": components["schemas"]["ProblemDetails"];
-                    };
-                };
                 /** @description Not Found */
                 404: {
                     headers: {
@@ -11348,17 +10765,6 @@ export interface paths {
                         "text/plain": components["schemas"]["ChartDataDto"];
                         "application/json": components["schemas"]["ChartDataDto"];
                         "text/json": components["schemas"]["ChartDataDto"];
-                    };
-                };
-                /** @description Bad Request */
-                400: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "text/plain": components["schemas"]["ProblemDetails"];
-                        "application/json": components["schemas"]["ProblemDetails"];
-                        "text/json": components["schemas"]["ProblemDetails"];
                     };
                 };
                 /** @description Not Found */
@@ -11695,17 +11101,6 @@ export interface paths {
                         "text/json": components["schemas"]["ChartDataDto"];
                     };
                 };
-                /** @description Bad Request */
-                400: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "text/plain": components["schemas"]["ProblemDetails"];
-                        "application/json": components["schemas"]["ProblemDetails"];
-                        "text/json": components["schemas"]["ProblemDetails"];
-                    };
-                };
                 /** @description Not Found */
                 404: {
                     headers: {
@@ -11754,17 +11149,6 @@ export interface paths {
                         "text/plain": components["schemas"]["ChartDataDto"];
                         "application/json": components["schemas"]["ChartDataDto"];
                         "text/json": components["schemas"]["ChartDataDto"];
-                    };
-                };
-                /** @description Bad Request */
-                400: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "text/plain": components["schemas"]["ProblemDetails"];
-                        "application/json": components["schemas"]["ProblemDetails"];
-                        "text/json": components["schemas"]["ProblemDetails"];
                     };
                 };
                 /** @description Not Found */
@@ -12101,17 +11485,6 @@ export interface paths {
                         "text/json": components["schemas"]["ChartDataDto"];
                     };
                 };
-                /** @description Bad Request */
-                400: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "text/plain": components["schemas"]["ProblemDetails"];
-                        "application/json": components["schemas"]["ProblemDetails"];
-                        "text/json": components["schemas"]["ProblemDetails"];
-                    };
-                };
                 /** @description Not Found */
                 404: {
                     headers: {
@@ -12160,17 +11533,6 @@ export interface paths {
                         "text/plain": components["schemas"]["ChartDataDto"];
                         "application/json": components["schemas"]["ChartDataDto"];
                         "text/json": components["schemas"]["ChartDataDto"];
-                    };
-                };
-                /** @description Bad Request */
-                400: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "text/plain": components["schemas"]["ProblemDetails"];
-                        "application/json": components["schemas"]["ProblemDetails"];
-                        "text/json": components["schemas"]["ProblemDetails"];
                     };
                 };
                 /** @description Not Found */
@@ -12507,17 +11869,6 @@ export interface paths {
                         "text/json": components["schemas"]["ChartDataDto"];
                     };
                 };
-                /** @description Bad Request */
-                400: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "text/plain": components["schemas"]["ProblemDetails"];
-                        "application/json": components["schemas"]["ProblemDetails"];
-                        "text/json": components["schemas"]["ProblemDetails"];
-                    };
-                };
                 /** @description Not Found */
                 404: {
                     headers: {
@@ -12566,17 +11917,6 @@ export interface paths {
                         "text/plain": components["schemas"]["ChartDataDto"];
                         "application/json": components["schemas"]["ChartDataDto"];
                         "text/json": components["schemas"]["ChartDataDto"];
-                    };
-                };
-                /** @description Bad Request */
-                400: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "text/plain": components["schemas"]["ProblemDetails"];
-                        "application/json": components["schemas"]["ProblemDetails"];
-                        "text/json": components["schemas"]["ProblemDetails"];
                     };
                 };
                 /** @description Not Found */
@@ -12913,17 +12253,6 @@ export interface paths {
                         "text/json": components["schemas"]["ChartDataDto"];
                     };
                 };
-                /** @description Bad Request */
-                400: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "text/plain": components["schemas"]["ProblemDetails"];
-                        "application/json": components["schemas"]["ProblemDetails"];
-                        "text/json": components["schemas"]["ProblemDetails"];
-                    };
-                };
                 /** @description Not Found */
                 404: {
                     headers: {
@@ -12972,17 +12301,6 @@ export interface paths {
                         "text/plain": components["schemas"]["ChartDataDto"];
                         "application/json": components["schemas"]["ChartDataDto"];
                         "text/json": components["schemas"]["ChartDataDto"];
-                    };
-                };
-                /** @description Bad Request */
-                400: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "text/plain": components["schemas"]["ProblemDetails"];
-                        "application/json": components["schemas"]["ProblemDetails"];
-                        "text/json": components["schemas"]["ProblemDetails"];
                     };
                 };
                 /** @description Not Found */
@@ -13319,17 +12637,6 @@ export interface paths {
                         "text/json": components["schemas"]["ChartDataDto"];
                     };
                 };
-                /** @description Bad Request */
-                400: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "text/plain": components["schemas"]["ProblemDetails"];
-                        "application/json": components["schemas"]["ProblemDetails"];
-                        "text/json": components["schemas"]["ProblemDetails"];
-                    };
-                };
                 /** @description Not Found */
                 404: {
                     headers: {
@@ -13378,17 +12685,6 @@ export interface paths {
                         "text/plain": components["schemas"]["ChartDataDto"];
                         "application/json": components["schemas"]["ChartDataDto"];
                         "text/json": components["schemas"]["ChartDataDto"];
-                    };
-                };
-                /** @description Bad Request */
-                400: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "text/plain": components["schemas"]["ProblemDetails"];
-                        "application/json": components["schemas"]["ProblemDetails"];
-                        "text/json": components["schemas"]["ProblemDetails"];
                     };
                 };
                 /** @description Not Found */
@@ -13762,17 +13058,6 @@ export interface paths {
                         "text/json": components["schemas"]["ChartDataDto"];
                     };
                 };
-                /** @description Bad Request */
-                400: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "text/plain": components["schemas"]["ProblemDetails"];
-                        "application/json": components["schemas"]["ProblemDetails"];
-                        "text/json": components["schemas"]["ProblemDetails"];
-                    };
-                };
                 /** @description Not Found */
                 404: {
                     headers: {
@@ -13821,17 +13106,6 @@ export interface paths {
                         "text/plain": components["schemas"]["ChartDataDto"];
                         "application/json": components["schemas"]["ChartDataDto"];
                         "text/json": components["schemas"]["ChartDataDto"];
-                    };
-                };
-                /** @description Bad Request */
-                400: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "text/plain": components["schemas"]["ProblemDetails"];
-                        "application/json": components["schemas"]["ProblemDetails"];
-                        "text/json": components["schemas"]["ProblemDetails"];
                     };
                 };
                 /** @description Not Found */
@@ -14047,26 +13321,41 @@ export interface paths {
                         "text/json": components["schemas"]["ChartDataDto"];
                     };
                 };
-                /** @description Bad Request */
-                400: {
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/World/eventtypechart": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description OK */
+                200: {
                     headers: {
                         [name: string]: unknown;
                     };
                     content: {
-                        "text/plain": components["schemas"]["ProblemDetails"];
-                        "application/json": components["schemas"]["ProblemDetails"];
-                        "text/json": components["schemas"]["ProblemDetails"];
-                    };
-                };
-                /** @description Not Found */
-                404: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "text/plain": components["schemas"]["ProblemDetails"];
-                        "application/json": components["schemas"]["ProblemDetails"];
-                        "text/json": components["schemas"]["ProblemDetails"];
+                        "text/plain": components["schemas"]["ChartDataDto"];
+                        "application/json": components["schemas"]["ChartDataDto"];
+                        "text/json": components["schemas"]["ChartDataDto"];
                     };
                 };
             };
@@ -14871,17 +14160,6 @@ export interface paths {
                         "text/json": components["schemas"]["ChartDataDto"];
                     };
                 };
-                /** @description Bad Request */
-                400: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "text/plain": components["schemas"]["ProblemDetails"];
-                        "application/json": components["schemas"]["ProblemDetails"];
-                        "text/json": components["schemas"]["ProblemDetails"];
-                    };
-                };
                 /** @description Not Found */
                 404: {
                     headers: {
@@ -14930,17 +14208,6 @@ export interface paths {
                         "text/plain": components["schemas"]["ChartDataDto"];
                         "application/json": components["schemas"]["ChartDataDto"];
                         "text/json": components["schemas"]["ChartDataDto"];
-                    };
-                };
-                /** @description Bad Request */
-                400: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "text/plain": components["schemas"]["ProblemDetails"];
-                        "application/json": components["schemas"]["ProblemDetails"];
-                        "text/json": components["schemas"]["ProblemDetails"];
                     };
                 };
                 /** @description Not Found */
