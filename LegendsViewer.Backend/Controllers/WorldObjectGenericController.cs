@@ -237,7 +237,7 @@ public abstract class WorldObjectGenericController<T>(IWorldObjectRepository<T> 
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public ActionResult<ChartDataDto> GetEventTypeChart([FromRoute] int id)
     {
-        WorldObject? item = GetById(id);
+        WorldObject? item = Repository.GetById(id);
         if (item == null)
         {
             return NotFound();
