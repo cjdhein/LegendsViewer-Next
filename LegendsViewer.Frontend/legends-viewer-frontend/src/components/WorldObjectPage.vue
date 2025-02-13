@@ -119,16 +119,16 @@ const loadEventCollections = async ({ page, itemsPerPage, sortBy }: LoadItemsOpt
 
 const eventSortBy: LoadItemsSortOption[] = [{ key: 'date', order: 'asc' }]
 
-const eventTableHeaders = [
+const eventTableHeaders: TableHeader[] = [
     { title: 'Date', key: 'date' },
     { title: 'Type', key: 'type' },
-    { title: 'Event', key: 'html' },
+    { title: 'Event', key: 'html', sortable: false },
 ]
 
 const eventCollectionTableHeaders: TableHeader[] = [
     { title: 'Start', key: 'startDate', align: 'center' },
     { title: 'End', key: 'endDate', align: 'center' },
-    { title: 'Name', key: 'html', align: 'start' },
+    { title: 'Name', key: 'html', align: 'start', sortable: false },
     { title: 'Type', key: 'type', align: 'start' },
     { title: 'Subtype', key: 'subtype', align: 'start' },
     { title: 'Chronicles', key: 'eventCollectionCount', align: 'end' },
