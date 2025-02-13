@@ -1,4 +1,5 @@
 ﻿using LegendsViewer.Backend.Contracts;
+using LegendsViewer.Backend.DataAccess.Repositories.Interfaces;
 using LegendsViewer.Backend.Extensions;
 using LegendsViewer.Backend.Legends;
 using Microsoft.AspNetCore.Mvc;
@@ -7,11 +8,10 @@ namespace LegendsViewer.Backend.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-public abstract class WorldObjectGenericController<T>(List<T> allElements, Func<int, T?> getById) : ControllerBase where T : WorldObject
+public abstract class WorldObjectGenericController<T>(IWorldObjectRepository<T> repository) : ControllerBase where T : WorldObject
 {
     private const int DefaultPageSize = 10;
-    protected readonly List<T> AllElements = allElements;
-    protected readonly Func<int, T?> GetById = getById;
+    protected readonly IWorldObjectRepository<T> Repository = repository;
 
     [HttpGet]
     [ProducesResponseType(StatusCodes.Status200OK)]
@@ -31,7 +31,7 @@ public abstract class WorldObjectGenericController<T>(List<T> allElements, Func<
         }
 
         // Filter world objects
-        var filteredWorldObjects = AllElements
+        var filteredWorldObjects = Repository.GetAllElements()
             .Where(worldObject =>
                 string.IsNullOrWhiteSpace(search) ||
                 worldObject.Name.Contains(search, StringComparison.InvariantCultureIgnoreCase) ||
@@ -39,7 +39,7 @@ public abstract class WorldObjectGenericController<T>(List<T> allElements, Func<
                 worldObject.Subtype?.Contains(search, StringComparison.InvariantCultureIgnoreCase) == true);
 
         // Get total number of elements
-        int totalElements = AllElements.Count;
+        int totalElements = Repository.GetCount();
 
         // Get total number of filtered elements
         int totalFilteredElements = filteredWorldObjects.Count();
@@ -71,16 +71,18 @@ public abstract class WorldObjectGenericController<T>(List<T> allElements, Func<
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public ActionResult<T> Get([FromRoute] int id)
     {
-        var item = GetById(id);
+        var item = Repository.GetById(id);
         if (item == null)
         {
             return NotFound();
         }
-        int currentIndex = AllElements.IndexOf(item);
-        int previousIndex = currentIndex == 0 ? AllElements.Count - 1 : currentIndex - 1;
-        int nextIndex = AllElements.Count == currentIndex + 1 ? 0 : currentIndex + 1;
-        item.PreviousId = AllElements[previousIndex].Id;
-        item.NextId = AllElements[nextIndex].Id;
+        List<T> allElements = Repository.GetAllElements();
+
+        int currentIndex = allElements.IndexOf(item);
+        int previousIndex = currentIndex == 0 ? allElements.Count - 1 : currentIndex - 1;
+        int nextIndex = allElements.Count == currentIndex + 1 ? 0 : currentIndex + 1;
+        item.PreviousId = allElements[previousIndex].Id;
+        item.NextId = allElements[nextIndex].Id;
         return Ok(item);
     }
 
@@ -88,7 +90,7 @@ public abstract class WorldObjectGenericController<T>(List<T> allElements, Func<
     [ProducesResponseType(StatusCodes.Status200OK)]
     public ActionResult<int> GetCount()
     {
-        return Ok(AllElements.Count);
+        return Ok(Repository.GetCount());
     }
 
     [HttpGet("{id}/events")]
@@ -102,7 +104,7 @@ public abstract class WorldObjectGenericController<T>(List<T> allElements, Func<
         [FromQuery] string? sortKey = null,
         [FromQuery] string? sortOrder = null)
     {
-        WorldObject? item = GetById(id);
+        WorldObject? item = Repository.GetById(id);
         if (item == null)
         {
             return NotFound();
@@ -149,7 +151,7 @@ public abstract class WorldObjectGenericController<T>(List<T> allElements, Func<
         [FromQuery] string? sortKey = null,
         [FromQuery] string? sortOrder = null)
     {
-        WorldObject? item = GetById(id);
+        WorldObject? item = Repository.GetById(id);
         if (item == null)
         {
             return NotFound();
@@ -190,7 +192,7 @@ public abstract class WorldObjectGenericController<T>(List<T> allElements, Func<
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public ActionResult<ChartDataDto> GetEventChart([FromRoute] int id)
     {
-        WorldObject? item = GetById(id);
+        WorldObject? item = Repository.GetById(id);
         if (item == null)
         {
             return NotFound();
