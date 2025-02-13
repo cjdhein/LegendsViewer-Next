@@ -187,7 +187,6 @@ public abstract class WorldObjectGenericController<T>(List<T> allElements, Func<
 
     [HttpGet("{id}/eventchart")]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public ActionResult<ChartDataDto> GetEventChart([FromRoute] int id)
     {
@@ -224,6 +223,39 @@ public abstract class WorldObjectGenericController<T>(List<T> allElements, Func<
         foreach (var eventItem in eventCounts.OrderBy(kv => kv.Key))
         {
             response.Labels.Add(eventItem.Key.ToString());
+            dataset.Data.Add(eventItem.Value);
+        }
+
+        response.Datasets.Add(dataset);
+        return Ok(response);
+    }
+
+    [HttpGet("{id}/eventtypechart")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public ActionResult<ChartDataDto> GetEventTypeChart([FromRoute] int id)
+    {
+        WorldObject? item = GetById(id);
+        if (item == null)
+        {
+            return NotFound();
+        }
+
+        var response = new ChartDataDto();
+        var dataset = new ChartDatasetDto
+        {
+            Label = "Occurrences per Event Type"
+        };
+
+        // Group by type and count events per type
+        var eventCounts = item.Events
+            .GroupBy(e => e.Type)
+            .ToDictionary(g => g.Key, g => g.Count());
+
+        // Output the results (sorted by count)
+        foreach (var eventItem in eventCounts.OrderByDescending(kv => kv.Value))
+        {
+            response.Labels.Add($"{WorldEventExtensions.GetEventInfo(eventItem.Key)} ({eventItem.Key}) {eventItem.Value,10}");
             dataset.Data.Add(eventItem.Value);
         }
 

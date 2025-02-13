@@ -40,7 +40,22 @@
     </v-row>
     <v-row>
         <v-col v-if="store.object?.eventCount != null && store.object?.eventCount > 0">
-            <v-card title="Events" :subtitle="'A timeline of events for ' + store.object?.name" variant="text">
+            <ExpandableCard title="Events" :subtitle="'An overview of events for ' + store.object?.name" icon="mdi-calendar-clock" :height="'auto'">
+                <template #compact-content>
+                    <LineChart class="ml-12" v-if="store.objectEventChartData != null" :chart-data="store.objectEventChartData" />
+                    <v-data-table-server class="ml-12" :key="store.object.id" v-model:items-per-page="store.objectEventsPerPage" :headers="eventTableHeaders"
+                        :items="store.objectEvents" :items-length="store.objectEventsTotalItems"
+                        :loading="store.isLoading" item-value="id" :items-per-page-options="store.itemsPerPageOptions" @update:options="loadEvents">
+                        <template v-slot:item.html="{ value }">
+                            <span v-html="value"></span>
+                        </template>
+                    </v-data-table-server>
+                </template>
+                <template #expanded-content>
+                    <BarChart v-if="store.objectEventTypeChartData != null" :chart-data="store.objectEventTypeChartData" />
+                </template>
+            </ExpandableCard>
+            <!-- <v-card title="Events" :subtitle="'A timeline of events for ' + store.object?.name" variant="text">
                 <template v-slot:prepend>
                     <v-icon class="mr-2" icon="mdi-calendar-clock" size="32px"></v-icon>
                 </template>
@@ -54,7 +69,7 @@
                         </template>
                     </v-data-table-server>
                 </v-card-text>
-            </v-card>
+            </v-card> -->
         </v-col>
     </v-row>
     <v-row>
@@ -89,6 +104,8 @@ import { computed, watch } from 'vue';
 import { useRoute } from 'vue-router';
 import { LoadItemsOptions, LoadItemsSortOption, TableHeader } from '../types/legends';
 import LineChart from '../components/LineChart.vue';
+import ExpandableCard from '../components/ExpandableCard.vue';
+import BarChart from './BarChart.vue';
 
 const route = useRoute()
 const routeId = computed(() => {
@@ -145,6 +162,7 @@ const load = async (idString: string | string[]) => {
         await props.store.load(id)
         await props.mapStore?.loadWorldObjectMap(id, 'Default')
         await props.store.loadEventChartData(id)
+        await props.store.loadEventTypeChartData(id)
         await loadEvents({ page: 1, itemsPerPage: props.store.objectEventsPerPage, sortBy: eventSortBy })
     }
 }
