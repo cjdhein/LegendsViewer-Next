@@ -1016,29 +1016,6 @@ public class HistoricalFigure : WorldObject
         return string.Empty;
     }
 
-    public string GetSpheresAsString()
-    {
-        if (Spheres == null)
-        {
-            return string.Empty;
-        }
-        string spheres = "";
-        foreach (string sphere in Spheres)
-        {
-            if (Spheres[^1] == sphere && Spheres.Count > 1)
-            {
-                spheres += " and ";
-            }
-            else if (spheres.Length > 0)
-            {
-                spheres += ", ";
-            }
-
-            spheres += sphere;
-        }
-        return spheres;
-    }
-
     public class State
     {
         public HfState HfState { get; set; }
@@ -1086,39 +1063,6 @@ public class HistoricalFigure : WorldObject
         }
 
         return owner ? "its" : "it";
-    }
-
-    public string GetRaceTitleString()
-    {
-        string hfraceString = "";
-
-        if (Ghost)
-        {
-            hfraceString += "ghostly ";
-        }
-
-        if (Skeleton)
-        {
-            hfraceString += "skeletal ";
-        }
-
-        if (Zombie)
-        {
-            hfraceString += "zombie ";
-        }
-
-        if (string.Equals(Caste, "MALE", StringComparison.OrdinalIgnoreCase))
-        {
-            hfraceString += "male ";
-        }
-        else if (string.Equals(Caste, "FEMALE", StringComparison.OrdinalIgnoreCase))
-        {
-            hfraceString += "female ";
-        }
-
-        hfraceString += GetRaceString();
-
-        return Formatting.AddArticle(hfraceString);
     }
 
     public string GetRaceString()

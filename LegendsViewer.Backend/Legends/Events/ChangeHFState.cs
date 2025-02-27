@@ -127,13 +127,12 @@ public class ChangeHfState : WorldEvent
         if (HistoricalFigure != null)
         {
             HistoricalFigure.AddEvent(this);
-            HistoricalFigure.States.Add(new HistoricalFigure.State(State, Year));
             HistoricalFigure.State? lastState = HistoricalFigure.States.LastOrDefault();
             if (lastState != null)
             {
                 lastState.EndYear = Year;
             }
-
+            HistoricalFigure.States.Add(new HistoricalFigure.State(State, Year));
             HistoricalFigure.CurrentState = State;
         }
         Site?.AddEvent(this);
