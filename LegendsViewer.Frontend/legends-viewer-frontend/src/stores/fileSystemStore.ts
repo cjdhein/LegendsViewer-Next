@@ -11,7 +11,7 @@ export const useFileSystemStore = defineStore('fileSystem', {
   }),
 
   actions: {
-    async loadDirectory(path: string = "/") {
+    async loadDirectory(path: string = "~/") {
       // Set loading state to true
       this.loading = true;
 

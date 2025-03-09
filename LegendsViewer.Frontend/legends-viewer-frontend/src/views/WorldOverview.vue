@@ -1,14 +1,31 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue';
+import { computed, ref, onMounted, watch } from 'vue';
 import { useBookmarkStore } from '../stores/bookmarkStore';
 import { useFileSystemStore } from '../stores/fileSystemStore';
 
-const bookmarkStore = useBookmarkStore()
-const fileSystemStore = useFileSystemStore()
-bookmarkStore.getAll()
+const bookmarkStore = useBookmarkStore();
+const fileSystemStore = useFileSystemStore();
+bookmarkStore.getAll();
 fileSystemStore.getRoot();
 
-const fileName = ref<string>('')
+// Define a storage key for localStorage
+const fileNameStorageKey = 'worldOverview-fileName';
+
+// Initialize fileName ref
+const fileName = ref<string>('');
+
+// Load fileName from localStorage on component mount
+onMounted(() => {
+  const storedFileName = localStorage.getItem(fileNameStorageKey);
+  if (storedFileName) {
+    fileName.value = storedFileName;
+  }
+});
+
+// Watch for changes to fileName and update localStorage
+watch(fileName, (newVal) => {
+  localStorage.setItem(fileNameStorageKey, newVal);
+});
 
 // Function to prepare a proper base64 string for png images
 const getImageData = (bookmark: any) => {
@@ -16,7 +33,7 @@ const getImageData = (bookmark: any) => {
     return ''; // Return an empty string if there's no image data
   }
   return `data:image/png;base64,${bookmark.worldMapImage}`;
-}
+};
 
 const readFromClipboard = async () => {
   try {
@@ -26,7 +43,7 @@ const readFromClipboard = async () => {
     console.log('Clipboard Text:', clipboardText);
 
     if (clipboardText.includes("\"")) {
-      clipboardText = clipboardText.replace("\"", "").replace("\"", "")
+      clipboardText = clipboardText.replace("\"", "").replace("\"", "");
       console.log('Clipboard Text:', clipboardText);
     }
 
@@ -43,15 +60,15 @@ const readFromClipboard = async () => {
       console.log('Full path:', fullPath);
       console.log('Filename:', filename);
 
-      fileSystemStore.loadDirectory(fullPath)
-      fileName.value = filename
+      fileSystemStore.loadDirectory(fullPath);
+      fileName.value = filename;
     } else {
-      fileSystemStore.loadDirectory(clipboardText)
+      fileSystemStore.loadDirectory(clipboardText);
     }
   } catch (err) {
     console.error('Failed to read from clipboard:', err);
   }
-}
+};
 
 const isDialogVisible = computed({
   get() {
@@ -61,7 +78,7 @@ const isDialogVisible = computed({
     if (!value) {
       bookmarkStore.bookmarkWarning = ''; // Clear bookmarkWarning on close
     }
-  },
+  }
 });
 
 const closeDialog = () => {
@@ -82,7 +99,6 @@ const isSnackbarVisible = computed({
 const closeSnackbar = () => {
   isSnackbarVisible.value = false; // Close the snackbar and clear the error
 };
-
 </script>
 
 <template>
@@ -118,15 +134,15 @@ const closeSnackbar = () => {
                   </v-alert> 
 
                   <v-form>
-                    <v-text-field v-model="fileSystemStore.filesAndSubdirectories.currentDirectory" readonly
+                    <v-text-field v-model="fileSystemStore.filesAndSubdirectories.currentDirectory"
                       label="Current Folder">
                       <template v-slot:append>
                         <v-btn aria-label="Copy path from clipboard" icon="mdi-clipboard-outline"
                           @click="readFromClipboard()">
                         </v-btn>
-                      </template> </v-text-field>
+                      </template> 
+                    </v-text-field>
                     <v-text-field v-model="fileName" readonly label="File Name"></v-text-field>
-
                   </v-form>
 
                   <v-list density="compact" height="220" scrollable>
@@ -137,7 +153,6 @@ const closeSnackbar = () => {
                       <template v-slot:prepend>
                         <v-icon icon="mdi-folder-outline"></v-icon>
                       </template>
-
                       <v-list-item-title v-text="'..'"></v-list-item-title>
                     </v-list-item>
 
@@ -148,7 +163,6 @@ const closeSnackbar = () => {
                       <template v-slot:prepend>
                         <v-icon icon="mdi-folder-outline"></v-icon>
                       </template>
-
                       <v-list-item-title v-text="item"></v-list-item-title>
                     </v-list-item>
                   </v-list>
@@ -160,7 +174,6 @@ const closeSnackbar = () => {
                       <template v-slot:prepend>
                         <v-icon icon="mdi-file-xml-box"></v-icon>
                       </template>
-
                       <v-list-item-title v-text="item" @click="fileName = item">
                       </v-list-item-title>
                     </v-list-item>
@@ -172,9 +185,7 @@ const closeSnackbar = () => {
 
                 <v-card-actions>
                   <v-btn text="Close" @click="isActive.value = false"></v-btn>
-
                   <v-spacer></v-spacer>
-
                   <v-btn color="surface-variant" text="Load World" variant="flat"
                     :disabled="fileName == null || fileName == ''"
                     @click="bookmarkStore.loadByFolderAndFile(fileSystemStore.filesAndSubdirectories.currentDirectory ?? '/', fileName); isActive.value = false;"></v-btn>
@@ -183,7 +194,6 @@ const closeSnackbar = () => {
             </template>
           </v-dialog>
           <v-spacer></v-spacer>
-
         </v-card-actions>
       </v-card>
     </v-col>
@@ -260,8 +270,6 @@ const closeSnackbar = () => {
                 </v-list-item>
               </v-list>
             </v-menu>
-            <!-- <v-combobox v-model="bookmark.latestTimestamp" :items="bookmark.worldTimestamps ?? []" density="compact"
-            label="Timestamps" width="160" :disabled="bookmarkStore.isLoading"></v-combobox> -->
           </v-card-actions>
         </v-card>
       </v-col>
@@ -276,7 +284,6 @@ const closeSnackbar = () => {
   </v-dialog>
   <v-snackbar v-model="isSnackbarVisible" multi-line top color="error">
     {{ bookmarkStore.bookmarkError }}
-
     <template v-slot:actions>
       <v-btn color="black" variant="tonal" @click="closeSnackbar">
         Close
