@@ -9,22 +9,22 @@ bookmarkStore.getAll();
 fileSystemStore.getRoot();
 
 // Define a storage key for localStorage
-const fileNameStorageKey = 'worldOverview-fileName';
+const directoryStorageKey = 'worldOverview-fileName';
 
 // Initialize fileName ref
-const fileName = ref<string>('');
+const directoryName = ref<string>('');
 
 // Load fileName from localStorage on component mount
 onMounted(() => {
-  const storedFileName = localStorage.getItem(fileNameStorageKey);
-  if (storedFileName) {
-    fileName.value = storedFileName;
+  const storedDirectoryName = localStorage.getItem(directoryStorageKey);
+  if (storedDirectoryName) {
+    directoryName.value = storedDirectoryName;
   }
 });
 
 // Watch for changes to fileName and update localStorage
-watch(fileName, (newVal) => {
-  localStorage.setItem(fileNameStorageKey, newVal);
+watch(directoryName, (newVal) => {
+  localStorage.setItem(directoryStorageKey, newVal);
 });
 
 // Function to prepare a proper base64 string for png images
@@ -61,7 +61,7 @@ const readFromClipboard = async () => {
       console.log('Filename:', filename);
 
       fileSystemStore.loadDirectory(fullPath);
-      fileName.value = filename;
+      directoryName.value = match[2];
     } else {
       fileSystemStore.loadDirectory(clipboardText);
     }
@@ -142,7 +142,7 @@ const closeSnackbar = () => {
                         </v-btn>
                       </template> 
                     </v-text-field>
-                    <v-text-field v-model="fileName" readonly label="File Name"></v-text-field>
+                    <v-text-field v-model="directoryName" readonly label="File Name"></v-text-field>
                   </v-form>
 
                   <v-list density="compact" height="220" scrollable>
@@ -158,7 +158,7 @@ const closeSnackbar = () => {
 
                     <v-list-item v-for="(item, i) in fileSystemStore.filesAndSubdirectories.subdirectories" :key="i"
                       :value="item"
-                      @click="fileSystemStore.loadSubDirectory(fileSystemStore.filesAndSubdirectories.currentDirectory ?? '/', item); fileName = ''"
+                      @click="fileSystemStore.loadSubDirectory(fileSystemStore.filesAndSubdirectories.currentDirectory ?? '/', item); directoryName = ''"
                       color="primary" variant="plain">
                       <template v-slot:prepend>
                         <v-icon icon="mdi-folder-outline"></v-icon>
@@ -174,7 +174,7 @@ const closeSnackbar = () => {
                       <template v-slot:prepend>
                         <v-icon icon="mdi-file-xml-box"></v-icon>
                       </template>
-                      <v-list-item-title v-text="item" @click="fileName = item">
+                      <v-list-item-title v-text="item" @click="directoryName = item">
                       </v-list-item-title>
                     </v-list-item>
                   </v-list>
@@ -187,8 +187,8 @@ const closeSnackbar = () => {
                   <v-btn text="Close" @click="isActive.value = false"></v-btn>
                   <v-spacer></v-spacer>
                   <v-btn color="surface-variant" text="Load World" variant="flat"
-                    :disabled="fileName == null || fileName == ''"
-                    @click="bookmarkStore.loadByFolderAndFile(fileSystemStore.filesAndSubdirectories.currentDirectory ?? '/', fileName); isActive.value = false;"></v-btn>
+                    :disabled="directoryName == null || directoryName == ''"
+                    @click="bookmarkStore.loadByFolderAndFile(fileSystemStore.filesAndSubdirectories.currentDirectory ?? '/', directoryName); isActive.value = false;"></v-btn>
                 </v-card-actions>
               </v-card>
             </template>
