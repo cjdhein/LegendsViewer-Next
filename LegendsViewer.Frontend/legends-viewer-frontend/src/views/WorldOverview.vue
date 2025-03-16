@@ -10,10 +10,8 @@ bookmarkStore.getAll()
 fileSystemStore.getRoot();
 
 const dfDirectoryStorageKey = 'df-directory'
-const dfDirectoryName = ref<string>('')
 
 const fileName = ref<string>('')
-
 
 onMounted(() => {
   const storedDfDir = localStorage.getItem(dfDirectoryStorageKey)
@@ -22,7 +20,7 @@ onMounted(() => {
   }
 })
 
-watch(fileSystemStore.filesAndSubdirectories.currentDirectory, (newVal) => {
+watch(fileSystemStore.filesAndSubdirectories.currentDirectory, (newVal: string) => {
   localStorage.setItem(dfDirectoryStorageKey, newVal)
 })
 
