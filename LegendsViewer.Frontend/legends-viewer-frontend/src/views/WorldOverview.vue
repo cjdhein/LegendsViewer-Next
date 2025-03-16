@@ -1,5 +1,6 @@
+<!--suppress ALL -->
 <script setup lang="ts">
-import { computed, ref } from 'vue';
+import { computed, ref, onMounted, watch } from 'vue';
 import { useBookmarkStore } from '../stores/bookmarkStore';
 import { useFileSystemStore } from '../stores/fileSystemStore';
 
@@ -8,7 +9,23 @@ const fileSystemStore = useFileSystemStore()
 bookmarkStore.getAll()
 fileSystemStore.getRoot();
 
+const dfDirectoryStorageKey = 'df-directory'
+const dfDirectoryName = ref<string>('')
+
 const fileName = ref<string>('')
+
+
+onMounted(() => {
+  const storedDfDir = localStorage.getItem(dfDirectoryStorageKey)
+  if (storedDfDir) {
+    fileSystemStore.loadDirectory(storedDfDir)
+  }
+})
+
+watch(fileSystemStore.filesAndSubdirectories.currentDirectory, (newVal) => {
+  localStorage.setItem(dfDirectoryStorageKey, newVal)
+})
+
 
 // Function to prepare a proper base64 string for png images
 const getImageData = (bookmark: any) => {
@@ -118,7 +135,7 @@ const closeSnackbar = () => {
                   </v-alert> 
 
                   <v-form>
-                    <v-text-field v-model="fileSystemStore.filesAndSubdirectories.currentDirectory" readonly
+                    <v-text-field v-model="fileSystemStore.filesAndSubdirectories.currentDirectory"
                       label="Current Folder">
                       <template v-slot:append>
                         <v-btn aria-label="Copy path from clipboard" icon="mdi-clipboard-outline"
